@@ -1,0 +1,12 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/forward-networks-complete-openapi-original.json
+summary:
+  types:
+  - http
+schemes:
+- name: api_token
+  type: http
+  scheme: basic
+  sources:
+  - openapi/forward-networks-complete-openapi-original.json
