@@ -1,0 +1,236 @@
+openapi: 3.2.0
+info:
+  title: 'Forward Networks: Complete Aliases Network Topology API'
+  description: Model and verify networks
+  contact:
+    email: support@forwardnetworks.com
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  version: '26.6'
+servers:
+- url: /api
+tags:
+- name: Network Topology
+  description: List the links inferred between network devices and override them if necessary
+  summary: Network Topology
+paths:
+  /snapshots/{snapshotId}/topology:
+    get:
+      tags:
+      - Network Topology
+      summary: Get the network topology
+      description: The links in the response are directed, so they generally appear twice—once for each direction.
+      operationId: getTopology
+      parameters:
+      - name: snapshotId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TopologyLink'
+        '409':
+          description: 'The system is currently processing this Snapshot.
+
+
+            Note: GET /networks/{networkId}/snapshots/latestProcessed can be used to determine when processing of the
+
+            latest Snapshot is done or to identify an alternate Snapshot that has already been processed.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+      security:
+      - api_token: []
+  /snapshots/{snapshotId}/topology/overrides:
+    get:
+      tags:
+      - Network Topology
+      summary: Get the topology overrides
+      operationId: getLinkOverrides
+      parameters:
+      - name: snapshotId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkOverrides'
+        '409':
+          description: 'The system is currently processing this Snapshot.
+
+
+            Note: GET /networks/{networkId}/snapshots/latestProcessed can be used to determine when processing of the
+
+            latest Snapshot is done or to identify an alternate Snapshot that has already been processed.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+      security:
+      - api_token: []
+    post:
+      tags:
+      - Network Topology
+      summary: Edit the topology overrides
+      operationId: editLinkOverrides
+      parameters:
+      - name: snapshotId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkOverridesEdit'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        '409':
+          description: 'The system is currently processing this Snapshot.
+
+
+            Note: GET /networks/{networkId}/snapshots/latestProcessed can be used to determine when processing of the
+
+            latest Snapshot is done or to identify an alternate Snapshot that has already been processed.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+      security:
+      - api_token: []
+    put:
+      tags:
+      - Network Topology
+      summary: Set the topology overrides
+      description: Replaces any topology overrides previously saved for the Snapshot.
+      operationId: replaceLinkOverrides
+      parameters:
+      - name: snapshotId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkOverrides'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+        '409':
+          description: 'The system is currently processing this Snapshot.
+
+
+            Note: GET /networks/{networkId}/snapshots/latestProcessed can be used to determine when processing of the
+
+            latest Snapshot is done or to identify an alternate Snapshot that has already been processed.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+      security:
+      - api_token: []
+components:
+  schemas:
+    LinkOverrides:
+      type: object
+      properties:
+        absent:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+        present:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+    LinkOverridesEdit:
+      type: object
+      properties:
+        absentAdditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+        absentRemovals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+        presentAdditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+        presentRemovals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+    Link:
+      type: object
+      properties:
+        port1:
+          type: string
+        port2:
+          type: string
+    ErrorInfo:
+      type: object
+      required:
+      - httpMethod
+      - apiUrl
+      - message
+      properties:
+        httpMethod:
+          type: string
+          examples:
+          - GET
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+        apiUrl:
+          type: string
+          examples:
+          - /api/version
+        message:
+          type: string
+          description: A description of the error
+        reason:
+          type: string
+    TopologyLink:
+      type: object
+      properties:
+        sourcePort:
+          type: string
+        targetPort:
+          type: string
+  securitySchemes:
+    api_token:
+      type: http
+      scheme: basic

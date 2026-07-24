@@ -1,0 +1,53 @@
+openapi: 3.2.0
+info:
+  title: 'Forward Networks: Complete Aliases Current Version API'
+  description: Model and verify networks
+  contact:
+    email: support@forwardnetworks.com
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  version: '26.6'
+servers:
+- url: /api
+tags:
+- name: Current Version
+  description: Get current API version information
+  summary: Current Version
+paths:
+  /version:
+    get:
+      tags:
+      - Current Version
+      summary: Get the API’s version
+      operationId: getApiVersion
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiVersion'
+      security:
+      - api_token: []
+components:
+  schemas:
+    ApiVersion:
+      type: object
+      properties:
+        build:
+          type: string
+          examples:
+          - ee9b380
+        release:
+          type: string
+          examples:
+          - 21.50.1-03
+        version:
+          type: string
+          examples:
+          - 21.50.1
+  securitySchemes:
+    api_token:
+      type: http
+      scheme: basic

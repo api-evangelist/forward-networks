@@ -1,0 +1,1055 @@
+openapi: 3.2.0
+info:
+  title: 'Forward Networks: Complete Aliases Path Search API'
+  description: Model and verify networks
+  contact:
+    email: support@forwardnetworks.com
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  version: '26.6'
+servers:
+- url: /api
+tags:
+- name: Path Search
+  description: Trace packets through the network model
+  summary: Path Search
+paths:
+  /l7-applications:
+    get:
+      tags:
+      - Path Search
+      summary: List known L7 applications
+      operationId: getL7Applications
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/L7Application'
+      security:
+      - api_token: []
+  /networks/{networkId}/paths:
+    get:
+      tags:
+      - Path Search
+      summary: Trace packets through the network
+      operationId: getPaths
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: from
+        in: query
+        description: 'the device from which the traffic originates. If this is specified, then the srcIp will be considered as a
+
+          packet header only, else, the srcIp will be resolved to specific location(s) and used as the source in the
+
+          path search. Either the source device or srcIp must be specified.'
+        schema:
+          type: string
+      - name: srcIp
+        in: query
+        description: 'the source IP address or subnet of packets entering the network. For multicast (*, G) paths, set srcIp = G
+
+          (multicast group address).'
+        schema:
+          type: string
+      - name: dstIp
+        in: query
+        description: 'the destination IP address or subnet of packets entering the network. For multicast (*, G) paths, set dstIp
+
+          = G (multicast group address).'
+        required: true
+        schema:
+          type: string
+      - name: intent
+        in: query
+        description: 'Specifies the intent for the search. Default PREFER_DELIVERED.
+
+          *PREFER_VIOLATIONS*: Prefer paths that result in the traffic not getting delivered, e.g. drops, blackholes,
+
+          loops. An example usage is while trying to evaluate if the specified traffic always gets delivered to the
+
+          destination along all path choices.
+
+          *PREFER_DELIVERED*: Prefer paths that result in the traffic getting delivered. An example usage is while
+
+          trying to evaluate if traffic gets delivered to the destination along any path choice.
+
+          *VIOLATIONS_ONLY*: Search for paths where traffic is not delivered to the destination.'
+        schema:
+          $ref: '#/components/schemas/SearchIntent'
+          default: PREFER_DELIVERED
+      - name: ipProto
+        in: query
+        description: the IP protocol
+        schema:
+          type: integer
+          format: int32
+      - name: srcPort
+        in: query
+        description: the L4 source port, like "80" or a range "8080-8088"
+        schema:
+          type: string
+      - name: dstPort
+        in: query
+        description: the L4 destination port, like "80" or a range "8080-8088"
+        schema:
+          type: string
+      - name: icmpType
+        in: query
+        description: the ICMP type. Implies ipProto = 1.
+        schema:
+          type: integer
+          format: int32
+      - name: fin
+        in: query
+        description: the FIN (finish) bit (0 or 1). Implies ipProto = 6.
+        schema:
+          type: integer
+          format: int32
+      - name: syn
+        in: query
+        description: the SYN (synchronize) bit (0 or 1). Implies ipProto = 6.
+        schema:
+          type: integer
+          format: int32
+      - name: rst
+        in: query
+        description: the RST (reset) bit (0 or 1). Implies ipProto = 6.
+        schema:
+          type: integer
+          format: int32
+      - name: psh
+        in: query
+        description: the PSH (push) bit (0 or 1). Implies ipProto = 6.
+        schema:
+          type: integer
+          format: int32
+      - name: ack
+        in: query
+        description: the ACK (acknowledgment) bit (0 or 1). Implies ipProto = 6.
+        schema:
+          type: integer
+          format: int32
+      - name: urg
+        in: query
+        description: the URG (urgent) bit (0 or 1). Implies ipProto = 6.
+        schema:
+          type: integer
+          format: int32
+      - name: appId
+        in: query
+        description: 'the L7 app-id or "unidentified" to exclude paths that traverse firewall policies with app-id matches. If the
+
+          system doesn''t recognize the provided value, it handles the value the same as "unidentified" and includes
+
+          the value in the `unrecognizedValues` response field. The applications that are recognized by the model can
+
+          be obtained using GET /api/l7-applications.'
+        schema:
+          type: string
+      - name: userId
+        in: query
+        description: 'the L7 user-id or "unidentified" to exclude paths that traverse firewall policies with user-id matches. If
+
+          the system doesn''t recognize the provided value, it handles the value the same as "unidentified" and
+
+          includes the value in the `unrecognizedValues` response field. See [Path Analysis with Layer 7
+
+          User-Group](https://docs.fwd.app/latest/application/search/path-analysis/layer7_ugroup/) for more info.'
+        schema:
+          type: string
+      - name: userGroupId
+        in: query
+        description: 'the L7 user-group-id. If the system doesn''t recognize the provided value, the search returns 0 results as
+
+          there are no paths that traverse firewall policies with that user-group-id match, and the value is included
+
+          in the `unrecognizedValues` response field. See [Path Analysis with Layer 7
+
+          User-Group](https://docs.fwd.app/latest/application/search/path-analysis/layer7_ugroup/) for more info.'
+        schema:
+          type: string
+      - name: url
+        in: query
+        description: 'the L7 URL that traffic of interest is trying to access. Prefix wildcards are supported for subdomains.
+
+          Suffix wildcards are supported for top-level domains and URL paths. See [Path Analysis with Layer 7
+
+          URL](https://docs.fwd.app/latest/application/search/path-analysis/layer7_url/) for more policy patterns
+
+          supported in the model.'
+        schema:
+          type: string
+      - name: domain
+        in: query
+        description: 'the L7 domain that traffic of interest is trying to reach. Unlike ''url'', which applies only to
+
+          HTTP/HTTPS traffic (TCP/UDP), ''domain'' can be used with any IP protocol. Prefix wildcards are
+
+          supported for subdomains. Cannot be specified together with ''url''.'
+        schema:
+          type: string
+      - name: includeTags
+        in: query
+        description: If true, the response will include device tags for each hop.
+        schema:
+          type: boolean
+          default: false
+      - name: includeNetworkFunctions
+        in: query
+        description: 'If true, the response includes detailed forwarding info for each hop.
+
+          Note: Setting this to true increases the API response time.'
+        schema:
+          type: boolean
+          default: false
+      - name: maxCandidates
+        in: query
+        description: 'the limit on the number of search results computed, before applying any ranking criteria. Permitted range =
+
+          1 to 10,000. Default 5,000.'
+        schema:
+          type: integer
+          format: int32
+          default: 5000
+      - name: maxResults
+        in: query
+        description: 'the limit on the number of search results returned by the API. First, the platform computes up to
+
+          maxCandidates results that match the search criteria. Then they are sorted by various ranking criteria. A
+
+          key ranking factor is path length, preferring longer paths (greatest reach) in the network over shorter
+
+          ones. Finally, the API limits the number of returned search results to maxResults. Permitted range = 1 to
+
+          maxCandidates. Default 1.'
+        schema:
+          type: integer
+          format: int32
+          default: 1
+      - name: maxReturnPathResults
+        in: query
+        description: 'the limit on the number of return path search results. Permitted range = 0 to 10,000. Default 0. Multicast
+
+          (*, G) and (S, G) queries will always return 0 return path results regardless of this value.'
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: maxSeconds
+        in: query
+        description: the timeout duration. Permitted range = 1 to 300. Default 30.
+        schema:
+          type: integer
+          format: int32
+          default: 30
+      - $ref: '#/components/parameters/SnapshotId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PathSearchResponse'
+        '409':
+          description: 'The system is currently processing this Snapshot.
+
+
+            Note: GET /networks/{networkId}/snapshots/latestProcessed can be used to determine when processing of the
+
+            latest Snapshot is done or to identify an alternate Snapshot that has already been processed.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+      security:
+      - api_token: []
+  /networks/{networkId}/paths-bulk:
+    post:
+      tags:
+      - Path Search
+      summary: Trace sets of packets through the network
+      operationId: getPathsBulk
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/SnapshotId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PathSearchBulkRequest'
+        required: true
+      responses:
+        '200':
+          description: 'The response is an array containing a result (a `PathSearchResponse` or an error object) for each query in
+
+            the request, in the same order. An error object has an `"error": true` property. Each query is evaluated
+
+            independently.'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PathSearchResponse'
+        '400':
+          description: 'The request failed input validation. For example, a request parameter is outside the permitted range or an
+
+            input path search query had an invalid IP protocol and ICMP type combination.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        '409':
+          description: 'The system is currently processing this Snapshot.
+
+
+            Note: GET /networks/{networkId}/snapshots/latestProcessed can be used to determine when processing of the
+
+            latest Snapshot is done or to identify an alternate Snapshot that has already been processed.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+      security:
+      - api_token: []
+  /networks/{networkId}/paths-bulk-seq:
+    post:
+      tags:
+      - Path Search
+      summary: Trace sets of packets through the network
+      operationId: getPathsBulkSeq
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/SnapshotId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PathSearchBulkRequest'
+        required: true
+      responses:
+        '200':
+          description: 'The response is a sequence of a result (a `PathSearchResponse` or an error object) for each query in the
+
+            request, in the same order. Each result is prefixed by an ASCII Record Separator (0x1E), and ends with an
+
+            ASCII Line Feed character (0x0A), as described in [RFC 7464: JSON Text
+
+            Sequences](https://tools.ietf.org/html/rfc7464). An error object has an `"error": true` property. Each query
+
+            is evaluated independently.'
+          content:
+            application/json-seq:
+              itemSchema:
+                $ref: '#/components/schemas/PathSearchResponse'
+        '400':
+          description: 'The request failed input validation. For example, a request parameter is outside the permitted range or an
+
+            input path search query had an invalid IP protocol and ICMP type combination.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        '409':
+          description: 'The system is currently processing this Snapshot.
+
+
+            Note: GET /networks/{networkId}/snapshots/latestProcessed can be used to determine when processing of the
+
+            latest Snapshot is done or to identify an alternate Snapshot that has already been processed.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+      security:
+      - api_token: []
+components:
+  schemas:
+    UnrecognizedValues:
+      type: object
+      properties:
+        appId:
+          type: array
+          items:
+            type: string
+        userGroupId:
+          type: array
+          items:
+            type: string
+        userId:
+          type: array
+          items:
+            type: string
+    PathSearchResponse:
+      type: object
+      properties:
+        srcIpLocationType:
+          type: string
+          description: 'Specifies the location discovery method for source IP.
+
+            The enum values are ordered from most precise to least precise discovery method.
+
+            *INTERFACE*: The IP is a configured IP address of one or more device interfaces.
+
+            *HOST*: The IP corresponds to discovered host(s).
+
+            *SNAT* : The IP is used as the post-translated IP of a Source NAT function in the network and is assumed to
+
+            be located on the gateway device(s) performing this translation.
+
+            *CO_LOCATED*: The IP is configured on a gateway device as a /32 or /128 route whose next hop is a known
+
+            host.
+
+            *INTERFACE_ATTACHED_SUBNET*: The IP falls within the attached subnet of L3 interface(s).
+
+            *INTERNET*: The IP is in the public internet and was located at the network''s Internet Node. This discovery
+
+            method is only applicable when an Internet Node is configured in the network.
+
+            *ROUTE*: The IP was located based on injected routes in the network.
+
+            *MULTICAST*: The IP is a multicast group address. This discovery method is used to locate the rendezvous
+
+            points of the multicast group and use their IP addresses as IP source.'
+          enum:
+          - INTERFACE
+          - HOST
+          - SNAT
+          - CO_LOCATED
+          - INTERFACE_ATTACHED_SUBNET
+          - INTERNET
+          - ROUTE
+          - MULTICAST
+        dstIpLocationType:
+          type: string
+          description: 'Specifies the location discovery method for destination IP.
+
+            The enum values are ordered from most precise to least precise discovery method.
+
+            *INTERFACE*: The IP is a configured IP address of one or more device interfaces.
+
+            *HOST*: The IP corresponds to discovered host(s).
+
+            *DNAT*: The IP gets DNAT''d in the network. The IP may either correspond directly to a VIP on a load balancer
+
+            or a DNAT''d IP on other devices such as routers. This discovery method is only used to locate destination IP
+
+            addresses. DNAT’d IP addresses are recursively resolved to determine where traffic to a given destination IP
+
+            must be delivered in the network.
+
+            *CO_LOCATED*: The IP is configured on a gateway device as a /32 or /128 route whose next hop is a known
+
+            host.
+
+            *INTERFACE_ATTACHED_SUBNET*: The IP falls within the attached subnet of L3 interface(s).
+
+            *INTERNET*: The IP is in the public internet and was located at the network''s Internet Node. This discovery
+
+            method is only applicable when an Internet Node is configured in the network.
+
+            *ROUTE*: The IP was located based on injected routes in the network.
+
+            *MULTICAST*: The IP is a multicast group address.'
+          enum:
+          - INTERFACE
+          - HOST
+          - DNAT
+          - CO_LOCATED
+          - INTERFACE_ATTACHED_SUBNET
+          - INTERNET
+          - ROUTE
+          - MULTICAST
+        info:
+          $ref: '#/components/schemas/PathInfo'
+        returnPathInfo:
+          $ref: '#/components/schemas/PathInfo'
+        timedOut:
+          type: boolean
+        queryUrl:
+          type: string
+          description: A Forward application URL at which this path search can be explored or refined interactively
+        unrecognizedValues:
+          $ref: '#/components/schemas/UnrecognizedValues'
+          description: L7 values from the request that were unrecognized by the system
+    PathSearchQuery:
+      type: object
+      required:
+      - dstIp
+      properties:
+        from:
+          type: string
+          description: 'the device from which the traffic originates. If this is specified, then the srcIp will be considered as a
+
+            packet header only, else, the srcIp will be resolved to specific location(s) and used as the source in the
+
+            path search. Either the source device or srcIp must be specified.'
+        srcIp:
+          type: string
+          description: 'the source IP address or subnet of packets entering the network. For multicast (*, G) paths, set srcIp = G
+
+            (multicast group address).'
+          examples:
+          - 10.10.10.10
+        dstIp:
+          type: string
+          description: 'the destination IP address or subnet of packets entering the network. For multicast (*, G) paths, set dstIp
+
+            = G (multicast group address).'
+          examples:
+          - 10.10.10.64/28
+        ipProto:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 255
+          description: the IP protocol
+          examples:
+          - 6
+        srcPort:
+          type: string
+          description: the L4 source port, like "80" or a range "8080-8088"
+          examples:
+          - '80'
+        dstPort:
+          type: string
+          description: the L4 destination port, like "80" or a range "8080-8088"
+          examples:
+          - 8080-8088
+        icmpType:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 255
+          description: the ICMP type. Implies ipProto = 1.
+        fin:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 1
+          description: the FIN (finish) bit (0 or 1). Implies ipProto = 6.
+          examples:
+          - 1
+        syn:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 1
+          description: the SYN (synchronize) bit (0 or 1). Implies ipProto = 6.
+          examples:
+          - 1
+        rst:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 1
+          description: the RST (reset) bit (0 or 1). Implies ipProto = 6.
+          examples:
+          - 1
+        psh:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 1
+          description: the PSH (push) bit (0 or 1). Implies ipProto = 6.
+          examples:
+          - 1
+        ack:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 1
+          description: the ACK (acknowledgment) bit (0 or 1). Implies ipProto = 6.
+          examples:
+          - 1
+        urg:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 1
+          description: the URG (urgent) bit (0 or 1). Implies ipProto = 6.
+          examples:
+          - 1
+        appId:
+          type: string
+          description: 'the L7 app-id or "unidentified" to exclude paths that traverse firewall policies with app-id matches. If the
+
+            system doesn''t recognize the provided value, it handles the value the same as "unidentified" and includes
+
+            the value in the `unrecognizedValues` response field. The applications that are recognized by the model can
+
+            be obtained using GET /api/l7-applications.'
+          examples:
+          - ssh
+        userId:
+          type: string
+          description: 'the L7 user-id or "unidentified" to exclude paths that traverse firewall policies with user-id matches. If
+
+            the system doesn''t recognize the provided value, it handles the value the same as "unidentified" and
+
+            includes the value in the `unrecognizedValues` response field. See [Path Analysis with Layer 7
+
+            User-Group](https://docs.fwd.app/latest/application/search/path-analysis/layer7_ugroup/) for more info.'
+          examples:
+          - user1
+        userGroupId:
+          type: string
+          description: 'the L7 user-group-id. If the system doesn''t recognize the provided value, the search returns 0 results as
+
+            there are no paths that traverse firewall policies with that user-group-id match, and the value is included
+
+            in the `unrecognizedValues` response field. See [Path Analysis with Layer 7
+
+            User-Group](https://docs.fwd.app/latest/application/search/path-analysis/layer7_ugroup/) for more info.'
+          examples:
+          - group1
+        url:
+          type: string
+          description: 'the L7 URL that traffic of interest is trying to access. Prefix wildcards are supported for subdomains.
+
+            Suffix wildcards are supported for top-level domains and URL paths. See [Path Analysis with Layer 7
+
+            URL](https://docs.fwd.app/latest/application/search/path-analysis/layer7_url/) for more policy patterns supported
+
+            in the model.'
+          examples:
+          - '*.example.com'
+        domain:
+          type: string
+          description: 'the DNS domain name that traffic of interest is trying to reach, without HTTP path components. Unlike `url`,
+
+            which implies HTTP/HTTPS over TCP/UDP, this field matches on domain regardless of application protocol (e.g.,
+
+            ICMP to a domain). Prefix wildcards are supported for subdomains and suffix wildcards for top-level domains.
+
+            Cannot be specified together with `url`.'
+          examples:
+          - example.com
+          - '*.subdomain.example.org'
+    PathInfo:
+      type: object
+      properties:
+        paths:
+          type: array
+          items:
+            $ref: '#/components/schemas/Path'
+        totalHits:
+          $ref: '#/components/schemas/TotalHits'
+    L7Application:
+      type: object
+      properties:
+        id:
+          type: string
+    InterfaceFunctionL3Info:
+      type: object
+      properties:
+        interfaceName:
+          type: string
+        vrf:
+          type: string
+          description: Null if the interface does not belong to any VRF
+    InterfaceFunctionL2Info:
+      type: object
+      properties:
+        interfaceName:
+          type: string
+    InterfaceFunction:
+      type: object
+      properties:
+        l2:
+          $ref: '#/components/schemas/InterfaceFunctionL2Info'
+        l3:
+          $ref: '#/components/schemas/InterfaceFunctionL3Info'
+        securityZone:
+          type: string
+    TotalHits:
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'Specifies the type of total hits.
+
+            *LOWER_BOUND*: There may be additional hits that were not included in the results either because the
+
+            requested number of hits were found, or the request timed out.
+
+            *EXACT*: There are exactly this many hits.'
+          enum:
+          - LOWER_BOUND
+          - EXACT
+        value:
+          type: integer
+          format: int64
+      description: 'Number of ways in which traffic matching the search criteria is forwarded in the network. Multiple ECMP path
+
+        choices for traffic lead to separate results. In addition, depending on the scope of query terms, there
+
+        might be multiple results along a single path. For example a search without IP protocol or destination port
+
+        restrictions can result in multiple results along a single device path if there are different ACLs that
+
+        permit or deny traffic to different destination ports.'
+    DeviceType:
+      type: string
+      enum:
+      - UNKNOWN
+      - ROUTER
+      - SWITCH
+      - VSWITCH
+      - FIREWALL
+      - LOADBALANCER
+      - BUNDLED_ROUTER
+      - CIRCUIT
+      - L2_VPN_SERVICE
+      - MISSING_PEER
+      - MPLS_VPN_SERVICE
+      - INTERNET_SERVICE
+      - INTRANET_SERVICE
+      - SYNTHETIC_ENCRYPTOR
+      - HYPERVISOR
+      - CONTROLLER
+      - WAN_OPTIMIZER
+      - OPENFLOW_SWITCH
+      - SD_WAN
+      - RIVERBED_INTERCEPTOR
+      - WIFI_AP
+      - ENCRYPTOR
+      - DDI
+      - NIC
+      - AWS_CLOUD
+      - AWS_SUBNET
+      - AWS_RT
+      - AWS_INTERNET_GW
+      - AWS_NAT_GW
+      - AWS_VPN_GW
+      - AWS_LB
+      - AWS_GLOBAL_ACCELERATOR
+      - AWS_DIRECT_CONNECT_GW
+      - AWS_TRANSIT_GW
+      - AWS_LOCAL_GW
+      - AWS_NETWORK_FIREWALL
+      - AWS_GATEWAY_LB
+      - AWS_SERVICE_ENDPOINT
+      - EDGE_VM
+      - AZURE_CLOUD
+      - AZURE_SUBNET
+      - AZURE_VNET
+      - AZURE_VNET_GW
+      - AZURE_FIREWALL
+      - AZURE_APP_GW
+      - AZURE_FRONTDOOR
+      - AZURE_LB
+      - AZURE_VWAN_HUB
+      - AZURE_VPN_GATEWAY
+      - AZURE_P2S_VPN_GATEWAY
+      - AZURE_EXPRESS_ROUTE_GATEWAY
+      - AZURE_VIRTUAL_APPLIANCE
+      - AZURE_EXPRESS_ROUTE_CIRCUIT
+      - GCP_CLOUD
+      - GCP_RT
+      - GCP_SUBNET
+      - GCP_LB
+      - GCP_TRAFFIC_DIRECTOR
+      - GCP_VPN_GW
+      - GCP_NAT_GW
+      - GCP_SERVICE_ATTACHMENT
+      - GCP_INTERCEPT_DEPLOYMENT
+      - ALKIRA_CLOUD
+    AclFunction:
+      type: object
+      properties:
+        name:
+          type: string
+          description: the name of the ACL that is applied to traffic
+        context:
+          type: string
+          description: the context in which the ACL function is applied
+          enum:
+          - INPUT
+          - OUTPUT
+        action:
+          type: string
+          description: the action taken by the ACL function
+          enum:
+          - PERMIT
+          - DENY
+    Path:
+      type: object
+      properties:
+        forwardingOutcome:
+          type: string
+          description: 'Specifies the traffic forwarding outcome along a path.
+
+            *DELIVERED*: Traffic was delivered to destination IP’s discovered location(s).
+
+            *DELIVERED_TO_INCORRECT_LOCATION*: Traffic was delivered out of some edge ports. However, traffic did not
+
+            reach the expected delivery locations based on destination IP’s discovered locations. One scenario where
+
+            this occurs is when a device in the middle of the actual path from source IP to destination IP is not
+
+            configured for collection in the Forward platform. For example, suppose the actual device path is A -> B ->
+
+            C, and only devices A and C are part of the snapshot in the Forward platform. In this case, the path would
+
+            show traffic exiting device A at some edge port, but since destination IP is discovered to reside at device
+
+            C, traffic is delivered to an incorrect location.
+
+            *BLACKHOLE*: Traffic was implicitly dropped at the last hop, since the device had no matching rule. For
+
+            example, if a router does not have a default route, traffic to any IP that is not in the routing table gets
+
+            blackholed.
+
+            *DROPPED*: Traffic was explicitly dropped at the last hop, e.g. by a null route.
+
+            *INADMISSIBLE*: Traffic was not admitted into the network. The first hop interface does not accept the
+
+            traffic, e.g. incoming traffic had a vlan tag 10 while the ingress interface is an access interface that
+
+            only permits traffic with vlan tag 20.
+
+            *UNREACHABLE*: ARP/NDP resolution failed along the path resulting in traffic not getting delivered to the
+
+            intended destination.
+
+            *LOOP*: Traffic entered a forwarding loop.'
+          enum:
+          - DELIVERED
+          - DELIVERED_TO_INCORRECT_LOCATION
+          - DROPPED
+          - LOOP
+          - INADMISSIBLE
+          - BLACKHOLE
+          - UNREACHABLE
+        securityOutcome:
+          type: string
+          description: 'Specifies whether traffic is denied by ACL rules at any hop along the path.
+
+            *PERMITTED*: All ACLs along the path permitted traffic to flow through.
+
+            *DENIED*: Traffic was dropped by ACLs at some hop along the path. Note that the ACL drop may not always
+
+            occur at the last hop since search results are computed in permit all mode.'
+          enum:
+          - PERMITTED
+          - DENIED
+        hops:
+          type: array
+          items:
+            $ref: '#/components/schemas/PathHop'
+    PathHop:
+      type: object
+      properties:
+        deviceName:
+          type: string
+        displayName:
+          type: string
+          description: 'Alternate device name that might be more recognizable but isn’t necessarily unique in the network. For cloud
+
+            devices, this is the name configured in the cloud provider’s console.'
+        deviceType:
+          $ref: '#/components/schemas/DeviceType'
+        tags:
+          type: array
+          items:
+            type: string
+          description: present only if device tags are specifically requested
+        parseError:
+          type: boolean
+          description: '`true` indicates that this device’s behavior model might not be reliable'
+        ingressInterface:
+          type: string
+          description: the physical interface name, where traffic entered the device
+        egressInterface:
+          type: string
+          description: 'the physical interface name, where traffic exited the device.
+
+            Absent if this is the last hop and traffic did not exit the device.'
+        behaviors:
+          type: array
+          items:
+            type: string
+            enum:
+            - L2
+            - L3
+            - NAT
+            - PBR
+            - ACL_PERMIT
+            - ACL_DENY
+          description: 'Specifies the forwarding behaviors experienced by traffic at the device.
+
+            *L2*: Forwarded at layer 2.
+
+            *L3*: Routed at layer 3.
+
+            *NAT*: NAT transformations applied.
+
+            *PBR*: Forwarded using Policy-Based Routing.
+
+            *ACL_PERMIT*: ACLs were applied to traffic at the device and the traffic was permitted.
+
+            *ACL_DENY*: ACLs were applied to traffic at the device and the traffic was dropped.'
+        networkFunctions:
+          $ref: '#/components/schemas/NetworkFunctions'
+        backfilledFrom:
+          type: string
+          description: the collection instant from which the device was backfilled
+    NetworkFunctions:
+      type: object
+      properties:
+        acl:
+          type: array
+          items:
+            $ref: '#/components/schemas/AclFunction'
+        egress:
+          $ref: '#/components/schemas/InterfaceFunction'
+        ingress:
+          $ref: '#/components/schemas/InterfaceFunction'
+      description: Detailed forwarding info
+    ErrorInfo:
+      type: object
+      required:
+      - httpMethod
+      - apiUrl
+      - message
+      properties:
+        httpMethod:
+          type: string
+          examples:
+          - GET
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+        apiUrl:
+          type: string
+          examples:
+          - /api/version
+        message:
+          type: string
+          description: A description of the error
+        reason:
+          type: string
+    PathSearchBulkRequest:
+      type: object
+      required:
+      - queries
+      properties:
+        queries:
+          type: array
+          items:
+            $ref: '#/components/schemas/PathSearchQuery'
+        intent:
+          $ref: '#/components/schemas/SearchIntent'
+          description: 'Specifies the intent for the search. Default PREFER_DELIVERED.
+
+            *PREFER_VIOLATIONS*: Prefer paths that result in the traffic not getting delivered, e.g. drops, blackholes,
+
+            loops. An example usage is while trying to evaluate if the specified traffic always gets delivered to the
+
+            destination along all path choices.
+
+            *PREFER_DELIVERED*: Prefer paths that result in the traffic getting delivered. An example usage is while
+
+            trying to evaluate if traffic gets delivered to the destination along any path choice.
+
+            *VIOLATIONS_ONLY*: Search for paths where traffic is not delivered to the destination.'
+          examples:
+          - PREFER_DELIVERED
+          default: PREFER_DELIVERED
+        maxCandidates:
+          type: integer
+          format: int32
+          description: 'the limit on the number of search results computed, before applying any ranking criteria. Permitted range =
+
+            1 to 10,000. Default 5,000.'
+          examples:
+          - 5000
+        maxResults:
+          type: integer
+          format: int32
+          description: 'the limit on the number of search results returned by the API. First, the platform computes up to
+
+            maxCandidates results that match the search criteria. Then they are sorted by various ranking criteria. A
+
+            key ranking factor is path length, preferring longer paths (greatest reach) in the network over shorter
+
+            ones. Finally, the API limits the number of returned search results to maxResults. Permitted range = 1 to
+
+            maxCandidates. Default 1.'
+          examples:
+          - 1
+        maxReturnPathResults:
+          type: integer
+          format: int32
+          description: 'the limit on the number of return path search results. Permitted range = 0 to 10,000. Default 0. Multicast
+
+            (*, G) and (S, G) queries will always return 0 return path results regardless of this value.'
+          examples:
+          - 0
+        maxSeconds:
+          type: integer
+          format: int32
+          description: the timeout duration per search query. Permitted range = 1 to 300. Default 30.
+          examples:
+          - 30
+        maxOverallSeconds:
+          type: integer
+          format: int32
+          description: 'the overall timeout duration. Permitted range = 1 to 7,200. Default equal to the timeout duration for a
+
+            single query.'
+          examples:
+          - 300
+        includeTags:
+          type: boolean
+          description: If true, the response will include device tags for each hop.
+          examples:
+          - false
+        includeNetworkFunctions:
+          type: boolean
+          description: 'If true, the response includes detailed forwarding info for each hop.
+
+            Note: Setting this to true increases the API response time.'
+          examples:
+          - false
+    SearchIntent:
+      type: string
+      enum:
+      - PREFER_VIOLATIONS
+      - PREFER_DELIVERED
+      - VIOLATIONS_ONLY
+  parameters:
+    SnapshotId:
+      name: snapshotId
+      in: query
+      description: An optional Snapshot id. If omitted, the network’s latest processed Snapshot is used.
+      schema:
+        type: string
+  securitySchemes:
+    api_token:
+      type: http
+      scheme: basic

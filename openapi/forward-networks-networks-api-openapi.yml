@@ -1,0 +1,282 @@
+openapi: 3.2.0
+info:
+  title: 'Forward : Complete Aliases Networks API'
+  description: Model and verify networks
+  contact:
+    email: support@forwardnetworks.com
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  version: '26.6'
+servers:
+- url: /api
+tags:
+- name: Networks
+  description: Create, list, rename, or delete model networks
+  summary: Networks
+paths:
+  /networks:
+    get:
+      tags:
+      - Networks
+      summary: Get all networks
+      operationId: getNetworks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Network'
+      security:
+      - api_token: []
+    post:
+      tags:
+      - Networks
+      summary: Create a network
+      operationId: createNetwork
+      parameters:
+      - name: name
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Network'
+      security:
+      - api_token: []
+  /networks/{networkId}:
+    patch:
+      tags:
+      - Networks
+      summary: Update a network
+      description: 'All JSON properties in the request body are optional. Include only the properties you wish to
+
+        change.'
+      operationId: updateNetwork
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NetworkUpdate'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Network'
+      security:
+      - api_token: []
+    delete:
+      tags:
+      - Networks
+      summary: Delete a network
+      operationId: deleteNetwork
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Network'
+      security:
+      - api_token: []
+  /networks/{networkId}/workspaces:
+    post:
+      tags:
+      - Networks
+      summary: Create a Workspace network
+      description: 'A [Workspace network](https://docs.fwd.app/latest/application/change-mgmt/workspace_network/) is a network that
+
+        collects from only a subset of the devices in a large “parent” network. This kind of network can be useful
+
+        in time-sensitive situations like change management windows.'
+      operationId: createWorkspaceNetwork
+      parameters:
+      - name: networkId
+        in: path
+        description: The id of the parent network
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Information about the new Workspace network
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWorkspaceNetworkRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Network'
+      security:
+      - api_token: []
+components:
+  schemas:
+    Network:
+      type: object
+      required:
+      - id
+      - name
+      - orgId
+      properties:
+        id:
+          type: string
+        parentId:
+          type: string
+          description: 'The network from which this Workspace network was created. Absent if this network is not a
+
+            Workspace.'
+        name:
+          type: string
+          examples:
+          - My Network
+        orgId:
+          type: string
+        creator:
+          type: string
+          description: The username of the user who created the network, or null if the account was deleted
+          examples:
+          - mary
+        creatorId:
+          type: string
+          description: The id of the user who created the network, or null if the account was deleted
+          examples:
+          - '123'
+        createdAt:
+          type: string
+          examples:
+          - '2022-04-06T20:34:45.118Z'
+        created:
+          type: string
+          description: Deprecated for removal in release 26.7. Use `createdAt` instead.
+          examples:
+          - '2022-04-06T20:34:45.118Z'
+        note:
+          type: string
+          description: An optional network description.
+        retentionDays:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 365
+          description: 'The number of days without any use of this network after which it will be automatically deleted. Absent for
+
+            parent networks and permanent Workspace networks.'
+        secondsToExpiry:
+          type: integer
+          format: int64
+          description: 'Number of seconds without use before the network expires. Present for temporary Workspace
+
+            networks only.'
+    NetworkUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        note:
+          type: string
+        retentionDays:
+          type: integer
+          format: int32
+    CreateWorkspaceNetworkRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          examples:
+          - My Network - Workspace A
+        note:
+          type: string
+          examples:
+          - For change window 2021-10-30-ABC
+        devices:
+          type: array
+          items:
+            type: string
+          description: 'Names of the [classic devices](https://docs.fwd.app/latest/api/classic-devices/) to include. Can be omitted or
+
+            empty if `cloudAccounts` or `vcenters` is nonempty.'
+          examples:
+          - - nyc-dc01-tor01
+            - nyc-dc01-rtr01
+        cloudAccounts:
+          type: array
+          items:
+            type: string
+          description: 'Names of the cloud accounts
+
+            [AWS](https://docs.fwd.app/latest/application/sources/configure_collection/cloud/aws_setup/),
+
+            [GCP](https://docs.fwd.app/latest/application/sources/configure_collection/cloud/gcp_setup/), or
+
+            [Azure](https://docs.fwd.app/latest/application/sources/configure_collection/cloud/azure_setup/) to
+
+            include. Can be omitted or empty if `devices` or `vcenters` is nonempty.'
+          examples:
+          - - my-aws-account
+            - my-gcp-account
+            - my-azure-account
+        vcenters:
+          type: array
+          items:
+            type: string
+          description: 'Names of the
+
+            [vCenters](https://docs.fwd.app/latest/application/sources/configure_collection/VMware_account/#adding-a-vcenter-source)
+
+            to include. Can be omitted or empty if `devices` or `cloudAccounts` is nonempty.'
+          examples:
+          - - vcenter-01
+        omissions:
+          type: array
+          items:
+            type: string
+            enum:
+            - CUSTOM_COMMANDS
+            - NQE_CHECKS
+            - PREDEFINED_CHECKS
+            - INTENT_CHECKS
+          description: What to omit (not copy) from the parent network
+          examples:
+          - - CUSTOM_COMMANDS
+            - NQE_CHECKS
+        retentionDays:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 365
+          description: 'Number of days of inactivity after which the Workspace network will be deleted. If omitted, the value
+
+            defaults to 7. If specified as null, this network will be considered permanent.'
+  securitySchemes:
+    api_token:
+      type: http
+      scheme: basic

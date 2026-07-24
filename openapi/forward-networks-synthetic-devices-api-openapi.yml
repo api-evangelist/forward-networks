@@ -1,0 +1,1776 @@
+openapi: 3.2.0
+info:
+  title: 'Forward Networks: Complete Aliases Synthetic Devices API'
+  description: Model and verify networks
+  contact:
+    email: support@forwardnetworks.com
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  version: '26.6'
+servers:
+- url: /api
+tags:
+- name: Synthetic Devices
+  description: Model a network’s internet connections, intranets, L2VPNs, L3VPNs, WAN circuits, and encryptors
+  summary: Synthetic Devices
+paths:
+  /networks/{networkId}/encryptors:
+    get:
+      tags:
+      - Synthetic Devices
+      summary: Get a network's encryptors
+      operationId: getEncryptors
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EncryptorList'
+      security:
+      - api_token: []
+    put:
+      tags:
+      - Synthetic Devices
+      summary: Replace all of a network’s encryptors
+      operationId: putEncryptors
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EncryptorList'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+  /networks/{networkId}/encryptors/{deviceName}:
+    get:
+      tags:
+      - Synthetic Devices
+      summary: Get an encryptor
+      operationId: getEncryptor
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deviceName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Encryptor'
+      security:
+      - api_token: []
+    put:
+      tags:
+      - Synthetic Devices
+      summary: Add or replace an encryptor
+      operationId: putEncryptor
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deviceName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Encryptor'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+    patch:
+      tags:
+      - Synthetic Devices
+      summary: Update an encryptor
+      description: 'All JSON properties in the request body are optional. Include only the properties you wish to
+
+        change.'
+      operationId: patchEncryptor
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deviceName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EncryptorPatch'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Encryptor'
+      security:
+      - api_token: []
+    delete:
+      tags:
+      - Synthetic Devices
+      summary: Remove an encryptor
+      operationId: deleteEncryptor
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deviceName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+  /networks/{networkId}/internet-node:
+    get:
+      tags:
+      - Synthetic Devices
+      summary: Get the network’s internet node
+      operationId: getInternetNode
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternetNode'
+      security:
+      - api_token: []
+    put:
+      tags:
+      - Synthetic Devices
+      summary: Replace the network’s internet node
+      operationId: putInternetNode
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InternetNode'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+    patch:
+      tags:
+      - Synthetic Devices
+      summary: Update the network’s internet node
+      description: 'All JSON properties in the request body are optional. Include only the properties you wish to
+
+        change.'
+      operationId: updateInternetNode
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InternetNodePatch'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternetNode'
+      security:
+      - api_token: []
+  /networks/{networkId}/internet-node/connections:
+    get:
+      tags:
+      - Synthetic Devices
+      summary: Get the internet node’s connections
+      operationId: getInternetNodeConnections
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: uplinkDevice
+        in: query
+        schema:
+          type: string
+      - name: uplinkPort
+        in: query
+        schema:
+          type: string
+      - name: gatewayDevice
+        in: query
+        schema:
+          type: string
+      - name: gatewayPort
+        in: query
+        schema:
+          type: string
+      - name: vlan
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyntheticConnections'
+      security:
+      - api_token: []
+    post:
+      tags:
+      - Synthetic Devices
+      summary: Add a connection to the internet node
+      operationId: addInternetNodeConnection
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/L3SyntheticWanConnection'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+    delete:
+      tags:
+      - Synthetic Devices
+      summary: Remove internet node connections
+      operationId: deleteInternetNodeConnections
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: uplinkDevice
+        in: query
+        schema:
+          type: string
+      - name: uplinkPort
+        in: query
+        schema:
+          type: string
+      - name: gatewayDevice
+        in: query
+        schema:
+          type: string
+      - name: gatewayPort
+        in: query
+        schema:
+          type: string
+      - name: vlan
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyntheticConnections'
+      security:
+      - api_token: []
+  /networks/{networkId}/intranet-nodes:
+    get:
+      tags:
+      - Synthetic Devices
+      summary: Get a network’s intranet nodes
+      operationId: getIntranetNodes
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntranetNodeList'
+      security:
+      - api_token: []
+    put:
+      tags:
+      - Synthetic Devices
+      summary: Replace all of a network’s intranet nodes
+      operationId: putIntranetNodes
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntranetNodeList'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+  /networks/{networkId}/intranet-nodes/{nodeName}:
+    get:
+      tags:
+      - Synthetic Devices
+      summary: Get an intranet node
+      operationId: getIntranetNode
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: nodeName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntranetNode'
+      security:
+      - api_token: []
+    put:
+      tags:
+      - Synthetic Devices
+      summary: Add or replace an intranet node
+      operationId: putIntranetNode
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: nodeName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntranetNode'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+    patch:
+      tags:
+      - Synthetic Devices
+      summary: Update an intranet node
+      description: 'All JSON properties in the request body are optional. Include only the properties you wish to
+
+        change.'
+      operationId: patchIntranetNode
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: nodeName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntranetNodePatch'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntranetNode'
+      security:
+      - api_token: []
+    delete:
+      tags:
+      - Synthetic Devices
+      summary: Remove an intranet node
+      operationId: deleteIntranetNode
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: nodeName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+  /networks/{networkId}/intranet-nodes/{nodeName}/connections:
+    get:
+      tags:
+      - Synthetic Devices
+      summary: Get an intranet node’s connections
+      operationId: getIntranetNodeConnections
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: nodeName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: uplinkDevice
+        in: query
+        schema:
+          type: string
+      - name: uplinkPort
+        in: query
+        schema:
+          type: string
+      - name: gatewayDevice
+        in: query
+        schema:
+          type: string
+      - name: gatewayPort
+        in: query
+        schema:
+          type: string
+      - name: vlan
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyntheticConnections'
+      security:
+      - api_token: []
+    post:
+      tags:
+      - Synthetic Devices
+      summary: Add a connection to an intranet node
+      operationId: addIntranetNodeConnection
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: nodeName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/L3SyntheticWanConnection'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+    delete:
+      tags:
+      - Synthetic Devices
+      summary: Remove an intranet node’s connections
+      operationId: deleteIntranetNodeConnections
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: nodeName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: uplinkDevice
+        in: query
+        schema:
+          type: string
+      - name: uplinkPort
+        in: query
+        schema:
+          type: string
+      - name: gatewayDevice
+        in: query
+        schema:
+          type: string
+      - name: gatewayPort
+        in: query
+        schema:
+          type: string
+      - name: vlan
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyntheticConnections'
+      security:
+      - api_token: []
+  /networks/{networkId}/l2-vpns:
+    get:
+      tags:
+      - Synthetic Devices
+      summary: Get a network’s L2VPNs
+      operationId: getL2Vpns
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/L2VpnList'
+      security:
+      - api_token: []
+    put:
+      tags:
+      - Synthetic Devices
+      summary: Replace all of a network’s L2VPNs
+      operationId: putL2Vpns
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/L2VpnList'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+  /networks/{networkId}/l2-vpns/{l2VpnName}:
+    get:
+      tags:
+      - Synthetic Devices
+      summary: Get an L2VPN
+      operationId: getL2Vpn
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: l2VpnName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/L2Vpn'
+      security:
+      - api_token: []
+    put:
+      tags:
+      - Synthetic Devices
+      summary: Add or replace an L2VPN
+      operationId: putL2Vpn
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: l2VpnName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/L2Vpn'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+    patch:
+      tags:
+      - Synthetic Devices
+      summary: Update an L2VPN
+      description: 'All JSON properties in the request body are optional. Include only the properties you wish to
+
+        change.'
+      operationId: patchL2Vpn
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: l2VpnName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/L2VpnPatch'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/L2Vpn'
+      security:
+      - api_token: []
+    delete:
+      tags:
+      - Synthetic Devices
+      summary: Remove an L2VPN
+      operationId: deleteL2Vpn
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: l2VpnName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+  /networks/{networkId}/l2-vpns/{l2VpnName}/connections:
+    get:
+      tags:
+      - Synthetic Devices
+      summary: Get an L2VPN’s connections
+      operationId: getL2VpnConnections
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: l2VpnName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: device
+        in: query
+        schema:
+          type: string
+      - name: port
+        in: query
+        schema:
+          type: string
+      - name: vlan
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyntheticConnections'
+      security:
+      - api_token: []
+    post:
+      tags:
+      - Synthetic Devices
+      summary: Add a connection to an L2VPN
+      operationId: addL2VpnConnection
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: l2VpnName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/L2VpnConnection'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+    delete:
+      tags:
+      - Synthetic Devices
+      summary: Remove an L2VPN’s connections
+      operationId: deleteL2VpnConnections
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: l2VpnName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: device
+        in: query
+        schema:
+          type: string
+      - name: port
+        in: query
+        schema:
+          type: string
+      - name: vlan
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyntheticConnections'
+      security:
+      - api_token: []
+  /networks/{networkId}/l3-vpns:
+    get:
+      tags:
+      - Synthetic Devices
+      summary: Get a network’s L3VPNs
+      operationId: getL3Vpns
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/L3VpnList'
+      security:
+      - api_token: []
+    put:
+      tags:
+      - Synthetic Devices
+      summary: Replace all of a network’s L3VPNs
+      operationId: putL3Vpns
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/L3VpnList'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+  /networks/{networkId}/l3-vpns/{l3VpnName}:
+    get:
+      tags:
+      - Synthetic Devices
+      summary: Get an L3VPN
+      operationId: getL3Vpn
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: l3VpnName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/L3Vpn'
+      security:
+      - api_token: []
+    put:
+      tags:
+      - Synthetic Devices
+      summary: Add or replace an L3VPN
+      operationId: putL3Vpn
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: l3VpnName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/L3Vpn'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+    patch:
+      tags:
+      - Synthetic Devices
+      summary: Update an L3VPN
+      description: 'All JSON properties in the request body are optional. Include only the properties you wish to
+
+        change.'
+      operationId: patchL3Vpn
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: l3VpnName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/L3VpnPatch'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/L3Vpn'
+      security:
+      - api_token: []
+    delete:
+      tags:
+      - Synthetic Devices
+      summary: Remove an L3VPN
+      operationId: deleteL3Vpn
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: l3VpnName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+  /networks/{networkId}/l3-vpns/{l3VpnName}/connections:
+    get:
+      tags:
+      - Synthetic Devices
+      summary: Get an L3VPN’s connections
+      operationId: getL3VpnConnections
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: l3VpnName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: uplinkDevice
+        in: query
+        schema:
+          type: string
+      - name: uplinkPort
+        in: query
+        schema:
+          type: string
+      - name: gatewayDevice
+        in: query
+        schema:
+          type: string
+      - name: gatewayPort
+        in: query
+        schema:
+          type: string
+      - name: vlan
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyntheticConnections'
+      security:
+      - api_token: []
+    post:
+      tags:
+      - Synthetic Devices
+      summary: Add a connection to an L3VPN
+      operationId: addL3VpnConnection
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: l3VpnName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/L3SyntheticWanConnection'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+    delete:
+      tags:
+      - Synthetic Devices
+      summary: Remove an L3VPN’s connections
+      operationId: deleteL3VpnConnections
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: l3VpnName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: uplinkDevice
+        in: query
+        schema:
+          type: string
+      - name: uplinkPort
+        in: query
+        schema:
+          type: string
+      - name: gatewayDevice
+        in: query
+        schema:
+          type: string
+      - name: gatewayPort
+        in: query
+        schema:
+          type: string
+      - name: vlan
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyntheticConnections'
+      security:
+      - api_token: []
+  /networks/{networkId}/wan-circuits:
+    get:
+      tags:
+      - Synthetic Devices
+      summary: Get a network’s WAN circuits
+      operationId: getWanCircuits
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WanCircuitList'
+      security:
+      - api_token: []
+    put:
+      tags:
+      - Synthetic Devices
+      summary: Replace all of a network’s WAN circuits
+      operationId: putWanCircuits
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WanCircuitList'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+  /networks/{networkId}/wan-circuits/{wanCircuitName}:
+    get:
+      tags:
+      - Synthetic Devices
+      summary: Get a WAN circuit
+      operationId: getWanCircuit
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: wanCircuitName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WanCircuit'
+      security:
+      - api_token: []
+    put:
+      tags:
+      - Synthetic Devices
+      summary: Add or replace a WAN circuit
+      operationId: putWanCircuit
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: wanCircuitName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WanCircuit'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+    patch:
+      tags:
+      - Synthetic Devices
+      summary: Update a WAN circuit
+      description: 'All JSON properties in the request body are optional. Include only the properties you wish to
+
+        change.'
+      operationId: patchWanCircuit
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: wanCircuitName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WanCircuitPatch'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WanCircuit'
+      security:
+      - api_token: []
+    delete:
+      tags:
+      - Synthetic Devices
+      summary: Remove a WAN circuit
+      operationId: deleteWanCircuit
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: wanCircuitName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+components:
+  schemas:
+    Encryptor:
+      type: object
+      required:
+      - name
+      - siteConnection
+      - tunnels
+      properties:
+        name:
+          type: string
+          examples:
+          - encryptor
+        siteConnection:
+          $ref: '#/components/schemas/EncryptorConnection'
+          description: A connection to a high site
+        underlayConnection:
+          $ref: '#/components/schemas/EncryptorConnection'
+          description: A connection to the underlay network (a low site)
+        tunnels:
+          type: array
+          items:
+            $ref: '#/components/schemas/EncryptorTunnel'
+          description: 'Tunnels to other encryptor devices. A tunnel source address is modeled as residing on this device and the
+
+            destination addresses on another encryptor device. A source address may be reused on an encryptor. Each
+
+            destination address must match the source address of the tunnel on another encryptor, and vice-versa'
+        subnets:
+          type: array
+          items:
+            type: string
+          description: 'Subnets to route to the high site, in addition to the source addresses of tunnels on the `siteConnection`
+
+            gateway device'
+    L3VpnPatch:
+      type: object
+      properties:
+        name:
+          type: string
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/L3SyntheticWanConnection'
+          description: If specified, this list will **replace** all existing connections on the L3 VPN node.
+    DevicePort:
+      type: object
+      properties:
+        device:
+          type: string
+        port:
+          type: string
+    SyntheticConnection:
+      type: object
+      properties:
+        name:
+          type: string
+    L2VpnConnection:
+      type: object
+      required:
+      - device
+      - port
+      properties:
+        device:
+          type: string
+          description: The customer edge device.
+        port:
+          type: string
+          description: The physical edge port on the customer edge device.
+          examples:
+          - eth1/1
+        vlan:
+          type: integer
+          format: int32
+          examples:
+          - 100
+        name:
+          type: string
+          description: 'An optional name for this connection, which will be used as the interface name created on the synthetic
+
+            device that links to the customer edge device.'
+    L2Vpn:
+      type: object
+      required:
+      - name
+      - connections
+      properties:
+        name:
+          type: string
+          examples:
+          - l2vpn
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/L2VpnConnection'
+    InternetNodePatch:
+      type: object
+      properties:
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/L3SyntheticWanConnection'
+          description: If specified, this list will **replace** all existing connections on the internet node.
+        name:
+          type: string
+        translations:
+          type: array
+          items:
+            $ref: '#/components/schemas/SyntheticNatEntry'
+          description: If specified, this list will **replace** all existing translations on the internet node.
+        subnetsToExclude:
+          type: array
+          items:
+            type: string
+          description: If specified, this list will **replace** all existing excluded subnets on the internet node.
+    EncryptorConnection:
+      type: object
+      required:
+      - uplinkPort
+      properties:
+        uplinkPort:
+          $ref: '#/components/schemas/DevicePort'
+          description: The physical uplink port on the edge device.
+          examples:
+          - device: nyc-rtr-01
+            port: eth1/1
+        gatewayPort:
+          $ref: '#/components/schemas/DevicePort'
+          description: The virtual gateway port, if different than `uplinkPort`.
+          examples:
+          - device: nyc-rtr-01
+            port: vlan100
+        vlan:
+          type: integer
+          format: int32
+          description: The VLAN of traffic from `uplinkPort`, if tagged.
+          examples:
+          - 100
+        name:
+          type: string
+          description: 'An optional name for this connection, which will be used as the interface name created on the synthetic
+
+            device that links to the physical edge port.'
+    WanCircuit:
+      type: object
+      required:
+      - name
+      - connection1
+      - connection2
+      properties:
+        name:
+          type: string
+          examples:
+          - wan-circuit-01
+        connection1:
+          $ref: '#/components/schemas/WanCircuitConnection'
+        connection2:
+          $ref: '#/components/schemas/WanCircuitConnection'
+    WanCircuitConnection:
+      type: object
+      required:
+      - device
+      - port
+      properties:
+        device:
+          type: string
+          description: A customer edge device name
+        port:
+          type: string
+          description: The name of the connected port on `device`
+        vlan:
+          type: integer
+          format: int32
+          description: The VLAN of traffic from `port`, if tagged
+          examples:
+          - 100
+        name:
+          type: string
+          description: 'An optional name for this connection, which will be used as the interface name created on the synthetic
+
+            device that links to the edge device.'
+    L3VpnList:
+      type: object
+      required:
+      - l3Vpns
+      properties:
+        l3Vpns:
+          type: array
+          items:
+            $ref: '#/components/schemas/L3Vpn'
+    IntranetNodePatch:
+      type: object
+      properties:
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/L3SyntheticWanConnection'
+          description: If specified, this list will **replace** all existing connections on the intranet node.
+        name:
+          type: string
+    WanCircuitPatch:
+      type: object
+      properties:
+        name:
+          type: string
+          examples:
+          - wan-circuit-01
+        connection1:
+          $ref: '#/components/schemas/WanCircuitConnection'
+        connection2:
+          $ref: '#/components/schemas/WanCircuitConnection'
+    SyntheticNatEntry:
+      type: object
+      required:
+      - insideAddress
+      - outsideAddress
+      properties:
+        insideAddress:
+          type: string
+          examples:
+          - 10.0.0.1
+        outsideAddress:
+          type: string
+          description: A public (non-RFC1918) address
+          examples:
+          - 1.1.1.1
+    L2VpnList:
+      type: object
+      required:
+      - l2Vpns
+      properties:
+        l2Vpns:
+          type: array
+          items:
+            $ref: '#/components/schemas/L2Vpn'
+    AutoDiscoverySource:
+      type: string
+      enum:
+      - NONE
+      - IP_ROUTES
+      - BGP_ROUTES
+      - INTERFACE_ADDRESSES
+    EncryptorList:
+      type: object
+      required:
+      - encryptors
+      properties:
+        encryptors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Encryptor'
+    IntranetNode:
+      type: object
+      required:
+      - name
+      - connections
+      properties:
+        name:
+          type: string
+          examples:
+          - inet
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/L3SyntheticWanConnection'
+    EncryptorTunnel:
+      type: object
+      required:
+      - source
+      - destination
+      properties:
+        source:
+          type: string
+          description: Source IP address of an encryptor tunnel
+          examples:
+          - 1.1.1.1
+        destination:
+          type: string
+          description: Destination IP address of an encryptor tunnel
+          examples:
+          - 2.2.2.2
+    L2VpnPatch:
+      type: object
+      properties:
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/L2VpnConnection'
+          description: If specified, this list will **replace** all existing connections on the L2 VPN node.
+        name:
+          type: string
+    L3SyntheticWanConnection:
+      type: object
+      required:
+      - uplinkPort
+      properties:
+        uplinkPort:
+          $ref: '#/components/schemas/DevicePort'
+          description: The physical uplink port on the edge device.
+          examples:
+          - device: nyc-rtr-01
+            port: eth1/1
+        gatewayPort:
+          $ref: '#/components/schemas/DevicePort'
+          description: The virtual gateway port, if different than `uplinkPort`.
+          examples:
+          - device: nyc-rtr-01
+            port: vlan100
+        vlan:
+          type: integer
+          format: int32
+          description: The VLAN of traffic from `uplinkPort`, if tagged.
+          examples:
+          - 100
+        name:
+          type: string
+          description: 'An optional name for this connection, which will be used as the interface name created on the synthetic
+
+            device that links to the physical edge port.'
+        vrf:
+          type: string
+          description: An optional name for the VRF on the synthetic device under which this connection resides.
+        site:
+          type: string
+          description: 'An optional name for the site in which this connection''s gateway device resides. A site is a collection of
+
+            devices that redistribute routes learned from the synthetic device to each other. Grouping connections
+
+            together into a single site enables more accurate site subnet autodiscovery when using `IP_ROUTES` or
+
+            `BGP_ROUTES`.'
+        subnets:
+          type: array
+          items:
+            type: string
+          description: 'Advertised subnets. Routes for these subnets are created on the synthetic device if received by another CE.
+
+            Required (and must not be empty) if `subnetAutoDiscovery` is `NONE`.'
+          examples:
+          - - 123.223.47.0/24
+        subnetAutoDiscovery:
+          $ref: '#/components/schemas/AutoDiscoverySource'
+          description: 'The types of routes from which advertised subnets are automatically inferred in the gateway device’s routing
+
+            table. Defaults to `NONE`. If `INTERFACE_ADDRESSES`, the gateway port’s IP address is used. If `IP_ROUTES`,
+
+            subnets are inferred from the gateway device’s RIB. If `BGP_ROUTES`, subnets are inferred from the gateway
+
+            device’s Adj-RIB-Out.
+
+
+            Note: If not `NONE`, routes are created on the synthetic device for both autodiscovered subnets, as well any
+
+            subnets specified in `subnets`, that are received by another CE.
+
+
+            Note: Using `BGP_ROUTES` will automatically enable collection of Adj-RIB-Out from the gateway device in
+
+            future network collections.'
+          examples:
+          - NONE
+        peerIps:
+          type: array
+          items:
+            type: string
+          description: 'IP addresses of BGP peers to which this connection’s site subnets are advertised. If empty, routes
+
+            advertised to all BGP peers are examined.
+
+
+            Note: This set is only used if `subnetAutoDiscovery` is `BGP_ROUTES`.'
+          examples:
+          - - 1.1.1.1
+        backdoorLinkPorts:
+          type: array
+          items:
+            $ref: '#/components/schemas/DevicePort'
+          description: L3 interfaces that provide backdoor connectivity between sites.
+        advertisesDefaultRoute:
+          type: boolean
+          description: 'Whether the CE advertises the default route. Defaults to `false`.
+
+
+            Note: This property is only used if `subnetAutoDiscovery` is `IP_ROUTES`, which should be the case when BGP
+
+            collection is not enabled on the CE. If the Adj-RIB-Out is not collected, the RIB is examined and a default
+
+            route forwarded out `gatewayPort` is skipped if this property is false.'
+    IntranetNodeList:
+      type: object
+      required:
+      - intranetNodes
+      properties:
+        intranetNodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/IntranetNode'
+    L3Vpn:
+      type: object
+      required:
+      - name
+      - connections
+      properties:
+        name:
+          type: string
+          examples:
+          - l3vpn
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/L3SyntheticWanConnection'
+    WanCircuitList:
+      type: object
+      properties:
+        wanCircuits:
+          type: array
+          items:
+            $ref: '#/components/schemas/WanCircuit'
+    SyntheticConnections:
+      type: object
+      properties:
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/SyntheticConnection'
+    EncryptorPatch:
+      type: object
+      properties:
+        name:
+          type: string
+        siteConnection:
+          $ref: '#/components/schemas/EncryptorConnection'
+        underlayConnection:
+          $ref: '#/components/schemas/EncryptorConnection'
+        tunnels:
+          type: array
+          items:
+            $ref: '#/components/schemas/EncryptorTunnel'
+          description: If specified, this list will **replace** all existing tunnels on the encryptor.
+        subnets:
+          type: array
+          items:
+            type: string
+          description: If specified, this set will **replace** all existing subnets on the encryptor.
+    InternetNode:
+      type: object
+      required:
+      - name
+      - connections
+      properties:
+        name:
+          type: string
+          examples:
+          - inet
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/L3SyntheticWanConnection'
+        translations:
+          type: array
+          items:
+            $ref: '#/components/schemas/SyntheticNatEntry'
+        subnetsToExclude:
+          type: array
+          items:
+            type: string
+          description: Public subnets that should not be located at this device.
+  securitySchemes:
+    api_token:
+      type: http
+      scheme: basic

@@ -1,0 +1,586 @@
+openapi: 3.2.0
+info:
+  title: 'Forward Networks: Complete Aliases Device Tags API'
+  description: Model and verify networks
+  contact:
+    email: support@forwardnetworks.com
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  version: '26.6'
+servers:
+- url: /api
+tags:
+- name: Device Tags
+  description: List or manage tags associated with network devices and endpoints
+  summary: Device Tags
+paths:
+  /networks/{networkId}/device-tags:
+    get:
+      tags:
+      - Device Tags
+      summary: Get all device tags
+      operationId: getDeviceTags
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceTags'
+      security:
+      - api_token: []
+    post:
+      tags:
+      - Device Tags
+      summary: Create a device tag
+      operationId: addDeviceTag
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceTag'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceTag'
+      security:
+      - api_token: []
+  /networks/{networkId}/device-tags?with=devices:
+    get:
+      tags:
+      - Device Tags
+      summary: Get all tags with their devices
+      description: 'If **snapshotId** is specified, the response will include device names that were associated with the tag(s)
+
+        as of the identified network Snapshot.'
+      operationId: getDeviceTagsWithDevices
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: snapshotId
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceTagsWithDevices'
+      security:
+      - api_token: []
+  /networks/{networkId}/device-tags?action=addBatch:
+    post:
+      tags:
+      - Device Tags
+      summary: Create device tags
+      description: This operation is for creating multiple new device tags all at once.
+      operationId: addDeviceTagsBatch
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/DeviceTag'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+  /networks/{networkId}/device-tags?action=addBatchTo:
+    post:
+      tags:
+      - Device Tags
+      summary: Add tags to devices
+      description: 'If **snapshotId** is specified, the change will take effect starting from the identified network Snapshot,
+
+        and `devices` in the request body must be the names of devices and/or endpoints in the Snapshot. Otherwise,
+
+        `devices` must be the names of devices and/or endpoints configured as _collection sources_, and the change
+
+        will take effect in the network’s next Snapshot.
+
+
+        To skip validation of `devices`, set the query parameter **validateDevices** to **false** in the URL.'
+      operationId: addDeviceTagsToDevices
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: snapshotId
+        in: query
+        schema:
+          type: string
+      - name: validateDevices
+        in: query
+        schema:
+          type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DevicesAndTags'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+  /networks/{networkId}/device-tags?action=removeAllFrom:
+    post:
+      tags:
+      - Device Tags
+      summary: Remove all tags from devices
+      description: 'If **snapshotId** is specified, the change will take effect starting from the identified network Snapshot,
+
+        and `devices` in the request body must be the names of devices and/or endpoints in the Snapshot. Otherwise,
+
+        `devices` must be the names of devices and/or endpoints configured as _collection sources_, and the change
+
+        will take effect in the network’s next Snapshot.
+
+
+        To skip validation of `devices`, set the query parameter **validateDevices** to **false** in the URL.'
+      operationId: removeAllDeviceTagsFromDevices
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: snapshotId
+        in: query
+        schema:
+          type: string
+      - name: validateDevices
+        in: query
+        schema:
+          type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceSet'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+  /networks/{networkId}/device-tags?action=removeBatchFrom:
+    post:
+      tags:
+      - Device Tags
+      summary: Remove tags from devices
+      description: 'If **snapshotId** is specified, the change will take effect starting from the identified network Snapshot,
+
+        and `devices` in the request body must be the names of devices and/or endpoints in the Snapshot. Otherwise,
+
+        `devices` must be the names of devices and/or endpoints configured as _collection sources_, and the change
+
+        will take effect in the network’s next Snapshot.
+
+
+        To skip validation of `devices`, set the query parameter **validateDevices** to **false** in the URL.'
+      operationId: removeDeviceTagsFromDevices
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: snapshotId
+        in: query
+        schema:
+          type: string
+      - name: validateDevices
+        in: query
+        schema:
+          type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DevicesAndTags'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+  /networks/{networkId}/device-tags?action=replaceAllFor:
+    post:
+      tags:
+      - Device Tags
+      summary: Replace all tags for devices
+      description: 'If **snapshotId** is specified, the change will take effect starting from the identified network Snapshot,
+
+        and `devices` in the request body must be the names of devices and/or endpoints in the Snapshot. Otherwise,
+
+        `devices` must be the names of devices and/or endpoints configured as _collection sources_, and the change
+
+        will take effect in the network’s next Snapshot.
+
+
+        To skip validation of `devices`, set the query parameter **validateDevices** to **false** in the URL.'
+      operationId: replaceAllDeviceTagsForDevices
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: snapshotId
+        in: query
+        schema:
+          type: string
+      - name: validateDevices
+        in: query
+        schema:
+          type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DevicesAndTags'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+  /networks/{networkId}/device-tags/{tagName}:
+    get:
+      tags:
+      - Device Tags
+      summary: Get a device tag
+      operationId: getDeviceTag
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tagName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceTag'
+      security:
+      - api_token: []
+    patch:
+      tags:
+      - Device Tags
+      summary: Update a device tag
+      description: 'All JSON properties in the request body are optional. Include only the properties you wish to
+
+        change.'
+      operationId: updateDeviceTag
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tagName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceTagPatch'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceTag'
+      security:
+      - api_token: []
+    delete:
+      tags:
+      - Device Tags
+      summary: Delete a device tag
+      description: '**Warning:** This operation deletes the device tag from the network completely. It removes the tag from all
+
+        devices and endpoints in all the network’s Snapshots.'
+      operationId: deleteDeviceTag
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tagName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+  /networks/{networkId}/device-tags/{tagName}?with=devices:
+    get:
+      tags:
+      - Device Tags
+      summary: Get a tag with its devices
+      description: 'If **snapshotId** is specified, the response will include device names that were associated with the tag(s)
+
+        as of the identified network Snapshot.'
+      operationId: getDeviceTagWithDevices
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tagName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: snapshotId
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceTagWithDevices'
+      security:
+      - api_token: []
+  /networks/{networkId}/device-tags/{tagName}?action=addTo:
+    post:
+      tags:
+      - Device Tags
+      summary: Add a tag to devices
+      description: 'If **snapshotId** is specified, the change will take effect starting from the identified network Snapshot,
+
+        and `devices` in the request body must be the names of devices and/or endpoints in the Snapshot. Otherwise,
+
+        `devices` must be the names of devices and/or endpoints configured as _collection sources_, and the change
+
+        will take effect in the network’s next Snapshot.
+
+
+        To skip validation of `devices`, set the query parameter **validateDevices** to **false** in the URL.'
+      operationId: addDeviceTagToDevices
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tagName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: snapshotId
+        in: query
+        schema:
+          type: string
+      - name: validateDevices
+        in: query
+        schema:
+          type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceSet'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+  /networks/{networkId}/device-tags/{tagName}?action=removeFrom:
+    post:
+      tags:
+      - Device Tags
+      summary: Remove a tag from devices
+      description: 'If **snapshotId** is specified, the change will take effect starting from the identified network Snapshot,
+
+        and `devices` in the request body must be the names of devices and/or endpoints in the Snapshot. Otherwise,
+
+        `devices` must be the names of devices and/or endpoints configured as _collection sources_, and the change
+
+        will take effect in the network’s next Snapshot.
+
+
+        To skip validation of `devices`, set the query parameter **validateDevices** to **false** in the URL.'
+      operationId: removeDeviceTagFromDevices
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tagName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: snapshotId
+        in: query
+        schema:
+          type: string
+      - name: validateDevices
+        in: query
+        schema:
+          type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceSet'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+components:
+  schemas:
+    DeviceSet:
+      type: object
+      properties:
+        devices:
+          type: array
+          items:
+            type: string
+          examples:
+          - - atl-edge-fw01
+            - ny-edge-fw2
+    DeviceTag:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: The device tag’s name. Case-insensitive. May include spaces.
+          examples:
+          - SEC
+        color:
+          type: string
+          description: The device tag’s color in RGB hex format. Used in network topology diagrams if specified.
+          examples:
+          - '#0064a0'
+    DeviceTagPatch:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The device tag’s name. Case-insensitive. May include spaces.
+          examples:
+          - SEC
+        color:
+          type: string
+          description: The device tag’s color in RGB hex format. Used in network topology diagrams if specified.
+          examples:
+          - '#0064a0'
+    DevicesAndTags:
+      type: object
+      properties:
+        devices:
+          type: array
+          items:
+            type: string
+          examples:
+          - - atl-edge-fw01
+            - ny-edge-fw2
+        tags:
+          type: array
+          items:
+            type: string
+          examples:
+          - - SEC
+    DeviceTagWithDevices:
+      allOf:
+      - $ref: '#/components/schemas/DeviceTag'
+      - type: object
+        properties:
+          devices:
+            type: array
+            items:
+              type: string
+            description: The names of network devices and/or endpoints associated with this tag.
+            examples:
+            - - atl-edge-fw01
+              - ny-edge-fw2
+    DeviceTags:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceTag'
+    DeviceTagsWithDevices:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceTagWithDevices'
+  securitySchemes:
+    api_token:
+      type: http
+      scheme: basic

@@ -1,0 +1,89 @@
+openapi: 3.2.0
+info:
+  title: 'Forward Networks: Complete Aliases System Administration API'
+  description: Model and verify networks
+  contact:
+    email: support@forwardnetworks.com
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  version: '26.6'
+servers:
+- url: /api
+tags:
+- name: System Administration
+  description: Administer the system, including database backups
+  summary: System Administration
+paths:
+  /cve-index:
+    get:
+      tags:
+      - System Administration
+      summary: Export the CVE index
+      description: 'The CVE index is a gzipped binary (.bin.gz) file.
+
+
+        To download the latest one from fwd.app:
+
+
+        `curl -vu <user>:<pass> https://fwd.app/api/cve-index -o cve-index.bin.gz`
+
+
+        The response includes a `Digest` header containing the file’s SHA-256 digest.'
+      operationId: getCveIndex
+      responses:
+        '200':
+          description: OK
+          content:
+            application/gzip:
+              schema:
+                type: string
+                format: byte
+      security:
+      - api_token: []
+    put:
+      tags:
+      - System Administration
+      summary: Import a new CVE index
+      description: 'Replaces the CVE index in use.
+
+
+        To upload a CVE index gzipped binary (.bin.gz) file downloaded from fwd.app:
+
+
+        `curl -vu <user>:<pass> https://<host>/api/cve-index?sha=<digest> -T cve-index.bin.gz`
+
+
+        The `sha` parameter is optional but recommended. The `<digest>` value can be found in the `Digest` response
+
+        header when a CVE index is downloaded from fwd.app.
+
+
+        **Note:** This operation is for on-premises deployments only.'
+      operationId: putCveIndex
+      parameters:
+      - name: sha
+        in: query
+        description: 'Optional SHA-256 digest (consisting of 64 hex digits) to use to verify the integrity of the CVE
+
+          index'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+              format: byte
+        required: true
+      responses:
+        '200':
+          description: OK
+          content: {}
+      security:
+      - api_token: []
+components:
+  securitySchemes:
+    api_token:
+      type: http
+      scheme: basic

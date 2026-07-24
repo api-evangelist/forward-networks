@@ -1,0 +1,1128 @@
+openapi: 3.2.0
+info:
+  title: 'Forward Networks: Complete Aliases Checks API'
+  description: Model and verify networks
+  contact:
+    email: support@forwardnetworks.com
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  version: '26.6'
+servers:
+- url: /api
+tags:
+- name: Checks
+  description: Enable or define automated checks that verify network policy and behavior
+  summary: Checks
+paths:
+  /predefinedChecks:
+    get:
+      tags:
+      - Checks
+      summary: Get available Predefined checks
+      operationId: getAvailablePredefinedChecks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AvailablePredefinedCheck'
+      security:
+      - api_token: []
+  /snapshots/{snapshotId}/checks:
+    get:
+      tags:
+      - Checks
+      summary: Get checks (with status)
+      operationId: getChecks
+      parameters:
+      - name: snapshotId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: 'Can be repeated to request multiple types (as in `?type=NQE&type=Predefined`) or omitted to request all
+
+          types.'
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/CheckType'
+      - name: priority
+        in: query
+        description: 'Can be repeated to request multiple priorities (as in `?priority=HIGH&priority=LOW`) or omitted to request
+
+          all priorities.'
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/CheckPriority'
+      - name: status
+        in: query
+        description: 'Can be repeated to request multiple statuses (as in `?status=FAIL&status=ERROR`) or omitted to request all
+
+          statuses.
+
+
+          **Note:** The response will never contain results with `status` NONE or PROCESSING. The server will wait to
+
+          respond, if necessary, until processing finishes or times out.'
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/CheckStatus'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NetworkCheckResult'
+        '409':
+          description: 'The system is currently processing this Snapshot.
+
+
+            Note: GET /networks/{networkId}/snapshots/latestProcessed can be used to determine when processing of the
+
+            latest Snapshot is done or to identify an alternate Snapshot that has already been processed.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+      security:
+      - api_token: []
+    post:
+      tags:
+      - Checks
+      summary: Add a check
+      description: Note that the returned NetworkCheckResult will never have status of type NONE or PROCESSING
+      operationId: addCheck
+      parameters:
+      - name: snapshotId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: persistent
+        in: query
+        description: Whether to associate check with any later snapshots (including future snapshots) too
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewNetworkCheck'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkCheckResult'
+        '409':
+          description: 'The system is currently processing this Snapshot.
+
+
+            Note: GET /networks/{networkId}/snapshots/latestProcessed can be used to determine when processing of the
+
+            latest Snapshot is done or to identify an alternate Snapshot that has already been processed.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+      security:
+      - api_token: []
+    delete:
+      tags:
+      - Checks
+      summary: Deactivate all checks
+      operationId: deactivateChecks
+      parameters:
+      - name: snapshotId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - api_token: []
+  /snapshots/{snapshotId}/checks/{checkId}:
+    get:
+      tags:
+      - Checks
+      summary: Get a check (with status)
+      description: Note that the returned NetworkCheckResults will never have status of type NONE or PROCESSING
+      operationId: getCheck
+      parameters:
+      - name: snapshotId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: checkId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkCheckResultWithDiagnosis'
+        '409':
+          description: 'The system is currently processing this Snapshot.
+
+
+            Note: GET /networks/{networkId}/snapshots/latestProcessed can be used to determine when processing of the
+
+            latest Snapshot is done or to identify an alternate Snapshot that has already been processed.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+      security:
+      - api_token: []
+    delete:
+      tags:
+      - Checks
+      summary: Deactivate a check
+      operationId: deactivateCheck
+      parameters:
+      - name: snapshotId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: checkId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - api_token: []
+components:
+  schemas:
+    DeviceFilter:
+      type: object
+      required:
+      - type
+      - value
+      properties:
+        type:
+          type: string
+          const: DeviceFilter
+        value:
+          type: string
+          examples:
+          - nyc-dc01-fw01
+      description: A filter that matches one device by name or all devices (using value "*")
+    SubnetLocationFilter:
+      type: object
+      required:
+      - type
+      - value
+      properties:
+        type:
+          type: string
+          const: SubnetLocationFilter
+        value:
+          type: string
+          examples:
+          - 10.10.10.64/30
+        host:
+          type: string
+          description: The hostname that resolves to the IP in `value` (metadata only; not used directly)
+          examples:
+          - testing.example.com
+        device:
+          type: string
+          description: The device at which the subnet is located
+          examples:
+          - nyc-dc01-rtr01
+      description: 'A filter that matches a specific IP address or IP subnet address at a specific location in the network. If
+
+        the IP address is a multicast group address, this filter matches on the locations of the corresponding
+
+        multicast Rendezvous Points (RPs) in the network.'
+    ReachabilityCheck:
+      type: object
+      required:
+      - checkType
+      - filters
+      properties:
+        checkType:
+          type: string
+          const: Reachability
+        filters:
+          $ref: '#/components/schemas/PathQuery'
+        headerFieldsWithDefaults:
+          type: array
+          items:
+            type: string
+            enum:
+            - ip_tos
+            - tp_src
+            - app_id
+            - url
+            - user_id
+          description: 'The header fields for which a default value is assumed if no valid is specified in the `from` clause.
+
+            Defaults to `["url"]`.'
+        noiseTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/NoiseType'
+          description: The noise types that should be included in the search results. Defaults to `[]`.
+    CheckPriority:
+      type: string
+      enum:
+      - NOT_SET
+      - LOW
+      - MEDIUM
+      - HIGH
+    CheckType:
+      type: string
+      enum:
+      - Isolation
+      - Reachability
+      - Existential
+      - QueryStringBased
+      - Predefined
+      - NQE
+    TunnelInterfaceFilter:
+      type: object
+      required:
+      - type
+      - value
+      properties:
+        type:
+          type: string
+          const: TunnelInterfaceFilter
+        value:
+          type: string
+          examples:
+          - nyc-dc01-rtr-01 ge3
+      description: 'A filter that matches one tunnel interface by name and has underlay semantics in the `from` or `to` property
+
+        of a `PathQuery`'
+    DeviceVrfFilter:
+      type: object
+      required:
+      - type
+      - device
+      - vrf
+      properties:
+        type:
+          type: string
+          const: DeviceVrfFilter
+        device:
+          type: string
+          examples:
+          - nyc-dc01-rtr-01
+        vrf:
+          type: string
+          examples:
+          - MY VRF
+      description: A filter that matches a device’s interfaces by VRF name
+    CheckStatus:
+      type: string
+      enum:
+      - NONE
+      - PASS
+      - FAIL
+      - ERROR
+      - TIMEOUT
+      - PROCESSING
+      - REQUIRES_ADDITIONAL_SNAPSHOT_PROCESSING
+    CheckDefinition:
+      type: object
+      required:
+      - checkType
+      properties:
+        checkType:
+          type: string
+          enum:
+          - Existential
+          - Isolation
+          - Reachability
+          - QueryStringBased
+          - Predefined
+          - NQE
+      oneOf:
+      - $ref: '#/components/schemas/ExistsCheck'
+      - $ref: '#/components/schemas/IsolationCheck'
+      - $ref: '#/components/schemas/ReachabilityCheck'
+      - $ref: '#/components/schemas/QueryStringCheck'
+      - $ref: '#/components/schemas/PredefinedCheck'
+      - $ref: '#/components/schemas/NqeCheck'
+      discriminator:
+        propertyName: checkType
+        mapping:
+          Existential: '#/components/schemas/ExistsCheck'
+          Isolation: '#/components/schemas/IsolationCheck'
+          Reachability: '#/components/schemas/ReachabilityCheck'
+          QueryStringBased: '#/components/schemas/QueryStringCheck'
+          Predefined: '#/components/schemas/PredefinedCheck'
+          NQE: '#/components/schemas/NqeCheck'
+    BypassFilter:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - DeviceFilter
+          - DeviceAliasFilter
+      oneOf:
+      - $ref: '#/components/schemas/DeviceFilter'
+      - $ref: '#/components/schemas/DeviceAliasFilter'
+      discriminator:
+        propertyName: type
+        mapping:
+          DeviceFilter: '#/components/schemas/DeviceFilter'
+          DeviceAliasFilter: '#/components/schemas/DeviceAliasFilter'
+    NotFilter:
+      type: object
+      required:
+      - type
+      properties:
+        clause:
+          type: object
+          description: A filter that would be permitted in the place of this NotFilter. Cannot be another NotFilter.
+        type:
+          type: string
+          const: NotFilter
+      description: A filter that inverts the filter in its `clause`
+    ExistsCheck:
+      type: object
+      required:
+      - checkType
+      - filters
+      properties:
+        checkType:
+          type: string
+          const: Existential
+        filters:
+          $ref: '#/components/schemas/PathQuery'
+        headerFieldsWithDefaults:
+          type: array
+          items:
+            type: string
+            enum:
+            - ip_tos
+            - tp_src
+            - app_id
+            - url
+            - user_id
+          description: 'The header fields for which a default value is assumed if no valid is specified in the `from` clause.
+
+            Defaults to `["url"]`.'
+        noiseTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/NoiseType'
+          description: The noise types that should be included in the search results. Defaults to `[]`.
+        returnPath:
+          type: string
+          enum:
+          - ANY
+          - SYMMETRIC
+    NewNetworkCheck:
+      type: object
+      required:
+      - definition
+      properties:
+        definition:
+          $ref: '#/components/schemas/CheckDefinition'
+        enabled:
+          type: boolean
+        name:
+          type: string
+        note:
+          type: string
+        perfMonitoringEnabled:
+          type: boolean
+          description: 'Whether performance monitoring is enabled for this check. Only supported for Existential intent checks.
+
+            Performance monitoring must be independently enabled for each device along the check’s path(s).'
+        priority:
+          $ref: '#/components/schemas/CheckPriority'
+        tags:
+          type: array
+          items:
+            type: string
+    HostFilter:
+      type: object
+      required:
+      - type
+      - value
+      properties:
+        type:
+          type: string
+          const: HostFilter
+        value:
+          type: string
+          examples:
+          - 10.10.10.10
+      description: A filter that matches hosts by hostname, IP subnet address, or MAC address
+    PredefinedCheck:
+      type: object
+      required:
+      - checkType
+      properties:
+        checkType:
+          type: string
+          const: Predefined
+        params:
+          type: object
+        predefinedCheckType:
+          $ref: '#/components/schemas/PredefinedCheckType'
+    VrfFilter:
+      type: object
+      required:
+      - type
+      - value
+      properties:
+        type:
+          type: string
+          const: VrfFilter
+        value:
+          type: string
+          description: A VRF name. Use `DeviceVrfFilter` instead for a (device, VRF) pair.
+          examples:
+          - MY VRF
+      description: A filter that matches device interfaces by VRF name
+    PacketFilter:
+      type: object
+      required:
+      - type
+      - values
+      properties:
+        type:
+          type: string
+          const: PacketFilter
+        values:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          examples:
+          - ipv4_dst:
+            - 10.10.10.0/24
+      description: A filter that matches a specific packet header value or range of values
+    LineRange:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+          description: The 0-based index of the first line in the range.
+          examples:
+          - 23
+        end:
+          type: integer
+          format: int32
+          description: The 0-based index of the last line in the range (inclusive).
+          examples:
+          - 27
+    PacketHeaderFilter:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - PacketFilter
+          - PacketAliasFilter
+          - NotFilter
+      oneOf:
+      - $ref: '#/components/schemas/PacketFilter'
+      - $ref: '#/components/schemas/PacketAliasFilter'
+      - $ref: '#/components/schemas/NotFilter'
+      discriminator:
+        propertyName: type
+        mapping:
+          PacketFilter: '#/components/schemas/PacketFilter'
+          PacketAliasFilter: '#/components/schemas/PacketAliasFilter'
+          NotFilter: '#/components/schemas/NotFilter'
+    HopFilter:
+      type: object
+      required:
+      - location
+      - transitType
+      properties:
+        headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PacketHeaderFilter'
+        location:
+          $ref: '#/components/schemas/HopLocationFilter'
+        transitType:
+          type: string
+          enum:
+          - through
+          - ingress
+          - egress
+    DiagnosisDetail:
+      type: object
+      properties:
+        query:
+          type: string
+        references:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiagnosisReference'
+    HostAliasFilter:
+      type: object
+      required:
+      - type
+      - value
+      properties:
+        type:
+          type: string
+          const: HostAliasFilter
+        value:
+          type: string
+          description: A Host Group name
+      description: A filter that matches any host in a Host Group
+    InterfaceFilter:
+      type: object
+      required:
+      - type
+      - value
+      properties:
+        type:
+          type: string
+          const: InterfaceFilter
+        value:
+          type: string
+          examples:
+          - nyc-dc01-fw01 eth1
+      description: A filter that matches one device interface by name
+    NqeCheck:
+      type: object
+      required:
+      - checkType
+      - queryId
+      properties:
+        checkType:
+          type: string
+          const: NQE
+        queryId:
+          type: string
+          examples:
+          - FQ_6ac3682c92a74b778d98584aea8afa5fe40f2150
+        params:
+          type: object
+          description: 'Values for each parameter declared in the query. The parameter values are specified as a JSON object, with
+
+            one property per parameter, where the property name matches the parameter name. The property value is the
+
+            JSON representation of the parameter value. The JSON representation of a parameter value depends on the type
+
+            of the value. For values of type `String`, `IpAddress`, `IpSubnet`, and `MacAddress`, the JSON
+
+            representation is a JSON string. For values of type `Number`, the value is an integral JSON number. For
+
+            values of type `Boolean`, the JSON representation is true or false. For values of type `List<T>`, the JSON
+
+            representation is an array of JSON values, each of which is a JSON representation for type `T`. For record
+
+            values, the JSON representation is a JSON object with corresponding properties whose values are JSON
+
+            representations corresponding to the properties'' types. For enumerations, the JSON representation is a JSON
+
+            string with the enum constant name. For `oneOf` values that contain data, the JSON representation is a JSON
+
+            object with two properties, `alternative` and `value`, where the `alternative` property contains the
+
+            alternative''s name (a string) and the `value` property is a JSON representation of the data associated with
+
+            this alternative.'
+          examples:
+          - mtuThreshold: 123
+            ntpServers:
+            - 10.22.2.3
+            - 192.33.4.1
+    NetworkCheckResultWithDiagnosis:
+      allOf:
+      - $ref: '#/components/schemas/NetworkCheckResult'
+      - type: object
+        properties:
+          diagnosis:
+            $ref: '#/components/schemas/CheckDiagnosis'
+    DeviceAliasFilter:
+      type: object
+      required:
+      - type
+      - value
+      properties:
+        type:
+          type: string
+          const: DeviceAliasFilter
+        value:
+          type: string
+          description: A Device Group name
+      description: A filter that matches any device in a Device Group
+    SecurityZoneFilter:
+      type: object
+      required:
+      - device
+      - type
+      - value
+      properties:
+        device:
+          type: string
+          examples:
+          - nyc-dc01-rtr-01
+        type:
+          type: string
+          const: SecurityZoneFilter
+        value:
+          type: string
+          examples:
+          - corp-trusted
+      description: 'A filter that matches one security zone on a firewall by name and can be used in the `from` or `to` property
+
+        of a `PathQuery`'
+    HopLocationFilter:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - DeviceFilter
+          - InterfaceFilter
+          - TunnelInterfaceFilter
+          - SecurityZoneFilter
+          - DeviceVrfFilter
+          - DeviceAliasFilter
+          - InterfaceAliasFilter
+          - VrfFilter
+          - NotFilter
+      oneOf:
+      - $ref: '#/components/schemas/DeviceFilter'
+      - $ref: '#/components/schemas/InterfaceFilter'
+      - $ref: '#/components/schemas/TunnelInterfaceFilter'
+      - $ref: '#/components/schemas/SecurityZoneFilter'
+      - $ref: '#/components/schemas/DeviceVrfFilter'
+      - $ref: '#/components/schemas/DeviceAliasFilter'
+      - $ref: '#/components/schemas/InterfaceAliasFilter'
+      - $ref: '#/components/schemas/VrfFilter'
+      - $ref: '#/components/schemas/NotFilter'
+      discriminator:
+        propertyName: type
+        mapping:
+          DeviceFilter: '#/components/schemas/DeviceFilter'
+          InterfaceFilter: '#/components/schemas/InterfaceFilter'
+          TunnelInterfaceFilter: '#/components/schemas/TunnelInterfaceFilter'
+          SecurityZoneFilter: '#/components/schemas/SecurityZoneFilter'
+          DeviceVrfFilter: '#/components/schemas/DeviceVrfFilter'
+          DeviceAliasFilter: '#/components/schemas/DeviceAliasFilter'
+          InterfaceAliasFilter: '#/components/schemas/InterfaceAliasFilter'
+          VrfFilter: '#/components/schemas/VrfFilter'
+          NotFilter: '#/components/schemas/NotFilter'
+    PredefinedCheckType:
+      type: string
+      enum:
+      - BGP_NEIGHBOR_ADJACENCY
+      - BGP_ROUTER_ID
+      - BGP_ROUTE_CONSISTENCY
+      - BGP_VPC_PARAMETER_CONSISTENCY
+      - EBGP_SELECTION_OVER_IBGP
+      - BGP_COMMUNITY_LIST
+      - NEXT_HOP_REACHABILITY
+      - NO_LOOP
+      - SHORTEST_PATH
+      - IP_UNIQUENESS
+      - HOSTNAME_CONSISTENCY
+      - HOSTNAME_UNIQUENESS
+      - VLAN_CONSISTENCY
+      - MTU_CONSISTENCY
+      - PORT_CHANNEL_CONSISTENCY
+      - DUPLEX_CONSISTENCY
+      - LINK_SPEED_CONSISTENCY
+      - SOFTWARE_VERSION_CONSISTENCY
+      - TRUNK_INTERFACE_WHITELIST
+      - VLAN_EXISTENCE
+      - LEARNED_MAC_CONSISTENCY
+      - FHRP_PEERING
+      - VPC_PARAMETER_CONSISTENCY
+      - VPC_INTERFACE_PARAMETER_CONSISTENCY
+      - VPC_DEDICATED_KEEPALIVE_LINK
+      - VPC_ROLE_PRIORITY
+      - SSH_RSA_KEY_LENGTH
+      - VPC_STP_PRIORITY
+      - VPC_MST_REGION_CONSISTENCY
+    ErrorInfo:
+      type: object
+      required:
+      - httpMethod
+      - apiUrl
+      - message
+      properties:
+        httpMethod:
+          type: string
+          examples:
+          - GET
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+        apiUrl:
+          type: string
+          examples:
+          - /api/version
+        message:
+          type: string
+          description: A description of the error
+        reason:
+          type: string
+    IsolationCheck:
+      type: object
+      required:
+      - checkType
+      - filters
+      properties:
+        checkType:
+          type: string
+          const: Isolation
+        filters:
+          $ref: '#/components/schemas/PathQuery'
+        headerFieldsWithDefaults:
+          type: array
+          items:
+            type: string
+            enum:
+            - ip_tos
+            - tp_src
+            - app_id
+            - url
+            - user_id
+          description: 'The header fields for which a default value is assumed if no valid is specified in the `from` clause.
+
+            Defaults to `["url"]`.'
+        noiseTypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/NoiseType'
+          description: The noise types that should be included in the search results. Defaults to `[]`.
+    CheckDiagnosis:
+      type: object
+      properties:
+        details:
+          type: array
+          items:
+            $ref: '#/components/schemas/DiagnosisDetail'
+        detailsIncomplete:
+          type: boolean
+        summary:
+          type: string
+    PacketAliasFilter:
+      type: object
+      required:
+      - type
+      - value
+      properties:
+        direction:
+          type: string
+          enum:
+          - src
+          - dst
+        type:
+          type: string
+          const: PacketAliasFilter
+        value:
+          type: string
+          description: A Packet Header Set name
+      description: 'A filter that matches any combination of packet header values that satisfy the criteria in a
+
+        Header Set'
+    NoiseType:
+      type: string
+      enum:
+      - WRONG_GATEWAY
+      - INADMISSIBLE
+      - NETWORK_OR_BROADCAST_ADDRESS
+      - TO_L2_INTERFACE_MAC
+      - GLEAN
+    EndpointFilter:
+      type: object
+      required:
+      - location
+      properties:
+        headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PacketHeaderFilter'
+        location:
+          $ref: '#/components/schemas/LocationFilter'
+        logicalNetwork:
+          type: string
+    NetworkCheckResult:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          examples:
+          - '2022-04-06T20:34:45.118Z'
+        creator:
+          type: string
+          description: 'The username of the user who created the check, or null if unknown or if the account was
+
+            deleted'
+          examples:
+          - mary
+        creatorId:
+          type: string
+        definition:
+          $ref: '#/components/schemas/CheckDefinition'
+        definedAt:
+          type: string
+          examples:
+          - '2022-04-06T20:34:45.118Z'
+        description:
+          type: string
+        editedAt:
+          type: string
+          examples:
+          - '2022-04-06T20:34:45.118Z'
+        editor:
+          type: string
+          description: 'The username of the user who last edited the check, or null if unknown, if the account was deleted, or if
+
+            the check hasn''t been edited'
+          examples:
+          - steven
+        editorId:
+          type: string
+        enabled:
+          type: boolean
+        executedAt:
+          type: string
+          examples:
+          - '2022-04-06T20:34:45.118Z'
+        executionDurationMillis:
+          type: integer
+          format: int64
+        id:
+          type: string
+        name:
+          type: string
+        note:
+          type: string
+        numViolations:
+          type: integer
+          format: int64
+        perfMonitoringEnabled:
+          type: boolean
+          description: 'Whether performance monitoring is enabled for this check. Only supported for Existential intent checks.
+
+            Performance monitoring must be independently enabled for each device along the check’s path(s).'
+        priority:
+          $ref: '#/components/schemas/CheckPriority'
+        status:
+          $ref: '#/components/schemas/CheckStatus'
+          description: 'Status of this check. `REQUIRES_ADDITIONAL_SNAPSHOT_PROCESSING` indicates that this check requires additional
+
+            Snapshot processing, such as advanced reachability computation, which can be triggered using [Trigger advanced
+
+            reachability computation](https://docs.fwd.app/latest/api/network-snapshots/compute-advanced-reachability/).'
+        tags:
+          type: array
+          items:
+            type: string
+    PathQuery:
+      type: object
+      properties:
+        bypass:
+          type: array
+          items:
+            $ref: '#/components/schemas/BypassFilter'
+        chain:
+          type: array
+          items:
+            $ref: '#/components/schemas/HopFilter'
+        flowTypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - VALID
+            - LOOP
+            - POTENTIAL_LOOP
+            - BLACKHOLE
+            - DROPPED
+            - INADMISSIBLE
+            - UNREACHABLE
+            - IGNORED
+            - UNDELIVERED
+        forwardingTypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - L2
+            - L3
+            - DIRECT_L2
+            - FABRIC_PATH
+            - VXLAN
+            - MCAST_IP
+            - DIRECT_IP
+            - MPLS
+            - L2_PBR
+            - L3_PBR
+        from:
+          $ref: '#/components/schemas/EndpointFilter'
+        mode:
+          type: string
+          const: PERMIT_ALL
+        to:
+          $ref: '#/components/schemas/EndpointFilter'
+    InterfaceAliasFilter:
+      type: object
+      required:
+      - type
+      - value
+      properties:
+        type:
+          type: string
+          const: InterfaceAliasFilter
+        value:
+          type: string
+          description: An Interface Group name
+      description: A filter that matches any device interface in an Interface Group
+    DiagnosisReference:
+      type: object
+      properties:
+        key:
+          type: string
+          description: A name or identifier associated with the reference, like a device or interface name.
+          examples:
+          - rtr-01 eth0
+        value:
+          type: string
+          description: 'The value associated with `key` that’s relevant to this violation, such as a link speed, MTU size, VLAN
+
+            range, or IP address.'
+          examples:
+          - 10.110.4.14
+        files:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/LineRange'
+          description: Relevant line ranges in files collected from the device.
+          examples:
+          - rtr-01,configuration,16.txt:
+            - start: 6
+              end: 6
+            - start: 22
+              end: 29
+    AvailablePredefinedCheck:
+      type: object
+      properties:
+        description:
+          type: string
+        name:
+          type: string
+        predefinedCheckType:
+          $ref: '#/components/schemas/PredefinedCheckType'
+    LocationFilter:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - HostFilter
+          - DeviceFilter
+          - InterfaceFilter
+          - TunnelInterfaceFilter
+          - SecurityZoneFilter
+          - DeviceVrfFilter
+          - HostAliasFilter
+          - DeviceAliasFilter
+          - InterfaceAliasFilter
+          - SubnetLocationFilter
+          - VrfFilter
+          - NotFilter
+      oneOf:
+      - $ref: '#/components/schemas/HostFilter'
+      - $ref: '#/components/schemas/DeviceFilter'
+      - $ref: '#/components/schemas/InterfaceFilter'
+      - $ref: '#/components/schemas/TunnelInterfaceFilter'
+      - $ref: '#/components/schemas/SecurityZoneFilter'
+      - $ref: '#/components/schemas/DeviceVrfFilter'
+      - $ref: '#/components/schemas/HostAliasFilter'
+      - $ref: '#/components/schemas/DeviceAliasFilter'
+      - $ref: '#/components/schemas/InterfaceAliasFilter'
+      - $ref: '#/components/schemas/SubnetLocationFilter'
+      - $ref: '#/components/schemas/VrfFilter'
+      - $ref: '#/components/schemas/NotFilter'
+      discriminator:
+        propertyName: type
+        mapping:
+          HostFilter: '#/components/schemas/HostFilter'
+          DeviceFilter: '#/components/schemas/DeviceFilter'
+          InterfaceFilter: '#/components/schemas/InterfaceFilter'
+          TunnelInterfaceFilter: '#/components/schemas/TunnelInterfaceFilter'
+          SecurityZoneFilter: '#/components/schemas/SecurityZoneFilter'
+          DeviceVrfFilter: '#/components/schemas/DeviceVrfFilter'
+          HostAliasFilter: '#/components/schemas/HostAliasFilter'
+          DeviceAliasFilter: '#/components/schemas/DeviceAliasFilter'
+          InterfaceAliasFilter: '#/components/schemas/InterfaceAliasFilter'
+          SubnetLocationFilter: '#/components/schemas/SubnetLocationFilter'
+          VrfFilter: '#/components/schemas/VrfFilter'
+          NotFilter: '#/components/schemas/NotFilter'
+    QueryStringCheck:
+      type: object
+      required:
+      - checkType
+      properties:
+        checkType:
+          type: string
+          const: QueryStringBased
+        forRequest:
+          type: string
+        value:
+          type: string
+  securitySchemes:
+    api_token:
+      type: http
+      scheme: basic

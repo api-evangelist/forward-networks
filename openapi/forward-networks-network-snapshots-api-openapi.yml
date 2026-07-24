@@ -1,0 +1,816 @@
+openapi: 3.2.0
+info:
+  title: 'Forward Networks: Complete Aliases Network Snapshots API'
+  description: Model and verify networks
+  contact:
+    email: support@forwardnetworks.com
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  version: '26.6'
+servers:
+- url: /api
+tags:
+- name: Network Snapshots
+  description: List or manage the network Snapshots collected from network devices
+  summary: Network Snapshots
+paths:
+  /networks/{networkId}/snapshots:
+    get:
+      tags:
+      - Network Snapshots
+      summary: List all Snapshots
+      operationId: listNetworkSnapshots
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: state
+        in: query
+        description: List only Snapshots in this state.
+        schema:
+          $ref: '#/components/schemas/SnapshotState'
+      - name: minSuccessfulDevices
+        in: query
+        description: List only Snapshots with at least this many successfully modeled devices.
+        schema:
+          type: integer
+          format: int32
+      - name: minSuccessfulDevicePct
+        in: query
+        description: List only Snapshots with at least this percentage of devices successfully modeled.
+        schema:
+          type: number
+          format: double
+      - name: maxCollectionFailureDevices
+        in: query
+        description: List only Snapshots with no more than this many devices from which collection has failed.
+        schema:
+          type: integer
+          format: int32
+      - name: maxCollectionFailureDevicePct
+        in: query
+        description: 'List only Snapshots with no more than this percentage of devices from which collection has
+
+          failed.'
+        schema:
+          type: number
+          format: double
+      - name: maxParsingFailureDevices
+        in: query
+        description: 'List only Snapshots with no more than this many devices for which parsing of collected data has
+
+          failed.'
+        schema:
+          type: integer
+          format: int32
+      - name: maxParsingFailureDevicePct
+        in: query
+        description: 'List only Snapshots with no more than this percentage of devices for which parsing of collected data has
+
+          failed.'
+        schema:
+          type: number
+          format: double
+      - name: limit
+        in: query
+        description: Maximum number of Snapshots desired
+        schema:
+          type: integer
+          format: int32
+      - name: includeArchived
+        in: query
+        description: Also include archived snapshots. Defaults to false if not provided.
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkSnapshots'
+      security:
+      - api_token: []
+    post:
+      tags:
+      - Network Snapshots
+      summary: Import a Snapshot
+      description: 'Imports a network Snapshot that was previously exported as a .zip file. If multiple Snapshot .zip files are
+
+        uploaded in a single request, they will be merged. They must not have any devices in common.'
+      operationId: createSnapshot
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - file
+              properties:
+                file:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                note:
+                  type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapshotInfo'
+      security:
+      - api_token: []
+  /networks/{networkId}/snapshots/latestProcessed:
+    get:
+      tags:
+      - Network Snapshots
+      summary: Get the latest processed Snapshot
+      description: 'Returns the latest processed Snapshot (the most recent one that''s currently prepared for
+
+        [path searches](https://docs.fwd.app/latest/api/path-search/) and
+
+        [new checks](https://docs.fwd.app/latest/api/checks/)).
+
+
+        Triggers processing of the latest Snapshot if it''s not already underway and the network has no processed
+
+        Snapshots.'
+      operationId: getLatestProcessedSnapshot
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Processing is complete for the identified Snapshot.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapshotInfo'
+        '404':
+          description: The network has no Snapshots.
+          content: {}
+        '409':
+          description: 'None of the Snapshots in the network are processed. Processing of the latest Snapshot has
+
+            begun.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+      security:
+      - api_token: []
+  /snapshots/{snapshotId}:
+    get:
+      tags:
+      - Network Snapshots
+      summary: Export a Snapshot
+      description: Exports a network Snapshot as a .zip file.
+      operationId: exportSnapshot
+      parameters:
+      - name: snapshotId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: only
+        in: query
+        description: Use `?only=CONFIG` to include only device configuration files.
+        schema:
+          type: string
+          const: CONFIG
+      responses:
+        '200':
+          description: OK
+          content: {}
+      security:
+      - api_token: []
+    post:
+      tags:
+      - Network Snapshots
+      summary: Export a Snapshot subset
+      description: 'Exports a network Snapshot as a .zip file, optionally limiting which devices are included and optionally
+
+        [obfuscating](https://docs.fwd.app/latest/application/settings/system/obfuscate-snapshot/) sensitive data.
+
+
+        To limit which devices are included, specify either `"includeDevices"` or `"excludeDevices"`. To obfuscate,
+
+        specify an `"obfuscationKey"`.'
+      operationId: exportSnapshotSubset
+      parameters:
+      - name: snapshotId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SnapshotExportParams'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content: {}
+      security:
+      - api_token: []
+    delete:
+      tags:
+      - Network Snapshots
+      summary: Delete a Snapshot
+      operationId: deleteSnapshot
+      parameters:
+      - name: snapshotId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - api_token: []
+  /snapshots/{snapshotId}?action=computeAdvancedReachability:
+    post:
+      tags:
+      - Network Snapshots
+      summary: Trigger advanced reachability computation
+      description: 'Requests advanced reachability computation for a Snapshot. The computation runs asynchronously; this endpoint
+
+        returns immediately. The Snapshot must have completed the reachability processing stage.'
+      operationId: computeAdvancedReachability
+      parameters:
+      - name: snapshotId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success
+          content: {}
+        '404':
+          description: The Snapshot was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        '409':
+          description: Prerequisite Snapshot processing has not yet completed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+      security:
+      - api_token: []
+  /snapshots/{snapshotId}/metrics:
+    get:
+      tags:
+      - Network Snapshots
+      summary: Get Snapshot metrics
+      description: Returns collection and processing health metrics of a Snapshot.
+      operationId: getSnapshotMetrics
+      parameters:
+      - name: snapshotId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully retrieved metrics for the Snapshot.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapshotMetrics'
+        '404':
+          description: 'The Snapshot was not found or its metrics were not found; the health metrics will be recomputed if the
+
+            Snapshot is reprocessed.'
+          content: {}
+      security:
+      - api_token: []
+components:
+  schemas:
+    Network:
+      type: object
+      required:
+      - id
+      - name
+      - orgId
+      properties:
+        id:
+          type: string
+        parentId:
+          type: string
+          description: 'The network from which this Workspace network was created. Absent if this network is not a
+
+            Workspace.'
+        name:
+          type: string
+          examples:
+          - My Network
+        orgId:
+          type: string
+        creator:
+          type: string
+          description: The username of the user who created the network, or null if the account was deleted
+          examples:
+          - mary
+        creatorId:
+          type: string
+          description: The id of the user who created the network, or null if the account was deleted
+          examples:
+          - '123'
+        createdAt:
+          type: string
+          examples:
+          - '2022-04-06T20:34:45.118Z'
+        created:
+          type: string
+          description: Deprecated for removal in release 26.7. Use `createdAt` instead.
+          examples:
+          - '2022-04-06T20:34:45.118Z'
+        note:
+          type: string
+          description: An optional network description.
+        retentionDays:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 365
+          description: 'The number of days without any use of this network after which it will be automatically deleted. Absent for
+
+            parent networks and permanent Workspace networks.'
+        secondsToExpiry:
+          type: integer
+          format: int64
+          description: 'Number of seconds without use before the network expires. Present for temporary Workspace
+
+            networks only.'
+    NetworkSnapshots:
+      allOf:
+      - $ref: '#/components/schemas/Network'
+      - type: object
+        required:
+        - snapshots
+        properties:
+          snapshots:
+            type: array
+            items:
+              $ref: '#/components/schemas/SnapshotInfo'
+    SnapshotMetrics:
+      type: object
+      properties:
+        collectionConcurrency:
+          type: integer
+          format: int32
+          examples:
+          - 16
+        collectionDuration:
+          type: integer
+          format: int64
+          examples:
+          - 1234
+        createdAt:
+          type: string
+          examples:
+          - '2022-04-06T20:34:45.118Z'
+        deviceCollectionFailures:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int32
+          description: 'Possible device error types during collection
+
+            *UNKNOWN*: Unknown error
+
+            *CONNECTION_TIMEOUT*: Connection to device timed out
+
+            *CONNECTION_REFUSED*: Connection to device refused
+
+            *AUTHENTICATION_FAILED*: Authentication failed
+
+            *KEY_EXCHANGE_FAILED*: Key exchange failed
+
+            *AUTHORIZATION_FAILED*: Authorization failed
+
+            *AVI_SHELL_AUTH_FAILED*: Avi authentication failed
+
+            *AVI_CONTROLLER_WITHOUT_HEALTHY_SERVICE_ENGINES*: No Avi Service Engines found
+
+            *NETWORK_UNREACHABLE*: Network not reachable
+
+            *IO_ERROR*: I/O error
+
+            *SESSION_CLOSED*: Session closed unexpectedly
+
+            *STATE_COLLECTION_FAILED*: State collection failed
+
+            *JUMP_SERVER_CONNECTION_TIMEOUT*: Jump server timed out
+
+            *JUMP_SERVER_PASSWORD_AUTH_FAILED*: Jump server auth failed
+
+            *JUMP_SERVER_CONNECTION_FAILED*: Jump server connection refused
+
+            *JUMP_SERVER_KEY_EXCHANGE_FAILED*: Jump server key exchange failed
+
+            *PROXY_SERVER_PING_FAILED*: Proxy ping failed
+
+            *PROXY_SERVER_PORT_REACHABILITY_FAILED*: Proxy port not reachable
+
+            *PROXY_SERVER_CONNECTION_FAILED*: Proxy connection refused
+
+            *PROXY_SERVER_AUTHENTICATION_FAILED*: Proxy authentication failed
+
+            *PRIV_PASSWORD_ERROR*: Privileged password failed
+
+            *UNSUPPORTED_VERSION*: Unsupported version
+
+            *DEVICE_TYPE_UNDETECTED*: Undetected device type
+
+            *WARN_TYPE_MISMATCH*: Device type mismatch
+
+            *DEVICE_IS_CHILD_CONTEXT*: Parent context required
+
+            *MANAGER_COLLECTOR_NOT_FOUND*: Collector manager error
+
+            *INCOMPLETE_SETUP*: Incomplete setup
+
+            *COLLECTION_NOT_FOUND*: Collection not found
+
+            *INFINITE_LOOP_IN_COMMAND_OUTPUT*: Collection stuck in loop
+
+            *MISSING_FILE*: File is missing
+
+            *UNSUPPORTED_VENDOR*: Vendor not supported
+
+            *COMMAND_DISABLED*: Required command is disabled
+
+            *APIC_CONFIG_COLLECTION_FAILED*: APIC config collection failed
+
+            *UNEXPECTED_KEY_EXCHANGE_MESSAGE*: Unexpected Key-Exchange message
+
+            *UNDISCOVERED_ACI_FABRIC*: ACI fabric node was not discovered by APIC
+
+            *SLOW_READ_RATE_DETECTED*: Read rate from the remote peer is too low
+
+            *COLLECTION_TIMED_OUT*: Collection timed out
+
+            *COLLECTION_CANCELED*: Collection canceled by user
+
+            *OPERATION_TIMED_OUT*: Operation timed out
+
+            *CERTIFICATE_CHECK_FAILED*: Certificate cannot be verified'
+        deviceProcessingFailures:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int32
+          description: 'Possible error types during processing
+
+            *LICENSE_EXHAUSTED*: License limit exceeded
+
+            *MISSING_SIGNATURE*: Missing signature
+
+            *DUPLICATE*: Duplicate device
+
+            *PARSER_EXCEPTION*: Couldn''t be parsed
+
+            *UNSUPPORTED_VENDOR*: Vendor not supported'
+        endpointCollectionFailures:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int32
+          description: 'Possible device error types during collection
+
+            *UNKNOWN*: Unknown error
+
+            *CONNECTION_TIMEOUT*: Connection to device timed out
+
+            *CONNECTION_REFUSED*: Connection to device refused
+
+            *AUTHENTICATION_FAILED*: Authentication failed
+
+            *KEY_EXCHANGE_FAILED*: Key exchange failed
+
+            *AUTHORIZATION_FAILED*: Authorization failed
+
+            *AVI_SHELL_AUTH_FAILED*: Avi authentication failed
+
+            *AVI_CONTROLLER_WITHOUT_HEALTHY_SERVICE_ENGINES*: No Avi Service Engines found
+
+            *NETWORK_UNREACHABLE*: Network not reachable
+
+            *IO_ERROR*: I/O error
+
+            *SESSION_CLOSED*: Session closed unexpectedly
+
+            *STATE_COLLECTION_FAILED*: State collection failed
+
+            *JUMP_SERVER_CONNECTION_TIMEOUT*: Jump server timed out
+
+            *JUMP_SERVER_PASSWORD_AUTH_FAILED*: Jump server auth failed
+
+            *JUMP_SERVER_CONNECTION_FAILED*: Jump server connection refused
+
+            *JUMP_SERVER_KEY_EXCHANGE_FAILED*: Jump server key exchange failed
+
+            *PROXY_SERVER_PING_FAILED*: Proxy ping failed
+
+            *PROXY_SERVER_PORT_REACHABILITY_FAILED*: Proxy port not reachable
+
+            *PROXY_SERVER_CONNECTION_FAILED*: Proxy connection refused
+
+            *PROXY_SERVER_AUTHENTICATION_FAILED*: Proxy authentication failed
+
+            *PRIV_PASSWORD_ERROR*: Privileged password failed
+
+            *UNSUPPORTED_VERSION*: Unsupported version
+
+            *DEVICE_TYPE_UNDETECTED*: Undetected device type
+
+            *WARN_TYPE_MISMATCH*: Device type mismatch
+
+            *DEVICE_IS_CHILD_CONTEXT*: Parent context required
+
+            *MANAGER_COLLECTOR_NOT_FOUND*: Collector manager error
+
+            *INCOMPLETE_SETUP*: Incomplete setup
+
+            *COLLECTION_NOT_FOUND*: Collection not found
+
+            *INFINITE_LOOP_IN_COMMAND_OUTPUT*: Collection stuck in loop
+
+            *MISSING_FILE*: File is missing
+
+            *UNSUPPORTED_VENDOR*: Vendor not supported
+
+            *COMMAND_DISABLED*: Required command is disabled
+
+            *APIC_CONFIG_COLLECTION_FAILED*: APIC config collection failed
+
+            *UNEXPECTED_KEY_EXCHANGE_MESSAGE*: Unexpected Key-Exchange message
+
+            *UNDISCOVERED_ACI_FABRIC*: ACI fabric node was not discovered by APIC
+
+            *SLOW_READ_RATE_DETECTED*: Read rate from the remote peer is too low
+
+            *COLLECTION_TIMED_OUT*: Collection timed out
+
+            *COLLECTION_CANCELED*: Collection canceled by user
+
+            *OPERATION_TIMED_OUT*: Operation timed out
+
+            *CERTIFICATE_CHECK_FAILED*: Certificate cannot be verified'
+        endpointProcessingFailures:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int32
+          description: 'Possible error types during processing
+
+            *LICENSE_EXHAUSTED*: License limit exceeded
+
+            *MISSING_SIGNATURE*: Missing signature
+
+            *DUPLICATE*: Duplicate device
+
+            *PARSER_EXCEPTION*: Couldn''t be parsed
+
+            *UNSUPPORTED_VENDOR*: Vendor not supported'
+        hostComputationStatus:
+          $ref: '#/components/schemas/ComputationStatus'
+          description: Host computation status
+          examples:
+          - SUCCESS
+        ipLocationIndexingStatus:
+          $ref: '#/components/schemas/ComputationStatus'
+          description: IP location indexing status
+          examples:
+          - SUCCESS
+        jumpServerCollectionConcurrency:
+          type: integer
+          format: int32
+        l2IndexingStatus:
+          $ref: '#/components/schemas/ComputationStatus'
+          description: L2 elements (vlans, LAN segments etc.) indexing status
+          examples:
+          - SUCCESS
+        numCollectionFailureDevices:
+          type: integer
+          format: int32
+        numCollectionFailureEndpoints:
+          type: integer
+          format: int32
+        numProcessingFailureDevices:
+          type: integer
+          format: int32
+        numProcessingFailureEndpoints:
+          type: integer
+          format: int32
+        numSuccessfulDevices:
+          type: integer
+          format: int32
+          examples:
+          - 401
+        numSuccessfulEndpoints:
+          type: integer
+          format: int32
+          examples:
+          - 234
+        pathSearchIndexingStatus:
+          $ref: '#/components/schemas/ComputationStatus'
+          description: End-to-end path indexing status
+          examples:
+          - SUCCESS
+        processingDuration:
+          type: integer
+          format: int64
+          examples:
+          - 5678
+        searchIndexingStatus:
+          $ref: '#/components/schemas/ComputationStatus'
+          description: Object search indexing status
+          examples:
+          - SUCCESS
+        snapshotId:
+          type: string
+        snapshotState:
+          $ref: '#/components/schemas/SnapshotState'
+          description: Current state of the Snapshot
+          examples:
+          - PROCESSING
+    SnapshotExportParams:
+      type: object
+      properties:
+        includeDevices:
+          type: array
+          items:
+            type: string
+          description: Must be absent if `"excludeDevices"` is specified.
+          examples:
+          - - device-1
+            - device-2
+            - pa*
+        excludeDevices:
+          type: array
+          items:
+            type: string
+          description: Must be absent if `"includeDevices"` is specified.
+          examples:
+          - - device-6
+            - device-7
+            - pa*
+        obfuscationKey:
+          type: string
+          description: 'If specified, sensitive data will be
+
+            [obfuscated](https://docs.fwd.app/latest/application/settings/system/obfuscate-snapshot/).'
+          examples:
+          - a-sEcr3t-kEy-th4t-i$-h4rd-to-guE$$
+        obfuscateNames:
+          type: boolean
+          description: 'default: `false`. If specified, `"obfuscationKey"` must also be specified.'
+          examples:
+          - false
+    SnapshotState:
+      type: string
+      enum:
+      - UNPACKING
+      - UNPROCESSED
+      - PROCESSING
+      - PROCESSED
+      - FAILED
+      - CANCELED
+      - TIMED_OUT
+      - ARCHIVED
+      - RESTORING
+      - RESTORE_FAILED
+    SnapshotInfo:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          examples:
+          - '2019-09-20T17:40:34.567Z'
+        id:
+          type: string
+        isDraft:
+          type: boolean
+          examples:
+          - false
+        note:
+          type: string
+        parentSnapshotId:
+          type: string
+        processedAt:
+          type: string
+          examples:
+          - '2019-09-20T18:17:36.789Z'
+        processingTrigger:
+          type: string
+          enum:
+          - UNKNOWN
+          - COLLECTION
+          - IMPORT
+          - REPROCESS
+          - FORK
+        restoredAt:
+          type: string
+          examples:
+          - '2019-09-20T17:40:34.567Z'
+        state:
+          $ref: '#/components/schemas/SnapshotState'
+        advancedReachabilityState:
+          type: string
+          description: State of advanced reachability computation for this Snapshot.
+          enum:
+          - UNPROCESSED
+          - PROCESSING
+          - PROCESSED
+          - FAILED
+          - CANCELED
+          - TIMED_OUT
+        favoritedBy:
+          type: string
+          description: 'The username of the user who most recently marked this Snapshot as a favorite if it''s currently a favorite
+
+            and the user account hasn’t been deleted.'
+          examples:
+          - mary
+        favoritedByUserId:
+          type: string
+          description: 'The id of the user who most recently marked this Snapshot as a favorite if it’s currently a
+
+            favorite.'
+          examples:
+          - '1234'
+        favoritedAt:
+          type: string
+          description: 'When this Snapshot was most recently marked as a favorite if it’s currently a favorite. A favorite Snapshot
+
+            will never be automatically deleted, regardless of its network’s Snapshot retention policy.'
+          examples:
+          - '2019-09-30T19:48:59.481Z'
+    ErrorInfo:
+      type: object
+      required:
+      - httpMethod
+      - apiUrl
+      - message
+      properties:
+        httpMethod:
+          type: string
+          examples:
+          - GET
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+        apiUrl:
+          type: string
+          examples:
+          - /api/version
+        message:
+          type: string
+          description: A description of the error
+        reason:
+          type: string
+    ComputationStatus:
+      type: string
+      enum:
+      - UNKNOWN
+      - FAILURE
+      - SUCCESS
+      - CANCELED
+  securitySchemes:
+    api_token:
+      type: http
+      scheme: basic

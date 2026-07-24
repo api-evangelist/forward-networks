@@ -1,0 +1,539 @@
+openapi: 3.2.0
+info:
+  title: 'Forward Networks: Complete Aliases Network Collection API'
+  description: Model and verify networks
+  contact:
+    email: support@forwardnetworks.com
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  version: '26.6'
+servers:
+- url: /api
+tags:
+- name: Network Collection
+  description: Configure configuration and state collection from network devices
+  summary: Network Collection
+paths:
+  /collector-tasks:
+    post:
+      tags:
+      - Network Collection
+      summary: Add a collector task
+      description: 'Signals the system to begin collecting a new network Snapshot as soon as a Collector is available. Use [Get a
+
+        collector task](https://docs.fwd.app/latest/api/network-collection/get-collector-task/) to check a task’s
+
+        status.
+
+
+        A network can have only one network collection task running at a time.'
+      operationId: addCollectorTask
+      parameters:
+      - name: networkId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+          const: NETWORK_COLLECTION
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartCollectionResponse'
+      security:
+      - api_token: []
+  /collector-tasks/{taskId}:
+    get:
+      tags:
+      - Network Collection
+      summary: Get a collector task
+      description: 'Get information about a recent collector task. Use
+
+        [Add a collector task](https://docs.fwd.app/latest/api/network-collection/add-collector-task/) to create a task.'
+      operationId: getCollectorTask
+      parameters:
+      - name: taskId
+        in: path
+        description: The identifier of the collector task to retrieve
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectorTask'
+      security:
+      - api_token: []
+  /networks/{networkId}/cancelcollection:
+    post:
+      tags:
+      - Network Collection
+      summary: Cancel an in-progress network collection
+      operationId: cancelCollect
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - api_token: []
+  /networks/{networkId}/collection-schedules:
+    get:
+      tags:
+      - Network Collection
+      summary: Get a network’s collection schedules
+      operationId: getCollectionSchedules
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionSchedules'
+      security:
+      - api_token: []
+    post:
+      tags:
+      - Network Collection
+      summary: Add a network collection schedule
+      operationId: addCollectionSchedule
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionScheduleDefinition'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionSchedule'
+      security:
+      - api_token: []
+  /networks/{networkId}/collection-schedules/{scheduleId}:
+    get:
+      tags:
+      - Network Collection
+      summary: Get a network collection schedule
+      operationId: getCollectionSchedule
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: scheduleId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionSchedule'
+      security:
+      - api_token: []
+    put:
+      tags:
+      - Network Collection
+      summary: Replace a network collection schedule
+      operationId: replaceCollectionSchedule
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: scheduleId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionSchedule'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - api_token: []
+    delete:
+      tags:
+      - Network Collection
+      summary: Delete a network collection schedule
+      operationId: deleteCollectionSchedule
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: scheduleId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+  /networks/{networkId}/collector/status:
+    get:
+      tags:
+      - Network Collection
+      summary: Get the status of a network’s collector
+      description: '**Deprecated for removal in release 26.10.** Use [Get a collector
+
+        task](https://docs.fwd.app/latest/api/network-collection/get-collector-task/) instead to check the status of
+
+        a task.'
+      operationId: getCollectorState
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectorState'
+      deprecated: true
+      security:
+      - api_token: []
+  /networks/{networkId}/startcollection:
+    post:
+      tags:
+      - Network Collection
+      summary: Trigger a network collection
+      description: '**Deprecated for removal in release 26.10.** Use
+
+        [Add a collector task](https://docs.fwd.app/latest/api/network-collection/add-collector-task/) instead.'
+      operationId: collect
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+      deprecated: true
+      security:
+      - api_token: []
+components:
+  schemas:
+    CollectorTask:
+      type: object
+      properties:
+        id:
+          type: string
+          description: System-assigned identifier of this task.
+          examples:
+          - P1234
+        type:
+          type: string
+          description: The type of the task
+          examples:
+          - NETWORK_COLLECTION
+        status:
+          type: string
+          description: The current status of the task.
+          examples:
+          - SUCCEEDED
+          enum:
+          - QUEUED
+          - RUNNING
+          - SUCCEEDED
+          - FAILED
+          - TIMED_OUT
+          - CANCELED
+        networkId:
+          type: string
+          description: The ID of the network this task is associated with
+          examples:
+          - '123'
+        networkName:
+          type: string
+          description: The name of the network this task is associated with
+          examples:
+          - My Network
+        note:
+          type: string
+          description: An optional user-provided note about the task.
+        createdById:
+          type: string
+          description: 'The ID of the user who created this entity, if known. *Note*: The referenced user account might no longer
+
+            exist since an administrator can delete accounts.'
+          examples:
+          - '456'
+        createdBy:
+          type: string
+          description: 'The ID of the user who created this entity, if known. *Note*: The referenced user account might no longer
+
+            exist since an administrator can delete accounts.'
+          examples:
+          - '456'
+        createdAt:
+          type: string
+          description: When this entity was created, if known.
+          examples:
+          - '2024-10-27T16:30:45.111Z'
+        startedAt:
+          type: string
+          description: When this task started. Absent if the task hasn’t started yet.
+          examples:
+          - '2024-10-27T21:44:51.345Z'
+        finishedAt:
+          type: string
+          description: When this task finished. Absent if the task hasn’t finished yet.
+          examples:
+          - '2024-10-28T00:41:31.123Z'
+        canceledById:
+          type: string
+          description: The ID of the user who canceled this task, if the `status` is CANCELED.
+          examples:
+          - '456'
+        canceledBy:
+          type: string
+          description: 'The username of the user who canceled this task, if the `status` is CANCELED. Absent if the user account has
+
+            been deleted.'
+          examples:
+          - me@example.com
+    StartCollectionResponse:
+      type: object
+      properties:
+        taskId:
+          type: string
+          description: The system-assigned identifier of the new network collection task.
+          examples:
+          - P1234
+    CollectorState:
+      type: object
+      required:
+      - isSet
+      properties:
+        isSet:
+          type: boolean
+          description: Whether the network has a Collector assigned
+        busyStatus:
+          $ref: '#/components/schemas/CollectorStatus'
+          description: Absent if the network has no Collector assigned
+    CollectionScheduleDefinition:
+      type: object
+      required:
+      - enabled
+      - daysOfTheWeek
+      properties:
+        enabled:
+          type: boolean
+          description: Whether the schedule is currently in effect
+          examples:
+          - true
+        timeZone:
+          $ref: '#/components/schemas/TimeZone'
+          description: 'The time zone used to identify day boundaries and to interpret `times`, `startAt`, and `endAt`. Defaults to
+
+            the organization’s preferred time zone.'
+          examples:
+          - America/Los_Angeles
+        daysOfTheWeek:
+          type: array
+          items:
+            type: integer
+            format: int32
+          description: 'The days of the week, Sun (0), Mon (1), …, Sat (6), on which the collection schedule is active.
+
+            Never empty.'
+          examples:
+          - - 0
+            - 2
+            - 4
+            - 6
+        times:
+          type: array
+          items:
+            type: string
+          description: 'Times of the day (in "HH:mm" format) at which network collections should start. Either `times` or
+
+            `periodInSeconds` must be specified—not both. Never empty if present.'
+          examples:
+          - - 01:00
+            - 06:00
+            - '11:00'
+            - '16:00'
+            - '21:00'
+        periodInSeconds:
+          type: integer
+          format: int32
+          description: 'How many seconds after the start of the most recent collection that the next one should begin. Either
+
+            `times` or `periodInSeconds` must be specified—not both. Must be positive.
+
+
+            **Note**: A Collector can only perform one network collection at a time. A scheduled collection will be
+
+            delayed if it cannot start on time due to an earlier collection running long.'
+          examples:
+          - 1800
+        startAt:
+          type: string
+          description: 'The time of day (in "HH:mm" format) at which a rate-based collection schedule begins. Must be absent if
+
+            `times` is specified. Defaults to the start of the day (00:00).'
+          examples:
+          - 05:30
+        endAt:
+          type: string
+          description: 'The time of day (in "HH:mm" format) at which a rate-based collection schedule ends. Must be absent if
+
+            `times` is specified. Defaults to the end of the day.'
+          examples:
+          - '20:00'
+    CollectorStatus:
+      type: string
+      enum:
+      - OFFLINE
+      - IDLE
+      - TESTING
+      - COLLECTING
+      - COLLECTION_QUEUED
+      - DISCOVERING
+      - UPDATING
+    CollectionSchedule:
+      allOf:
+      - type: object
+        required:
+        - id
+        properties:
+          id:
+            type: string
+            description: Network-specific collection schedule identifier
+            examples:
+            - '1'
+      - $ref: '#/components/schemas/CollectionScheduleDefinition'
+    TimeZone:
+      type: string
+      enum:
+      - UTC
+      - Africa/Accra
+      - Africa/Addis_Ababa
+      - Africa/Algiers
+      - Africa/Cairo
+      - Africa/Dar_es_Salaam
+      - Africa/Johannesburg
+      - Africa/Khartoum
+      - Africa/Kinshasa
+      - Africa/Lagos
+      - Africa/Luanda
+      - Africa/Maputo
+      - America/Argentina/Buenos_Aires
+      - America/Bogota
+      - America/Chicago
+      - America/Denver
+      - America/Lima
+      - America/Los_Angeles
+      - America/Mexico_City
+      - America/New_York
+      - America/Phoenix
+      - America/Santiago
+      - America/Sao_Paulo
+      - America/Toronto
+      - Asia/Amman
+      - Asia/Baghdad
+      - Asia/Bangkok
+      - Asia/Beirut
+      - Asia/Dhaka
+      - Asia/Ho_Chi_Minh
+      - Asia/Hong_Kong
+      - Asia/Jakarta
+      - Asia/Jerusalem
+      - Asia/Karachi
+      - Asia/Kolkata
+      - Asia/Kuala_Lumpur
+      - Asia/Manila
+      - Asia/Riyadh
+      - Asia/Seoul
+      - Asia/Shanghai
+      - Asia/Singapore
+      - Asia/Tehran
+      - Asia/Tokyo
+      - Asia/Yangon
+      - Australia/Adelaide
+      - Australia/Eucla
+      - Australia/Perth
+      - Australia/Sydney
+      - Europe/Belgrade
+      - Europe/Berlin
+      - Europe/Istanbul
+      - Europe/London
+      - Europe/Madrid
+      - Europe/Moscow
+      - Europe/Paris
+      - Europe/Rome
+    CollectionSchedules:
+      type: object
+      properties:
+        schedules:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionSchedule'
+  securitySchemes:
+    api_token:
+      type: http
+      scheme: basic

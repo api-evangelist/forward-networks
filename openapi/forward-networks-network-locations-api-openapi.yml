@@ -1,0 +1,696 @@
+openapi: 3.2.0
+info:
+  title: 'Forward Networks: Complete Aliases Network Locations API'
+  description: Model and verify networks
+  contact:
+    email: support@forwardnetworks.com
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  version: '26.6'
+servers:
+- url: /api
+tags:
+- name: Network Locations
+  description: Get, create, update, or delete a network's user-defined locations
+  summary: Network Locations
+paths:
+  /networks/{networkId}/atlas:
+    get:
+      tags:
+      - Network Locations
+      summary: Get device locations
+      description: 'The response is a JSON object that maps device names to their location ids.
+
+
+        Sample response: `{"atl-edge-fw01": "2", "ny-edge-fw2": "1"}`'
+      operationId: getAtlas
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+      security:
+      - api_token: []
+    patch:
+      tags:
+      - Network Locations
+      summary: Update device locations
+      description: 'The request is a JSON object that maps device names to their new location ids.
+
+
+        Sample request: `{"atl-edge-fw01": "2", "ny-edge-fw2": "1"}`'
+      operationId: updateAtlas
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties:
+                type: string
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+  /networks/{networkId}/locations:
+    get:
+      tags:
+      - Network Locations
+      summary: Get a network’s locations
+      operationId: getLocations
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+      security:
+      - api_token: []
+    post:
+      tags:
+      - Network Locations
+      summary: Create a network location
+      operationId: addLocation
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewLocation'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+      security:
+      - api_token: []
+    put:
+      tags:
+      - Network Locations
+      summary: Create network locations
+      description: 'Creates multiple locations at once. Can be helpful when first setting up a network.
+
+
+        Fails (as a precautionary measure) with 409 Conflict if the network already has any network locations.'
+      operationId: putLocations
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Location'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+        '409':
+          description: Occurs (as a precautionary measure) if the network already has any network locations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+      security:
+      - api_token: []
+    patch:
+      tags:
+      - Network Locations
+      summary: Create or update network locations
+      description: 'Any patches that specify an existing location’s `id` will update the existing location. Any other patches
+
+        will each create a new location. Patches are applied sequentially.'
+      operationId: patchLocations
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/LocationBulkPatch'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+  /networks/{networkId}/locations/{locationId}:
+    get:
+      tags:
+      - Network Locations
+      summary: Get a network location
+      operationId: getLocation
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+      security:
+      - api_token: []
+    patch:
+      tags:
+      - Network Locations
+      summary: Update a network location
+      description: 'All JSON properties in the request body are optional. Include only the properties you wish to
+
+        change.'
+      operationId: patchLocation
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationPatch'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+      security:
+      - api_token: []
+    delete:
+      tags:
+      - Network Locations
+      summary: Delete a network location
+      description: When a location with devices is deleted, all of its devices will be unassigned.
+      operationId: deleteLocation
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+  /networks/{networkId}/locations/{locationId}/clusters:
+    get:
+      tags:
+      - Network Locations
+      summary: Get the device clusters at a location
+      operationId: getDeviceClusters
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DeviceCluster'
+      security:
+      - api_token: []
+    post:
+      tags:
+      - Network Locations
+      summary: Create a device cluster at a location
+      operationId: addDeviceCluster
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceCluster'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+    put:
+      tags:
+      - Network Locations
+      summary: Replace all device clusters at a location
+      operationId: putDeviceClusters
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/DeviceCluster'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+  /networks/{networkId}/locations/{locationId}/clusters/{clusterName}:
+    get:
+      tags:
+      - Network Locations
+      summary: Get a device cluster
+      operationId: getDeviceCluster
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: clusterName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceCluster'
+      security:
+      - api_token: []
+    patch:
+      tags:
+      - Network Locations
+      summary: Update a device cluster
+      description: 'All JSON properties in the request body are optional. Include only the properties you wish to
+
+        change.'
+      operationId: updateDeviceCluster
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: clusterName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceClusterUpdate'
+        required: true
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+    delete:
+      tags:
+      - Network Locations
+      summary: Delete a device cluster
+      operationId: deleteDeviceCluster
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: clusterName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+components:
+  schemas:
+    NewLocation:
+      type: object
+      required:
+      - name
+      - lat
+      - lng
+      properties:
+        id:
+          type: string
+          description: If absent or null, a numeric identifier will be assigned
+          examples:
+          - dyt-a
+        name:
+          type: string
+          examples:
+          - Dayton DC
+        lat:
+          type: number
+          format: double
+          description: A latitude (geographic coordinate), specified as an angle from -90 to +90 degrees
+          examples:
+          - 39.8113
+        lng:
+          type: number
+          format: double
+          description: A longitude (geographic coordinate), specified as an angle from -180 to +180 degrees
+          examples:
+          - -84.2722
+        city:
+          type: string
+          description: 'Name of the closest city (for display purposes only). Required if `adminDivision` or `country`
+
+            is specified.'
+          examples:
+          - Dayton
+        adminDivision:
+          type: string
+          description: 'Name of the administrative division (district, province, region, state, territory, etc.) that `city` is in
+
+            (for display purposes only)'
+          examples:
+          - Ohio
+        country:
+          type: string
+          description: 'Name of the country that `city` is located in (for display purposes only). Required if `city`
+
+            is specified.'
+          examples:
+          - United States
+    LocationBulkPatch:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifier of the location to update. Required if `name` is absent.
+          examples:
+          - dyt-a
+        name:
+          type: string
+          description: Name of the location to update or create. Required if `id` is absent.
+          examples:
+          - Dayton DC
+        lat:
+          type: number
+          format: double
+          description: A latitude (geographic coordinate), specified as an angle from -90 to +90 degrees
+          examples:
+          - 39.8113
+        lng:
+          type: number
+          format: double
+          description: A longitude (geographic coordinate), specified as an angle from -180 to +180 degrees
+          examples:
+          - -84.2722
+        city:
+          type: string
+          description: Name of the closest city (for display purposes only)
+          examples:
+          - Dayton
+        adminDivision:
+          type: string
+          description: 'Name of the administrative division (district, province, region, state, territory, etc.) that `city` is in
+
+            (for display purposes only)'
+          examples:
+          - Ohio
+        country:
+          type: string
+          description: Name of the country that `city` is located in (for display purposes only)
+          examples:
+          - United States
+    DeviceClusterUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          examples:
+          - atl-edge
+        devices:
+          type: array
+          items:
+            type: string
+          examples:
+          - - atl-edge-fw01
+            - atl-edge-fw02
+            - atl-isp-edge01
+            - atl-isp-edge02
+    LocationPatch:
+      type: object
+      properties:
+        id:
+          type: string
+          examples:
+          - dyt-a
+        name:
+          type: string
+          examples:
+          - Dayton DC
+        lat:
+          type: number
+          format: double
+          description: A latitude (geographic coordinate), specified as an angle from -90 to +90 degrees
+          examples:
+          - 39.8113
+        lng:
+          type: number
+          format: double
+          description: A longitude (geographic coordinate), specified as an angle from -180 to +180 degrees
+          examples:
+          - -84.2722
+        city:
+          type: string
+          description: Name of the closest city (for display purposes only)
+          examples:
+          - Dayton
+        adminDivision:
+          type: string
+          description: 'Name of the administrative division (district, province, region, state, territory, etc.) that `city` is in
+
+            (for display purposes only)'
+          examples:
+          - Ohio
+        country:
+          type: string
+          description: Name of the country that `city` is located in (for display purposes only)
+          examples:
+          - United States
+    Location:
+      type: object
+      required:
+      - id
+      - name
+      - lat
+      - lng
+      properties:
+        id:
+          type: string
+          examples:
+          - dyt-a
+        name:
+          type: string
+          examples:
+          - Dayton DC
+        lat:
+          type: number
+          format: double
+          description: A latitude (geographic coordinate), specified as an angle from -90 to +90 degrees
+          examples:
+          - 39.8113
+        lng:
+          type: number
+          format: double
+          description: A longitude (geographic coordinate), specified as an angle from -180 to +180 degrees
+          examples:
+          - -84.2722
+        city:
+          type: string
+          description: 'Name of the closest city (for display purposes only). Required if `adminDivision` or `country`
+
+            is specified.'
+          examples:
+          - Dayton
+        adminDivision:
+          type: string
+          description: 'Name of the administrative division (district, province, region, state, territory, etc.) that `city` is in
+
+            (for display purposes only)'
+          examples:
+          - Ohio
+        country:
+          type: string
+          description: 'Name of the country that `city` is located in (for display purposes only). Required if `city`
+
+            is specified.'
+          examples:
+          - United States
+    DeviceCluster:
+      type: object
+      required:
+      - name
+      - devices
+      properties:
+        name:
+          type: string
+          examples:
+          - atl-edge
+        devices:
+          type: array
+          items:
+            type: string
+          examples:
+          - - atl-edge-fw01
+            - atl-edge-fw02
+            - atl-isp-edge01
+            - atl-isp-edge02
+    ErrorInfo:
+      type: object
+      required:
+      - httpMethod
+      - apiUrl
+      - message
+      properties:
+        httpMethod:
+          type: string
+          examples:
+          - GET
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+        apiUrl:
+          type: string
+          examples:
+          - /api/version
+        message:
+          type: string
+          description: A description of the error
+        reason:
+          type: string
+  securitySchemes:
+    api_token:
+      type: http
+      scheme: basic

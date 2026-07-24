@@ -1,0 +1,943 @@
+openapi: 3.2.0
+info:
+  title: 'Forward Networks: Complete Aliases NQE API'
+  description: Model and verify networks
+  contact:
+    email: support@forwardnetworks.com
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  version: '26.6'
+servers:
+- url: /api
+tags:
+- name: NQE
+  description: Ask the Network Query Engine for structured, vendor-agnostic network information
+  summary: NQE
+paths:
+  /networks/{networkId}/nqe-executions:
+    post:
+      tags:
+      - NQE
+      summary: Request an NQE query execution
+      description: 'Submits an NQE query to run asynchronously against a Snapshot of the given Network. Returns an `executionKey`
+
+        that identifies the execution for subsequent status and result requests.'
+      operationId: addNqeQueryExecution
+      x-position: 2
+      parameters:
+      - name: networkId
+        in: path
+        description: The ID of the Network on which to execute the query.
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/SnapshotId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NqeExecutionRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NqeExecutionResponse'
+        '400':
+          description: 'The query could not be executed. If there''s a problem with the NQE query itself, such as a parse error,
+
+            `errors` will include diagnostic information with line numbers.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NqeErrorInfo'
+      security:
+      - api_token: []
+  /networks/{networkId}/nqe-executions/{executionKey}:
+    get:
+      tags:
+      - NQE
+      summary: Get NQE query execution status
+      description: 'Returns the current status of an NQE query execution. When it completes normally, the `outcome` will be `OK` and
+
+        the result can then be retrieved using [Get NQE query execution
+
+        result](https://docs.fwd.app/latest/api/nqe/get-nqe-execution-result/). When the query has completed with an
+
+        `outcome` of `USER_ERROR`, the response includes an `error` that contains the diagnostic output.
+
+
+        Poll this endpoint until the execution is complete. We recommend polling no more than once every 5 seconds. If
+
+        you need lower latency than polling allows, consider using the synchronous
+
+        [Run an NQE query](https://docs.fwd.app/latest/api/nqe/run-nqe-query/) to obtain its result in a single request
+
+        instead.
+
+
+        An `executionKey` remains valid until the next major release of Forward Enterprise; afterwards,
+
+        this endpoint returns a 404 error for that key.'
+      operationId: getNqeExecutionStatus
+      x-position: 3
+      parameters:
+      - name: networkId
+        in: path
+        description: The ID of the Network the execution belongs to.
+        required: true
+        schema:
+          type: string
+      - name: executionKey
+        in: path
+        description: The `executionKey` returned when the query execution was requested.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NqeExecutionStatus'
+        '404':
+          description: 'No execution was found for the given `networkId` and `executionKey`. This happens if the network has been
+
+            deleted, if the key is unknown, or if it has expired following a major release of Forward Enterprise.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+      security:
+      - api_token: []
+  /networks/{networkId}/nqe-executions/{executionKey}/result:
+    get:
+      tags:
+      - NQE
+      summary: Get NQE query execution result
+      description: 'Returns the result of an NQE query execution whose `status` is `COMPLETED` and `outcome` is `OK`. The response
+
+        contains the rows produced by the query in the `items` property; use the `offset` and `limit` query parameters
+
+        to page through large result sets.
+
+
+        An `executionKey` remains valid until the next major release of Forward Enterprise; afterwards,
+
+        this endpoint returns a 404 error for that key.'
+      operationId: getNqeExecutionResult
+      x-position: 4
+      parameters:
+      - name: networkId
+        in: path
+        description: The ID of the Network the result belongs to.
+        required: true
+        schema:
+          type: string
+      - name: executionKey
+        in: path
+        description: The `executionKey` returned when the query execution was requested.
+        required: true
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: 'Zero-based index of the first row to return. Use together with `limit` to page through large result
+
+          sets.'
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: limit
+        in: query
+        description: 'Maximum number of rows to return in this response. When omitted, no limit is applied and all
+
+          remaining rows from `offset` onward are returned.'
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: 'The JSON response contains the query result rows in the `items` property.
+
+
+            If you wish to consume rows incrementally, without loading the entire result set into memory at once, send
+
+            the `Accept: application/jsonl` header to get the result in the JSON Lines (newline-delimited JSON) format.
+
+            The response will contain one query result row per line.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NqeRunResult'
+            application/jsonl:
+              itemSchema:
+                $ref: '#/components/schemas/NqeRecord'
+            application/x-ndjson:
+              itemSchema:
+                $ref: '#/components/schemas/NqeRecord'
+        '400':
+          description: 'No result is available because the execution''s `outcome` is not `OK`. For example, the query
+
+            encountered a runtime error (`USER_ERROR`), exceeded its time limit (`TIMED_OUT`), or failed
+
+            due to an unexpected internal error (`SYSTEM_ERROR`).
+
+            [Retrieve the execution status](https://docs.fwd.app/latest/api/nqe/get-nqe-execution-status/) to see the
+
+            `outcome` and, for a `USER_ERROR`, the associated error details.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        '404':
+          description: 'No execution was found for the given `networkId` and `executionKey`. This happens if the network has been
+
+            deleted, if the key is unknown, or if it has expired following a major release of Forward Enterprise.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        '409':
+          description: The query execution is still in progress and has no `outcome` yet, so no result is available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+      security:
+      - api_token: []
+  /nqe:
+    post:
+      tags:
+      - NQE
+      summary: Run an NQE query
+      operationId: runNqeQuery
+      x-position: 1
+      parameters:
+      - name: networkId
+        in: query
+        description: The ID of the Network to query. Required unless the `snapshotId` parameter is provided.
+        schema:
+          type: string
+      - $ref: '#/components/parameters/SnapshotId'
+      requestBody:
+        description: 'In the example request body, up to 100 rows are requested, starting from row 20, from the results consisting
+
+          of all the rows, sorted by the `Name` column in ascending order, and limiting to those rows whose `Name`
+
+          property contains `MyDeviceName`. Note that the sample JSON object contains both the `query` and `queryId`
+
+          properties and therefore is NOT a valid request. If you use this example for testing, then make sure to remove
+
+          one of them. The example `parameters` object is only there as an example. It is not needed for either of the
+
+          referenced queries. The referenced query must define parameters `mtuThreshold` of type `Integer` and
+
+          `ntpServers` of type `List<IpAddress>` for these values to be valid.'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NqeQueryRunRequest'
+        required: true
+      responses:
+        '200':
+          description: 'The response contains the query''s results in the `items` property. The `totalNumItems` could be different
+
+            than the length of `items` if a filter is used or if the total size of the rows would exceed the maximum
+
+            page size of 400MB.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NqeRunResult'
+        '400':
+          description: 'The query did not complete successfully. For example, the query could not be parsed, the column filters
+
+            were invalid, or the query timed out or was cancelled during execution. The response will contain
+
+            `completionType`, `errors`, and `snapshotId` properties that provide detailed information on the errors. See
+
+            model for more information. Note that a response with a 400 code can happen for other errors, such as a lack
+
+            of permission to execute the query, or a request that specified a Query ID for a deleted query without also
+
+            specifying a Commit ID. In such cases, the `completionType`, `errors`, and `snapshotId` properties will be
+
+            omitted from the response.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NqeErrorInfo'
+      security:
+      - api_token: []
+  /nqe-diffs/{before}/{after}:
+    post:
+      tags:
+      - NQE
+      summary: Compare NQE query results
+      description: Identifies differences in the results of an NQE query for two Snapshots of a network.
+      operationId: getNqeQueryDiff
+      x-position: 6
+      parameters:
+      - name: before
+        in: path
+        description: The ID for the Snapshot to base the diff on.
+        required: true
+        schema:
+          type: string
+      - name: after
+        in: path
+        description: The ID for the Snapshot to diff against the base Snapshot.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: 'The `queryId` property contains a Query ID of a query in NQE Library (this can be found in the information
+
+          callout of a query listed in the Queries pane). The `commitId` property contains a Commit ID of the query
+
+          identified by `queryId` (this can also be found in either the information callout in the Queries pane, or in
+
+          the callout in the Versions view dropdown). Use `commitId` to run a specific version of the query. The
+
+          `options` property is optional and can be used to refine the results and/or specify the JSON format. In the
+
+          sample object below, `options` requests up to 100 rows, starting from row 20, from the results consisting of
+
+          all the rows, sorted by `Name` column in ascending order and limited to those rows whose `Name` property
+
+          contains `ATL`, rendered with JSON arrays and objects instead of strings. The `options` property also allows
+
+          for sorting and filtering on the diff change type column. To do this, set the `columnName` value on either the
+
+          `sortBy` or `columnFilters` property to `ChangeType`. It has three possible values: `MODIFIED`, `ADDED`, or
+
+          `DELETED`. The `parameters` property can be omitted if the query has no declared parameters. If the query
+
+          declares parameters, the `parameters` property should contain a JSON object providing the values for the
+
+          parameters to use while executing the query for this request. The provided parameter values must match the
+
+          parameter types declared in the NQE query.'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NqeDiffRequest'
+        required: true
+      responses:
+        '200':
+          description: The response contains the query's diff results in the `rows` property.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NqeDiffResult'
+        '400':
+          description: 'The diff request did not complete successfully. For example, the query indicated by `queryId` could be
+
+            invalid, the `options` for the query were invalid, the query and/or diff timed out or was cancelled during
+
+            execution, or the user does not have permission to execute the query.'
+          content: {}
+      security:
+      - api_token: []
+  /nqe/queries:
+    get:
+      tags:
+      - NQE
+      summary: List all NQE queries
+      operationId: getNqeQueries
+      x-position: 7
+      parameters:
+      - name: dir
+        in: query
+        description: 'If specified, include only queries in the given directory. The directory must start and end with a forward
+
+          slash, such as `/L3/Advanced/`.'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NqeQuery'
+      security:
+      - api_token: []
+components:
+  schemas:
+    NqeDiffRequest:
+      type: object
+      required:
+      - queryId
+      properties:
+        queryId:
+          type: string
+          description: The query identifier of the query to run, referenced by its NQE Library Query ID.
+          examples:
+          - FQ_ac651cb2901b067fe7dbfb511613ab44776d8029
+        commitId:
+          type: string
+          description: 'Version of the query identified by `queryId` to run. Omit to run the latest version. Required if the query
+
+            identified by `queryId` has been deleted.'
+          examples:
+          - 84f84b0c0a0a1805ddff0ca5451c2c55c58605e5
+        options:
+          $ref: '#/components/schemas/NqeQueryOptions'
+    NqeErrorInfo:
+      type: object
+      required:
+      - httpMethod
+      - apiUrl
+      - message
+      properties:
+        completionType:
+          type: string
+          enum:
+          - FINISHED
+          - CANCELED
+          - TIMED_OUT
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/NqeQueryError'
+        snapshotId:
+          type: string
+          description: The ID of the Snapshot the query was run against.
+          examples:
+          - '101'
+        httpMethod:
+          type: string
+          examples:
+          - GET
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+        apiUrl:
+          type: string
+          examples:
+          - /api/version
+        message:
+          type: string
+          description: A description of the error
+        reason:
+          type: string
+    NqeDiffResult:
+      type: object
+      properties:
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/NqeDiffEntry'
+          description: 'The NQE query diff''s rows, as a list of objects. Each object represents either an added row, a deleted row,
+
+            or a modified row. In the case of a modified row, the before and after rows are matched up by their values
+
+            on the key columns for the before and after tables. In particular, the key columns are the smallest set of
+
+            left-most columns that uniquely identify rows within the before table and the after table.'
+        totalNumRows:
+          type: integer
+          format: int32
+          description: 'The number of diff rows that would be present if there were no limit. If there are column filters, then it is the
+
+            number of rows that satisfy the column filters (if there were no limit).'
+    NqeExecutionResponse:
+      allOf:
+      - type: object
+        required:
+        - executionKey
+        properties:
+          executionKey:
+            type: string
+            description: 'An opaque identifier for this query execution. Use this key in subsequent requests to [Get NQE execution
+
+              status](https://docs.fwd.app/latest/api/nqe/get-nqe-execution-status/) and eventually to
+
+              [Get NQE query execution result](https://docs.fwd.app/latest/api/nqe/get-nqe-execution-result/).'
+      - $ref: '#/components/schemas/NqeExecutionStatus'
+    NqeExecutionRequest:
+      type: object
+      properties:
+        query:
+          type: string
+          description: 'The source code of the query to run. Used to directly run a query. Exactly one of `queryId` or `query` must be
+
+            provided.'
+          examples:
+          - 'foreach d in network.devices select { Name: d.name }'
+        queryId:
+          type: string
+          description: 'The Query ID of a committed query in NQE Library. Used to run a query identified by its Query ID. Exactly one of
+
+            `queryId` or `query` must be provided. This identifier can be found in the information callout in the Queries pane
+
+            or the Versions view dropdown.'
+          examples:
+          - FQ_ac651cb2901b067fe7dbfb511613ab44776d8029
+        commitId:
+          type: string
+          description: 'A Commit ID of the query identified by the `queryId` property. Used to run a specific version of a committed
+
+            query. Omit to run the latest version. Required if the query identified by `queryId` has been deleted. This
+
+            identifier can be found in the information callout in the Queries pane or the Versions view dropdown.'
+          examples:
+          - 84f84b0c0a0a1805ddff0ca5451c2c55c58605e5
+        parameters:
+          type: object
+          description: 'Values for each parameter declared in the query. Can be omitted if the query has no declared parameters. The
+
+            parameter values are specified as a JSON object, with one property per parameter, where the property name matches
+
+            the parameter name. The property value is the JSON representation of the parameter value. The JSON representation
+
+            of a parameter value depends on the type of the value. For values of type `String`, `IpAddress`, `IpSubnet`, and
+
+            `MacAddress`, the JSON representation is a JSON string. For values of type `Number`, the value is an integral JSON
+
+            number. For values of type `Boolean`, the JSON representation is true or false. For values of type `List<T>`, the
+
+            JSON representation is an array of JSON values, each of which is a JSON representation for type `T`. For record
+
+            values, the JSON representation is a JSON object with corresponding properties whose values are JSON
+
+            representations corresponding to the properties'' types. For enumerations, the JSON representation is a JSON string
+
+            with the enum constant name. For `oneOf` values that contain data, the JSON representation is a JSON object with
+
+            two properties, `alternative` and `value`, where the `alternative` property contains the alternative''s name (a
+
+            string) and the `value` property is a JSON representation of the data associated with this alternative.'
+          examples:
+          - mtuThreshold: 123
+            ntpServers:
+            - 10.22.2.3
+            - 192.33.4.1
+        columnFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ColumnFilter'
+          description: 'A collection of conditions on column values for filtering the results. A row matches the array of `columnFilters`
+
+            if the row matches all of the `columnFilters`, in which case it is kept in the results.'
+        sortKeys:
+          type: array
+          items:
+            $ref: '#/components/schemas/SortOrder'
+          description: Specifies how results should be sorted.
+    NqeQueryError:
+      type: object
+      properties:
+        location:
+          $ref: '#/components/schemas/TextRegion'
+          description: The region in the original query that caused the error.
+        message:
+          type: string
+          description: The error's message.
+    NqeExecutionStatus:
+      type: object
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          description: 'The current state of the query execution:
+
+            - `SUBMITTED`: the query has been accepted and is queued, but execution has not yet begun.
+
+            - `EXECUTING`: the query is actively running.
+
+            - `COMPLETED`: the query is no longer running. Check `outcome` to determine how it completed.'
+          enum:
+          - SUBMITTED
+          - EXECUTING
+          - COMPLETED
+        outcome:
+          type: string
+          description: "The outcome of the query execution. Present only when `status` is `COMPLETED`.\n- `OK`: the execution finished successfully and produced a result. The result can be retrieved using\n  [Get NQE query execution result](https://docs.fwd.app/latest/api/nqe/get-nqe-execution-result/).\n- `USER_ERROR`: the execution terminated due to an error in the query itself (for example, a runtime error\n  in the NQE code). See `error` for diagnostic information.\n- `TIMED_OUT`: the execution was automatically terminated because it exceeded `timeoutMinutes`.\n- `SYSTEM_ERROR`: the execution terminated due to an unexpected internal error."
+          enum:
+          - OK
+          - SYSTEM_ERROR
+          - TIMED_OUT
+          - USER_ERROR
+        millisExecuting:
+          type: integer
+          format: int64
+          description: 'The total time, in milliseconds, that the query has spent executing. This timer starts when
+
+            `status` transitions to `EXECUTING` and does not include any time spent queued beforehand. Absent when
+
+            `status` is `SUBMITTED`.'
+        rowsProduced:
+          type: integer
+          format: int64
+          description: 'The number of rows produced by the query so far. This count may increase as execution progresses. Absent when
+
+            `status` is `SUBMITTED`.'
+        timeoutMinutes:
+          type: integer
+          format: int64
+          description: 'The maximum duration, in minutes, that the query is allowed to run before it is automatically
+
+            terminated. If execution exceeds this limit, the query completes with `outcome` `TIMED_OUT`.'
+        error:
+          $ref: '#/components/schemas/NqeQueryError'
+          description: Diagnostic output describing why the query failed. Present only when `outcome` is `USER_ERROR`.
+    NqeQueryOptions:
+      type: object
+      properties:
+        offset:
+          type: integer
+          format: int32
+          description: (optional) The number of initial rows to skip. Defaults to 0. Cannot be negative.
+          examples:
+          - 20
+        limit:
+          type: integer
+          format: int32
+          description: '(optional) The maximum number of rows to return. Defaults to 1,000. Must be positive.
+
+            Cannot exceed 10,000.'
+          examples:
+          - 100
+        sortBy:
+          $ref: '#/components/schemas/SortOrder'
+          description: (optional) Specifies how results should be sorted.
+        columnFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ColumnFilter'
+          description: '(optional) A collection of conditions on column values for filtering the results. A row matches the array of
+
+            `columnFilters` if the row matches all of the `columnFilters`, in which case it is kept in the results.'
+          examples:
+          - - columnName: Name
+              value: MyDeviceName
+        itemFormat:
+          type: string
+          description: '(optional) Specifies how each row in the results should be rendered.
+
+
+            If set to `JSON`, then complex values are rendered as JSON arrays and records.
+
+            If set to `LEGACY`, then complex values in the row are rendered as strings.
+
+
+            A complex value is one that is not a scalar (such as a number, string, enum value, date, etc.) and is not a list
+
+            of scalar values.
+
+
+            **Note:** The `LEGACY` format is deprecated and will be removed in release 26.9.'
+          examples:
+          - JSON
+          default: JSON
+          enum:
+          - JSON
+          - LEGACY
+    NqeDiffEntry:
+      type: object
+      properties:
+        after:
+          $ref: '#/components/schemas/NqeRecord'
+          description: The row returned by the query against the 'after' snapshot. Not present if `type` is `DELETED`.
+        before:
+          $ref: '#/components/schemas/NqeRecord'
+          description: The row returned by the query against the 'before' snapshot. Not present if `type` is `ADDED`.
+        type:
+          type: string
+          description: 'Describes the type of difference between `before` and `after`:
+
+            * If `MODIFIED`, then both `before` and `after` will be present, but will differ in at least one property;
+
+            * If `ADDED`, then only `after` will be present;
+
+            * If `DELETED`, then only `before` will be present.'
+          enum:
+          - ADDED
+          - DELETED
+          - MODIFIED
+      description: Represents a diff entry between two records returned by the same NQE query.
+    NqeQuery:
+      type: object
+      properties:
+        queryId:
+          type: string
+          description: The ID of the query
+          examples:
+          - FQ_ac651cb2901b067fe7dbfb511613ab44776d8029
+        repository:
+          type: string
+          examples:
+          - ORG
+          enum:
+          - FWD
+          - ORG
+        path:
+          type: string
+          description: The unique path of the query, including its name, in the latest commit
+          examples:
+          - /L2/MtuConsistency
+        intent:
+          type: string
+          description: The intent of the query in the latest commit
+    NqeQueryRunRequest:
+      type: object
+      properties:
+        query:
+          type: string
+          description: 'The source code of the query to run. Used to directly run a query. Exactly one of `queryId` or `query` must be
+
+            provided.'
+          examples:
+          - 'foreach d in network.devices select { Name: d.name }'
+        queryId:
+          type: string
+          description: 'The Query ID of a committed query in NQE Library. Used to run a query identified by its Query ID. Exactly one of
+
+            `queryId` or `query` must be provided. This identifier can be found in the information callout in the Queries pane
+
+            or the Versions view dropdown.'
+          examples:
+          - FQ_ac651cb2901b067fe7dbfb511613ab44776d8029
+        commitId:
+          type: string
+          description: 'A Commit ID of the query identified by the `queryId` property. Used to run a specific version of a committed
+
+            query. Omit to run the latest version. Required if the query identified by `queryId` has been deleted. This
+
+            identifier can be found in the information callout in the Queries pane or the Versions view dropdown.'
+          examples:
+          - 84f84b0c0a0a1805ddff0ca5451c2c55c58605e5
+        queryOptions:
+          $ref: '#/components/schemas/NqeQueryOptions'
+          description: (optional) Options to refine and display the results.
+        parameters:
+          type: object
+          description: 'Values for each parameter declared in the query. Can be omitted if the query has no declared parameters. The
+
+            parameter values are specified as a JSON object, with one property per parameter, where the property name matches
+
+            the parameter name. The property value is the JSON representation of the parameter value. The JSON representation
+
+            of a parameter value depends on the type of the value. For values of type `String`, `IpAddress`, `IpSubnet`, and
+
+            `MacAddress`, the JSON representation is a JSON string. For values of type `Number`, the value is an integral JSON
+
+            number. For values of type `Boolean`, the JSON representation is true or false. For values of type `List<T>`, the
+
+            JSON representation is an array of JSON values, each of which is a JSON representation for type `T`. For record
+
+            values, the JSON representation is a JSON object with corresponding properties whose values are JSON
+
+            representations corresponding to the properties'' types. For enumerations, the JSON representation is a JSON string
+
+            with the enum constant name. For `oneOf` values that contain data, the JSON representation is a JSON object with
+
+            two properties, `alternative` and `value`, where the `alternative` property contains the alternative''s name (a
+
+            string) and the `value` property is a JSON representation of the data associated with this alternative.'
+          examples:
+          - mtuThreshold: 123
+            ntpServers:
+            - 10.22.2.3
+            - 192.33.4.1
+    NqeRunResult:
+      type: object
+      properties:
+        snapshotId:
+          type: string
+          description: The ID of the Snapshot that the query was run against.
+          examples:
+          - '101'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/NqeRecord'
+          description: 'The query''s results, as a list of objects. Each object corresponds to a row returned by the query, and is an
+
+            object with properties of simple values, where a simple value is either a basic value or a list of basic values. A
+
+            basic value is either a number, boolean, string, or null.'
+          examples:
+          - - boolField: true
+              numField: 1
+              nullField: null
+              stringField: string
+              listField:
+              - 1
+              - 2
+              - 3
+        totalNumItems:
+          type: integer
+          format: int64
+          description: 'The total number of items in the query''s results. This number could be different than the length of `items` if a
+
+            filter is used.'
+    NqeRecord:
+      type: object
+      description: 'A row returned by the query. Each property value is either a basic value or an array of basic values. A basic value is
+
+        a number, a boolean, a string, or null.'
+      examples:
+      - boolField: true
+        numField: 1
+        nullField: null
+        stringField: string
+        listField:
+        - 1
+        - 2
+        - 3
+    ColumnFilter:
+      type: object
+      required:
+      - operator
+      properties:
+        operator:
+          type: string
+          enum:
+          - DEFAULT
+          - IS_BETWEEN
+      oneOf:
+      - $ref: '#/components/schemas/DefaultColumnFilter'
+      - $ref: '#/components/schemas/BetweenColumnFilter'
+      discriminator:
+        propertyName: operator
+        mapping:
+          DEFAULT: '#/components/schemas/DefaultColumnFilter'
+          IS_BETWEEN: '#/components/schemas/BetweenColumnFilter'
+    BetweenColumnFilter:
+      type: object
+      required:
+      - columnName
+      - operator
+      properties:
+        columnName:
+          type: string
+          description: The name of a column to filter on.
+          examples:
+          - Name
+        lowerBound:
+          type: string
+          description: 'A value (in its string representation) to limit on inclusively from below. Required if ''upperBound'' is
+
+            omitted.'
+          examples:
+          - '2023-07-30T08:27:16Z'
+        operator:
+          type: string
+          const: IS_BETWEEN
+        upperBound:
+          type: string
+          description: 'A value (in its string representation) to limit on inclusively from above. Required if ''lowerBound'' is
+
+            omitted.'
+          examples:
+          - '2025-07-30T08:27:16Z'
+    DefaultColumnFilter:
+      type: object
+      required:
+      - columnName
+      properties:
+        columnName:
+          type: string
+          description: The name of a column to filter on.
+          examples:
+          - Name
+        operator:
+          type: string
+          const: DEFAULT
+        value:
+          type: string
+          description: A value (in its string representation) to match on.
+          examples:
+          - ATL
+    TextPosition:
+      type: object
+      properties:
+        character:
+          type: integer
+          format: int32
+          description: Position on the line (by number of characters, starting at 0)
+        line:
+          type: integer
+          format: int32
+          description: Line number (starting at 0)
+    ErrorInfo:
+      type: object
+      required:
+      - httpMethod
+      - apiUrl
+      - message
+      properties:
+        httpMethod:
+          type: string
+          examples:
+          - GET
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+        apiUrl:
+          type: string
+          examples:
+          - /api/version
+        message:
+          type: string
+          description: A description of the error
+        reason:
+          type: string
+    TextRegion:
+      type: object
+      properties:
+        start:
+          $ref: '#/components/schemas/TextPosition'
+          description: The region's starting position (starting at (0, 0)).
+        end:
+          $ref: '#/components/schemas/TextPosition'
+          description: The region's ending position.
+    SortOrder:
+      type: object
+      required:
+      - columnName
+      properties:
+        columnName:
+          type: string
+          description: The name of a column to sort on.
+          examples:
+          - Name
+        order:
+          type: string
+          description: (optional) Either `ASC` or `DESC` to sort ascending or descending, respectively. Defaults to `ASC`.
+          examples:
+          - ASC
+          enum:
+          - ASC
+          - DESC
+  parameters:
+    SnapshotId:
+      name: snapshotId
+      in: query
+      description: An optional Snapshot id. If omitted, the network’s latest processed Snapshot is used.
+      schema:
+        type: string
+  securitySchemes:
+    api_token:
+      type: http
+      scheme: basic

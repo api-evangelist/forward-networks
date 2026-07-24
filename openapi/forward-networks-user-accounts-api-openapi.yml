@@ -1,0 +1,245 @@
+openapi: 3.2.0
+info:
+  title: 'Forward Networks: Complete Aliases User Accounts API'
+  description: Model and verify networks
+  contact:
+    email: support@forwardnetworks.com
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  version: '26.6'
+servers:
+- url: /api
+tags:
+- name: User Accounts
+  description: Manage user accounts
+  summary: User Accounts
+paths:
+  /users:
+    get:
+      tags:
+      - User Accounts
+      summary: Get all user accounts
+      operationId: getUsers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+      security:
+      - api_token: []
+    post:
+      tags:
+      - User Accounts
+      summary: Create a user account
+      description: Creates a new `LOCAL` user account.
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewUser'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      security:
+      - api_token: []
+  /users/{userId}:
+    get:
+      tags:
+      - User Accounts
+      summary: Get a user account
+      operationId: getUser
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      security:
+      - api_token: []
+    patch:
+      tags:
+      - User Accounts
+      summary: Update a user account
+      description: 'All JSON properties in the request body are optional. Include only the properties you wish to
+
+        change.'
+      operationId: updateUser
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPatch'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      security:
+      - api_token: []
+    delete:
+      tags:
+      - User Accounts
+      summary: Delete a user account
+      description: '**Warning**: This operation *cannot* be undone.'
+      operationId: deleteUser
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+          content: {}
+      security:
+      - api_token: []
+components:
+  schemas:
+    NewUser:
+      type: object
+      required:
+      - email
+      - password
+      properties:
+        email:
+          type: string
+          examples:
+          - me@example.com
+        username:
+          type: string
+          description: Defaults to the value of `email`
+          examples:
+          - me@example.com
+        password:
+          type: string
+          examples:
+          - zF4H+K;5]qE~%9G=nbAk
+        isSupport:
+          type: boolean
+          description: Defaults to `false`
+          examples:
+          - false
+        enabled:
+          type: boolean
+          description: Defaults to `true`
+          examples:
+          - true
+    User:
+      type: object
+      required:
+      - id
+      - username
+      - enabled
+      - authSource
+      properties:
+        id:
+          type: string
+          description: A system-generated identifier that can be used in API requests to manage this account
+          examples:
+          - '55555'
+        username:
+          type: string
+          description: The identifier used to authenticate (log in) with this account
+          examples:
+          - me@example.com
+        email:
+          type: string
+          description: The email address at which this user wishes to receive system-generated emails
+          examples:
+          - me@example.com
+        enabled:
+          type: boolean
+          description: Whether authentication (login and API use) is currently permitted for this user account
+        authSource:
+          type: string
+          description: How this user authenticates. `LOCAL` accounts exist only in the Forward Platform.
+          examples:
+          - SAML
+          enum:
+          - LOCAL
+          - TACACS
+          - SAML
+          - LDAP
+        externalGroups:
+          type: array
+          items:
+            type: string
+          description: 'The names of any LDAP or SSO (SAML) groups to which this account belongs. Updated each time this user
+
+            authenticates.'
+          examples:
+          - - netops
+        isSupport:
+          type: boolean
+          description: 'Whether this account belongs to Forward Networks support staff. `true` excludes the account from statistics
+
+            shown on the Engagement dashboard.'
+        lastActive:
+          type: string
+          description: The approximate time of the most recent authenticated request from this account
+          examples:
+          - '2024-12-31T23:59:59.789Z'
+    UserPatch:
+      type: object
+      properties:
+        email:
+          type: string
+          examples:
+          - me@example.com
+        username:
+          type: string
+          description: Changes the username of a user whose `authSource` is "LOCAL"
+          examples:
+          - me@example.com
+        password:
+          type: string
+          description: 'Assigns a new temporary password to a user whose `authSource` is "LOCAL". The user will be prompted to
+
+            choose a new password when they log in with this password.'
+          examples:
+          - zF4H+K;5]qE~%9G=nbAk
+        isSupport:
+          type: boolean
+          examples:
+          - false
+        enabled:
+          type: boolean
+          examples:
+          - true
+    Users:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+  securitySchemes:
+    api_token:
+      type: http
+      scheme: basic

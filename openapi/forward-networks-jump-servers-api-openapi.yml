@@ -1,0 +1,368 @@
+openapi: 3.2.0
+info:
+  title: 'Forward Networks: Complete Aliases Jump Servers API'
+  description: Model and verify networks
+  contact:
+    email: support@forwardnetworks.com
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  version: '26.6'
+servers:
+- url: /api
+tags:
+- name: Jump Servers
+  description: Configure jump servers to assist in reaching network devices
+  summary: Jump Servers
+paths:
+  /networks/{networkId}/jumpServers:
+    get:
+      tags:
+      - Jump Servers
+      summary: Get all jump servers
+      description: Substitutes a system-generated identifier for each sensitive `password` and `sshKey`.
+      operationId: getJumpServers
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StoredJumpServer'
+      security:
+      - api_token: []
+    post:
+      tags:
+      - Jump Servers
+      summary: Create a jump server
+      operationId: createJumpServer
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewJumpServer'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JumpServer'
+      security:
+      - api_token: []
+  /networks/{networkId}/jumpServers/{jumpServerId}:
+    patch:
+      tags:
+      - Jump Servers
+      summary: Update a jump server
+      description: 'All JSON properties in the request body are optional. Include only the properties you wish to
+
+        change.'
+      operationId: editJumpServer
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: jumpServerId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JumpServerUpdate'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - api_token: []
+    delete:
+      tags:
+      - Jump Servers
+      summary: Delete a jump server
+      operationId: deleteJumpServer
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: jumpServerId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+      - api_token: []
+components:
+  schemas:
+    NewJumpServer:
+      type: object
+      required:
+      - host
+      - username
+      properties:
+        host:
+          type: string
+          examples:
+          - 10.121.7.14
+        port:
+          type: integer
+          format: int32
+          description: defaults to 22
+          examples:
+          - 23
+        username:
+          type: string
+          examples:
+          - admin
+        password:
+          type: string
+          description: Either this or `sshKey` is required
+          examples:
+          - my-s3cr3t-p4s$w0rd
+        sshKey:
+          type: string
+          description: 'SSH private key for authentication. Either this or `password` is required. Requires `supportsPortForwarding`
+
+            to be true.'
+          examples:
+          - '-----BEGIN RSA PRIVATE KEY-----
+
+            MIIPIQIBAzCCDtoGCSqGSIb3DQEHAa…'
+        sshCert:
+          type: string
+          description: 'SSH user certificate for authentication. Applicable only for certificate based authentication and requires
+
+            `sshKey` to be provided.'
+          examples:
+          - ssh-rsa-cert-v01@openssh.com AAAAHHNzaC1yc2EtY2VydC12MDFAb3BlbnNzaC5jb20AAA…
+        supportsPortForwarding:
+          type: boolean
+          description: defaults to true
+          examples:
+          - false
+        commandFormat:
+          $ref: '#/components/schemas/JumpServerCommandFormat'
+          description: applicable when supportsPortForwarding is false, defaults to UNIX
+          examples:
+          - CISCO_IOS
+        vrf:
+          type: string
+          description: 'VRF that this jump server should use to connect to devices. Can be set only if `commandFormat`
+
+            is CISCO_IOS.'
+          examples:
+          - Management-vrf
+        authenticationTimeoutSeconds:
+          type: integer
+          format: int32
+          description: seconds to wait for the jump server authentication response. Defaults to 20.
+          examples:
+          - 20
+    JumpServerUpdate:
+      type: object
+      properties:
+        host:
+          type: string
+          examples:
+          - 10.121.7.14
+        port:
+          type: integer
+          format: int32
+          examples:
+          - 23
+        username:
+          type: string
+          examples:
+          - admin
+        password:
+          type: string
+          examples:
+          - my-s3cr3t-p4s$w0rd
+        sshKey:
+          type: string
+          examples:
+          - '-----BEGIN RSA PRIVATE KEY-----
+
+            MIIPIQIBAzCCDtoGCSqGSIb3DQEHAa...'
+        sshCert:
+          type: string
+          examples:
+          - ssh-rsa-cert-v01@openssh.com AAAAHHNzaC1yc2EtY2VydC12MDFAb3BlbnNzaC5jb20AAA...
+        supportsPortForwarding:
+          type: boolean
+          examples:
+          - false
+        commandFormat:
+          $ref: '#/components/schemas/JumpServerCommandFormat'
+          examples:
+          - CISCO_IOS
+        vrf:
+          type: string
+          examples:
+          - Management-vrf
+        authenticationTimeoutSeconds:
+          type: integer
+          format: int32
+          examples:
+          - 20
+    StoredJumpServer:
+      allOf:
+      - $ref: '#/components/schemas/JumpServer'
+      - $ref: '#/components/schemas/Attribution'
+    JumpServerCommandFormat:
+      type: string
+      enum:
+      - UNIX
+      - CISCO_IOS
+      - JUNOS
+      - PANORAMA
+    Attribution:
+      type: object
+      properties:
+        createdById:
+          type: string
+          description: 'The ID of the user who created this entity, if known. *Note*: The referenced user account might no longer
+
+            exist since an administrator can delete accounts.'
+          examples:
+          - '456'
+        createdAt:
+          type: string
+          description: When this entity was created, if known.
+          examples:
+          - '2021-12-29T16:30:45.111Z'
+        createdBy:
+          type: string
+          description: 'The username of the user who created this entity, if known. Absent if the user account has been
+
+            deleted.'
+          examples:
+          - me@example.com
+        updatedById:
+          type: string
+          description: 'The ID of the user who most recently updated this entity, if known. *Note*: The referenced user account
+
+            might no longer exist since an administrator can delete accounts.'
+          examples:
+          - '789'
+        updatedAt:
+          type: string
+          description: When this entity was most recently updated, if known.
+          examples:
+          - '2024-10-27T21:44:51.345Z'
+        updatedBy:
+          type: string
+          description: 'The username of the user who most recently updated this entity, if known. Absent if the user account has
+
+            been deleted.'
+          examples:
+          - you@example.com
+    JumpServer:
+      type: object
+      required:
+      - host
+      - username
+      properties:
+        id:
+          type: string
+          examples:
+          - 8c4a168e-c6ca-4978-bcc9-c0ec7f64a164
+        host:
+          type: string
+          examples:
+          - 10.121.7.14
+        port:
+          type: integer
+          format: int32
+          description: defaults to 22
+          examples:
+          - 23
+        username:
+          type: string
+          examples:
+          - admin
+        password:
+          type: string
+          description: 'Either this or `sshKey` must be provided in requests. A system-generated identifier is substituted for the
+
+            actual password in responses.'
+          examples:
+          - my-s3cr3t-p4s$w0rd
+        sshKey:
+          type: string
+          description: 'SSH private key for authentication. Either this or `password` must be provided in requests. Requires
+
+            `supportsPortForwarding` to be true. A system-generated identifier is substituted for the actual key in
+
+            responses.'
+          examples:
+          - '-----BEGIN RSA PRIVATE KEY-----
+
+            MIIPIQIBAzCCDtoGCSqGSIb3DQEHAa...'
+        sshCert:
+          type: string
+          description: 'SSH user certificate for authentication. Applicable only for certificate based authentication and requires
+
+            `sshKey` to be provided.'
+          examples:
+          - ssh-rsa-cert-v01@openssh.com AAAAHHNzaC1yc2EtY2VydC12MDFAb3BlbnNzaC5jb20AAA...
+        supportsPortForwarding:
+          type: boolean
+          description: defaults to true
+          examples:
+          - false
+        commandFormat:
+          $ref: '#/components/schemas/JumpServerCommandFormat'
+          description: applicable when supportsPortForwarding is false, defaults to UNIX
+          examples:
+          - CISCO_IOS
+        vrf:
+          type: string
+          description: 'VRF that this jump server should use to connect to devices. Can be set only if `commandFormat`
+
+            is CISCO_IOS.'
+          examples:
+          - Management-vrf
+        authenticationTimeoutSeconds:
+          type: integer
+          format: int32
+          description: seconds to wait for the jump server authentication response. Defaults to 20.
+          examples:
+          - 20
+  securitySchemes:
+    api_token:
+      type: http
+      scheme: basic

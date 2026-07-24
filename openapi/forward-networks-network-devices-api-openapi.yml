@@ -1,0 +1,989 @@
+openapi: 3.2.0
+info:
+  title: 'Forward Networks: Complete Aliases Network Devices API'
+  description: Model and verify networks
+  contact:
+    email: support@forwardnetworks.com
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  version: '26.6'
+servers:
+- url: /api
+tags:
+- name: Network Devices
+  description: List the modeled network devices
+  summary: Network Devices
+paths:
+  /networks/{networkId}/devices:
+    get:
+      tags:
+      - Network Devices
+      summary: Get all network devices
+      description: 'All glob filter parameters ignore case and support [the common glob
+
+        wildcards](https://en.wikipedia.org/wiki/Glob_(programming)#Syntax) (`*`, `?`, `[abc]`, `[a-z]`).'
+      operationId: getDevices
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: name
+        in: query
+        description: '`"name"` glob filter'
+        schema:
+          type: string
+      - name: displayName
+        in: query
+        description: '`"displayName"` glob filter. Use `?displayName=` to request devices that have no `"displayName"` property
+
+          (because it’s the same as `"name"`).'
+        schema:
+          type: string
+      - name: sourceName
+        in: query
+        description: '`"sourceName"` glob filter. Use `?sourceName=` to request devices that have no `"sourceName"` property
+
+          (because it’s the same as `"name"`).'
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: '`"type"` glob filter'
+        schema:
+          type: string
+      - name: vendor
+        in: query
+        description: '`"vendor"` glob filter'
+        schema:
+          type: string
+      - name: model
+        in: query
+        description: '`"model"` glob filter. Use `?model=` to request devices with no `"model"` property.'
+        schema:
+          type: string
+      - name: platform
+        in: query
+        description: '`"platform"` glob filter'
+        schema:
+          type: string
+      - name: osVersion
+        in: query
+        description: '`"osVersion"` glob filter. Use `?osVersion=` to request devices with no `"osVersion"` property.'
+        schema:
+          type: string
+      - name: collectionError
+        in: query
+        description: '`"collectionError"` glob filter. Use `?collectionError=` to request devices with no `"collectionError"`
+
+          property (because collection succeeded). Use `?collectionError=*` to request devices that had a collection
+
+          error of any kind.'
+        schema:
+          type: string
+      - name: processingError
+        in: query
+        description: '`"processingError"` glob filter. Use `?processingError=` to request devices with no `"processingError"`
+
+          property (because processing succeeded). Use `?processingError=*` to request devices that had a processing
+
+          error of any kind.'
+        schema:
+          type: string
+      - name: skip
+        in: query
+        description: Number of devices to skip (for paging)
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: limit
+        in: query
+        description: Maximum number of devices desired
+        schema:
+          type: integer
+          format: int32
+      - name: with
+        in: query
+        description: Optional device properties to include
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - tags
+            - locationId
+      - $ref: '#/components/parameters/SnapshotId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Device'
+        '409':
+          description: 'The system is currently processing this Snapshot.
+
+
+            Note: GET /networks/{networkId}/snapshots/latestProcessed can be used to determine when processing of the
+
+            latest Snapshot is done or to identify an alternate Snapshot that has already been processed.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+      security:
+      - api_token: []
+  /networks/{networkId}/devices/{deviceName}:
+    get:
+      tags:
+      - Network Devices
+      summary: Get a network device
+      operationId: getDevice
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deviceName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: with
+        in: query
+        description: Optional device properties to include
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - tags
+            - locationId
+      - $ref: '#/components/parameters/SnapshotId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+        '409':
+          description: 'The system is currently processing this Snapshot.
+
+
+            Note: GET /networks/{networkId}/snapshots/latestProcessed can be used to determine when processing of the
+
+            latest Snapshot is done or to identify an alternate Snapshot that has already been processed.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+      security:
+      - api_token: []
+  /networks/{networkId}/devices/{deviceName}/files:
+    get:
+      tags:
+      - Network Devices
+      summary: List a device’s data files
+      operationId: getDeviceFiles
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deviceName
+        in: path
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/SnapshotId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceFiles'
+        '409':
+          description: 'The system is currently processing this Snapshot.
+
+
+            Note: GET /networks/{networkId}/snapshots/latestProcessed can be used to determine when processing of the
+
+            latest Snapshot is done or to identify an alternate Snapshot that has already been processed.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+      security:
+      - api_token: []
+  /networks/{networkId}/devices/{deviceName}/files/{fileName}:
+    get:
+      tags:
+      - Network Devices
+      summary: Get device data file content
+      description: 'Most device data files are text files. Some are binary. A file’s extension indicates its type.
+
+
+        For convenience, the .txt file extension is optional (can be omitted).'
+      operationId: getDeviceFileContent
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deviceName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: fileName
+        in: path
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/SnapshotId'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain;charset=utf-8:
+              schema:
+                type: string
+                format: byte
+            application/octet-stream:
+              schema:
+                type: string
+                format: byte
+        '409':
+          description: 'The system is currently processing this Snapshot.
+
+
+            Note: GET /networks/{networkId}/snapshots/latestProcessed can be used to determine when processing of the
+
+            latest Snapshot is done or to identify an alternate Snapshot that has already been processed.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+      security:
+      - api_token: []
+  /networks/{networkId}/missing-devices:
+    get:
+      tags:
+      - Network Devices
+      summary: Get missing network devices
+      description: 'Returns devices that are listed as CDP, LLDP, iBGP or OSPF neighbors of modeled devices but that aren’t yet
+
+        included in the network model.'
+      operationId: getMissingDevices
+      parameters:
+      - name: networkId
+        in: path
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/SnapshotId'
+      responses:
+        '200':
+          description: OK. Devices are sorted by number of neighbors (most first) and secondarily by name.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MissingDevices'
+        '409':
+          description: 'The system is currently processing this Snapshot.
+
+
+            Note: GET /networks/{networkId}/snapshots/latestProcessed can be used to determine when processing of the
+
+            latest Snapshot is done or to identify an alternate Snapshot that has already been processed.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+      security:
+      - api_token: []
+components:
+  schemas:
+    DeviceProcessingError:
+      type: string
+      enum:
+      - LICENSE_EXHAUSTED
+      - MISSING_SIGNATURE
+      - DUPLICATE
+      - PARSER_EXCEPTION
+      - MODELING_EXCEPTION
+      - UNSUPPORTED_VENDOR
+      - UNSUPPORTED_DEVICE_TYPE
+    DeviceFiles:
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceFile'
+    MissingDevices:
+      type: object
+      properties:
+        devices:
+          type: array
+          items:
+            $ref: '#/components/schemas/MissingDevice'
+    DeviceCollectionError:
+      type: string
+      enum:
+      - NONE
+      - UNKNOWN
+      - CONNECTION_TIMEOUT
+      - PROMPT_DISCOVERY_FAILED
+      - CONNECTION_REFUSED
+      - AUTHENTICATION_FAILED
+      - KEY_EXCHANGE_FAILED
+      - AUTHORIZATION_FAILED
+      - TWO_FACTOR_AUTHENTICATION_FAILED
+      - AVI_SHELL_AUTH_FAILED
+      - AVI_CONTROLLER_WITHOUT_HEALTHY_SERVICE_ENGINES
+      - T128_CONDUCTOR_WITHOUT_HEALTHY_ROUTERS
+      - T128_CONFIG_ABSENT
+      - NETWORK_UNREACHABLE
+      - IO_ERROR
+      - AUTHENTICATION_FAILED_WITHOUT_COLLECTION_RETRY
+      - SESSION_CLOSED
+      - SESSION_LIMIT_REACHED
+      - STATE_COLLECTION_FAILED
+      - PASSWORD_EXPIRED
+      - JUMP_SERVER_CONNECTION_TIMEOUT
+      - JUMP_SERVER_PASSWORD_AUTH_FAILED
+      - JUMP_SERVER_PASSWORD_EXPIRED
+      - JUMP_SERVER_CONNECTION_FAILED
+      - JUMP_SERVER_KEY_EXCHANGE_FAILED
+      - PROXY_SERVER_PING_FAILED
+      - PROXY_SERVER_PORT_REACHABILITY_FAILED
+      - PROXY_SERVER_CONNECTION_FAILED
+      - PROXY_SERVER_AUTHENTICATION_FAILED
+      - PRIV_PASSWORD_ERROR
+      - EXPERT_PASSWORD_ERROR
+      - DUPLICATE_DEVICE
+      - UNSUPPORTED_VERSION
+      - DEVICE_TYPE_UNDETECTED
+      - UNSUPPORTED_DEVICE_TYPE
+      - BMP_CONNECTION_FAILED
+      - BMP_CONNECTION_TIMEOUT
+      - BMP_COLLECTION_FAILED
+      - BMP_COLLECTION_TIMEOUT
+      - BMP_COLLECTION_REFUSED
+      - BMP_NOT_CONFIGURED
+      - BMP_CONFIGURED_WITH_LOCAL_IP
+      - BMP_SESSION_ALREADY_ESTABLISHED
+      - WARN_TYPE_MISMATCH
+      - DEVICE_IS_CHILD_CONTEXT
+      - MANAGER_COLLECTOR_NOT_FOUND
+      - INCOMPLETE_SETUP
+      - COLLECTION_NOT_FOUND
+      - INFINITE_LOOP_IN_COMMAND_OUTPUT
+      - MISSING_FILE
+      - UNSUPPORTED_VENDOR
+      - COMMAND_DISABLED
+      - APIC_CONFIG_COLLECTION_FAILED
+      - UNEXPECTED_KEY_EXCHANGE_MESSAGE
+      - UNDISCOVERED_ACI_FABRIC
+      - SLOW_READ_RATE_DETECTED
+      - TRANSIENT_SLOW_READ_RATE_DETECTED
+      - COLLECTION_TIMED_OUT
+      - COLLECTION_CANCELED
+      - OPERATION_TIMED_OUT
+      - CERTIFICATE_CHECK_FAILED
+      - DEVICE_IN_BAD_STATE
+      - API_SERVER_FAILED_TO_RESPOND
+      - PROJECT_VIEW_PERMISSION_MISSING
+      - NO_SPACE_LEFT_ON_COLLECTOR
+      - NO_SPACE_LEFT_ON_COLLECTED_DEVICE
+      - UNSUPPORTED_SSL_CONNECTION
+      - SOME_OID_FAILED
+      - TACACS_SESSION_EXPIRED
+      - CONFIG_COLLECTION_UNAUTHORIZED
+      - UNRESOLVABLE_HOSTNAME
+      - FILE_TRANSFER_FAILED
+      - VELOS_PARTITION_WITHOUT_BLADES
+    DeviceFile:
+      type: object
+      properties:
+        name:
+          type: string
+          examples:
+          - configuration.txt
+        bytes:
+          type: integer
+          format: int64
+          examples:
+          - 1234
+        command:
+          type: string
+          description: 'The custom (user-defined) command that was executed to generate the file. Defined only for
+
+            custom_cli files.'
+          examples:
+          - net show bridge macs
+    MissingDevice:
+      type: object
+      properties:
+        name:
+          type: string
+          description: A device name different from the names of all network devices already modeled
+          examples:
+          - nyc-dc01-rtr02
+        ipAddresses:
+          type: array
+          items:
+            type: string
+          examples:
+          - - 10.10.10.10
+        type:
+          type: string
+          description: Detected device type. Absent if undetermined. Never `"unknown"`.
+          examples:
+          - cisco_ios_ssh
+          enum:
+          - a10_acos_ssh
+          - arista_eos_ssh
+          - cisco_ios_ssh
+          - cisco_ios_xe_ssh
+          - cisco_ios_xr_ssh
+          - cisco_nxos_ssh
+          - cisco_nxos_aci_ssh
+          - cisco_apic_api
+          - juniper_junos_ssh
+          - f5_ssh
+          - fortinet_ssh
+          - hp_comware_ssh
+          - hp_provision_ssh
+          - panos_ssh
+          - esxi_ssh
+          - netscaler_ssh
+          - cisco_wireless_ap
+          - forcepoint_ssh
+          - versa_flexvnf_ssh
+          - meraki_mx_api
+          - meraki_ms_api
+          - meraki_mr_api
+          - sonic_dell_enterprise_ssh
+          - unknown
+        vendor:
+          type: string
+          description: 'Inferred vendor of the missing device. Present when the vendor could be determined from CDP/LLDP data or
+
+            MAC address, even if the exact device type is unknown. Absent if the vendor could not be determined.'
+          examples:
+          - CISCO
+          enum:
+          - CISCO
+          - JUNIPER
+          - ARISTA
+          - PICA8
+          - F5
+          - A10
+          - CHECKPOINT
+          - HP
+          - FORTINET
+          - PALO_ALTO_NETWORKS
+          - VMWARE
+          - CITRIX
+          - CUMULUS
+          - RIVERBED
+          - SYMANTEC
+          - AVI_NETWORKS
+          - AVAYA
+          - T128
+          - ARUBA
+          - VIASAT
+          - SILVER_PEAK
+          - PENSANDO
+          - FORCEPOINT
+          - NOKIA
+          - VERSA
+          - BROCADE
+          - EXTREME
+          - DELL
+          - HUAWEI
+          - EDGE_CORE
+        possibleTypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - aruba_controller_ssh
+            - aruba_switch_ssh
+            - aruba_aos_cx_ssh
+            - 128t_conductor_full
+            - 128t_router
+            - 128t_conductor
+            - a10_acos_ssh
+            - arista_eos_ssh
+            - avi_controller_ssh
+            - avi_controller_ssh_cli_user
+            - avi_controller_ssh_via_host
+            - avi_controller_https_api
+            - avi_controller_http_api
+            - bluecoat_ssh
+            - cisco_ios_ssh
+            - cisco_ios_telnet
+            - cisco_ios_xe_ssh
+            - cisco_ios_xe_telnet
+            - cisco_ios_xr_ssh
+            - cisco_nxos_ssh
+            - cisco_nxos_telnet
+            - cisco_asa_ssh
+            - cisco_asa_telnet
+            - cisco_asa_admin_ssh
+            - cisco_asa_child_ssh
+            - cisco_ftd_ssh
+            - cisco_fxos_ssh
+            - cisco_firewalls_on_firepower_ssh
+            - cisco_fmc_api
+            - cisco_nxos_aci_ssh
+            - cisco_ndo_api
+            - cisco_apic_api
+            - cisco_apic_only_ssh
+            - cisco_sg_ssh
+            - juniper_junos_ssh
+            - juniper_srx_ssh
+            - juniper_netscreen_ssh
+            - pica8_ovs_ofctl_ssh
+            - f5_ssh
+            - f5_os_hypervisor_ssh
+            - checkpoint_ssh
+            - checkpoint_ssh_nonexpert
+            - checkpoint_ssh_with_manager
+            - checkpoint_mgmt_api
+            - fortinet_ssh
+            - hp_comware_ssh
+            - hp_comware_telnet
+            - hp_provision_ssh
+            - huawei_switch_ssh
+            - panos_ssh
+            - esxi_ssh
+            - vcenter_api
+            - velocloud_orchestrator_api
+            - viasat_encryptor_snmp3
+            - netscaler_ssh
+            - cumulus_ssh
+            - riverbed_steelhead_ssh
+            - riverbed_interceptor_ssh
+            - cisco_ucs_ssh
+            - nsxt_api
+            - nsx_api
+            - avaya_sr_ssh
+            - avaya_sr_telnet
+            - avaya_ers_ssh
+            - avaya_ers_telnet
+            - silver_peak_edgeconnect_ssh
+            - silver_peak_orchestrator_api
+            - cisco_wireless_ap
+            - prisma_sdwan_ssh
+            - prisma_sdwan_api
+            - prisma_sdwan_unified_api
+            - pensando_api
+            - cisco_sdwan_ssh
+            - cisco_sdwan_vsmart_ssh
+            - nokia_ssh
+            - brocade_switch_ssh
+            - versa_flexvnf_ssh
+            - versa_switch_ssh
+            - versa_director_api
+            - cisco_encs_nfv_ssh
+            - extreme_switch_ssh
+            - meraki_mx_api
+            - meraki_ms_api
+            - meraki_mr_api
+            - mist_dashboard_api
+            - mist_ap_api
+            - dell_os6_switch_ssh
+            - dell_os6_switch_telnet
+            - dell_os9_switch_ssh
+            - dell_os9_switch_telnet
+            - dell_os10_switch_ssh
+            - dell_os10_switch_telnet
+            - sonic_dell_enterprise_ssh
+            - sonic_edge_core_ssh
+          description: 'Possible device types if `type` wasn''t determined. Present if and only if `type` is absent. Never contains
+
+            `"unknown"`.
+
+
+            Deprecated for removal in release 26.8. Use `vendor` instead.'
+          examples:
+          - - cisco_ios_ssh
+            - cisco_ios_xr_ssh
+        neighbors:
+          type: array
+          items:
+            type: string
+          description: The names of the modeled devices from which this device was discovered.
+          examples:
+          - - nyc-dc01-tor01
+            - nyc-dc01-rtr01
+        discoveryMethod:
+          type: string
+          description: The method/protocol via which this device was discovered.
+          examples:
+          - LLDP_CDP
+          enum:
+          - LLDP_CDP
+          - IBGP
+          - OSPF
+    Device:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 'The name that uniquely identifies the device in the network. For most devices, this is the user-assigned
+
+            [classic device](https://docs.fwd.app/latest/api/classic-devices/) name. For a virtual context, this is the
+
+            classic device name plus context name. For a cloud device, this is a globally unique identifier assigned by the
+
+            cloud provider.'
+          examples:
+          - nyc-dc01-fw02
+        displayName:
+          type: string
+          description: 'The device’s common name, if different from `"name"`. Absent for most network devices. For a cloud device,
+
+            this is the name shown in the cloud provider’s console.'
+          examples:
+          - nyc-dc01-fw02
+        sourceName:
+          type: string
+          description: 'Name of this device’s collection source (such as a
+
+            [classic device](https://docs.fwd.app/latest/api/classic-devices/)), if different from `"name"`. Absent for most
+
+            network devices. For a cloud device, this is the cloud setup ID.'
+          examples:
+          - nyc-dc01-fw02
+        type:
+          $ref: '#/components/schemas/DeviceType'
+          examples:
+          - FIREWALL
+        vendor:
+          $ref: '#/components/schemas/Vendor'
+          examples:
+          - F5
+        model:
+          type: string
+          description: Absent if the device model name is unknown.
+          examples:
+          - BIG-IP Virtual Edition
+        platform:
+          $ref: '#/components/schemas/VendorOs'
+          examples:
+          - f5
+        osVersion:
+          type: string
+          description: Absent if the OS version is unknown.
+          examples:
+          - 11.6.1
+        managementIps:
+          type: array
+          items:
+            type: string
+          description: Absent if no management IP addresses are known.
+          examples:
+          - - 10.10.10.10
+        collectionError:
+          $ref: '#/components/schemas/DeviceCollectionError'
+          description: 'Absent if there was no collection error. "NONE" never occurs and will soon be removed from the
+
+            value list.'
+          examples:
+          - AUTHENTICATION_FAILED
+        processingError:
+          $ref: '#/components/schemas/DeviceProcessingError'
+          description: Absent if there was no processing error.
+          examples:
+          - LICENSE_EXHAUSTED
+        tags:
+          type: array
+          items:
+            type: string
+          description: Tags assigned to the device. Present only if specifically requested.
+          examples:
+          - - SEC
+        locationId:
+          type: string
+          description: 'The `id` of the device’s assigned Location (see
+
+            [Network Locations](https://docs.fwd.app/latest/api/network-locations/)). Present only if specifically requested.
+
+            Defaults to "default" (the Unassigned location).'
+          examples:
+          - atl
+    DeviceType:
+      type: string
+      enum:
+      - UNKNOWN
+      - ROUTER
+      - SWITCH
+      - VSWITCH
+      - FIREWALL
+      - LOADBALANCER
+      - BUNDLED_ROUTER
+      - CIRCUIT
+      - L2_VPN_SERVICE
+      - MISSING_PEER
+      - MPLS_VPN_SERVICE
+      - INTERNET_SERVICE
+      - INTRANET_SERVICE
+      - SYNTHETIC_ENCRYPTOR
+      - HYPERVISOR
+      - CONTROLLER
+      - WAN_OPTIMIZER
+      - OPENFLOW_SWITCH
+      - SD_WAN
+      - RIVERBED_INTERCEPTOR
+      - WIFI_AP
+      - ENCRYPTOR
+      - DDI
+      - NIC
+      - AWS_CLOUD
+      - AWS_SUBNET
+      - AWS_RT
+      - AWS_INTERNET_GW
+      - AWS_NAT_GW
+      - AWS_VPN_GW
+      - AWS_LB
+      - AWS_GLOBAL_ACCELERATOR
+      - AWS_DIRECT_CONNECT_GW
+      - AWS_TRANSIT_GW
+      - AWS_LOCAL_GW
+      - AWS_NETWORK_FIREWALL
+      - AWS_GATEWAY_LB
+      - AWS_SERVICE_ENDPOINT
+      - EDGE_VM
+      - AZURE_CLOUD
+      - AZURE_SUBNET
+      - AZURE_VNET
+      - AZURE_VNET_GW
+      - AZURE_FIREWALL
+      - AZURE_APP_GW
+      - AZURE_FRONTDOOR
+      - AZURE_LB
+      - AZURE_VWAN_HUB
+      - AZURE_VPN_GATEWAY
+      - AZURE_P2S_VPN_GATEWAY
+      - AZURE_EXPRESS_ROUTE_GATEWAY
+      - AZURE_VIRTUAL_APPLIANCE
+      - AZURE_EXPRESS_ROUTE_CIRCUIT
+      - GCP_CLOUD
+      - GCP_RT
+      - GCP_SUBNET
+      - GCP_LB
+      - GCP_TRAFFIC_DIRECTOR
+      - GCP_VPN_GW
+      - GCP_NAT_GW
+      - GCP_SERVICE_ATTACHMENT
+      - GCP_INTERCEPT_DEPLOYMENT
+      - ALKIRA_CLOUD
+    VendorOs:
+      type: string
+      enum:
+      - unknown
+      - circuit
+      - l2_vpn_service
+      - missing_peer
+      - mpls_vpn_service
+      - internet_service
+      - intranet_service
+      - encryptor
+      - alkira_portal
+      - arista_eos
+      - avi_vantage
+      - bluecoat
+      - cisco_ios
+      - cisco_ios_xe
+      - cisco_ios_xr
+      - cisco_nxos
+      - cisco_asa
+      - cisco_ftd
+      - cisco_fxos
+      - cisco_nxos_aci
+      - cisco_apic
+      - cisco_sg
+      - cisco_wireless
+      - viptela
+      - juniper_junos
+      - juniper_srx
+      - juniper_netscreen
+      - linux_ovs_ofctl
+      - pica8_ovs_ofctl
+      - f5
+      - f5_os_hypervisor
+      - a10_acos
+      - checkpoint
+      - hp_provision
+      - hp_comware
+      - fortinet
+      - pan_os
+      - esxi
+      - citrix_netscaler
+      - cumulus
+      - riverbed_steelhead
+      - riverbed_interceptor
+      - 128t
+      - aruba_switch
+      - aruba_aos_cx
+      - aruba_wifi_controller
+      - silver_peak_edgeconnect
+      - pensando
+      - cloud_genix
+      - forcepoint
+      - aws_cloud
+      - aws_subnet
+      - aws_rt
+      - aws_internet_gw
+      - aws_nat_gw
+      - aws_vpn_gw
+      - aws_direct_connect_gw
+      - aws_lb
+      - aws_global_accelerator
+      - aws_transit_gw
+      - aws_local_gw
+      - aws_network_firewall
+      - aws_gateway_lb
+      - aws_service_endpoint
+      - azure_cloud
+      - azure_subnet
+      - azure_vnet
+      - azure_vnet_gw
+      - azure_firewall
+      - azure_app_gw
+      - azure_frontdoor
+      - azure_lb
+      - azure_vwan_hub
+      - azure_vpn_gateway
+      - azure_p2s_vpn_gateway
+      - azure_express_route_gateway
+      - azure_virtual_appliance
+      - azure_express_route_circuit
+      - google_cloud
+      - gcp_rt
+      - gcp_subnet
+      - gcp_lb
+      - gcp_traffic_director
+      - gcp_vpn_gw
+      - gcp_nat_gw
+      - gcp_service_attachment
+      - gcp_intercept_deployment
+      - avaya_sr
+      - avaya_ers
+      - viasat_encryptor
+      - nokia
+      - huawei_switch
+      - versa_sase
+      - versa_switch
+      - brocade_switch
+      - cisco_encs_nfv
+      - extreme_nos
+      - meraki_ms
+      - meraki_mr
+      - meraki_mx
+      - mist_ap
+      - dell_os6
+      - dell_os9
+      - dell_os10
+      - dell_sonic
+      - gd_encryptor
+      - edge_core_sonic
+      - zscaler_zpa
+      - zscaler_app_connector
+    Vendor:
+      type: string
+      enum:
+      - UNKNOWN
+      - CISCO
+      - JUNIPER
+      - ARISTA
+      - PICA8
+      - F5
+      - A10
+      - CHECKPOINT
+      - HP
+      - FORTINET
+      - PALO_ALTO_NETWORKS
+      - VMWARE
+      - CITRIX
+      - CUMULUS
+      - RIVERBED
+      - LINUX_GENERIC
+      - AMAZON
+      - SYMANTEC
+      - AVI_NETWORKS
+      - MICROSOFT
+      - GOOGLE
+      - IBM
+      - AVAYA
+      - T128
+      - ARUBA
+      - VIASAT
+      - SILVER_PEAK
+      - PENSANDO
+      - FORCEPOINT
+      - BLUECAT
+      - NOKIA
+      - VERSA
+      - BROCADE
+      - EXTREME
+      - DELL
+      - HUAWEI
+      - GD
+      - ALKIRA
+      - EDGE_CORE
+      - ZSCALER
+      - FORWARD_CUSTOM
+    ErrorInfo:
+      type: object
+      required:
+      - httpMethod
+      - apiUrl
+      - message
+      properties:
+        httpMethod:
+          type: string
+          examples:
+          - GET
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+        apiUrl:
+          type: string
+          examples:
+          - /api/version
+        message:
+          type: string
+          description: A description of the error
+        reason:
+          type: string
+  parameters:
+    SnapshotId:
+      name: snapshotId
+      in: query
+      description: An optional Snapshot id. If omitted, the network’s latest processed Snapshot is used.
+      schema:
+        type: string
+  securitySchemes:
+    api_token:
+      type: http
+      scheme: basic
