@@ -1,0 +1,38 @@
+generated: '2026-07-19'
+method: searched
+status: published
+source: https://github.com/forwardnetworks/forward-mcp
+server:
+  name: forward-mcp
+  transport: stdio
+  language: go
+  repo: https://github.com/forwardnetworks/forward-mcp
+  wraps_openapi: https://docs.fwd.app/latest/api/spec/complete.json
+  tool_count: 54
+  prompt_count: 6
+  resources:
+  - network-context
+  config_env:
+  - FORWARD_API_BASE_URL
+  - FORWARD_API_KEY
+  - FORWARD_API_SECRET
+  - FORWARD_DEFAULT_NETWORK_ID
+description: >-
+  Open-source MCP server (Go, stdio transport) published in the Forward Networks
+  GitHub org. Exposes 54 tools plus 6 workflow prompts and a network-context
+  resource, validated against the official Forward Networks Complete API OpenAPI
+  spec. Compatible with Claude Desktop, Claude Code, and other MCP clients.
+representative_tools:
+- name: run_nqe_query
+  source_operation: openapi/forward-networks-complete-openapi-original.json#runNqeQuery
+- name: get_paths
+  source_operation: openapi/forward-networks-complete-openapi-original.json#getPaths
+- name: list_networks
+  source_operation: openapi/forward-networks-complete-openapi-original.json#getNetworks
+- name: create_snapshot
+  source_operation: openapi/forward-networks-complete-openapi-original.json#createSnapshot
+- name: get_vulnerabilities
+  source_operation: openapi/forward-networks-complete-openapi-original.json#getVulnerabilities
+note: >-
+  Full 54-tool list is defined in the forward-mcp source; only a representative
+  sample is mirrored here, each grounded in a verified operationId.

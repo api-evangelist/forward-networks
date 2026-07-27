@@ -1,27 +1,397 @@
 aid: forward-networks
 name: Forward Networks
-description: Forward Networks is a company surfaced as a portfolio company of a16z, threshold-ventures
-  and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the
-  enrichment pipeline.
+description: >-
+  Forward Networks builds network digital-twin software (Forward Enterprise) that creates a
+  mathematically accurate, vendor-agnostic model of large hybrid and multi-cloud networks. Networking,
+  security, cloud, and compliance teams use it to verify network behavior before and after changes,
+  trace packet paths, run automated policy checks, analyze CVE/vulnerability exposure, and query the
+  network as structured data through the Network Query Engine (NQE). The Forward Enterprise Complete API
+  is an OpenAPI 3.2.0 surface of 189 operations across 108 paths — covering Networks, Snapshots, Checks,
+  Path Search, NQE, Vulnerability Analysis, and system administration — secured with HTTP Basic
+  authentication and complemented by a Go client, a Terraform provider, and an open-source MCP server.
 url: https://raw.githubusercontent.com/api-evangelist/forward-networks/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - a16z
 - threshold-ventures
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: enrichment-pipeline
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
+image: https://www.forwardnetworks.com/wp-content/uploads/2026/04/header-logo.svg
 tags:
 - Company
-apis: []
+- Networks
+- Network Automation
+- Network Digital Twin
+- Network Security
+- Network Verification
+- Path Analysis
+- Vulnerability Management
+- NQE
+- Compliance
+apis:
+- aid: forward-networks:forward-networks-aliases-api
+  name: Forward Networks Aliases API
+  description: Define groups of network infrastructure elements or packet header values
+  humanURL: https://docs.fwd.app/
+  baseURL: https://fwd.app/api
+  tags:
+  - Aliases
+  properties:
+  - type: OpenAPI
+    url: openapi/forward-networks-aliases-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fwd.app/
+  - type: APIReference
+    url: https://docs.fwd.app/latest/api/spec/complete.json
+- aid: forward-networks:forward-networks-checks-api
+  name: Forward Networks Checks API
+  description: Enable or define automated checks that verify network policy and behavior
+  humanURL: https://docs.fwd.app/
+  baseURL: https://fwd.app/api
+  tags:
+  - Checks
+  properties:
+  - type: OpenAPI
+    url: openapi/forward-networks-checks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fwd.app/
+  - type: APIReference
+    url: https://docs.fwd.app/latest/api/spec/complete.json
+- aid: forward-networks:forward-networks-classic-devices-api
+  name: Forward Networks Classic Devices API
+  description: Specify the network devices to collect from and model
+  humanURL: https://docs.fwd.app/
+  baseURL: https://fwd.app/api
+  tags:
+  - Classic Devices
+  properties:
+  - type: OpenAPI
+    url: openapi/forward-networks-classic-devices-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fwd.app/
+  - type: APIReference
+    url: https://docs.fwd.app/latest/api/spec/complete.json
+- aid: forward-networks:forward-networks-credentials-api
+  name: Forward Networks Credentials API
+  description: Provide network device credentials needed for network collection
+  humanURL: https://docs.fwd.app/
+  baseURL: https://fwd.app/api
+  tags:
+  - Credentials
+  properties:
+  - type: OpenAPI
+    url: openapi/forward-networks-credentials-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fwd.app/
+  - type: APIReference
+    url: https://docs.fwd.app/latest/api/spec/complete.json
+- aid: forward-networks:forward-networks-current-version-api
+  name: Forward Networks Current Version API
+  description: Get current API version information
+  humanURL: https://docs.fwd.app/
+  baseURL: https://fwd.app/api
+  tags:
+  - Current Version
+  properties:
+  - type: OpenAPI
+    url: openapi/forward-networks-current-version-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fwd.app/
+  - type: APIReference
+    url: https://docs.fwd.app/latest/api/spec/complete.json
+- aid: forward-networks:forward-networks-device-tags-api
+  name: Forward Networks Device Tags API
+  description: List or manage tags associated with network devices and endpoints
+  humanURL: https://docs.fwd.app/
+  baseURL: https://fwd.app/api
+  tags:
+  - Device Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/forward-networks-device-tags-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fwd.app/
+  - type: APIReference
+    url: https://docs.fwd.app/latest/api/spec/complete.json
+- aid: forward-networks:forward-networks-jump-servers-api
+  name: Forward Networks Jump Servers API
+  description: Configure jump servers to assist in reaching network devices
+  humanURL: https://docs.fwd.app/
+  baseURL: https://fwd.app/api
+  tags:
+  - Jump Servers
+  properties:
+  - type: OpenAPI
+    url: openapi/forward-networks-jump-servers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fwd.app/
+  - type: APIReference
+    url: https://docs.fwd.app/latest/api/spec/complete.json
+- aid: forward-networks:forward-networks-network-collection-api
+  name: Forward Networks Network Collection API
+  description: Configure configuration and state collection from network devices
+  humanURL: https://docs.fwd.app/
+  baseURL: https://fwd.app/api
+  tags:
+  - Network Collection
+  properties:
+  - type: OpenAPI
+    url: openapi/forward-networks-network-collection-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fwd.app/
+  - type: APIReference
+    url: https://docs.fwd.app/latest/api/spec/complete.json
+- aid: forward-networks:forward-networks-network-devices-api
+  name: Forward Networks Network Devices API
+  description: List the modeled network devices
+  humanURL: https://docs.fwd.app/
+  baseURL: https://fwd.app/api
+  tags:
+  - Network Devices
+  properties:
+  - type: OpenAPI
+    url: openapi/forward-networks-network-devices-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fwd.app/
+  - type: APIReference
+    url: https://docs.fwd.app/latest/api/spec/complete.json
+- aid: forward-networks:forward-networks-network-endpoints-api
+  name: Forward Networks Network Endpoints API
+  description: Configure network endpoint profiles and specify the network endpoints to collect from
+  humanURL: https://docs.fwd.app/
+  baseURL: https://fwd.app/api
+  tags:
+  - Network Endpoints
+  properties:
+  - type: OpenAPI
+    url: openapi/forward-networks-network-endpoints-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fwd.app/
+  - type: APIReference
+    url: https://docs.fwd.app/latest/api/spec/complete.json
+- aid: forward-networks:forward-networks-network-locations-api
+  name: Forward Networks Network Locations API
+  description: Get, create, update, or delete a network's user-defined locations
+  humanURL: https://docs.fwd.app/
+  baseURL: https://fwd.app/api
+  tags:
+  - Network Locations
+  properties:
+  - type: OpenAPI
+    url: openapi/forward-networks-network-locations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fwd.app/
+  - type: APIReference
+    url: https://docs.fwd.app/latest/api/spec/complete.json
+- aid: forward-networks:forward-networks-network-snapshots-api
+  name: Forward Networks Network Snapshots API
+  description: List or manage the network Snapshots collected from network devices
+  humanURL: https://docs.fwd.app/
+  baseURL: https://fwd.app/api
+  tags:
+  - Network Snapshots
+  properties:
+  - type: OpenAPI
+    url: openapi/forward-networks-network-snapshots-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fwd.app/
+  - type: APIReference
+    url: https://docs.fwd.app/latest/api/spec/complete.json
+- aid: forward-networks:forward-networks-network-topology-api
+  name: Forward Networks Network Topology API
+  description: List the links inferred between network devices and override them if necessary
+  humanURL: https://docs.fwd.app/
+  baseURL: https://fwd.app/api
+  tags:
+  - Network Topology
+  properties:
+  - type: OpenAPI
+    url: openapi/forward-networks-network-topology-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fwd.app/
+  - type: APIReference
+    url: https://docs.fwd.app/latest/api/spec/complete.json
+- aid: forward-networks:forward-networks-networks-api
+  name: Forward Networks Networks API
+  description: Create, list, rename, or delete model networks
+  humanURL: https://docs.fwd.app/
+  baseURL: https://fwd.app/api
+  tags:
+  - Networks
+  properties:
+  - type: OpenAPI
+    url: openapi/forward-networks-networks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fwd.app/
+  - type: APIReference
+    url: https://docs.fwd.app/latest/api/spec/complete.json
+- aid: forward-networks:forward-networks-nqe-api
+  name: Forward Networks NQE API
+  description: Ask the Network Query Engine for structured, vendor-agnostic network information
+  humanURL: https://docs.fwd.app/
+  baseURL: https://fwd.app/api
+  tags:
+  - NQE
+  properties:
+  - type: OpenAPI
+    url: openapi/forward-networks-nqe-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fwd.app/
+  - type: APIReference
+    url: https://docs.fwd.app/latest/api/spec/complete.json
+- aid: forward-networks:forward-networks-path-search-api
+  name: Forward Networks Path Search API
+  description: Trace packets through the network model
+  humanURL: https://docs.fwd.app/
+  baseURL: https://fwd.app/api
+  tags:
+  - Path Search
+  properties:
+  - type: OpenAPI
+    url: openapi/forward-networks-path-search-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fwd.app/
+  - type: APIReference
+    url: https://docs.fwd.app/latest/api/spec/complete.json
+- aid: forward-networks:forward-networks-synthetic-devices-api
+  name: Forward Networks Synthetic Devices API
+  description: >-
+    Model a network’s internet connections, intranets, L2VPNs, L3VPNs, WAN circuits, and encryptors
+  humanURL: https://docs.fwd.app/
+  baseURL: https://fwd.app/api
+  tags:
+  - Synthetic Devices
+  properties:
+  - type: OpenAPI
+    url: openapi/forward-networks-synthetic-devices-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fwd.app/
+  - type: APIReference
+    url: https://docs.fwd.app/latest/api/spec/complete.json
+- aid: forward-networks:forward-networks-system-administration-api
+  name: Forward Networks System Administration API
+  description: Administer the system, including database backups
+  humanURL: https://docs.fwd.app/
+  baseURL: https://fwd.app/api
+  tags:
+  - System Administration
+  properties:
+  - type: OpenAPI
+    url: openapi/forward-networks-system-administration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fwd.app/
+  - type: APIReference
+    url: https://docs.fwd.app/latest/api/spec/complete.json
+- aid: forward-networks:forward-networks-user-accounts-api
+  name: Forward Networks User Accounts API
+  description: Manage user accounts
+  humanURL: https://docs.fwd.app/
+  baseURL: https://fwd.app/api
+  tags:
+  - User Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/forward-networks-user-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fwd.app/
+  - type: APIReference
+    url: https://docs.fwd.app/latest/api/spec/complete.json
+- aid: forward-networks:forward-networks-vulnerability-analysis-api
+  name: Forward Networks Vulnerability Analysis API
+  description: Identify network devices potentially impacted by CVEs
+  humanURL: https://docs.fwd.app/
+  baseURL: https://fwd.app/api
+  tags:
+  - Vulnerability Analysis
+  properties:
+  - type: OpenAPI
+    url: openapi/forward-networks-vulnerability-analysis-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fwd.app/
+  - type: APIReference
+    url: https://docs.fwd.app/latest/api/spec/complete.json
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DeveloperPortal
+  url: https://docs.fwd.app/
+- type: Documentation
+  url: https://docs.fwd.app/
+- type: MCPServer
+  url: mcp/forward-networks-mcp.yml
+- type: Packages
+  url: packages/forward-networks-packages.yml
+- type: SDKs
+  url: packages/forward-networks-packages.yml
+- type: LLMsTxt
+  url: llms/forward-networks-llms.txt
+- type: Overlay
+  url: overlays/forward-networks-complete-overlay.yaml
+- type: Authentication
+  url: authentication/forward-networks-authentication.yml
+- type: Conventions
+  url: conventions/forward-networks-conventions.yml
+- type: ErrorCatalog
+  url: errors/forward-networks-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/forward-networks-lifecycle.yml
+- type: DataModel
+  url: data-model/forward-networks-data-model.yml
+- type: Conformance
+  url: conformance/forward-networks-conformance.yml
+- type: Compliance
+  url: https://www.forwardnetworks.com/compliance/
+- type: AgenticAccess
+  url: agentic-access/forward-networks-agentic-access.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: WellKnown
+  url: well-known/forward-networks-well-known.yml
+- type: SecurityTxt
+  url: well-known/forward-networks-security.txt
+- type: TrustCenter
+  url: security/forward-networks-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/forward-networks-vulnerability-disclosure.yml
+- type: Security
+  url: https://www.forwardnetworks.com/.well-known/security.txt
+- type: DomainSecurity
+  url: security/forward-networks-domain-security.yml
+- type: Blog
+  url: https://www.forwardnetworks.com/blog/
+- type: GitHubOrganization
+  url: https://github.com/forwardnetworks
+- type: Pricing
+  url: https://www.forwardnetworks.com/pricing/
+- type: SignUp
+  url: https://fwd.app/
+- type: TermsOfService
+  url: https://www.forwardnetworks.com/master-services-agreement/
+- type: PrivacyPolicy
+  url: https://www.forwardnetworks.com/privacy-policy/
 - type: Website
-  url: http://www.forwardnetworks.com/
+  url: https://www.forwardnetworks.com/
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

@@ -1,0 +1,32 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/forward-networks-complete-openapi-original.json
+format: json
+envelope:
+  schema: ErrorInfo
+  note: >-
+    Errors are returned as an application/json ErrorInfo object (not RFC 9457
+    application/problem+json). NQE query errors additionally return diagnostic
+    `errors` with line numbers for parse failures.
+problems:
+- status: 400
+  title: Bad request
+  description: >-
+    The query could not be executed. If there's a problem with the NQE query
+    itself, such as a parse error, `errors` will include diagnostic information
+    with line numbers.
+  occurrences: 6
+  content_type: application/json
+- status: 404
+  title: Not found
+  description: The requested resource (for example, the network has no Snapshots) does not exist.
+  occurrences: 5
+- status: 409
+  title: Conflict — snapshot processing
+  description: >-
+    The system is currently processing this Snapshot. GET
+    /networks/{networkId}/snapshots/latestProcessed can be used to determine
+    when processing of the latest Snapshot is done or to identify an alternate
+    Snapshot that has already been processed.
+  occurrences: 26
+  content_type: application/json

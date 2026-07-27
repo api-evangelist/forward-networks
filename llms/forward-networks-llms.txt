@@ -1,0 +1,30 @@
+# Forward Networks
+
+> Forward Networks builds network digital-twin software (Forward Enterprise) that creates a mathematically accurate, vendor-agnostic model of hybrid multi-cloud networks so networking, security, cloud, and compliance teams can verify behavior, search paths, run policy checks, and analyze vulnerability exposure. The Forward Enterprise Complete API (OpenAPI 3.2.0) exposes 189 operations across 108 paths, including the Network Query Engine (NQE), Path Search, Snapshots, Checks, and Vulnerability Analysis.
+
+## APIs
+- [Forward Enterprise Complete API](https://docs.fwd.app/): OpenAPI 3.2.0, 189 operations, HTTP Basic auth (api_token)
+
+## Specs
+- [OpenAPI (complete.json)](https://docs.fwd.app/latest/api/spec/complete.json): official machine-readable spec
+
+## Artifacts
+- [Authentication](authentication/forward-networks-authentication.yml): HTTP Basic (username/password or API token)
+- [Conventions](conventions/forward-networks-conventions.yml): pagination, async snapshot processing, error envelope
+- [Error catalog](errors/forward-networks-problem-types.yml): 400/404/409 ErrorInfo envelope
+- [Data model](data-model/forward-networks-data-model.yml): Network -> Snapshot -> Device/Check entity graph
+- [Lifecycle](lifecycle/forward-networks-lifecycle.yml): calendar versioning (26.6)
+- [MCP server](mcp/forward-networks-mcp.yml): forward-mcp, 54 tools over stdio
+- [Packages](packages/forward-networks-packages.yml): Go client, Terraform provider, MCP server
+
+## Tools / SDKs
+- [forwardnetworks-client-go](https://github.com/forwardnetworks/forwardnetworks-client-go): first-party Go client
+- [terraform-provider-forward](https://registry.terraform.io/providers/forwardnetworks/forward/latest): Terraform provider
+- [forward-mcp](https://github.com/forwardnetworks/forward-mcp): MCP server
+
+## Docs
+- [Documentation](https://docs.fwd.app/)
+- [Blog](https://www.forwardnetworks.com/blog/)
+- [Compliance / Trust](https://www.forwardnetworks.com/compliance/)
+- [GitHub org](https://github.com/forwardnetworks)
+- [Pricing](https://www.forwardnetworks.com/pricing/)

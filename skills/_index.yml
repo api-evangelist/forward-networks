@@ -1,0 +1,16 @@
+generated: '2026-07-19'
+method: generated
+source: openapi/forward-networks-complete-openapi-original.json
+skills:
+- file: forward-networks-run-nqe-query.md
+  name: Run a Network Query Engine (NQE) query
+  api: openapi/forward-networks-complete-openapi-original.json
+  operations: [getNqeQueries, runNqeQuery, addNqeQueryExecution, getNqeExecutionStatus, getNqeExecutionResult]
+- file: forward-networks-path-search.md
+  name: Trace a packet path through the network
+  api: openapi/forward-networks-complete-openapi-original.json
+  operations: [getNetworks, getPaths, getPathsBulk, getL7Applications]
+- file: forward-networks-snapshot-and-check.md
+  name: Collect a snapshot and run network checks
+  api: openapi/forward-networks-complete-openapi-original.json
+  operations: [getNetworks, createSnapshot, getLatestProcessedSnapshot, getAvailablePredefinedChecks, addCheck, getChecks]

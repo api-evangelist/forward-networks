@@ -1,0 +1,28 @@
+generated: '2026-07-19'
+method: searched
+source: https://github.com/forwardnetworks
+packages:
+- language: go
+  registry: pkg.go.dev
+  name: github.com/forwardnetworks/forwardnetworks-client-go
+  url: https://pkg.go.dev/github.com/forwardnetworks/forwardnetworks-client-go
+  repo: https://github.com/forwardnetworks/forwardnetworks-client-go
+  install: go get github.com/forwardnetworks/forwardnetworks-client-go
+  description: First-party Go client for the Forward Enterprise API.
+  official: true
+- language: hcl
+  registry: terraform
+  name: forwardnetworks/forward
+  url: https://registry.terraform.io/providers/forwardnetworks/forward/latest
+  repo: https://github.com/forwardnetworks/terraform-provider-forward
+  install: 'terraform { required_providers { forward = { source = "forwardnetworks/forward" } } }'
+  description: Terraform provider for managing Forward Networks resources.
+  official: true
+- language: go
+  registry: github
+  name: forward-mcp
+  url: https://github.com/forwardnetworks/forward-mcp
+  repo: https://github.com/forwardnetworks/forward-mcp
+  install: git clone https://github.com/forwardnetworks/forward-mcp
+  description: Model Context Protocol server exposing 54 Forward Networks tools over stdio.
+  official: true

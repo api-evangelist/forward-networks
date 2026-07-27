@@ -1,0 +1,5 @@
+Contact: mailto:securityreports@forwardnetworks[.]com
+Expires: 2027-10-05T07:00:00.000Z
+Preferred-Languages: en
+Canonical: https://www.forwardnetworks.com/security.txt
+Hiring: https://www.forwardnetworks.com/careers/

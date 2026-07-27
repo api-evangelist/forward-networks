@@ -1,0 +1,41 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/forward-networks-complete-openapi-original.json
+authentication:
+  style: http-basic
+  scheme_name: api_token
+  note: >-
+    HTTP Basic authentication. Credentials are a Forward Enterprise username and
+    password or an API access token issued from the app. See authentication/.
+base_url:
+  pattern: https://{instance}.fwd.app/api
+  note: >-
+    The OpenAPI declares a relative server of `/api`; the host is the customer's
+    Forward Enterprise instance (SaaS default fwd.app, or a customer on-prem host).
+pagination:
+  style: offset-and-cursor
+  params: [offset, limit, before, after]
+  note: Endpoints paginate with offset/limit and before/after cursor parameters where applicable.
+idempotency:
+  supported: false
+  note: >-
+    No Idempotency-Key contract is documented in the spec. Snapshot-mutating
+    operations instead use a 409 processing-conflict signal (see below).
+async_processing:
+  signal: 409
+  note: >-
+    Snapshot processing is asynchronous. A 409 indicates the snapshot is still
+    processing; poll GET /networks/{networkId}/snapshots/latestProcessed to
+    detect completion.
+error_envelope:
+  schema: ErrorInfo
+  format: application/json
+  ref: errors/forward-networks-problem-types.yml
+versioning:
+  scheme: calendar
+  current: '26.6'
+  ref: lifecycle/forward-networks-lifecycle.yml
+cross_links:
+  authentication: authentication/forward-networks-authentication.yml
+  errors: errors/forward-networks-problem-types.yml
+  lifecycle: lifecycle/forward-networks-lifecycle.yml

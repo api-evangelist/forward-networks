@@ -1,0 +1,19 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/forward-networks-complete-openapi-original.json
+versioning:
+  scheme: calendar
+  current: '26.6'
+  current_version_endpoint: /version
+  note: The API exposes a Current Version tag/endpoint for retrieving current API version information.
+deprecation:
+  policy_url: null
+  sunset_header: null
+  note: No public deprecation-policy page was found; deprecated operations are flagged in the OpenAPI.
+deprecated_operations:
+- openapi/forward-networks-complete-openapi-original.json#getCollectorState
+- openapi/forward-networks-complete-openapi-original.json#collect
+sla:
+  url: null
+status_page: null
+docs: https://docs.fwd.app/

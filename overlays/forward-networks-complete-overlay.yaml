@@ -1,0 +1,26 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Forward Networks Complete API
+  version: 1.0.0
+extends: openapi/forward-networks-complete-openapi-original.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-19'
+    x-apievangelist-auth: http-basic
+    x-apievangelist-mcp: https://github.com/forwardnetworks/forward-mcp
+    x-apievangelist-artifacts:
+    - authentication/forward-networks-authentication.yml
+    - conventions/forward-networks-conventions.yml
+    - errors/forward-networks-problem-types.yml
+    - data-model/forward-networks-data-model.yml
+    - lifecycle/forward-networks-lifecycle.yml
+- target: $.info
+  update:
+    x-apievangelist-compliance:
+    - SOC 2
+    - ISO 27001
+    - PCI DSS
+    - HIPAA
+    - FedRAMP
+    - GDPR

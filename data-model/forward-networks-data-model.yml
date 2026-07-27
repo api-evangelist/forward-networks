@@ -1,0 +1,66 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/forward-networks-complete-openapi-original.json
+note: >-
+  Entity graph derived from the Forward Networks Complete API path hierarchy and
+  242 component schemas. The Network is the root aggregate; Snapshots are
+  point-in-time models of a Network that most analysis operations key on.
+entities:
+- name: Network
+  id_field: networkId
+  description: A modeled network (create, list, rename, delete; workspaces).
+- name: Snapshot
+  id_field: snapshotId
+  description: A point-in-time collected model of a Network's devices, config, and state.
+- name: NetworkDevice
+  description: A modeled device within a Snapshot.
+- name: Check
+  id_field: checkId
+  description: An automated verification of network policy/behavior run against a Snapshot.
+- name: NqeExecution
+  id_field: executionKey
+  description: An asynchronous Network Query Engine query execution against a Network.
+- name: Path
+  description: A traced packet path through a Snapshot's model (Path Search).
+- name: Vulnerability
+  id_field: cveId
+  description: A CVE-based vulnerability finding mapped to network devices.
+- name: Alias
+  description: A named group of infrastructure elements or packet-header values.
+- name: Credential
+  description: Device credentials used for network collection.
+- name: Location
+  description: A user-defined network location.
+relationships:
+- from: Snapshot
+  to: Network
+  type: belongs_to
+  via: networkId
+- from: NetworkDevice
+  to: Snapshot
+  type: belongs_to
+  via: snapshotId
+- from: Check
+  to: Snapshot
+  type: belongs_to
+  via: snapshotId
+- from: NqeExecution
+  to: Network
+  type: belongs_to
+  via: networkId
+- from: Path
+  to: Network
+  type: belongs_to
+  via: networkId
+- from: Vulnerability
+  to: Network
+  type: belongs_to
+  via: networkId
+- from: Network
+  to: Snapshot
+  type: has_many
+  via: snapshotId
+- from: Snapshot
+  to: Check
+  type: has_many
+  via: checkId

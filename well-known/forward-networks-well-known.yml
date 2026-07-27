@@ -1,0 +1,18 @@
+generated: '2026-07-19'
+method: searched
+host: https://www.forwardnetworks.com
+documents:
+- path: /.well-known/security.txt
+  status: 200
+  file: forward-networks-security.txt
+- path: /security.txt
+  status: 200
+  note: canonical location referenced by the .well-known copy
+- path: /.well-known/openid-configuration
+  status: 404
+- path: /.well-known/oauth-authorization-server
+  status: 404
+- path: /.well-known/api-catalog
+  status: 404
+- path: /.well-known/ai-plugin.json
+  status: 404

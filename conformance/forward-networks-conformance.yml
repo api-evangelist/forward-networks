@@ -1,0 +1,33 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/forward-networks-complete-openapi-original.json
+standards:
+- id: openapi-3.2
+  conforms: true
+  evidence: Provider publishes an OpenAPI 3.2.0 document (Forward Networks Complete API).
+- id: http-basic-auth
+  conforms: true
+  evidence: securityScheme api_token type http scheme basic
+- id: oauth2
+  conforms: false
+- id: oidc
+  conforms: false
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use an application/json ErrorInfo envelope, not application/problem+json.
+- id: pagination
+  conforms: true
+  evidence: offset/limit and before/after cursor parameters
+- id: idempotency
+  conforms: false
+compliance:
+  method: searched
+  source: https://www.forwardnetworks.com/compliance/
+  certifications:
+  - SOC 2
+  - ISO 27001
+  - PCI DSS
+  - HIPAA
+  - FedRAMP
+  - GDPR
+  ref: security/forward-networks-trust-center.yml
