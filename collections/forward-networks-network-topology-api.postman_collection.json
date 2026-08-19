@@ -1,0 +1,745 @@
+{
+  "item": [
+    {
+      "id": "a2ecd0d5-e8a6-4d1a-82d6-6beeb6131d8c",
+      "name": "Network Topology",
+      "description": {
+        "content": "List the links inferred between network devices and override them if necessary",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bf924bba-fc9f-4bce-94a4-543571aef42f",
+          "name": "Get the network topology",
+          "request": {
+            "name": "Get the network topology",
+            "description": {
+              "content": "The links in the response are directed, so they generally appear twice—once for each direction.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "snapshots",
+                ":snapshotId",
+                "topology"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshotId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "762d36fc-8607-4ef0-9e88-f6235ce628c8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "topology"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"sourcePort\": \"string\",\n    \"targetPort\": \"string\"\n  },\n  {\n    \"sourcePort\": \"string\",\n    \"targetPort\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "280f92b7-b60f-48a9-b009-aa7f0847191b",
+              "name": "The system is currently processing this Snapshot.\n\nNote: GET /networks/{networkId}/snapshots/latestProcessed can be used to determine when processing of the\nlatest Snapshot is done or to identify an alternate Snapshot that has already been processed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "topology"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"httpMethod\": \"POST\",\n  \"apiUrl\": \"string\",\n  \"message\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "36fe6d1a-cd52-4613-b6c0-e056ba3b86a5",
+          "name": "Get the topology overrides",
+          "request": {
+            "name": "Get the topology overrides",
+            "description": {},
+            "url": {
+              "path": [
+                "snapshots",
+                ":snapshotId",
+                "topology",
+                "overrides"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshotId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8fd6dd17-63ca-4ad3-ab5e-c9d7aed22a36",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "topology",
+                    "overrides"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"absent\": [\n    {\n      \"port1\": \"string\",\n      \"port2\": \"string\"\n    },\n    {\n      \"port1\": \"string\",\n      \"port2\": \"string\"\n    }\n  ],\n  \"present\": [\n    {\n      \"port1\": \"string\",\n      \"port2\": \"string\"\n    },\n    {\n      \"port1\": \"string\",\n      \"port2\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6b6277de-a948-4be4-9012-7f1dad54d70d",
+              "name": "The system is currently processing this Snapshot.\n\nNote: GET /networks/{networkId}/snapshots/latestProcessed can be used to determine when processing of the\nlatest Snapshot is done or to identify an alternate Snapshot that has already been processed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "topology",
+                    "overrides"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"httpMethod\": \"POST\",\n  \"apiUrl\": \"string\",\n  \"message\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "41b59e50-b4e5-4f12-9e12-b8605621bbe1",
+          "name": "Edit the topology overrides",
+          "request": {
+            "name": "Edit the topology overrides",
+            "description": {},
+            "url": {
+              "path": [
+                "snapshots",
+                ":snapshotId",
+                "topology",
+                "overrides"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshotId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"absentAdditions\": [\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    },\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    }\n  ],\n  \"absentRemovals\": [\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    },\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    }\n  ],\n  \"presentAdditions\": [\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    },\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    }\n  ],\n  \"presentRemovals\": [\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    },\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "15c36f60-3dd2-4e45-bf8a-8f091c7e9eb0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "topology",
+                    "overrides"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"absentAdditions\": [\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    },\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    }\n  ],\n  \"absentRemovals\": [\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    },\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    }\n  ],\n  \"presentAdditions\": [\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    },\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    }\n  ],\n  \"presentRemovals\": [\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    },\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c518f3c6-83e7-4df4-bddb-1881dcc7e485",
+              "name": "The system is currently processing this Snapshot.\n\nNote: GET /networks/{networkId}/snapshots/latestProcessed can be used to determine when processing of the\nlatest Snapshot is done or to identify an alternate Snapshot that has already been processed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "topology",
+                    "overrides"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"absentAdditions\": [\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    },\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    }\n  ],\n  \"absentRemovals\": [\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    },\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    }\n  ],\n  \"presentAdditions\": [\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    },\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    }\n  ],\n  \"presentRemovals\": [\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    },\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"httpMethod\": \"POST\",\n  \"apiUrl\": \"string\",\n  \"message\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fded3680-5a76-47fd-bedb-334c4ef1e1ce",
+          "name": "Set the topology overrides",
+          "request": {
+            "name": "Set the topology overrides",
+            "description": {
+              "content": "Replaces any topology overrides previously saved for the Snapshot.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "snapshots",
+                ":snapshotId",
+                "topology",
+                "overrides"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshotId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"absent\": [\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    },\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    }\n  ],\n  \"present\": [\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    },\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "645a775e-38d5-4841-b7b5-4ff5bcd101dc",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "topology",
+                    "overrides"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"absent\": [\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    },\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    }\n  ],\n  \"present\": [\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    },\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8863ffcf-8459-4fde-9102-1ee993284a0a",
+              "name": "The system is currently processing this Snapshot.\n\nNote: GET /networks/{networkId}/snapshots/latestProcessed can be used to determine when processing of the\nlatest Snapshot is done or to identify an alternate Snapshot that has already been processed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "topology",
+                    "overrides"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"absent\": [\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    },\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    }\n  ],\n  \"present\": [\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    },\n    {\n      \"port1\": \"<string>\",\n      \"port2\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"httpMethod\": \"POST\",\n  \"apiUrl\": \"string\",\n  \"message\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "edd0f602-1f05-4fbf-bd31-5bc6cec9adc6",
+    "name": "Forward Networks: Complete Aliases Network Topology API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Model and verify networks\n\nContact Support:\n Email: support@forwardnetworks.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,279 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Forward Networks: Complete Aliases Path Search API",
+    "version": "26.6"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Path Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List known L7 applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/l7-applications",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "List known L7 applications"
+        },
+        {
+          "info": {
+            "name": "Trace packets through the network",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/paths",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "the device from which the traffic originates. If this is specified, then the srcIp will be considered as a\npacket header only, else, the srcIp will be resolved to specific location(s) and used as the source in the\npath search. Either the source device or srcIp must be specified."
+              },
+              {
+                "name": "srcIp",
+                "value": "",
+                "type": "query",
+                "description": "the source IP address or subnet of packets entering the network. For multicast (*, G) paths, set srcIp = G\n(multicast group address)."
+              },
+              {
+                "name": "dstIp",
+                "value": "",
+                "type": "query",
+                "description": "the destination IP address or subnet of packets entering the network. For multicast (*, G) paths, set dstIp\n= G (multicast group address)."
+              },
+              {
+                "name": "intent",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the intent for the search. Default PREFER_DELIVERED.\n*PREFER_VIOLATIONS*: Prefer paths that result in the traffic not getting delivered, e.g. drops, blackholes,\nloops. An example usage is while trying to evaluate if the specified traffic always gets delivered to the\ndestination along all path choices.\n*PREFER_DELIVERED*: Prefer paths that result in the traffic getting delivered. An example usage is while\ntrying to evaluate if traffic gets delivered to the destination along any path choice.\n*VIOLATIONS_ONLY*: Search for paths where traffic is not delivered to the destination."
+              },
+              {
+                "name": "ipProto",
+                "value": "",
+                "type": "query",
+                "description": "the IP protocol"
+              },
+              {
+                "name": "srcPort",
+                "value": "",
+                "type": "query",
+                "description": "the L4 source port, like \"80\" or a range \"8080-8088\""
+              },
+              {
+                "name": "dstPort",
+                "value": "",
+                "type": "query",
+                "description": "the L4 destination port, like \"80\" or a range \"8080-8088\""
+              },
+              {
+                "name": "icmpType",
+                "value": "",
+                "type": "query",
+                "description": "the ICMP type. Implies ipProto = 1."
+              },
+              {
+                "name": "fin",
+                "value": "",
+                "type": "query",
+                "description": "the FIN (finish) bit (0 or 1). Implies ipProto = 6."
+              },
+              {
+                "name": "syn",
+                "value": "",
+                "type": "query",
+                "description": "the SYN (synchronize) bit (0 or 1). Implies ipProto = 6."
+              },
+              {
+                "name": "rst",
+                "value": "",
+                "type": "query",
+                "description": "the RST (reset) bit (0 or 1). Implies ipProto = 6."
+              },
+              {
+                "name": "psh",
+                "value": "",
+                "type": "query",
+                "description": "the PSH (push) bit (0 or 1). Implies ipProto = 6."
+              },
+              {
+                "name": "ack",
+                "value": "",
+                "type": "query",
+                "description": "the ACK (acknowledgment) bit (0 or 1). Implies ipProto = 6."
+              },
+              {
+                "name": "urg",
+                "value": "",
+                "type": "query",
+                "description": "the URG (urgent) bit (0 or 1). Implies ipProto = 6."
+              },
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "the L7 app-id or \"unidentified\" to exclude paths that traverse firewall policies with app-id matches. If the\nsystem doesn't recognize the provided value, it handles the value the same as \"unidentified\" and includes\nthe value in the `unrecognizedValues` response field. The applications that are recognized by the model can\nbe obtained using GET /api/l7-applications."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "the L7 user-id or \"unidentified\" to exclude paths that traverse firewall policies with user-id matches. If\nthe system doesn't recognize the provided value, it handles the value the same as \"unidentified\" and\nincludes the value in the `unrecognizedValues` response field. See [Path Analysis with Layer 7\nUser-Group](https://docs.fwd.app/latest/application/search/path-analysis/layer7_ugroup/) for more info."
+              },
+              {
+                "name": "userGroupId",
+                "value": "",
+                "type": "query",
+                "description": "the L7 user-group-id. If the system doesn't recognize the provided value, the search returns 0 results as\nthere are no paths that traverse firewall policies with that user-group-id match, and the value is included\nin the `unrecognizedValues` response field. See [Path Analysis with Layer 7\nUser-Group](https://docs.fwd.app/latest/application/search/path-analysis/layer7_ugroup/) for more info."
+              },
+              {
+                "name": "url",
+                "value": "",
+                "type": "query",
+                "description": "the L7 URL that traffic of interest is trying to access. Prefix wildcards are supported for subdomains.\nSuffix wildcards are supported for top-level domains and URL paths. See [Path Analysis with Layer 7\nURL](https://docs.fwd.app/latest/application/search/path-analysis/layer7_url/) for more policy patterns\nsupported in the model."
+              },
+              {
+                "name": "domain",
+                "value": "",
+                "type": "query",
+                "description": "the L7 domain that traffic of interest is trying to reach. Unlike 'url', which applies only to\nHTTP/HTTPS traffic (TCP/UDP), 'domain' can be used with any IP protocol. Prefix wildcards are\nsupported for subdomains. Cannot be specified together with 'url'."
+              },
+              {
+                "name": "includeTags",
+                "value": "",
+                "type": "query",
+                "description": "If true, the response will include device tags for each hop."
+              },
+              {
+                "name": "includeNetworkFunctions",
+                "value": "",
+                "type": "query",
+                "description": "If true, the response includes detailed forwarding info for each hop.\nNote: Setting this to true increases the API response time."
+              },
+              {
+                "name": "maxCandidates",
+                "value": "",
+                "type": "query",
+                "description": "the limit on the number of search results computed, before applying any ranking criteria. Permitted range =\n1 to 10,000. Default 5,000."
+              },
+              {
+                "name": "maxResults",
+                "value": "",
+                "type": "query",
+                "description": "the limit on the number of search results returned by the API. First, the platform computes up to\nmaxCandidates results that match the search criteria. Then they are sorted by various ranking criteria. A\nkey ranking factor is path length, preferring longer paths (greatest reach) in the network over shorter\nones. Finally, the API limits the number of returned search results to maxResults. Permitted range = 1 to\nmaxCandidates. Default 1."
+              },
+              {
+                "name": "maxReturnPathResults",
+                "value": "",
+                "type": "query",
+                "description": "the limit on the number of return path search results. Permitted range = 0 to 10,000. Default 0. Multicast\n(*, G) and (S, G) queries will always return 0 return path results regardless of this value."
+              },
+              {
+                "name": "maxSeconds",
+                "value": "",
+                "type": "query",
+                "description": "the timeout duration. Permitted range = 1 to 300. Default 30."
+              },
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "query",
+                "description": "An optional Snapshot id. If omitted, the network’s latest processed Snapshot is used."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Trace packets through the network"
+        },
+        {
+          "info": {
+            "name": "Trace sets of packets through the network",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/paths-bulk",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "query",
+                "description": "An optional Snapshot id. If omitted, the network’s latest processed Snapshot is used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Trace sets of packets through the network"
+        },
+        {
+          "info": {
+            "name": "Trace sets of packets through the network",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/paths-bulk-seq",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "query",
+                "description": "An optional Snapshot id. If omitted, the network’s latest processed Snapshot is used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Trace sets of packets through the network"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

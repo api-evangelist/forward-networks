@@ -1,0 +1,1196 @@
+{
+  "item": [
+    {
+      "id": "cc9120a6-e352-4462-955e-358977380114",
+      "name": "Network Collection",
+      "description": {
+        "content": "Configure configuration and state collection from network devices",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "96b29df5-3d6b-47e2-b7b0-03c478c612aa",
+          "name": "Add a collector task",
+          "request": {
+            "name": "Add a collector task",
+            "description": {
+              "content": "Signals the system to begin collecting a new network Snapshot as soon as a Collector is available. Use [Get a\ncollector task](https://docs.fwd.app/latest/api/network-collection/get-collector-task/) to check a task’s\nstatus.\n\nA network can have only one network collection task running at a time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "collector-tasks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "networkId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c6593f1e-6620-4659-8b52-5e13888768c5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collector-tasks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "networkId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"taskId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4e0e2077-f1ea-4d95-8a58-5913b0d1aae5",
+          "name": "Get a collector task",
+          "request": {
+            "name": "Get a collector task",
+            "description": {
+              "content": "Get information about a recent collector task. Use\n[Add a collector task](https://docs.fwd.app/latest/api/network-collection/add-collector-task/) to create a task.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "collector-tasks",
+                ":taskId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "taskId",
+                  "description": "(Required) The identifier of the collector task to retrieve"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "519bb8c0-e845-41f5-b6be-3f18bfa64367",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collector-tasks",
+                    ":taskId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taskId",
+                      "description": "(Required) The identifier of the collector task to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"type\": \"string\",\n  \"status\": \"RUNNING\",\n  \"networkId\": \"string\",\n  \"networkName\": \"string\",\n  \"note\": \"string\",\n  \"createdById\": \"string\",\n  \"createdBy\": \"string\",\n  \"createdAt\": \"string\",\n  \"startedAt\": \"string\",\n  \"finishedAt\": \"string\",\n  \"canceledById\": \"string\",\n  \"canceledBy\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f71fc95d-2776-4858-9f43-5ea04ffa569d",
+          "name": "Cancel an in-progress network collection",
+          "request": {
+            "name": "Cancel an in-progress network collection",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "cancelcollection"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2e9e0004-b49a-47bf-a75b-fbcbefceef9a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "cancelcollection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "459c443a-e7f7-4778-bf69-9e0d76a75213",
+          "name": "Get a network’s collection schedules",
+          "request": {
+            "name": "Get a network’s collection schedules",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "collection-schedules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a4b85234-0dac-4773-ad85-fc3b08424139",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "collection-schedules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schedules\": [\n    {\n      \"daysOfTheWeek\": [\n        4429,\n        3911\n      ],\n      \"enabled\": true,\n      \"id\": \"string\",\n      \"timeZone\": \"Africa/Kinshasa\",\n      \"times\": [\n        \"string\",\n        \"string\"\n      ],\n      \"periodInSeconds\": 1052,\n      \"startAt\": \"string\",\n      \"endAt\": \"string\"\n    },\n    {\n      \"daysOfTheWeek\": [\n        1801,\n        3734\n      ],\n      \"enabled\": false,\n      \"id\": \"string\",\n      \"timeZone\": \"America/Lima\",\n      \"times\": [\n        \"string\",\n        \"string\"\n      ],\n      \"periodInSeconds\": 880,\n      \"startAt\": \"string\",\n      \"endAt\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c78c088e-fcf4-4722-a123-8907298a7206",
+          "name": "Add a network collection schedule",
+          "request": {
+            "name": "Add a network collection schedule",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "collection-schedules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enabled\": \"<boolean>\",\n  \"daysOfTheWeek\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"timeZone\": \"<string>\",\n  \"times\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"periodInSeconds\": \"<integer>\",\n  \"startAt\": \"<string>\",\n  \"endAt\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "780ef327-4e7c-4731-8ab0-99175680ba00",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "collection-schedules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enabled\": \"<boolean>\",\n  \"daysOfTheWeek\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"timeZone\": \"<string>\",\n  \"times\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"periodInSeconds\": \"<integer>\",\n  \"startAt\": \"<string>\",\n  \"endAt\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"daysOfTheWeek\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"enabled\": \"<boolean>\",\n  \"id\": \"string\",\n  \"timeZone\": \"<string>\",\n  \"times\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"periodInSeconds\": \"<integer>\",\n  \"startAt\": \"<string>\",\n  \"endAt\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "04fecc24-c60c-45da-aa6e-ef229d221d2a",
+          "name": "Get a network collection schedule",
+          "request": {
+            "name": "Get a network collection schedule",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "collection-schedules",
+                ":scheduleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2a363222-d871-44bd-afc1-d8b9226cb0fb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "collection-schedules",
+                    ":scheduleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"daysOfTheWeek\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"enabled\": \"<boolean>\",\n  \"id\": \"string\",\n  \"timeZone\": \"<string>\",\n  \"times\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"periodInSeconds\": \"<integer>\",\n  \"startAt\": \"<string>\",\n  \"endAt\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e3150a63-d715-49ab-ba1a-2242ea7901c0",
+          "name": "Replace a network collection schedule",
+          "request": {
+            "name": "Replace a network collection schedule",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "collection-schedules",
+                ":scheduleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"daysOfTheWeek\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"enabled\": \"<boolean>\",\n  \"id\": \"<string>\",\n  \"timeZone\": \"<string>\",\n  \"times\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"periodInSeconds\": \"<integer>\",\n  \"startAt\": \"<string>\",\n  \"endAt\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "99a43b82-26c0-428f-956f-0ebeb6182ac1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "collection-schedules",
+                    ":scheduleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"daysOfTheWeek\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"enabled\": \"<boolean>\",\n  \"id\": \"<string>\",\n  \"timeZone\": \"<string>\",\n  \"times\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"periodInSeconds\": \"<integer>\",\n  \"startAt\": \"<string>\",\n  \"endAt\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "707c822d-dd4a-49c2-86c5-9263e2dd55ca",
+          "name": "Delete a network collection schedule",
+          "request": {
+            "name": "Delete a network collection schedule",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "collection-schedules",
+                ":scheduleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scheduleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8fdbfab5-3763-4480-b9ee-cd28de3478a3",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "collection-schedules",
+                    ":scheduleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scheduleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c8d2078f-756c-4e2e-b282-9217b1111c18",
+          "name": "Get the status of a network’s collector",
+          "request": {
+            "name": "Get the status of a network’s collector",
+            "description": {
+              "content": "**Deprecated for removal in release 26.10.** Use [Get a collector\ntask](https://docs.fwd.app/latest/api/network-collection/get-collector-task/) instead to check the status of\na task.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "collector",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8ddf8ec4-38cc-4e5f-95bd-edec4eaf4527",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "collector",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"isSet\": false,\n  \"busyStatus\": \"UPDATING\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "751a5614-6a82-424c-83da-5ec112fa09b7",
+          "name": "Trigger a network collection",
+          "request": {
+            "name": "Trigger a network collection",
+            "description": {
+              "content": "**Deprecated for removal in release 26.10.** Use\n[Add a collector task](https://docs.fwd.app/latest/api/network-collection/add-collector-task/) instead.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "startcollection"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d067185c-d05a-4fac-92f7-8b211afa1f63",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "startcollection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "65879852-69c0-46ed-ae8a-01314eeaa2e9",
+    "name": "Forward Networks: Complete Aliases Network Collection API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Model and verify networks\n\nContact Support:\n Email: support@forwardnetworks.com",
+      "type": "text/plain"
+    }
+  }
+}

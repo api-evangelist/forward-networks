@@ -1,0 +1,127 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Forward Networks: Complete Aliases User Accounts API",
+    "version": "26.6"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all user accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/users",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get all user accounts"
+        },
+        {
+          "info": {
+            "name": "Create a user account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Creates a new `LOCAL` user account."
+        },
+        {
+          "info": {
+            "name": "Get a user account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get a user account"
+        },
+        {
+          "info": {
+            "name": "Update a user account",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "All JSON properties in the request body are optional. Include only the properties you wish to\nchange."
+        },
+        {
+          "info": {
+            "name": "Delete a user account",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/users/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**Warning**: This operation *cannot* be undone."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,267 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Forward Networks: Complete Aliases Network Devices API",
+    "version": "26.6"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Network Devices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all network devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/devices",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "`\"name\"` glob filter"
+              },
+              {
+                "name": "displayName",
+                "value": "",
+                "type": "query",
+                "description": "`\"displayName\"` glob filter. Use `?displayName=` to request devices that have no `\"displayName\"` property\n(because it’s the same as `\"name\"`)."
+              },
+              {
+                "name": "sourceName",
+                "value": "",
+                "type": "query",
+                "description": "`\"sourceName\"` glob filter. Use `?sourceName=` to request devices that have no `\"sourceName\"` property\n(because it’s the same as `\"name\"`)."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "`\"type\"` glob filter"
+              },
+              {
+                "name": "vendor",
+                "value": "",
+                "type": "query",
+                "description": "`\"vendor\"` glob filter"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "`\"model\"` glob filter. Use `?model=` to request devices with no `\"model\"` property."
+              },
+              {
+                "name": "platform",
+                "value": "",
+                "type": "query",
+                "description": "`\"platform\"` glob filter"
+              },
+              {
+                "name": "osVersion",
+                "value": "",
+                "type": "query",
+                "description": "`\"osVersion\"` glob filter. Use `?osVersion=` to request devices with no `\"osVersion\"` property."
+              },
+              {
+                "name": "collectionError",
+                "value": "",
+                "type": "query",
+                "description": "`\"collectionError\"` glob filter. Use `?collectionError=` to request devices with no `\"collectionError\"`\nproperty (because collection succeeded). Use `?collectionError=*` to request devices that had a collection\nerror of any kind."
+              },
+              {
+                "name": "processingError",
+                "value": "",
+                "type": "query",
+                "description": "`\"processingError\"` glob filter. Use `?processingError=` to request devices with no `\"processingError\"`\nproperty (because processing succeeded). Use `?processingError=*` to request devices that had a processing\nerror of any kind."
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of devices to skip (for paging)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of devices desired"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query",
+                "description": "Optional device properties to include"
+              },
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "query",
+                "description": "An optional Snapshot id. If omitted, the network’s latest processed Snapshot is used."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "All glob filter parameters ignore case and support [the common glob\nwildcards](https://en.wikipedia.org/wiki/Glob_(programming)#Syntax) (`*`, `?`, `[abc]`, `[a-z]`)."
+        },
+        {
+          "info": {
+            "name": "Get a network device",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/devices/:deviceName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deviceName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query",
+                "description": "Optional device properties to include"
+              },
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "query",
+                "description": "An optional Snapshot id. If omitted, the network’s latest processed Snapshot is used."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get a network device"
+        },
+        {
+          "info": {
+            "name": "List a device’s data files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/devices/:deviceName/files",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deviceName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "query",
+                "description": "An optional Snapshot id. If omitted, the network’s latest processed Snapshot is used."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "List a device’s data files"
+        },
+        {
+          "info": {
+            "name": "Get device data file content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/devices/:deviceName/files/:fileName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deviceName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fileName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "query",
+                "description": "An optional Snapshot id. If omitted, the network’s latest processed Snapshot is used."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Most device data files are text files. Some are binary. A file’s extension indicates its type.\n\nFor convenience, the .txt file extension is optional (can be omitted)."
+        },
+        {
+          "info": {
+            "name": "Get missing network devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/missing-devices",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "query",
+                "description": "An optional Snapshot id. If omitted, the network’s latest processed Snapshot is used."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns devices that are listed as CDP, LLDP, iBGP or OSPF neighbors of modeled devices but that aren’t yet\nincluded in the network model."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

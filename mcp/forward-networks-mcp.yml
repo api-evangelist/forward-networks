@@ -17,11 +17,10 @@ server:
   - FORWARD_API_KEY
   - FORWARD_API_SECRET
   - FORWARD_DEFAULT_NETWORK_ID
-description: >-
-  Open-source MCP server (Go, stdio transport) published in the Forward Networks
-  GitHub org. Exposes 54 tools plus 6 workflow prompts and a network-context
-  resource, validated against the official Forward Networks Complete API OpenAPI
-  spec. Compatible with Claude Desktop, Claude Code, and other MCP clients.
+description: Open-source MCP server (Go, stdio transport) published in the Forward Networks GitHub org.
+  Exposes 54 tools plus 6 workflow prompts and a network-context resource, validated against the official
+  Forward Networks Complete API OpenAPI spec. Compatible with Claude Desktop, Claude Code, and other MCP
+  clients.
 representative_tools:
 - name: run_nqe_query
   source_operation: openapi/forward-networks-complete-openapi-original.json#runNqeQuery
@@ -33,6 +32,10 @@ representative_tools:
   source_operation: openapi/forward-networks-complete-openapi-original.json#createSnapshot
 - name: get_vulnerabilities
   source_operation: openapi/forward-networks-complete-openapi-original.json#getVulnerabilities
-note: >-
-  Full 54-tool list is defined in the forward-mcp source; only a representative
-  sample is mirrored here, each grounded in a verified operationId.
+note: Full 54-tool list is defined in the forward-mcp source; only a representative sample is mirrored
+  here, each grounded in a verified operationId.
+deployment:
+  mode: local-stdio
+  verified: searched
+  checked: '2026-08-12'
+  source: catalog MCP census

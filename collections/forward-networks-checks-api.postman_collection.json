@@ -1,0 +1,992 @@
+{
+  "item": [
+    {
+      "id": "f7282ea0-4a22-43e9-9d02-ff6bc3186038",
+      "name": "Checks",
+      "description": {
+        "content": "Enable or define automated checks that verify network policy and behavior",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c2c44443-9eb6-4f12-b9b9-1b9e1ee02106",
+          "name": "Get available Predefined checks",
+          "request": {
+            "name": "Get available Predefined checks",
+            "description": {},
+            "url": {
+              "path": [
+                "predefinedChecks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0bb27a05-92d0-46b8-be60-779f91361022",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "predefinedChecks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"description\": \"string\",\n    \"name\": \"string\",\n    \"predefinedCheckType\": \"MTU_CONSISTENCY\"\n  },\n  {\n    \"description\": \"string\",\n    \"name\": \"string\",\n    \"predefinedCheckType\": \"BGP_ROUTE_CONSISTENCY\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9bee56bb-46e1-4097-a92a-90d58d99c739",
+          "name": "Get checks (with status)",
+          "request": {
+            "name": "Get checks (with status)",
+            "description": {},
+            "url": {
+              "path": [
+                "snapshots",
+                ":snapshotId",
+                "checks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Can be repeated to request multiple types (as in `?type=NQE&type=Predefined`) or omitted to request all\ntypes."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Can be repeated to request multiple types (as in `?type=NQE&type=Predefined`) or omitted to request all\ntypes."
+                },
+                {
+                  "disabled": false,
+                  "key": "priority",
+                  "value": "<string>",
+                  "description": "Can be repeated to request multiple priorities (as in `?priority=HIGH&priority=LOW`) or omitted to request\nall priorities."
+                },
+                {
+                  "disabled": false,
+                  "key": "priority",
+                  "value": "<string>",
+                  "description": "Can be repeated to request multiple priorities (as in `?priority=HIGH&priority=LOW`) or omitted to request\nall priorities."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Can be repeated to request multiple statuses (as in `?status=FAIL&status=ERROR`) or omitted to request all\nstatuses.\n\n**Note:** The response will never contain results with `status` NONE or PROCESSING. The server will wait to\nrespond, if necessary, until processing finishes or times out."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Can be repeated to request multiple statuses (as in `?status=FAIL&status=ERROR`) or omitted to request all\nstatuses.\n\n**Note:** The response will never contain results with `status` NONE or PROCESSING. The server will wait to\nrespond, if necessary, until processing finishes or times out."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshotId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "400edd4c-81fa-4261-870f-fd5c5e76b473",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "checks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "priority",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "priority",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"createdAt\": \"string\",\n    \"creator\": \"string\",\n    \"creatorId\": \"string\",\n    \"definition\": {\n      \"checkType\": \"string\",\n      \"filters\": {\n        \"bypass\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"chain\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"flowTypes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"forwardingTypes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"from\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"mode\": \"string\",\n        \"to\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"headerFieldsWithDefaults\": [\n        \"user_id\",\n        \"url\"\n      ],\n      \"noiseTypes\": [\n        \"WRONG_GATEWAY\",\n        \"INADMISSIBLE\"\n      ],\n      \"returnPath\": \"ANY\"\n    },\n    \"definedAt\": \"string\",\n    \"description\": \"string\",\n    \"editedAt\": \"string\",\n    \"editor\": \"string\",\n    \"editorId\": \"string\",\n    \"enabled\": true,\n    \"executedAt\": \"string\",\n    \"executionDurationMillis\": 8504,\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"note\": \"string\",\n    \"numViolations\": 9556,\n    \"perfMonitoringEnabled\": true,\n    \"priority\": \"<string>\",\n    \"status\": \"<string>\",\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  {\n    \"createdAt\": \"string\",\n    \"creator\": \"string\",\n    \"creatorId\": \"string\",\n    \"definition\": {\n      \"checkType\": \"string\",\n      \"filters\": {\n        \"bypass\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"chain\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"flowTypes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"forwardingTypes\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"from\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"mode\": \"string\",\n        \"to\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"headerFieldsWithDefaults\": [\n        \"user_id\",\n        \"url\"\n      ],\n      \"noiseTypes\": [\n        \"NETWORK_OR_BROADCAST_ADDRESS\",\n        \"INADMISSIBLE\"\n      ],\n      \"returnPath\": \"ANY\"\n    },\n    \"definedAt\": \"string\",\n    \"description\": \"string\",\n    \"editedAt\": \"string\",\n    \"editor\": \"string\",\n    \"editorId\": \"string\",\n    \"enabled\": true,\n    \"executedAt\": \"string\",\n    \"executionDurationMillis\": 1605,\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"note\": \"string\",\n    \"numViolations\": 8899,\n    \"perfMonitoringEnabled\": false,\n    \"priority\": \"<string>\",\n    \"status\": \"<string>\",\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3277eb7e-db64-42a1-8fa4-4d88b283aa51",
+              "name": "The system is currently processing this Snapshot.\n\nNote: GET /networks/{networkId}/snapshots/latestProcessed can be used to determine when processing of the\nlatest Snapshot is done or to identify an alternate Snapshot that has already been processed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "checks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "priority",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "priority",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"httpMethod\": \"HEAD\",\n  \"apiUrl\": \"string\",\n  \"message\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0001cb2f-cabe-4487-afd7-8daa47d86792",
+          "name": "Add a check",
+          "request": {
+            "name": "Add a check",
+            "description": {
+              "content": "Note that the returned NetworkCheckResult will never have status of type NONE or PROCESSING",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "snapshots",
+                ":snapshotId",
+                "checks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "persistent",
+                  "value": "true",
+                  "description": "Whether to associate check with any later snapshots (including future snapshots) too"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshotId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"definition\": {\n    \"checkType\": \"<string>\",\n    \"filters\": {\n      \"bypass\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"chain\": [\n        {\n          \"location\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"transitType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"headers\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"location\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"transitType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"headers\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"flowTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"forwardingTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"from\": {\n        \"location\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"headers\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"logicalNetwork\": \"<string>\"\n      },\n      \"mode\": \"<string>\",\n      \"to\": {\n        \"location\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"headers\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"logicalNetwork\": \"<string>\"\n      }\n    },\n    \"headerFieldsWithDefaults\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"noiseTypes\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"returnPath\": \"<string>\"\n  },\n  \"enabled\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"note\": \"<string>\",\n  \"perfMonitoringEnabled\": \"<boolean>\",\n  \"priority\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "22a0d3dd-b070-42e8-9c87-be804515b7f8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "checks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "persistent",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"definition\": {\n    \"checkType\": \"<string>\",\n    \"filters\": {\n      \"bypass\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"chain\": [\n        {\n          \"location\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"transitType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"headers\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"location\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"transitType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"headers\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"flowTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"forwardingTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"from\": {\n        \"location\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"headers\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"logicalNetwork\": \"<string>\"\n      },\n      \"mode\": \"<string>\",\n      \"to\": {\n        \"location\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"headers\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"logicalNetwork\": \"<string>\"\n      }\n    },\n    \"headerFieldsWithDefaults\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"noiseTypes\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"returnPath\": \"<string>\"\n  },\n  \"enabled\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"note\": \"<string>\",\n  \"perfMonitoringEnabled\": \"<boolean>\",\n  \"priority\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"createdAt\": \"string\",\n  \"creator\": \"string\",\n  \"creatorId\": \"string\",\n  \"definition\": {\n    \"checkType\": \"<string>\",\n    \"filters\": {\n      \"bypass\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"chain\": [\n        {\n          \"location\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"transitType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"headers\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"location\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"transitType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"headers\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"flowTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"forwardingTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"from\": {\n        \"location\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"headers\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"logicalNetwork\": \"<string>\"\n      },\n      \"mode\": \"<string>\",\n      \"to\": {\n        \"location\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"headers\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"logicalNetwork\": \"<string>\"\n      }\n    },\n    \"headerFieldsWithDefaults\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"noiseTypes\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"returnPath\": \"<string>\"\n  },\n  \"definedAt\": \"string\",\n  \"description\": \"string\",\n  \"editedAt\": \"string\",\n  \"editor\": \"string\",\n  \"editorId\": \"string\",\n  \"enabled\": true,\n  \"executedAt\": \"string\",\n  \"executionDurationMillis\": 4959,\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"note\": \"string\",\n  \"numViolations\": 5405,\n  \"perfMonitoringEnabled\": true,\n  \"priority\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3e39df5f-7753-4f13-b6ba-4c05fd1be8a9",
+              "name": "The system is currently processing this Snapshot.\n\nNote: GET /networks/{networkId}/snapshots/latestProcessed can be used to determine when processing of the\nlatest Snapshot is done or to identify an alternate Snapshot that has already been processed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "checks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "persistent",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"definition\": {\n    \"checkType\": \"<string>\",\n    \"filters\": {\n      \"bypass\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"chain\": [\n        {\n          \"location\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"transitType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"headers\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"location\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"transitType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"headers\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"flowTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"forwardingTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"from\": {\n        \"location\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"headers\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"logicalNetwork\": \"<string>\"\n      },\n      \"mode\": \"<string>\",\n      \"to\": {\n        \"location\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"headers\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"logicalNetwork\": \"<string>\"\n      }\n    },\n    \"headerFieldsWithDefaults\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"noiseTypes\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"returnPath\": \"<string>\"\n  },\n  \"enabled\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"note\": \"<string>\",\n  \"perfMonitoringEnabled\": \"<boolean>\",\n  \"priority\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"httpMethod\": \"HEAD\",\n  \"apiUrl\": \"string\",\n  \"message\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9bd650d9-09fa-453d-ac89-880a6357099f",
+          "name": "Deactivate all checks",
+          "request": {
+            "name": "Deactivate all checks",
+            "description": {},
+            "url": {
+              "path": [
+                "snapshots",
+                ":snapshotId",
+                "checks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshotId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "01a29302-0bb3-4750-ae41-4cc0fda70524",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "checks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "abaf3943-c430-449b-9a02-b406f66ea060",
+          "name": "Get a check (with status)",
+          "request": {
+            "name": "Get a check (with status)",
+            "description": {
+              "content": "Note that the returned NetworkCheckResults will never have status of type NONE or PROCESSING",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "snapshots",
+                ":snapshotId",
+                "checks",
+                ":checkId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshotId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "checkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6d2d3570-e59a-4ab8-b0a8-979ce27816a2",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "checks",
+                    ":checkId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "checkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"createdAt\": \"string\",\n  \"creator\": \"string\",\n  \"creatorId\": \"string\",\n  \"definition\": {\n    \"checkType\": \"<string>\",\n    \"filters\": {\n      \"bypass\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"chain\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"flowTypes\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"forwardingTypes\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"from\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"mode\": \"<string>\",\n      \"to\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    },\n    \"headerFieldsWithDefaults\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"noiseTypes\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"returnPath\": \"<string>\"\n  },\n  \"definedAt\": \"string\",\n  \"description\": \"string\",\n  \"editedAt\": \"string\",\n  \"editor\": \"string\",\n  \"editorId\": \"string\",\n  \"enabled\": true,\n  \"executedAt\": \"string\",\n  \"executionDurationMillis\": 9416,\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"note\": \"string\",\n  \"numViolations\": 1510,\n  \"perfMonitoringEnabled\": true,\n  \"priority\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"diagnosis\": {\n    \"details\": [\n      {\n        \"query\": \"string\",\n        \"references\": [\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"files\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"files\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      {\n        \"query\": \"string\",\n        \"references\": [\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"files\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"files\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      }\n    ],\n    \"detailsIncomplete\": true,\n    \"summary\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e08030cf-9e2a-4691-ada5-0ab5d8bac033",
+              "name": "The system is currently processing this Snapshot.\n\nNote: GET /networks/{networkId}/snapshots/latestProcessed can be used to determine when processing of the\nlatest Snapshot is done or to identify an alternate Snapshot that has already been processed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "checks",
+                    ":checkId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "checkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"httpMethod\": \"HEAD\",\n  \"apiUrl\": \"string\",\n  \"message\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2e27642e-7ce3-48f5-b264-f96cfcbbda09",
+          "name": "Deactivate a check",
+          "request": {
+            "name": "Deactivate a check",
+            "description": {},
+            "url": {
+              "path": [
+                "snapshots",
+                ":snapshotId",
+                "checks",
+                ":checkId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshotId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "checkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d247f8fc-90d3-4410-a5bb-e74c6922d065",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "checks",
+                    ":checkId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "checkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0a24672a-ed00-4ab2-afea-14bb3ad0d7c2",
+    "name": "Forward Networks: Complete Aliases Checks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Model and verify networks\n\nContact Support:\n Email: support@forwardnetworks.com",
+      "type": "text/plain"
+    }
+  }
+}

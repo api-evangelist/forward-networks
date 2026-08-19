@@ -1,0 +1,1286 @@
+{
+  "item": [
+    {
+      "id": "ed4946cc-d78f-47c5-8371-9a777517711a",
+      "name": "Network Snapshots",
+      "description": {
+        "content": "List or manage the network Snapshots collected from network devices",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a4215538-9c1a-41db-a220-9c05d5455e38",
+          "name": "List all Snapshots",
+          "request": {
+            "name": "List all Snapshots",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "snapshots"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "List only Snapshots in this state."
+                },
+                {
+                  "disabled": false,
+                  "key": "minSuccessfulDevices",
+                  "value": "<integer>",
+                  "description": "List only Snapshots with at least this many successfully modeled devices."
+                },
+                {
+                  "disabled": false,
+                  "key": "minSuccessfulDevicePct",
+                  "value": "<double>",
+                  "description": "List only Snapshots with at least this percentage of devices successfully modeled."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxCollectionFailureDevices",
+                  "value": "<integer>",
+                  "description": "List only Snapshots with no more than this many devices from which collection has failed."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxCollectionFailureDevicePct",
+                  "value": "<double>",
+                  "description": "List only Snapshots with no more than this percentage of devices from which collection has\nfailed."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxParsingFailureDevices",
+                  "value": "<integer>",
+                  "description": "List only Snapshots with no more than this many devices for which parsing of collected data has\nfailed."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxParsingFailureDevicePct",
+                  "value": "<double>",
+                  "description": "List only Snapshots with no more than this percentage of devices for which parsing of collected data has\nfailed."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of Snapshots desired"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeArchived",
+                  "value": "false",
+                  "description": "Also include archived snapshots. Defaults to false if not provided."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "51d950fb-31ec-43a6-a37e-41163bff5acb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "minSuccessfulDevices",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "minSuccessfulDevicePct",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "maxCollectionFailureDevices",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "maxCollectionFailureDevicePct",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "maxParsingFailureDevices",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "maxParsingFailureDevicePct",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "includeArchived",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"orgId\": \"string\",\n  \"snapshots\": [\n    {\n      \"createdAt\": \"string\",\n      \"id\": \"string\",\n      \"isDraft\": false,\n      \"note\": \"string\",\n      \"parentSnapshotId\": \"string\",\n      \"processedAt\": \"string\",\n      \"processingTrigger\": \"COLLECTION\",\n      \"restoredAt\": \"string\",\n      \"state\": \"<string>\",\n      \"advancedReachabilityState\": \"PROCESSING\",\n      \"favoritedBy\": \"string\",\n      \"favoritedByUserId\": \"string\",\n      \"favoritedAt\": \"string\"\n    },\n    {\n      \"createdAt\": \"string\",\n      \"id\": \"string\",\n      \"isDraft\": false,\n      \"note\": \"string\",\n      \"parentSnapshotId\": \"string\",\n      \"processedAt\": \"string\",\n      \"processingTrigger\": \"IMPORT\",\n      \"restoredAt\": \"string\",\n      \"state\": \"<string>\",\n      \"advancedReachabilityState\": \"PROCESSED\",\n      \"favoritedBy\": \"string\",\n      \"favoritedByUserId\": \"string\",\n      \"favoritedAt\": \"string\"\n    }\n  ],\n  \"parentId\": \"string\",\n  \"creator\": \"string\",\n  \"creatorId\": \"string\",\n  \"createdAt\": \"string\",\n  \"created\": \"string\",\n  \"note\": \"string\",\n  \"retentionDays\": 343,\n  \"secondsToExpiry\": 2662\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9e567972-6655-48af-85d8-898021aecf58",
+          "name": "Import a Snapshot",
+          "request": {
+            "name": "Import a Snapshot",
+            "description": {
+              "content": "Imports a network Snapshot that was previously exported as a .zip file. If multiple Snapshot .zip files are\nuploaded in a single request, they will be merged. They must not have any devices in common.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "snapshots"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "value": "[\"<binary>\",\"<binary>\"]",
+                  "type": "text",
+                  "description": "(Required) "
+                },
+                {
+                  "key": "note",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5f536dc7-3f26-4a85-826d-0fc306031b1e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "snapshots"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "[\"<binary>\",\"<binary>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "note",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"createdAt\": \"string\",\n  \"id\": \"string\",\n  \"isDraft\": true,\n  \"note\": \"string\",\n  \"parentSnapshotId\": \"string\",\n  \"processedAt\": \"string\",\n  \"processingTrigger\": \"FORK\",\n  \"restoredAt\": \"string\",\n  \"state\": \"<string>\",\n  \"advancedReachabilityState\": \"TIMED_OUT\",\n  \"favoritedBy\": \"string\",\n  \"favoritedByUserId\": \"string\",\n  \"favoritedAt\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bc469743-358a-417b-95f2-cf24f705a6a3",
+          "name": "Get the latest processed Snapshot",
+          "request": {
+            "name": "Get the latest processed Snapshot",
+            "description": {
+              "content": "Returns the latest processed Snapshot (the most recent one that's currently prepared for\n[path searches](https://docs.fwd.app/latest/api/path-search/) and\n[new checks](https://docs.fwd.app/latest/api/checks/)).\n\nTriggers processing of the latest Snapshot if it's not already underway and the network has no processed\nSnapshots.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "snapshots",
+                "latestProcessed"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bfdf3d37-b55e-4518-886d-c2552037eaae",
+              "name": "Processing is complete for the identified Snapshot.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "snapshots",
+                    "latestProcessed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"createdAt\": \"string\",\n  \"id\": \"string\",\n  \"isDraft\": true,\n  \"note\": \"string\",\n  \"parentSnapshotId\": \"string\",\n  \"processedAt\": \"string\",\n  \"processingTrigger\": \"FORK\",\n  \"restoredAt\": \"string\",\n  \"state\": \"<string>\",\n  \"advancedReachabilityState\": \"TIMED_OUT\",\n  \"favoritedBy\": \"string\",\n  \"favoritedByUserId\": \"string\",\n  \"favoritedAt\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10d0bca5-e130-4f4a-8b83-f79e80229980",
+              "name": "The network has no Snapshots.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "snapshots",
+                    "latestProcessed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "40d2a6fb-1fe3-4e49-831b-5c5ee3b749a6",
+              "name": "None of the Snapshots in the network are processed. Processing of the latest Snapshot has\nbegun.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "snapshots",
+                    "latestProcessed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"httpMethod\": \"GET\",\n  \"apiUrl\": \"string\",\n  \"message\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bd75a8f6-7118-4410-ac62-4563653de1b4",
+          "name": "Export a Snapshot",
+          "request": {
+            "name": "Export a Snapshot",
+            "description": {
+              "content": "Exports a network Snapshot as a .zip file.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "snapshots",
+                ":snapshotId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "only",
+                  "value": "<string>",
+                  "description": "Use `?only=CONFIG` to include only device configuration files."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshotId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6593ce39-29e5-4f57-8d25-603762f047a6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "only",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a5b57168-80fd-43fb-8edb-aec2d618098b",
+          "name": "Export a Snapshot subset",
+          "request": {
+            "name": "Export a Snapshot subset",
+            "description": {
+              "content": "Exports a network Snapshot as a .zip file, optionally limiting which devices are included and optionally\n[obfuscating](https://docs.fwd.app/latest/application/settings/system/obfuscate-snapshot/) sensitive data.\n\nTo limit which devices are included, specify either `\"includeDevices\"` or `\"excludeDevices\"`. To obfuscate,\nspecify an `\"obfuscationKey\"`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "snapshots",
+                ":snapshotId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshotId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"includeDevices\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"excludeDevices\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"obfuscationKey\": \"<string>\",\n  \"obfuscateNames\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7c02fa4d-8bc0-48af-afad-02befabf0319",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"includeDevices\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"excludeDevices\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"obfuscationKey\": \"<string>\",\n  \"obfuscateNames\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1103e48f-9c2d-4f64-bc6b-bed285e5997b",
+          "name": "Delete a Snapshot",
+          "request": {
+            "name": "Delete a Snapshot",
+            "description": {},
+            "url": {
+              "path": [
+                "snapshots",
+                ":snapshotId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshotId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "17c7804e-5e94-44c4-aa30-b090e65fea13",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e673070b-11ba-4e4f-a53b-f1c75fa8a432",
+          "name": "Trigger advanced reachability computation",
+          "request": {
+            "name": "Trigger advanced reachability computation",
+            "description": {
+              "content": "Requests advanced reachability computation for a Snapshot. The computation runs asynchronously; this endpoint\nreturns immediately. The Snapshot must have completed the reachability processing stage.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "snapshots",
+                "{{snapshotId}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "computeAdvancedReachability"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c8f4f75b-3019-4219-925c-24fcaab807a1",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    "{{snapshotId}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9af20c0c-0386-4cf4-b899-b6824e7cdd1c",
+              "name": "The Snapshot was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    "{{snapshotId}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"httpMethod\": \"GET\",\n  \"apiUrl\": \"string\",\n  \"message\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "06285101-2ea1-48fe-9282-d4a224811ee9",
+              "name": "Prerequisite Snapshot processing has not yet completed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    "{{snapshotId}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"httpMethod\": \"GET\",\n  \"apiUrl\": \"string\",\n  \"message\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e38313c5-c704-4fe5-8b17-92ceb03a14b8",
+          "name": "Get Snapshot metrics",
+          "request": {
+            "name": "Get Snapshot metrics",
+            "description": {
+              "content": "Returns collection and processing health metrics of a Snapshot.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "snapshots",
+                ":snapshotId",
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "snapshotId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "de07a4bc-3c86-4e7d-b70f-6a4af054aadf",
+              "name": "Successfully retrieved metrics for the Snapshot.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"collectionConcurrency\": 9286,\n  \"collectionDuration\": 5878,\n  \"createdAt\": \"string\",\n  \"deviceCollectionFailures\": {\n    \"key_0\": 6488,\n    \"key_1\": 5742\n  },\n  \"deviceProcessingFailures\": {\n    \"key_0\": 6859,\n    \"key_1\": 7432\n  },\n  \"endpointCollectionFailures\": {\n    \"key_0\": 226,\n    \"key_1\": 6655,\n    \"key_2\": 8335\n  },\n  \"endpointProcessingFailures\": {\n    \"key_0\": 2261,\n    \"key_1\": 9440\n  },\n  \"hostComputationStatus\": \"SUCCESS\",\n  \"ipLocationIndexingStatus\": \"SUCCESS\",\n  \"jumpServerCollectionConcurrency\": 2512,\n  \"l2IndexingStatus\": \"SUCCESS\",\n  \"numCollectionFailureDevices\": 3473,\n  \"numCollectionFailureEndpoints\": 7461,\n  \"numProcessingFailureDevices\": 4604,\n  \"numProcessingFailureEndpoints\": 7057,\n  \"numSuccessfulDevices\": 2403,\n  \"numSuccessfulEndpoints\": 1532,\n  \"pathSearchIndexingStatus\": \"SUCCESS\",\n  \"processingDuration\": 8168,\n  \"searchIndexingStatus\": \"UNKNOWN\",\n  \"snapshotId\": \"string\",\n  \"snapshotState\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be5219ba-ccda-4ea1-a301-b75d57e9b6bf",
+              "name": "The Snapshot was not found or its metrics were not found; the health metrics will be recomputed if the\nSnapshot is reprocessed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "snapshots",
+                    ":snapshotId",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "snapshotId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) ",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "snapshotId"
+    }
+  ],
+  "info": {
+    "_postman_id": "e0e429c6-be9e-46b3-be2d-fbd32ae3ed79",
+    "name": "Forward Networks: Complete Aliases Network Snapshots API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Model and verify networks\n\nContact Support:\n Email: support@forwardnetworks.com",
+      "type": "text/plain"
+    }
+  }
+}

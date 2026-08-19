@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Forward Networks: Complete Aliases System Administration API",
+    "version": "26.6"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "System Administration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Export the CVE index",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/cve-index",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "The CVE index is a gzipped binary (.bin.gz) file.\n\nTo download the latest one from fwd.app:\n\n`curl -vu <user>:<pass> https://fwd.app/api/cve-index -o cve-index.bin.gz`\n\nThe response includes a `Digest` header containing the file’s SHA-256 digest."
+        },
+        {
+          "info": {
+            "name": "Import a new CVE index",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/cve-index",
+            "params": [
+              {
+                "name": "sha",
+                "value": "",
+                "type": "query",
+                "description": "Optional SHA-256 digest (consisting of 64 hex digits) to use to verify the integrity of the CVE\nindex"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Replaces the CVE index in use.\n\nTo upload a CVE index gzipped binary (.bin.gz) file downloaded from fwd.app:\n\n`curl -vu <user>:<pass> https://<host>/api/cve-index?sha=<digest> -T cve-index.bin.gz`\n\nThe `sha` parameter is optional but recommended. The `<digest>` value can be found in the `Digest` response\nheader when a CVE index is downloaded from fwd.app.\n\n**Note:** This operation is for on-premises deployments only."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

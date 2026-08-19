@@ -1,0 +1,157 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Forward Networks: Complete Aliases API",
+    "version": "26.6"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Aliases",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Aliases",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/snapshots/:snapshotId/aliases",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get all Aliases"
+        },
+        {
+          "info": {
+            "name": "Delete Aliases",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/snapshots/:snapshotId/aliases",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Use the optional `name` parameter to delete only specific Aliases. It can be repeated as in\n`?name=foo&name=bar`. Omit the `name` parameter to delete all Aliases active in the Snapshot."
+        },
+        {
+          "info": {
+            "name": "Get an Alias",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/snapshots/:snapshotId/aliases/:name",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get an Alias"
+        },
+        {
+          "info": {
+            "name": "Create an Alias",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/snapshots/:snapshotId/aliases/:name",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create an Alias"
+        },
+        {
+          "info": {
+            "name": "Delete an Alias",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/snapshots/:snapshotId/aliases/:name",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Delete an Alias"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

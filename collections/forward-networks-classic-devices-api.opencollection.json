@@ -1,0 +1,361 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Forward Networks: Complete Aliases Classic Devices API",
+    "version": "26.6"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Classic Devices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all classic devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/classic-devices",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get all classic devices"
+        },
+        {
+          "info": {
+            "name": "Add a new classic device",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/classic-devices",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Add a new classic device"
+        },
+        {
+          "info": {
+            "name": "Update specific classic devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/networks/:networkId/classic-devices",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "All JSON properties in the `update` object are optional. Include only the properties you wish\nto change."
+        },
+        {
+          "info": {
+            "name": "Add new classic devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/classic-devices?action=addBatch",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Add new classic devices"
+        },
+        {
+          "info": {
+            "name": "Delete all of a network’s classic devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/classic-devices?action=deleteAll",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Delete all of a network’s classic devices"
+        },
+        {
+          "info": {
+            "name": "Delete specific classic devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/classic-devices?action=deleteBatch",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Delete specific classic devices"
+        },
+        {
+          "info": {
+            "name": "Get specific classic devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/classic-devices?action=getBatch",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get specific classic devices"
+        },
+        {
+          "info": {
+            "name": "Add or update classic devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/classic-devices?action=putBatch",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Add or update classic devices"
+        },
+        {
+          "info": {
+            "name": "Get a classic device",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/classic-devices/:deviceName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deviceName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get a classic device"
+        },
+        {
+          "info": {
+            "name": "Add or update a classic device",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/networks/:networkId/classic-devices/:deviceName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deviceName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Add or update a classic device"
+        },
+        {
+          "info": {
+            "name": "Update a classic device",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/networks/:networkId/classic-devices/:deviceName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deviceName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "All JSON properties in the request body are optional. Include only the properties you wish to\nchange."
+        },
+        {
+          "info": {
+            "name": "Delete a classic device",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/networks/:networkId/classic-devices/:deviceName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deviceName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Delete a classic device"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

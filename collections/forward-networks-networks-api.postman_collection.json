@@ -1,0 +1,583 @@
+{
+  "item": [
+    {
+      "id": "6050abbb-85e8-4982-a100-6aec0eaf8a73",
+      "name": "Networks",
+      "description": {
+        "content": "Create, list, rename, or delete model networks",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0b01f589-547c-4ce3-8311-22b399baecfb",
+          "name": "Get all networks",
+          "request": {
+            "name": "Get all networks",
+            "description": {},
+            "url": {
+              "path": [
+                "networks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c61e42ee-50aa-48fb-ac7e-5a589ca8e4db",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"orgId\": \"string\",\n    \"parentId\": \"string\",\n    \"creator\": \"string\",\n    \"creatorId\": \"string\",\n    \"createdAt\": \"string\",\n    \"created\": \"string\",\n    \"note\": \"string\",\n    \"retentionDays\": 263,\n    \"secondsToExpiry\": 7346\n  },\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"orgId\": \"string\",\n    \"parentId\": \"string\",\n    \"creator\": \"string\",\n    \"creatorId\": \"string\",\n    \"createdAt\": \"string\",\n    \"created\": \"string\",\n    \"note\": \"string\",\n    \"retentionDays\": 179,\n    \"secondsToExpiry\": 7624\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4e73be24-9034-4711-a179-e6f437b212a1",
+          "name": "Create a network",
+          "request": {
+            "name": "Create a network",
+            "description": {},
+            "url": {
+              "path": [
+                "networks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3668a344-4aa4-4903-97eb-3db4d5ee074f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"orgId\": \"string\",\n  \"parentId\": \"string\",\n  \"creator\": \"string\",\n  \"creatorId\": \"string\",\n  \"createdAt\": \"string\",\n  \"created\": \"string\",\n  \"note\": \"string\",\n  \"retentionDays\": 148,\n  \"secondsToExpiry\": 8716\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c72873c5-50a8-4206-b83d-744df19c5317",
+          "name": "Update a network",
+          "request": {
+            "name": "Update a network",
+            "description": {
+              "content": "All JSON properties in the request body are optional. Include only the properties you wish to\nchange.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "networks",
+                ":networkId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"note\": \"<string>\",\n  \"retentionDays\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "57b3eea6-5bba-44fc-8276-e7cdec7cea1c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"note\": \"<string>\",\n  \"retentionDays\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"orgId\": \"string\",\n  \"parentId\": \"string\",\n  \"creator\": \"string\",\n  \"creatorId\": \"string\",\n  \"createdAt\": \"string\",\n  \"created\": \"string\",\n  \"note\": \"string\",\n  \"retentionDays\": 148,\n  \"secondsToExpiry\": 8716\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9e95edce-48f8-4280-b45b-276661a0c079",
+          "name": "Delete a network",
+          "request": {
+            "name": "Delete a network",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "75f563ce-48a1-4bd7-9074-8a77f3d1c108",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"orgId\": \"string\",\n  \"parentId\": \"string\",\n  \"creator\": \"string\",\n  \"creatorId\": \"string\",\n  \"createdAt\": \"string\",\n  \"created\": \"string\",\n  \"note\": \"string\",\n  \"retentionDays\": 148,\n  \"secondsToExpiry\": 8716\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "be047735-b6fc-46ee-b8fc-3f170f3cf742",
+          "name": "Create a Workspace network",
+          "request": {
+            "name": "Create a Workspace network",
+            "description": {
+              "content": "A [Workspace network](https://docs.fwd.app/latest/application/change-mgmt/workspace_network/) is a network that\ncollects from only a subset of the devices in a large “parent” network. This kind of network can be useful\nin time-sensitive situations like change management windows.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "workspaces"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) The id of the parent network"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"note\": \"<string>\",\n  \"devices\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"cloudAccounts\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"vcenters\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"omissions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"retentionDays\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e3299786-d522-48b3-b732-a83a9634a840",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "workspaces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) The id of the parent network"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"note\": \"<string>\",\n  \"devices\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"cloudAccounts\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"vcenters\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"omissions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"retentionDays\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"orgId\": \"string\",\n  \"parentId\": \"string\",\n  \"creator\": \"string\",\n  \"creatorId\": \"string\",\n  \"createdAt\": \"string\",\n  \"created\": \"string\",\n  \"note\": \"string\",\n  \"retentionDays\": 148,\n  \"secondsToExpiry\": 8716\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a20d0222-e28f-46c1-b4f2-6f43b57b4326",
+    "name": "Forward : Complete Aliases Networks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Model and verify networks\n\nContact Support:\n Email: support@forwardnetworks.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,540 @@
+{
+  "item": [
+    {
+      "id": "0eca45b9-fd79-4402-8f6b-e6f4882ae605",
+      "name": "Jump Servers",
+      "description": {
+        "content": "Configure jump servers to assist in reaching network devices",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2008cc21-6f97-4a10-b8f7-576712c53f51",
+          "name": "Get all jump servers",
+          "request": {
+            "name": "Get all jump servers",
+            "description": {
+              "content": "Substitutes a system-generated identifier for each sensitive `password` and `sshKey`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "jumpServers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e83bea9a-a94b-48e2-98fd-6efdcd6466b5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "jumpServers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"host\": \"string\",\n    \"username\": \"string\",\n    \"id\": \"string\",\n    \"port\": 2875,\n    \"password\": \"string\",\n    \"sshKey\": \"string\",\n    \"sshCert\": \"string\",\n    \"supportsPortForwarding\": false,\n    \"commandFormat\": \"CISCO_IOS\",\n    \"vrf\": \"string\",\n    \"authenticationTimeoutSeconds\": 2649,\n    \"createdById\": \"string\",\n    \"createdAt\": \"string\",\n    \"createdBy\": \"string\",\n    \"updatedById\": \"string\",\n    \"updatedAt\": \"string\",\n    \"updatedBy\": \"string\"\n  },\n  {\n    \"host\": \"string\",\n    \"username\": \"string\",\n    \"id\": \"string\",\n    \"port\": 2026,\n    \"password\": \"string\",\n    \"sshKey\": \"string\",\n    \"sshCert\": \"string\",\n    \"supportsPortForwarding\": false,\n    \"commandFormat\": \"JUNOS\",\n    \"vrf\": \"string\",\n    \"authenticationTimeoutSeconds\": 2335,\n    \"createdById\": \"string\",\n    \"createdAt\": \"string\",\n    \"createdBy\": \"string\",\n    \"updatedById\": \"string\",\n    \"updatedAt\": \"string\",\n    \"updatedBy\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d6396cf5-2396-4d32-9593-4558d436efdd",
+          "name": "Create a jump server",
+          "request": {
+            "name": "Create a jump server",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "jumpServers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"host\": \"<string>\",\n  \"username\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"password\": \"<string>\",\n  \"sshKey\": \"<string>\",\n  \"sshCert\": \"<string>\",\n  \"supportsPortForwarding\": \"<boolean>\",\n  \"commandFormat\": \"<string>\",\n  \"vrf\": \"<string>\",\n  \"authenticationTimeoutSeconds\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "18a3cad9-6706-43ac-9a9f-0156317b8cbd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "jumpServers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"host\": \"<string>\",\n  \"username\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"password\": \"<string>\",\n  \"sshKey\": \"<string>\",\n  \"sshCert\": \"<string>\",\n  \"supportsPortForwarding\": \"<boolean>\",\n  \"commandFormat\": \"<string>\",\n  \"vrf\": \"<string>\",\n  \"authenticationTimeoutSeconds\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"host\": \"string\",\n  \"username\": \"string\",\n  \"id\": \"string\",\n  \"port\": 8126,\n  \"password\": \"string\",\n  \"sshKey\": \"string\",\n  \"sshCert\": \"string\",\n  \"supportsPortForwarding\": true,\n  \"commandFormat\": \"<string>\",\n  \"vrf\": \"string\",\n  \"authenticationTimeoutSeconds\": 9150\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8369ceb2-c94c-45fe-a268-e6758dded37b",
+          "name": "Update a jump server",
+          "request": {
+            "name": "Update a jump server",
+            "description": {
+              "content": "All JSON properties in the request body are optional. Include only the properties you wish to\nchange.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "jumpServers",
+                ":jumpServerId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jumpServerId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"host\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"sshKey\": \"<string>\",\n  \"sshCert\": \"<string>\",\n  \"supportsPortForwarding\": \"<boolean>\",\n  \"commandFormat\": \"<string>\",\n  \"vrf\": \"<string>\",\n  \"authenticationTimeoutSeconds\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e47bdcfe-804b-42f2-83a3-ff74858c9c58",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "jumpServers",
+                    ":jumpServerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jumpServerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"host\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"sshKey\": \"<string>\",\n  \"sshCert\": \"<string>\",\n  \"supportsPortForwarding\": \"<boolean>\",\n  \"commandFormat\": \"<string>\",\n  \"vrf\": \"<string>\",\n  \"authenticationTimeoutSeconds\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "41299d77-9bff-4cf0-b5d7-32e3cb33bb9e",
+          "name": "Delete a jump server",
+          "request": {
+            "name": "Delete a jump server",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "jumpServers",
+                ":jumpServerId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jumpServerId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "53f45742-2212-4b22-92eb-3ef1edcdefdc",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "jumpServers",
+                    ":jumpServerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jumpServerId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b7976074-ac58-4f03-8c61-e426c413d955",
+    "name": "Forward Networks: Complete Aliases Jump Servers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Model and verify networks\n\nContact Support:\n Email: support@forwardnetworks.com",
+      "type": "text/plain"
+    }
+  }
+}

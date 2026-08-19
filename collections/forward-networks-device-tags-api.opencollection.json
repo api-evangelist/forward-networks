@@ -1,0 +1,476 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Forward Networks: Complete Aliases Device Tags API",
+    "version": "26.6"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Device Tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all device tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/device-tags",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get all device tags"
+        },
+        {
+          "info": {
+            "name": "Create a device tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/device-tags",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create a device tag"
+        },
+        {
+          "info": {
+            "name": "Get all tags with their devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/device-tags?with=devices",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "If **snapshotId** is specified, the response will include device names that were associated with the tag(s)\nas of the identified network Snapshot."
+        },
+        {
+          "info": {
+            "name": "Create device tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/device-tags?action=addBatch",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This operation is for creating multiple new device tags all at once."
+        },
+        {
+          "info": {
+            "name": "Add tags to devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/device-tags?action=addBatchTo",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "validateDevices",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "If **snapshotId** is specified, the change will take effect starting from the identified network Snapshot,\nand `devices` in the request body must be the names of devices and/or endpoints in the Snapshot. Otherwise,\n`devices` must be the names of devices and/or endpoints configured as _collection sources_, and the change\nwill take effect in the network’s next Snapshot.\n\nTo skip validation of `devices`, set the query parameter **validateDevices** to **false** in the URL."
+        },
+        {
+          "info": {
+            "name": "Remove all tags from devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/device-tags?action=removeAllFrom",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "validateDevices",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "If **snapshotId** is specified, the change will take effect starting from the identified network Snapshot,\nand `devices` in the request body must be the names of devices and/or endpoints in the Snapshot. Otherwise,\n`devices` must be the names of devices and/or endpoints configured as _collection sources_, and the change\nwill take effect in the network’s next Snapshot.\n\nTo skip validation of `devices`, set the query parameter **validateDevices** to **false** in the URL."
+        },
+        {
+          "info": {
+            "name": "Remove tags from devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/device-tags?action=removeBatchFrom",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "validateDevices",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "If **snapshotId** is specified, the change will take effect starting from the identified network Snapshot,\nand `devices` in the request body must be the names of devices and/or endpoints in the Snapshot. Otherwise,\n`devices` must be the names of devices and/or endpoints configured as _collection sources_, and the change\nwill take effect in the network’s next Snapshot.\n\nTo skip validation of `devices`, set the query parameter **validateDevices** to **false** in the URL."
+        },
+        {
+          "info": {
+            "name": "Replace all tags for devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/device-tags?action=replaceAllFor",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "validateDevices",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "If **snapshotId** is specified, the change will take effect starting from the identified network Snapshot,\nand `devices` in the request body must be the names of devices and/or endpoints in the Snapshot. Otherwise,\n`devices` must be the names of devices and/or endpoints configured as _collection sources_, and the change\nwill take effect in the network’s next Snapshot.\n\nTo skip validation of `devices`, set the query parameter **validateDevices** to **false** in the URL."
+        },
+        {
+          "info": {
+            "name": "Get a device tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/device-tags/:tagName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tagName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get a device tag"
+        },
+        {
+          "info": {
+            "name": "Update a device tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/networks/:networkId/device-tags/:tagName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tagName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "All JSON properties in the request body are optional. Include only the properties you wish to\nchange."
+        },
+        {
+          "info": {
+            "name": "Delete a device tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/networks/:networkId/device-tags/:tagName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tagName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**Warning:** This operation deletes the device tag from the network completely. It removes the tag from all\ndevices and endpoints in all the network’s Snapshots."
+        },
+        {
+          "info": {
+            "name": "Get a tag with its devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/device-tags/:tagName?with=devices",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tagName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "If **snapshotId** is specified, the response will include device names that were associated with the tag(s)\nas of the identified network Snapshot."
+        },
+        {
+          "info": {
+            "name": "Add a tag to devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/device-tags/:tagName?action=addTo",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tagName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "validateDevices",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "If **snapshotId** is specified, the change will take effect starting from the identified network Snapshot,\nand `devices` in the request body must be the names of devices and/or endpoints in the Snapshot. Otherwise,\n`devices` must be the names of devices and/or endpoints configured as _collection sources_, and the change\nwill take effect in the network’s next Snapshot.\n\nTo skip validation of `devices`, set the query parameter **validateDevices** to **false** in the URL."
+        },
+        {
+          "info": {
+            "name": "Remove a tag from devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/device-tags/:tagName?action=removeFrom",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tagName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "validateDevices",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "If **snapshotId** is specified, the change will take effect starting from the identified network Snapshot,\nand `devices` in the request body must be the names of devices and/or endpoints in the Snapshot. Otherwise,\n`devices` must be the names of devices and/or endpoints configured as _collection sources_, and the change\nwill take effect in the network’s next Snapshot.\n\nTo skip validation of `devices`, set the query parameter **validateDevices** to **false** in the URL."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,216 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Forward Networks: Complete Aliases NQE API",
+    "version": "26.6"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "NQE",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Request an NQE query execution",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/nqe-executions",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Network on which to execute the query."
+              },
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "query",
+                "description": "An optional Snapshot id. If omitted, the network’s latest processed Snapshot is used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Submits an NQE query to run asynchronously against a Snapshot of the given Network. Returns an `executionKey`\nthat identifies the execution for subsequent status and result requests."
+        },
+        {
+          "info": {
+            "name": "Get NQE query execution status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/nqe-executions/:executionKey",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Network the execution belongs to."
+              },
+              {
+                "name": "executionKey",
+                "value": "",
+                "type": "path",
+                "description": "The `executionKey` returned when the query execution was requested."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns the current status of an NQE query execution. When it completes normally, the `outcome` will be `OK` and\nthe result can then be retrieved using [Get NQE query execution\nresult](https://docs.fwd.app/latest/api/nqe/get-nqe-execution-result/). When the query has completed with an\n`outcome` of `USER_ERROR`, the response includes an `error` that contains the diagnostic output.\n\nPoll this endpoint until the execution is complete. We recommend polling no more than once every 5 seconds. If\nyou n"
+        },
+        {
+          "info": {
+            "name": "Get NQE query execution result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/nqe-executions/:executionKey/result",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Network the result belongs to."
+              },
+              {
+                "name": "executionKey",
+                "value": "",
+                "type": "path",
+                "description": "The `executionKey` returned when the query execution was requested."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Zero-based index of the first row to return. Use together with `limit` to page through large result\nsets."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of rows to return in this response. When omitted, no limit is applied and all\nremaining rows from `offset` onward are returned."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns the result of an NQE query execution whose `status` is `COMPLETED` and `outcome` is `OK`. The response\ncontains the rows produced by the query in the `items` property; use the `offset` and `limit` query parameters\nto page through large result sets.\n\nAn `executionKey` remains valid until the next major release of Forward Enterprise; afterwards,\nthis endpoint returns a 404 error for that key."
+        },
+        {
+          "info": {
+            "name": "Run an NQE query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/nqe",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the Network to query. Required unless the `snapshotId` parameter is provided."
+              },
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "query",
+                "description": "An optional Snapshot id. If omitted, the network’s latest processed Snapshot is used."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Run an NQE query"
+        },
+        {
+          "info": {
+            "name": "Compare NQE query results",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/nqe-diffs/:before/:after",
+            "params": [
+              {
+                "name": "before",
+                "value": "",
+                "type": "path",
+                "description": "The ID for the Snapshot to base the diff on."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "path",
+                "description": "The ID for the Snapshot to diff against the base Snapshot."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Identifies differences in the results of an NQE query for two Snapshots of a network."
+        },
+        {
+          "info": {
+            "name": "List all NQE queries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/nqe/queries",
+            "params": [
+              {
+                "name": "dir",
+                "value": "",
+                "type": "query",
+                "description": "If specified, include only queries in the given directory. The directory must start and end with a forward\nslash, such as `/L3/Advanced/`."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "List all NQE queries"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,187 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Forward Networks: Complete Aliases Checks API",
+    "version": "26.6"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Checks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get available Predefined checks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/predefinedChecks",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get available Predefined checks"
+        },
+        {
+          "info": {
+            "name": "Get checks (with status)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/snapshots/:snapshotId/checks",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Can be repeated to request multiple types (as in `?type=NQE&type=Predefined`) or omitted to request all\ntypes."
+              },
+              {
+                "name": "priority",
+                "value": "",
+                "type": "query",
+                "description": "Can be repeated to request multiple priorities (as in `?priority=HIGH&priority=LOW`) or omitted to request\nall priorities."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Can be repeated to request multiple statuses (as in `?status=FAIL&status=ERROR`) or omitted to request all\nstatuses.\n\n**Note:** The response will never contain results with `status` NONE or PROCESSING. The server will wait to\nrespond, if necessary, until processing finishes or times out."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get checks (with status)"
+        },
+        {
+          "info": {
+            "name": "Add a check",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/snapshots/:snapshotId/checks",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "persistent",
+                "value": "",
+                "type": "query",
+                "description": "Whether to associate check with any later snapshots (including future snapshots) too"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Note that the returned NetworkCheckResult will never have status of type NONE or PROCESSING"
+        },
+        {
+          "info": {
+            "name": "Deactivate all checks",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/snapshots/:snapshotId/checks",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deactivate all checks"
+        },
+        {
+          "info": {
+            "name": "Get a check (with status)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/snapshots/:snapshotId/checks/:checkId",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "checkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Note that the returned NetworkCheckResults will never have status of type NONE or PROCESSING"
+        },
+        {
+          "info": {
+            "name": "Deactivate a check",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/snapshots/:snapshotId/checks/:checkId",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "checkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deactivate a check"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

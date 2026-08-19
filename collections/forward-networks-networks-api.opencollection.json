@@ -1,0 +1,135 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Forward : Complete Aliases Networks API",
+    "version": "26.6"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Networks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all networks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get all networks"
+        },
+        {
+          "info": {
+            "name": "Create a network",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Create a network"
+        },
+        {
+          "info": {
+            "name": "Update a network",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/networks/:networkId",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "All JSON properties in the request body are optional. Include only the properties you wish to\nchange."
+        },
+        {
+          "info": {
+            "name": "Delete a network",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/networks/:networkId",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Delete a network"
+        },
+        {
+          "info": {
+            "name": "Create a Workspace network",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/workspaces",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the parent network"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "A [Workspace network](https://docs.fwd.app/latest/application/change-mgmt/workspace_network/) is a network that\ncollects from only a subset of the devices in a large “parent” network. This kind of network can be useful\nin time-sensitive situations like change management windows."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

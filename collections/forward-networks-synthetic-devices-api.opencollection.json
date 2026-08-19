@@ -1,0 +1,1462 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Forward Networks: Complete Aliases Synthetic Devices API",
+    "version": "26.6"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Synthetic Devices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a network's encryptors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/encryptors",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get a network's encryptors"
+        },
+        {
+          "info": {
+            "name": "Replace all of a network’s encryptors",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/networks/:networkId/encryptors",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Replace all of a network’s encryptors"
+        },
+        {
+          "info": {
+            "name": "Get an encryptor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/encryptors/:deviceName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deviceName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get an encryptor"
+        },
+        {
+          "info": {
+            "name": "Add or replace an encryptor",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/networks/:networkId/encryptors/:deviceName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deviceName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Add or replace an encryptor"
+        },
+        {
+          "info": {
+            "name": "Update an encryptor",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/networks/:networkId/encryptors/:deviceName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deviceName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "All JSON properties in the request body are optional. Include only the properties you wish to\nchange."
+        },
+        {
+          "info": {
+            "name": "Remove an encryptor",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/networks/:networkId/encryptors/:deviceName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deviceName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Remove an encryptor"
+        },
+        {
+          "info": {
+            "name": "Get the network’s internet node",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/internet-node",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get the network’s internet node"
+        },
+        {
+          "info": {
+            "name": "Replace the network’s internet node",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/networks/:networkId/internet-node",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Replace the network’s internet node"
+        },
+        {
+          "info": {
+            "name": "Update the network’s internet node",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/networks/:networkId/internet-node",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "All JSON properties in the request body are optional. Include only the properties you wish to\nchange."
+        },
+        {
+          "info": {
+            "name": "Get the internet node’s connections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/internet-node/connections",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "uplinkDevice",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "uplinkPort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "gatewayDevice",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "gatewayPort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "vlan",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get the internet node’s connections"
+        },
+        {
+          "info": {
+            "name": "Add a connection to the internet node",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/internet-node/connections",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Add a connection to the internet node"
+        },
+        {
+          "info": {
+            "name": "Remove internet node connections",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/networks/:networkId/internet-node/connections",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "uplinkDevice",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "uplinkPort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "gatewayDevice",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "gatewayPort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "vlan",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Remove internet node connections"
+        },
+        {
+          "info": {
+            "name": "Get a network’s intranet nodes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/intranet-nodes",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get a network’s intranet nodes"
+        },
+        {
+          "info": {
+            "name": "Replace all of a network’s intranet nodes",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/networks/:networkId/intranet-nodes",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Replace all of a network’s intranet nodes"
+        },
+        {
+          "info": {
+            "name": "Get an intranet node",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/intranet-nodes/:nodeName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "nodeName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get an intranet node"
+        },
+        {
+          "info": {
+            "name": "Add or replace an intranet node",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/networks/:networkId/intranet-nodes/:nodeName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "nodeName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Add or replace an intranet node"
+        },
+        {
+          "info": {
+            "name": "Update an intranet node",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/networks/:networkId/intranet-nodes/:nodeName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "nodeName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "All JSON properties in the request body are optional. Include only the properties you wish to\nchange."
+        },
+        {
+          "info": {
+            "name": "Remove an intranet node",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/networks/:networkId/intranet-nodes/:nodeName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "nodeName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Remove an intranet node"
+        },
+        {
+          "info": {
+            "name": "Get an intranet node’s connections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/intranet-nodes/:nodeName/connections",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "nodeName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "uplinkDevice",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "uplinkPort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "gatewayDevice",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "gatewayPort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "vlan",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get an intranet node’s connections"
+        },
+        {
+          "info": {
+            "name": "Add a connection to an intranet node",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/intranet-nodes/:nodeName/connections",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "nodeName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Add a connection to an intranet node"
+        },
+        {
+          "info": {
+            "name": "Remove an intranet node’s connections",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/networks/:networkId/intranet-nodes/:nodeName/connections",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "nodeName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "uplinkDevice",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "uplinkPort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "gatewayDevice",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "gatewayPort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "vlan",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Remove an intranet node’s connections"
+        },
+        {
+          "info": {
+            "name": "Get a network’s L2VPNs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/l2-vpns",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get a network’s L2VPNs"
+        },
+        {
+          "info": {
+            "name": "Replace all of a network’s L2VPNs",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/networks/:networkId/l2-vpns",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Replace all of a network’s L2VPNs"
+        },
+        {
+          "info": {
+            "name": "Get an L2VPN",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/l2-vpns/:l2VpnName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "l2VpnName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get an L2VPN"
+        },
+        {
+          "info": {
+            "name": "Add or replace an L2VPN",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/networks/:networkId/l2-vpns/:l2VpnName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "l2VpnName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Add or replace an L2VPN"
+        },
+        {
+          "info": {
+            "name": "Update an L2VPN",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/networks/:networkId/l2-vpns/:l2VpnName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "l2VpnName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "All JSON properties in the request body are optional. Include only the properties you wish to\nchange."
+        },
+        {
+          "info": {
+            "name": "Remove an L2VPN",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/networks/:networkId/l2-vpns/:l2VpnName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "l2VpnName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Remove an L2VPN"
+        },
+        {
+          "info": {
+            "name": "Get an L2VPN’s connections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/l2-vpns/:l2VpnName/connections",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "l2VpnName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "device",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "port",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "vlan",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get an L2VPN’s connections"
+        },
+        {
+          "info": {
+            "name": "Add a connection to an L2VPN",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/l2-vpns/:l2VpnName/connections",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "l2VpnName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Add a connection to an L2VPN"
+        },
+        {
+          "info": {
+            "name": "Remove an L2VPN’s connections",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/networks/:networkId/l2-vpns/:l2VpnName/connections",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "l2VpnName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "device",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "port",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "vlan",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Remove an L2VPN’s connections"
+        },
+        {
+          "info": {
+            "name": "Get a network’s L3VPNs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/l3-vpns",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get a network’s L3VPNs"
+        },
+        {
+          "info": {
+            "name": "Replace all of a network’s L3VPNs",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/networks/:networkId/l3-vpns",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Replace all of a network’s L3VPNs"
+        },
+        {
+          "info": {
+            "name": "Get an L3VPN",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/l3-vpns/:l3VpnName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "l3VpnName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get an L3VPN"
+        },
+        {
+          "info": {
+            "name": "Add or replace an L3VPN",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/networks/:networkId/l3-vpns/:l3VpnName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "l3VpnName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Add or replace an L3VPN"
+        },
+        {
+          "info": {
+            "name": "Update an L3VPN",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/networks/:networkId/l3-vpns/:l3VpnName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "l3VpnName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "All JSON properties in the request body are optional. Include only the properties you wish to\nchange."
+        },
+        {
+          "info": {
+            "name": "Remove an L3VPN",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/networks/:networkId/l3-vpns/:l3VpnName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "l3VpnName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Remove an L3VPN"
+        },
+        {
+          "info": {
+            "name": "Get an L3VPN’s connections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/l3-vpns/:l3VpnName/connections",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "l3VpnName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "uplinkDevice",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "uplinkPort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "gatewayDevice",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "gatewayPort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "vlan",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get an L3VPN’s connections"
+        },
+        {
+          "info": {
+            "name": "Add a connection to an L3VPN",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/l3-vpns/:l3VpnName/connections",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "l3VpnName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Add a connection to an L3VPN"
+        },
+        {
+          "info": {
+            "name": "Remove an L3VPN’s connections",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/networks/:networkId/l3-vpns/:l3VpnName/connections",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "l3VpnName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "uplinkDevice",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "uplinkPort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "gatewayDevice",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "gatewayPort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "vlan",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Remove an L3VPN’s connections"
+        },
+        {
+          "info": {
+            "name": "Get a network’s WAN circuits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/wan-circuits",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get a network’s WAN circuits"
+        },
+        {
+          "info": {
+            "name": "Replace all of a network’s WAN circuits",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/networks/:networkId/wan-circuits",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Replace all of a network’s WAN circuits"
+        },
+        {
+          "info": {
+            "name": "Get a WAN circuit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/wan-circuits/:wanCircuitName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "wanCircuitName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get a WAN circuit"
+        },
+        {
+          "info": {
+            "name": "Add or replace a WAN circuit",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/networks/:networkId/wan-circuits/:wanCircuitName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "wanCircuitName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Add or replace a WAN circuit"
+        },
+        {
+          "info": {
+            "name": "Update a WAN circuit",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/networks/:networkId/wan-circuits/:wanCircuitName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "wanCircuitName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "All JSON properties in the request body are optional. Include only the properties you wish to\nchange."
+        },
+        {
+          "info": {
+            "name": "Remove a WAN circuit",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/networks/:networkId/wan-circuits/:wanCircuitName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "wanCircuitName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Remove a WAN circuit"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

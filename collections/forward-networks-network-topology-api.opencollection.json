@@ -1,0 +1,118 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Forward Networks: Complete Aliases Network Topology API",
+    "version": "26.6"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Network Topology",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the network topology",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/snapshots/:snapshotId/topology",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "The links in the response are directed, so they generally appear twice—once for each direction."
+        },
+        {
+          "info": {
+            "name": "Get the topology overrides",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/snapshots/:snapshotId/topology/overrides",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get the topology overrides"
+        },
+        {
+          "info": {
+            "name": "Edit the topology overrides",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/snapshots/:snapshotId/topology/overrides",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Edit the topology overrides"
+        },
+        {
+          "info": {
+            "name": "Set the topology overrides",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/snapshots/:snapshotId/topology/overrides",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Replaces any topology overrides previously saved for the Snapshot."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

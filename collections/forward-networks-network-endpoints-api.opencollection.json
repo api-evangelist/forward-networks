@@ -1,0 +1,625 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Forward Networks: Complete Aliases Network Endpoints API",
+    "version": "26.6"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Network Endpoints",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all endpoint profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/endpoint-profiles",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get all endpoint profiles"
+        },
+        {
+          "info": {
+            "name": "Add a CLI endpoint profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/endpoint-profiles?type=CLI",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Add a CLI endpoint profile"
+        },
+        {
+          "info": {
+            "name": "Add an HTTP endpoint profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/endpoint-profiles?type=HTTP",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Add an HTTP endpoint profile"
+        },
+        {
+          "info": {
+            "name": "Add an SNMP endpoint profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/endpoint-profiles?type=SNMP",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Add an SNMP endpoint profile"
+        },
+        {
+          "info": {
+            "name": "Update a CLI endpoint profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/endpoint-profiles/CLI-:profileId",
+            "params": [
+              {
+                "name": "profileId",
+                "value": "",
+                "type": "path",
+                "description": "Profile ID (the numeric part)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Update a CLI endpoint profile"
+        },
+        {
+          "info": {
+            "name": "Update an HTTP endpoint profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/endpoint-profiles/HTTP-:profileId",
+            "params": [
+              {
+                "name": "profileId",
+                "value": "",
+                "type": "path",
+                "description": "Profile ID (the numeric part)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Update an HTTP endpoint profile"
+        },
+        {
+          "info": {
+            "name": "Update an SNMP endpoint profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/endpoint-profiles/SNMP-:profileId",
+            "params": [
+              {
+                "name": "profileId",
+                "value": "",
+                "type": "path",
+                "description": "Profile ID (the numeric part)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Update an SNMP endpoint profile"
+        },
+        {
+          "info": {
+            "name": "Get an endpoint profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/endpoint-profiles/:profileId",
+            "params": [
+              {
+                "name": "profileId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get an endpoint profile"
+        },
+        {
+          "info": {
+            "name": "Delete an endpoint profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/endpoint-profiles/:profileId",
+            "params": [
+              {
+                "name": "profileId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Delete an endpoint profile"
+        },
+        {
+          "info": {
+            "name": "Get a network’s endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/endpoints",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get a network’s endpoints"
+        },
+        {
+          "info": {
+            "name": "Update specific network endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/networks/:networkId/endpoints",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "All JSON properties in the `update` object are optional. Include only the properties you wish\nto change."
+        },
+        {
+          "info": {
+            "name": "Add a CLI network endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/endpoints?type=CLI",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Add a CLI network endpoint"
+        },
+        {
+          "info": {
+            "name": "Add an HTTP network endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/endpoints?type=HTTP",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Add an HTTP network endpoint"
+        },
+        {
+          "info": {
+            "name": "Add an SNMP network endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/endpoints?type=SNMP",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Add an SNMP network endpoint"
+        },
+        {
+          "info": {
+            "name": "Add CLI network endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/endpoints?action=addBatch&type=CLI",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Add CLI network endpoints"
+        },
+        {
+          "info": {
+            "name": "Add HTTP network endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/endpoints?action=addBatch&type=HTTP",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Add HTTP network endpoints"
+        },
+        {
+          "info": {
+            "name": "Add SNMP network endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/endpoints?action=addBatch&type=SNMP",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Add SNMP network endpoints"
+        },
+        {
+          "info": {
+            "name": "Delete specific network endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/endpoints?action=deleteBatch",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Delete specific network endpoints"
+        },
+        {
+          "info": {
+            "name": "Get a network endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/endpoints/:endpointName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "endpointName",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "with",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get a network endpoint"
+        },
+        {
+          "info": {
+            "name": "Delete a network endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/networks/:networkId/endpoints/:endpointName",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "endpointName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Delete a network endpoint"
+        },
+        {
+          "info": {
+            "name": "Update a CLI network endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/networks/:networkId/endpoints/:endpointName?type=CLI",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "endpointName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "All JSON properties in the request body are optional. Include only the properties you wish to\nchange."
+        },
+        {
+          "info": {
+            "name": "Update an HTTP network endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/networks/:networkId/endpoints/:endpointName?type=HTTP",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "endpointName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "All JSON properties in the request body are optional. Include only the properties you wish to\nchange."
+        },
+        {
+          "info": {
+            "name": "Update an SNMP network endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/networks/:networkId/endpoints/:endpointName?type=SNMP",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "endpointName",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "All JSON properties in the request body are optional. Include only the properties you wish to\nchange."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,34 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Forward Networks: Complete Aliases Current Version API",
+    "version": "26.6"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Current Version",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the API’s version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/version",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get the API’s version"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

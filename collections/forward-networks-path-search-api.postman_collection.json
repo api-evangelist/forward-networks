@@ -1,0 +1,1190 @@
+{
+  "item": [
+    {
+      "id": "d9a0aeca-bf3b-4c62-a87b-e8196b6295f6",
+      "name": "Path Search",
+      "description": {
+        "content": "Trace packets through the network model",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e8d49b83-a744-4c5d-8ac6-562a05f63ede",
+          "name": "List known L7 applications",
+          "request": {
+            "name": "List known L7 applications",
+            "description": {},
+            "url": {
+              "path": [
+                "l7-applications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "26248871-bd28-42d0-9056-1d9bf3e779e7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "l7-applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\"\n  },\n  {\n    \"id\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c471422-f547-44e2-b52f-9c97021f81a6",
+          "name": "Trace packets through the network",
+          "request": {
+            "name": "Trace packets through the network",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "paths"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<string>",
+                  "description": "the device from which the traffic originates. If this is specified, then the srcIp will be considered as a\npacket header only, else, the srcIp will be resolved to specific location(s) and used as the source in the\npath search. Either the source device or srcIp must be specified."
+                },
+                {
+                  "disabled": false,
+                  "key": "srcIp",
+                  "value": "<string>",
+                  "description": "the source IP address or subnet of packets entering the network. For multicast (*, G) paths, set srcIp = G\n(multicast group address)."
+                },
+                {
+                  "disabled": false,
+                  "key": "dstIp",
+                  "value": "<string>",
+                  "description": "(Required) the destination IP address or subnet of packets entering the network. For multicast (*, G) paths, set dstIp\n= G (multicast group address)."
+                },
+                {
+                  "disabled": false,
+                  "key": "intent",
+                  "value": "<string>",
+                  "description": "Specifies the intent for the search. Default PREFER_DELIVERED.\n*PREFER_VIOLATIONS*: Prefer paths that result in the traffic not getting delivered, e.g. drops, blackholes,\nloops. An example usage is while trying to evaluate if the specified traffic always gets delivered to the\ndestination along all path choices.\n*PREFER_DELIVERED*: Prefer paths that result in the traffic getting delivered. An example usage is while\ntrying to evaluate if traffic gets delivered to the destination along any path choice.\n*VIOLATIONS_ONLY*: Search for paths where traffic is not delivered to the destination."
+                },
+                {
+                  "disabled": false,
+                  "key": "ipProto",
+                  "value": "<integer>",
+                  "description": "the IP protocol"
+                },
+                {
+                  "disabled": false,
+                  "key": "srcPort",
+                  "value": "<string>",
+                  "description": "the L4 source port, like \"80\" or a range \"8080-8088\""
+                },
+                {
+                  "disabled": false,
+                  "key": "dstPort",
+                  "value": "<string>",
+                  "description": "the L4 destination port, like \"80\" or a range \"8080-8088\""
+                },
+                {
+                  "disabled": false,
+                  "key": "icmpType",
+                  "value": "<integer>",
+                  "description": "the ICMP type. Implies ipProto = 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "fin",
+                  "value": "<integer>",
+                  "description": "the FIN (finish) bit (0 or 1). Implies ipProto = 6."
+                },
+                {
+                  "disabled": false,
+                  "key": "syn",
+                  "value": "<integer>",
+                  "description": "the SYN (synchronize) bit (0 or 1). Implies ipProto = 6."
+                },
+                {
+                  "disabled": false,
+                  "key": "rst",
+                  "value": "<integer>",
+                  "description": "the RST (reset) bit (0 or 1). Implies ipProto = 6."
+                },
+                {
+                  "disabled": false,
+                  "key": "psh",
+                  "value": "<integer>",
+                  "description": "the PSH (push) bit (0 or 1). Implies ipProto = 6."
+                },
+                {
+                  "disabled": false,
+                  "key": "ack",
+                  "value": "<integer>",
+                  "description": "the ACK (acknowledgment) bit (0 or 1). Implies ipProto = 6."
+                },
+                {
+                  "disabled": false,
+                  "key": "urg",
+                  "value": "<integer>",
+                  "description": "the URG (urgent) bit (0 or 1). Implies ipProto = 6."
+                },
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "<string>",
+                  "description": "the L7 app-id or \"unidentified\" to exclude paths that traverse firewall policies with app-id matches. If the\nsystem doesn't recognize the provided value, it handles the value the same as \"unidentified\" and includes\nthe value in the `unrecognizedValues` response field. The applications that are recognized by the model can\nbe obtained using GET /api/l7-applications."
+                },
+                {
+                  "disabled": false,
+                  "key": "userId",
+                  "value": "<string>",
+                  "description": "the L7 user-id or \"unidentified\" to exclude paths that traverse firewall policies with user-id matches. If\nthe system doesn't recognize the provided value, it handles the value the same as \"unidentified\" and\nincludes the value in the `unrecognizedValues` response field. See [Path Analysis with Layer 7\nUser-Group](https://docs.fwd.app/latest/application/search/path-analysis/layer7_ugroup/) for more info."
+                },
+                {
+                  "disabled": false,
+                  "key": "userGroupId",
+                  "value": "<string>",
+                  "description": "the L7 user-group-id. If the system doesn't recognize the provided value, the search returns 0 results as\nthere are no paths that traverse firewall policies with that user-group-id match, and the value is included\nin the `unrecognizedValues` response field. See [Path Analysis with Layer 7\nUser-Group](https://docs.fwd.app/latest/application/search/path-analysis/layer7_ugroup/) for more info."
+                },
+                {
+                  "disabled": false,
+                  "key": "url",
+                  "value": "<string>",
+                  "description": "the L7 URL that traffic of interest is trying to access. Prefix wildcards are supported for subdomains.\nSuffix wildcards are supported for top-level domains and URL paths. See [Path Analysis with Layer 7\nURL](https://docs.fwd.app/latest/application/search/path-analysis/layer7_url/) for more policy patterns\nsupported in the model."
+                },
+                {
+                  "disabled": false,
+                  "key": "domain",
+                  "value": "<string>",
+                  "description": "the L7 domain that traffic of interest is trying to reach. Unlike 'url', which applies only to\nHTTP/HTTPS traffic (TCP/UDP), 'domain' can be used with any IP protocol. Prefix wildcards are\nsupported for subdomains. Cannot be specified together with 'url'."
+                },
+                {
+                  "disabled": false,
+                  "key": "includeTags",
+                  "value": "false",
+                  "description": "If true, the response will include device tags for each hop."
+                },
+                {
+                  "disabled": false,
+                  "key": "includeNetworkFunctions",
+                  "value": "false",
+                  "description": "If true, the response includes detailed forwarding info for each hop.\nNote: Setting this to true increases the API response time."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxCandidates",
+                  "value": "5000",
+                  "description": "the limit on the number of search results computed, before applying any ranking criteria. Permitted range =\n1 to 10,000. Default 5,000."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxResults",
+                  "value": "1",
+                  "description": "the limit on the number of search results returned by the API. First, the platform computes up to\nmaxCandidates results that match the search criteria. Then they are sorted by various ranking criteria. A\nkey ranking factor is path length, preferring longer paths (greatest reach) in the network over shorter\nones. Finally, the API limits the number of returned search results to maxResults. Permitted range = 1 to\nmaxCandidates. Default 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxReturnPathResults",
+                  "value": "0",
+                  "description": "the limit on the number of return path search results. Permitted range = 0 to 10,000. Default 0. Multicast\n(*, G) and (S, G) queries will always return 0 return path results regardless of this value."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxSeconds",
+                  "value": "30",
+                  "description": "the timeout duration. Permitted range = 1 to 300. Default 30."
+                },
+                {
+                  "disabled": false,
+                  "key": "snapshotId",
+                  "value": "<string>",
+                  "description": "An optional Snapshot id. If omitted, the network’s latest processed Snapshot is used."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2207d9af-38a1-4ed6-9022-210721525663",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "paths"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "srcIp",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dstIp",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "intent",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ipProto",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "srcPort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dstPort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "icmpType",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fin",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "syn",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "rst",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "psh",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "ack",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "urg",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "appId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userGroupId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "includeTags",
+                      "value": "false"
+                    },
+                    {
+                      "key": "includeNetworkFunctions",
+                      "value": "false"
+                    },
+                    {
+                      "key": "maxCandidates",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "maxResults",
+                      "value": "1"
+                    },
+                    {
+                      "key": "maxReturnPathResults",
+                      "value": "0"
+                    },
+                    {
+                      "key": "maxSeconds",
+                      "value": "30"
+                    },
+                    {
+                      "key": "snapshotId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"srcIpLocationType\": \"MULTICAST\",\n  \"dstIpLocationType\": \"HOST\",\n  \"info\": {\n    \"paths\": [\n      {\n        \"forwardingOutcome\": \"DROPPED\",\n        \"securityOutcome\": \"DENIED\",\n        \"hops\": [\n          {\n            \"deviceName\": \"string\",\n            \"displayName\": \"string\",\n            \"deviceType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"parseError\": false,\n            \"ingressInterface\": \"string\",\n            \"egressInterface\": \"string\",\n            \"behaviors\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"networkFunctions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"backfilledFrom\": \"string\"\n          },\n          {\n            \"deviceName\": \"string\",\n            \"displayName\": \"string\",\n            \"deviceType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"parseError\": true,\n            \"ingressInterface\": \"string\",\n            \"egressInterface\": \"string\",\n            \"behaviors\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"networkFunctions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"backfilledFrom\": \"string\"\n          }\n        ]\n      },\n      {\n        \"forwardingOutcome\": \"LOOP\",\n        \"securityOutcome\": \"DENIED\",\n        \"hops\": [\n          {\n            \"deviceName\": \"string\",\n            \"displayName\": \"string\",\n            \"deviceType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"parseError\": true,\n            \"ingressInterface\": \"string\",\n            \"egressInterface\": \"string\",\n            \"behaviors\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"networkFunctions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"backfilledFrom\": \"string\"\n          },\n          {\n            \"deviceName\": \"string\",\n            \"displayName\": \"string\",\n            \"deviceType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"parseError\": true,\n            \"ingressInterface\": \"string\",\n            \"egressInterface\": \"string\",\n            \"behaviors\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"networkFunctions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"backfilledFrom\": \"string\"\n          }\n        ]\n      }\n    ],\n    \"totalHits\": {\n      \"type\": \"LOWER_BOUND\",\n      \"value\": 9395\n    }\n  },\n  \"returnPathInfo\": {\n    \"paths\": [\n      {\n        \"forwardingOutcome\": \"UNREACHABLE\",\n        \"securityOutcome\": \"PERMITTED\",\n        \"hops\": [\n          {\n            \"deviceName\": \"string\",\n            \"displayName\": \"string\",\n            \"deviceType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"parseError\": false,\n            \"ingressInterface\": \"string\",\n            \"egressInterface\": \"string\",\n            \"behaviors\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"networkFunctions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"backfilledFrom\": \"string\"\n          },\n          {\n            \"deviceName\": \"string\",\n            \"displayName\": \"string\",\n            \"deviceType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"parseError\": false,\n            \"ingressInterface\": \"string\",\n            \"egressInterface\": \"string\",\n            \"behaviors\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"networkFunctions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"backfilledFrom\": \"string\"\n          }\n        ]\n      },\n      {\n        \"forwardingOutcome\": \"DELIVERED\",\n        \"securityOutcome\": \"DENIED\",\n        \"hops\": [\n          {\n            \"deviceName\": \"string\",\n            \"displayName\": \"string\",\n            \"deviceType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"parseError\": true,\n            \"ingressInterface\": \"string\",\n            \"egressInterface\": \"string\",\n            \"behaviors\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"networkFunctions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"backfilledFrom\": \"string\"\n          },\n          {\n            \"deviceName\": \"string\",\n            \"displayName\": \"string\",\n            \"deviceType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"parseError\": false,\n            \"ingressInterface\": \"string\",\n            \"egressInterface\": \"string\",\n            \"behaviors\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"networkFunctions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"backfilledFrom\": \"string\"\n          }\n        ]\n      }\n    ],\n    \"totalHits\": {\n      \"type\": \"EXACT\",\n      \"value\": 3255\n    }\n  },\n  \"timedOut\": true,\n  \"queryUrl\": \"string\",\n  \"unrecognizedValues\": {\n    \"appId\": [\n      \"string\",\n      \"string\"\n    ],\n    \"userGroupId\": [\n      \"string\",\n      \"string\"\n    ],\n    \"userId\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "14a6b17e-f231-4067-8e61-6561966f62f9",
+              "name": "The system is currently processing this Snapshot.\n\nNote: GET /networks/{networkId}/snapshots/latestProcessed can be used to determine when processing of the\nlatest Snapshot is done or to identify an alternate Snapshot that has already been processed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "paths"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "srcIp",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dstIp",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "intent",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ipProto",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "srcPort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dstPort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "icmpType",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fin",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "syn",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "rst",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "psh",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "ack",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "urg",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "appId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "userGroupId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "includeTags",
+                      "value": "false"
+                    },
+                    {
+                      "key": "includeNetworkFunctions",
+                      "value": "false"
+                    },
+                    {
+                      "key": "maxCandidates",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "maxResults",
+                      "value": "1"
+                    },
+                    {
+                      "key": "maxReturnPathResults",
+                      "value": "0"
+                    },
+                    {
+                      "key": "maxSeconds",
+                      "value": "30"
+                    },
+                    {
+                      "key": "snapshotId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"httpMethod\": \"PUT\",\n  \"apiUrl\": \"string\",\n  \"message\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fd385b72-38c2-4068-ae2d-c54a562ee641",
+          "name": "Trace sets of packets through the network",
+          "request": {
+            "name": "Trace sets of packets through the network",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "paths-bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "snapshotId",
+                  "value": "<string>",
+                  "description": "An optional Snapshot id. If omitted, the network’s latest processed Snapshot is used."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"queries\": [\n    {\n      \"dstIp\": \"<string>\",\n      \"from\": \"<string>\",\n      \"srcIp\": \"<string>\",\n      \"ipProto\": \"<integer>\",\n      \"srcPort\": \"<string>\",\n      \"dstPort\": \"<string>\",\n      \"icmpType\": \"<integer>\",\n      \"fin\": \"<integer>\",\n      \"syn\": \"<integer>\",\n      \"rst\": \"<integer>\",\n      \"psh\": \"<integer>\",\n      \"ack\": \"<integer>\",\n      \"urg\": \"<integer>\",\n      \"appId\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"userGroupId\": \"<string>\",\n      \"url\": \"<string>\",\n      \"domain\": \"<string>\"\n    },\n    {\n      \"dstIp\": \"<string>\",\n      \"from\": \"<string>\",\n      \"srcIp\": \"<string>\",\n      \"ipProto\": \"<integer>\",\n      \"srcPort\": \"<string>\",\n      \"dstPort\": \"<string>\",\n      \"icmpType\": \"<integer>\",\n      \"fin\": \"<integer>\",\n      \"syn\": \"<integer>\",\n      \"rst\": \"<integer>\",\n      \"psh\": \"<integer>\",\n      \"ack\": \"<integer>\",\n      \"urg\": \"<integer>\",\n      \"appId\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"userGroupId\": \"<string>\",\n      \"url\": \"<string>\",\n      \"domain\": \"<string>\"\n    }\n  ],\n  \"intent\": \"<string>\",\n  \"maxCandidates\": \"<integer>\",\n  \"maxResults\": \"<integer>\",\n  \"maxReturnPathResults\": \"<integer>\",\n  \"maxSeconds\": \"<integer>\",\n  \"maxOverallSeconds\": \"<integer>\",\n  \"includeTags\": \"<boolean>\",\n  \"includeNetworkFunctions\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1ace92c2-491b-470d-acf4-64756a37268b",
+              "name": "The response is an array containing a result (a `PathSearchResponse` or an error object) for each query in\nthe request, in the same order. An error object has an `\"error\": true` property. Each query is evaluated\nindependently.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "paths-bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "snapshotId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"queries\": [\n    {\n      \"dstIp\": \"<string>\",\n      \"from\": \"<string>\",\n      \"srcIp\": \"<string>\",\n      \"ipProto\": \"<integer>\",\n      \"srcPort\": \"<string>\",\n      \"dstPort\": \"<string>\",\n      \"icmpType\": \"<integer>\",\n      \"fin\": \"<integer>\",\n      \"syn\": \"<integer>\",\n      \"rst\": \"<integer>\",\n      \"psh\": \"<integer>\",\n      \"ack\": \"<integer>\",\n      \"urg\": \"<integer>\",\n      \"appId\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"userGroupId\": \"<string>\",\n      \"url\": \"<string>\",\n      \"domain\": \"<string>\"\n    },\n    {\n      \"dstIp\": \"<string>\",\n      \"from\": \"<string>\",\n      \"srcIp\": \"<string>\",\n      \"ipProto\": \"<integer>\",\n      \"srcPort\": \"<string>\",\n      \"dstPort\": \"<string>\",\n      \"icmpType\": \"<integer>\",\n      \"fin\": \"<integer>\",\n      \"syn\": \"<integer>\",\n      \"rst\": \"<integer>\",\n      \"psh\": \"<integer>\",\n      \"ack\": \"<integer>\",\n      \"urg\": \"<integer>\",\n      \"appId\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"userGroupId\": \"<string>\",\n      \"url\": \"<string>\",\n      \"domain\": \"<string>\"\n    }\n  ],\n  \"intent\": \"<string>\",\n  \"maxCandidates\": \"<integer>\",\n  \"maxResults\": \"<integer>\",\n  \"maxReturnPathResults\": \"<integer>\",\n  \"maxSeconds\": \"<integer>\",\n  \"maxOverallSeconds\": \"<integer>\",\n  \"includeTags\": \"<boolean>\",\n  \"includeNetworkFunctions\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"srcIpLocationType\": \"MULTICAST\",\n    \"dstIpLocationType\": \"MULTICAST\",\n    \"info\": {\n      \"paths\": [\n        {\n          \"forwardingOutcome\": \"UNREACHABLE\",\n          \"securityOutcome\": \"DENIED\",\n          \"hops\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"forwardingOutcome\": \"DELIVERED\",\n          \"securityOutcome\": \"PERMITTED\",\n          \"hops\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ],\n      \"totalHits\": {\n        \"type\": \"EXACT\",\n        \"value\": 7984\n      }\n    },\n    \"returnPathInfo\": {\n      \"paths\": [\n        {\n          \"forwardingOutcome\": \"DELIVERED_TO_INCORRECT_LOCATION\",\n          \"securityOutcome\": \"PERMITTED\",\n          \"hops\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"forwardingOutcome\": \"UNREACHABLE\",\n          \"securityOutcome\": \"DENIED\",\n          \"hops\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ],\n      \"totalHits\": {\n        \"type\": \"LOWER_BOUND\",\n        \"value\": 3\n      }\n    },\n    \"timedOut\": true,\n    \"queryUrl\": \"string\",\n    \"unrecognizedValues\": {\n      \"appId\": [\n        \"string\",\n        \"string\"\n      ],\n      \"userGroupId\": [\n        \"string\",\n        \"string\"\n      ],\n      \"userId\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  },\n  {\n    \"srcIpLocationType\": \"INTERFACE_ATTACHED_SUBNET\",\n    \"dstIpLocationType\": \"CO_LOCATED\",\n    \"info\": {\n      \"paths\": [\n        {\n          \"forwardingOutcome\": \"UNREACHABLE\",\n          \"securityOutcome\": \"DENIED\",\n          \"hops\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"forwardingOutcome\": \"INADMISSIBLE\",\n          \"securityOutcome\": \"DENIED\",\n          \"hops\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ],\n      \"totalHits\": {\n        \"type\": \"LOWER_BOUND\",\n        \"value\": 7581\n      }\n    },\n    \"returnPathInfo\": {\n      \"paths\": [\n        {\n          \"forwardingOutcome\": \"UNREACHABLE\",\n          \"securityOutcome\": \"PERMITTED\",\n          \"hops\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"forwardingOutcome\": \"DELIVERED\",\n          \"securityOutcome\": \"PERMITTED\",\n          \"hops\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ],\n      \"totalHits\": {\n        \"type\": \"LOWER_BOUND\",\n        \"value\": 8367\n      }\n    },\n    \"timedOut\": true,\n    \"queryUrl\": \"string\",\n    \"unrecognizedValues\": {\n      \"appId\": [\n        \"string\",\n        \"string\"\n      ],\n      \"userGroupId\": [\n        \"string\",\n        \"string\"\n      ],\n      \"userId\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "40442fd6-2f67-490f-8854-68181f09b28d",
+              "name": "The request failed input validation. For example, a request parameter is outside the permitted range or an\ninput path search query had an invalid IP protocol and ICMP type combination.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "paths-bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "snapshotId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"queries\": [\n    {\n      \"dstIp\": \"<string>\",\n      \"from\": \"<string>\",\n      \"srcIp\": \"<string>\",\n      \"ipProto\": \"<integer>\",\n      \"srcPort\": \"<string>\",\n      \"dstPort\": \"<string>\",\n      \"icmpType\": \"<integer>\",\n      \"fin\": \"<integer>\",\n      \"syn\": \"<integer>\",\n      \"rst\": \"<integer>\",\n      \"psh\": \"<integer>\",\n      \"ack\": \"<integer>\",\n      \"urg\": \"<integer>\",\n      \"appId\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"userGroupId\": \"<string>\",\n      \"url\": \"<string>\",\n      \"domain\": \"<string>\"\n    },\n    {\n      \"dstIp\": \"<string>\",\n      \"from\": \"<string>\",\n      \"srcIp\": \"<string>\",\n      \"ipProto\": \"<integer>\",\n      \"srcPort\": \"<string>\",\n      \"dstPort\": \"<string>\",\n      \"icmpType\": \"<integer>\",\n      \"fin\": \"<integer>\",\n      \"syn\": \"<integer>\",\n      \"rst\": \"<integer>\",\n      \"psh\": \"<integer>\",\n      \"ack\": \"<integer>\",\n      \"urg\": \"<integer>\",\n      \"appId\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"userGroupId\": \"<string>\",\n      \"url\": \"<string>\",\n      \"domain\": \"<string>\"\n    }\n  ],\n  \"intent\": \"<string>\",\n  \"maxCandidates\": \"<integer>\",\n  \"maxResults\": \"<integer>\",\n  \"maxReturnPathResults\": \"<integer>\",\n  \"maxSeconds\": \"<integer>\",\n  \"maxOverallSeconds\": \"<integer>\",\n  \"includeTags\": \"<boolean>\",\n  \"includeNetworkFunctions\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"httpMethod\": \"PUT\",\n  \"apiUrl\": \"string\",\n  \"message\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b005394e-ba6d-4b63-950a-bea2f3628e2d",
+              "name": "The system is currently processing this Snapshot.\n\nNote: GET /networks/{networkId}/snapshots/latestProcessed can be used to determine when processing of the\nlatest Snapshot is done or to identify an alternate Snapshot that has already been processed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "paths-bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "snapshotId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"queries\": [\n    {\n      \"dstIp\": \"<string>\",\n      \"from\": \"<string>\",\n      \"srcIp\": \"<string>\",\n      \"ipProto\": \"<integer>\",\n      \"srcPort\": \"<string>\",\n      \"dstPort\": \"<string>\",\n      \"icmpType\": \"<integer>\",\n      \"fin\": \"<integer>\",\n      \"syn\": \"<integer>\",\n      \"rst\": \"<integer>\",\n      \"psh\": \"<integer>\",\n      \"ack\": \"<integer>\",\n      \"urg\": \"<integer>\",\n      \"appId\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"userGroupId\": \"<string>\",\n      \"url\": \"<string>\",\n      \"domain\": \"<string>\"\n    },\n    {\n      \"dstIp\": \"<string>\",\n      \"from\": \"<string>\",\n      \"srcIp\": \"<string>\",\n      \"ipProto\": \"<integer>\",\n      \"srcPort\": \"<string>\",\n      \"dstPort\": \"<string>\",\n      \"icmpType\": \"<integer>\",\n      \"fin\": \"<integer>\",\n      \"syn\": \"<integer>\",\n      \"rst\": \"<integer>\",\n      \"psh\": \"<integer>\",\n      \"ack\": \"<integer>\",\n      \"urg\": \"<integer>\",\n      \"appId\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"userGroupId\": \"<string>\",\n      \"url\": \"<string>\",\n      \"domain\": \"<string>\"\n    }\n  ],\n  \"intent\": \"<string>\",\n  \"maxCandidates\": \"<integer>\",\n  \"maxResults\": \"<integer>\",\n  \"maxReturnPathResults\": \"<integer>\",\n  \"maxSeconds\": \"<integer>\",\n  \"maxOverallSeconds\": \"<integer>\",\n  \"includeTags\": \"<boolean>\",\n  \"includeNetworkFunctions\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"httpMethod\": \"PUT\",\n  \"apiUrl\": \"string\",\n  \"message\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0efa8c55-2df5-453c-b15d-59fefcf868f2",
+          "name": "Trace sets of packets through the network",
+          "request": {
+            "name": "Trace sets of packets through the network",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "paths-bulk-seq"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "snapshotId",
+                  "value": "<string>",
+                  "description": "An optional Snapshot id. If omitted, the network’s latest processed Snapshot is used."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json-seq"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"queries\": [\n    {\n      \"dstIp\": \"<string>\",\n      \"from\": \"<string>\",\n      \"srcIp\": \"<string>\",\n      \"ipProto\": \"<integer>\",\n      \"srcPort\": \"<string>\",\n      \"dstPort\": \"<string>\",\n      \"icmpType\": \"<integer>\",\n      \"fin\": \"<integer>\",\n      \"syn\": \"<integer>\",\n      \"rst\": \"<integer>\",\n      \"psh\": \"<integer>\",\n      \"ack\": \"<integer>\",\n      \"urg\": \"<integer>\",\n      \"appId\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"userGroupId\": \"<string>\",\n      \"url\": \"<string>\",\n      \"domain\": \"<string>\"\n    },\n    {\n      \"dstIp\": \"<string>\",\n      \"from\": \"<string>\",\n      \"srcIp\": \"<string>\",\n      \"ipProto\": \"<integer>\",\n      \"srcPort\": \"<string>\",\n      \"dstPort\": \"<string>\",\n      \"icmpType\": \"<integer>\",\n      \"fin\": \"<integer>\",\n      \"syn\": \"<integer>\",\n      \"rst\": \"<integer>\",\n      \"psh\": \"<integer>\",\n      \"ack\": \"<integer>\",\n      \"urg\": \"<integer>\",\n      \"appId\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"userGroupId\": \"<string>\",\n      \"url\": \"<string>\",\n      \"domain\": \"<string>\"\n    }\n  ],\n  \"intent\": \"<string>\",\n  \"maxCandidates\": \"<integer>\",\n  \"maxResults\": \"<integer>\",\n  \"maxReturnPathResults\": \"<integer>\",\n  \"maxSeconds\": \"<integer>\",\n  \"maxOverallSeconds\": \"<integer>\",\n  \"includeTags\": \"<boolean>\",\n  \"includeNetworkFunctions\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c89e70dc-5b74-4631-993f-61e2692cdfc2",
+              "name": "The response is a sequence of a result (a `PathSearchResponse` or an error object) for each query in the\nrequest, in the same order. Each result is prefixed by an ASCII Record Separator (0x1E), and ends with an\nASCII Line Feed character (0x0A), as described in [RFC 7464: JSON Text\nSequences](https://tools.ietf.org/html/rfc7464). An error object has an `\"error\": true` property. Each query\nis evaluated independently.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "paths-bulk-seq"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "snapshotId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json-seq"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"queries\": [\n    {\n      \"dstIp\": \"<string>\",\n      \"from\": \"<string>\",\n      \"srcIp\": \"<string>\",\n      \"ipProto\": \"<integer>\",\n      \"srcPort\": \"<string>\",\n      \"dstPort\": \"<string>\",\n      \"icmpType\": \"<integer>\",\n      \"fin\": \"<integer>\",\n      \"syn\": \"<integer>\",\n      \"rst\": \"<integer>\",\n      \"psh\": \"<integer>\",\n      \"ack\": \"<integer>\",\n      \"urg\": \"<integer>\",\n      \"appId\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"userGroupId\": \"<string>\",\n      \"url\": \"<string>\",\n      \"domain\": \"<string>\"\n    },\n    {\n      \"dstIp\": \"<string>\",\n      \"from\": \"<string>\",\n      \"srcIp\": \"<string>\",\n      \"ipProto\": \"<integer>\",\n      \"srcPort\": \"<string>\",\n      \"dstPort\": \"<string>\",\n      \"icmpType\": \"<integer>\",\n      \"fin\": \"<integer>\",\n      \"syn\": \"<integer>\",\n      \"rst\": \"<integer>\",\n      \"psh\": \"<integer>\",\n      \"ack\": \"<integer>\",\n      \"urg\": \"<integer>\",\n      \"appId\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"userGroupId\": \"<string>\",\n      \"url\": \"<string>\",\n      \"domain\": \"<string>\"\n    }\n  ],\n  \"intent\": \"<string>\",\n  \"maxCandidates\": \"<integer>\",\n  \"maxResults\": \"<integer>\",\n  \"maxReturnPathResults\": \"<integer>\",\n  \"maxSeconds\": \"<integer>\",\n  \"maxOverallSeconds\": \"<integer>\",\n  \"includeTags\": \"<boolean>\",\n  \"includeNetworkFunctions\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json-seq"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "25c0b1ba-3006-4a4b-bead-fc499f0b8f2c",
+              "name": "The request failed input validation. For example, a request parameter is outside the permitted range or an\ninput path search query had an invalid IP protocol and ICMP type combination.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "paths-bulk-seq"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "snapshotId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"queries\": [\n    {\n      \"dstIp\": \"<string>\",\n      \"from\": \"<string>\",\n      \"srcIp\": \"<string>\",\n      \"ipProto\": \"<integer>\",\n      \"srcPort\": \"<string>\",\n      \"dstPort\": \"<string>\",\n      \"icmpType\": \"<integer>\",\n      \"fin\": \"<integer>\",\n      \"syn\": \"<integer>\",\n      \"rst\": \"<integer>\",\n      \"psh\": \"<integer>\",\n      \"ack\": \"<integer>\",\n      \"urg\": \"<integer>\",\n      \"appId\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"userGroupId\": \"<string>\",\n      \"url\": \"<string>\",\n      \"domain\": \"<string>\"\n    },\n    {\n      \"dstIp\": \"<string>\",\n      \"from\": \"<string>\",\n      \"srcIp\": \"<string>\",\n      \"ipProto\": \"<integer>\",\n      \"srcPort\": \"<string>\",\n      \"dstPort\": \"<string>\",\n      \"icmpType\": \"<integer>\",\n      \"fin\": \"<integer>\",\n      \"syn\": \"<integer>\",\n      \"rst\": \"<integer>\",\n      \"psh\": \"<integer>\",\n      \"ack\": \"<integer>\",\n      \"urg\": \"<integer>\",\n      \"appId\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"userGroupId\": \"<string>\",\n      \"url\": \"<string>\",\n      \"domain\": \"<string>\"\n    }\n  ],\n  \"intent\": \"<string>\",\n  \"maxCandidates\": \"<integer>\",\n  \"maxResults\": \"<integer>\",\n  \"maxReturnPathResults\": \"<integer>\",\n  \"maxSeconds\": \"<integer>\",\n  \"maxOverallSeconds\": \"<integer>\",\n  \"includeTags\": \"<boolean>\",\n  \"includeNetworkFunctions\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"httpMethod\": \"PUT\",\n  \"apiUrl\": \"string\",\n  \"message\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "667b62d7-ae3d-4c09-a9fd-65364ee85900",
+              "name": "The system is currently processing this Snapshot.\n\nNote: GET /networks/{networkId}/snapshots/latestProcessed can be used to determine when processing of the\nlatest Snapshot is done or to identify an alternate Snapshot that has already been processed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "paths-bulk-seq"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "snapshotId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"queries\": [\n    {\n      \"dstIp\": \"<string>\",\n      \"from\": \"<string>\",\n      \"srcIp\": \"<string>\",\n      \"ipProto\": \"<integer>\",\n      \"srcPort\": \"<string>\",\n      \"dstPort\": \"<string>\",\n      \"icmpType\": \"<integer>\",\n      \"fin\": \"<integer>\",\n      \"syn\": \"<integer>\",\n      \"rst\": \"<integer>\",\n      \"psh\": \"<integer>\",\n      \"ack\": \"<integer>\",\n      \"urg\": \"<integer>\",\n      \"appId\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"userGroupId\": \"<string>\",\n      \"url\": \"<string>\",\n      \"domain\": \"<string>\"\n    },\n    {\n      \"dstIp\": \"<string>\",\n      \"from\": \"<string>\",\n      \"srcIp\": \"<string>\",\n      \"ipProto\": \"<integer>\",\n      \"srcPort\": \"<string>\",\n      \"dstPort\": \"<string>\",\n      \"icmpType\": \"<integer>\",\n      \"fin\": \"<integer>\",\n      \"syn\": \"<integer>\",\n      \"rst\": \"<integer>\",\n      \"psh\": \"<integer>\",\n      \"ack\": \"<integer>\",\n      \"urg\": \"<integer>\",\n      \"appId\": \"<string>\",\n      \"userId\": \"<string>\",\n      \"userGroupId\": \"<string>\",\n      \"url\": \"<string>\",\n      \"domain\": \"<string>\"\n    }\n  ],\n  \"intent\": \"<string>\",\n  \"maxCandidates\": \"<integer>\",\n  \"maxResults\": \"<integer>\",\n  \"maxReturnPathResults\": \"<integer>\",\n  \"maxSeconds\": \"<integer>\",\n  \"maxOverallSeconds\": \"<integer>\",\n  \"includeTags\": \"<boolean>\",\n  \"includeNetworkFunctions\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"httpMethod\": \"PUT\",\n  \"apiUrl\": \"string\",\n  \"message\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "611c94bb-0818-47f7-88a1-ab6c12e47f45",
+    "name": "Forward Networks: Complete Aliases Path Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Model and verify networks\n\nContact Support:\n Email: support@forwardnetworks.com",
+      "type": "text/plain"
+    }
+  }
+}

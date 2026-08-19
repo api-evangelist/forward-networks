@@ -1,0 +1,1291 @@
+{
+  "item": [
+    {
+      "id": "1f0c8f6f-6d97-49ba-849f-7f4877262114",
+      "name": "NQE",
+      "description": {
+        "content": "Ask the Network Query Engine for structured, vendor-agnostic network information",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3c7d379c-3b32-4278-bb4e-5de85d4786cf",
+          "name": "Request an NQE query execution",
+          "request": {
+            "name": "Request an NQE query execution",
+            "description": {
+              "content": "Submits an NQE query to run asynchronously against a Snapshot of the given Network. Returns an `executionKey`\nthat identifies the execution for subsequent status and result requests.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "nqe-executions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "snapshotId",
+                  "value": "<string>",
+                  "description": "An optional Snapshot id. If omitted, the network’s latest processed Snapshot is used."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) The ID of the Network on which to execute the query."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"queryId\": \"<string>\",\n  \"commitId\": \"<string>\",\n  \"parameters\": \"<object>\",\n  \"columnFilters\": [\n    {\n      \"columnName\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"columnName\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"sortKeys\": [\n    {\n      \"columnName\": \"<string>\",\n      \"order\": \"<string>\"\n    },\n    {\n      \"columnName\": \"<string>\",\n      \"order\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5f265e1f-7b1a-46f8-aeb5-1bf665973f8e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "nqe-executions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "snapshotId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) The ID of the Network on which to execute the query."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"queryId\": \"<string>\",\n  \"commitId\": \"<string>\",\n  \"parameters\": \"<object>\",\n  \"columnFilters\": [\n    {\n      \"columnName\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"columnName\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"sortKeys\": [\n    {\n      \"columnName\": \"<string>\",\n      \"order\": \"<string>\"\n    },\n    {\n      \"columnName\": \"<string>\",\n      \"order\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"executionKey\": \"string\",\n  \"status\": \"SUBMITTED\",\n  \"outcome\": \"OK\",\n  \"millisExecuting\": 6216,\n  \"rowsProduced\": 4786,\n  \"timeoutMinutes\": 9228,\n  \"error\": {\n    \"location\": {\n      \"start\": {\n        \"character\": 7037,\n        \"line\": 7426\n      },\n      \"end\": {\n        \"character\": 9653,\n        \"line\": 7772\n      }\n    },\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cbfb0569-7491-4d0a-8e6e-02211fc118dc",
+              "name": "The query could not be executed. If there's a problem with the NQE query itself, such as a parse error,\n`errors` will include diagnostic information with line numbers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "nqe-executions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "snapshotId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) The ID of the Network on which to execute the query."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"queryId\": \"<string>\",\n  \"commitId\": \"<string>\",\n  \"parameters\": \"<object>\",\n  \"columnFilters\": [\n    {\n      \"columnName\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"columnName\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"sortKeys\": [\n    {\n      \"columnName\": \"<string>\",\n      \"order\": \"<string>\"\n    },\n    {\n      \"columnName\": \"<string>\",\n      \"order\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"httpMethod\": \"HEAD\",\n  \"apiUrl\": \"string\",\n  \"message\": \"string\",\n  \"completionType\": \"CANCELED\",\n  \"errors\": [\n    {\n      \"location\": {\n        \"start\": {\n          \"character\": 8904,\n          \"line\": 178\n        },\n        \"end\": {\n          \"character\": 1016,\n          \"line\": 7403\n        }\n      },\n      \"message\": \"string\"\n    },\n    {\n      \"location\": {\n        \"start\": {\n          \"character\": 538,\n          \"line\": 5863\n        },\n        \"end\": {\n          \"character\": 819,\n          \"line\": 6182\n        }\n      },\n      \"message\": \"string\"\n    }\n  ],\n  \"snapshotId\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "06ecb51d-9529-4336-9970-076618828ae0",
+          "name": "Get NQE query execution status",
+          "request": {
+            "name": "Get NQE query execution status",
+            "description": {
+              "content": "Returns the current status of an NQE query execution. When it completes normally, the `outcome` will be `OK` and\nthe result can then be retrieved using [Get NQE query execution\nresult](https://docs.fwd.app/latest/api/nqe/get-nqe-execution-result/). When the query has completed with an\n`outcome` of `USER_ERROR`, the response includes an `error` that contains the diagnostic output.\n\nPoll this endpoint until the execution is complete. We recommend polling no more than once every 5 seconds. If\nyou need lower latency than polling allows, consider using the synchronous\n[Run an NQE query](https://docs.fwd.app/latest/api/nqe/run-nqe-query/) to obtain its result in a single request\ninstead.\n\nAn `executionKey` remains valid until the next major release of Forward Enterprise; afterwards,\nthis endpoint returns a 404 error for that key.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "nqe-executions",
+                ":executionKey"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) The ID of the Network the execution belongs to."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "executionKey",
+                  "description": "(Required) The `executionKey` returned when the query execution was requested."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1959a8cc-4c96-437a-b5b5-a3b40e278084",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "nqe-executions",
+                    ":executionKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) The ID of the Network the execution belongs to."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionKey",
+                      "description": "(Required) The `executionKey` returned when the query execution was requested."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"COMPLETED\",\n  \"outcome\": \"USER_ERROR\",\n  \"millisExecuting\": 9517,\n  \"rowsProduced\": 1545,\n  \"timeoutMinutes\": 5626,\n  \"error\": {\n    \"location\": {\n      \"start\": {\n        \"character\": 345,\n        \"line\": 8426\n      },\n      \"end\": {\n        \"character\": 8918,\n        \"line\": 9249\n      }\n    },\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "92faf530-8a7b-47a1-8be3-1be7baea4f65",
+              "name": "No execution was found for the given `networkId` and `executionKey`. This happens if the network has been\ndeleted, if the key is unknown, or if it has expired following a major release of Forward Enterprise.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "nqe-executions",
+                    ":executionKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) The ID of the Network the execution belongs to."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionKey",
+                      "description": "(Required) The `executionKey` returned when the query execution was requested."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"httpMethod\": \"PATCH\",\n  \"apiUrl\": \"string\",\n  \"message\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "00025a5e-c011-449c-adfa-dfb91a67f823",
+          "name": "Get NQE query execution result",
+          "request": {
+            "name": "Get NQE query execution result",
+            "description": {
+              "content": "Returns the result of an NQE query execution whose `status` is `COMPLETED` and `outcome` is `OK`. The response\ncontains the rows produced by the query in the `items` property; use the `offset` and `limit` query parameters\nto page through large result sets.\n\nAn `executionKey` remains valid until the next major release of Forward Enterprise; afterwards,\nthis endpoint returns a 404 error for that key.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "nqe-executions",
+                ":executionKey",
+                "result"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Zero-based index of the first row to return. Use together with `limit` to page through large result\nsets."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of rows to return in this response. When omitted, no limit is applied and all\nremaining rows from `offset` onward are returned."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) The ID of the Network the result belongs to."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "executionKey",
+                  "description": "(Required) The `executionKey` returned when the query execution was requested."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9b8e99f7-b2ab-46ab-8211-6f36b13bc5eb",
+              "name": "The JSON response contains the query result rows in the `items` property.\n\nIf you wish to consume rows incrementally, without loading the entire result set into memory at once, send\nthe `Accept: application/jsonl` header to get the result in the JSON Lines (newline-delimited JSON) format.\nThe response will contain one query result row per line.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "nqe-executions",
+                    ":executionKey",
+                    "result"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) The ID of the Network the result belongs to."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionKey",
+                      "description": "(Required) The `executionKey` returned when the query execution was requested."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"snapshotId\": \"string\",\n  \"totalNumItems\": 4303\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c292103-cafd-4b29-9123-9c8302137548",
+              "name": "No result is available because the execution's `outcome` is not `OK`. For example, the query\nencountered a runtime error (`USER_ERROR`), exceeded its time limit (`TIMED_OUT`), or failed\ndue to an unexpected internal error (`SYSTEM_ERROR`).\n[Retrieve the execution status](https://docs.fwd.app/latest/api/nqe/get-nqe-execution-status/) to see the\n`outcome` and, for a `USER_ERROR`, the associated error details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "nqe-executions",
+                    ":executionKey",
+                    "result"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) The ID of the Network the result belongs to."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionKey",
+                      "description": "(Required) The `executionKey` returned when the query execution was requested."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"httpMethod\": \"PATCH\",\n  \"apiUrl\": \"string\",\n  \"message\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f349532e-c284-4bf4-9e9a-197595de5224",
+              "name": "No execution was found for the given `networkId` and `executionKey`. This happens if the network has been\ndeleted, if the key is unknown, or if it has expired following a major release of Forward Enterprise.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "nqe-executions",
+                    ":executionKey",
+                    "result"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) The ID of the Network the result belongs to."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionKey",
+                      "description": "(Required) The `executionKey` returned when the query execution was requested."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"httpMethod\": \"PATCH\",\n  \"apiUrl\": \"string\",\n  \"message\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1afee6c2-f367-4aef-9dc1-b8074ecf8b46",
+              "name": "The query execution is still in progress and has no `outcome` yet, so no result is available.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "nqe-executions",
+                    ":executionKey",
+                    "result"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) The ID of the Network the result belongs to."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "executionKey",
+                      "description": "(Required) The `executionKey` returned when the query execution was requested."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"httpMethod\": \"PATCH\",\n  \"apiUrl\": \"string\",\n  \"message\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7f39455b-725e-4c60-ab4d-c1f948551343",
+          "name": "Run an NQE query",
+          "request": {
+            "name": "Run an NQE query",
+            "description": {},
+            "url": {
+              "path": [
+                "nqe"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "networkId",
+                  "value": "<string>",
+                  "description": "The ID of the Network to query. Required unless the `snapshotId` parameter is provided."
+                },
+                {
+                  "disabled": false,
+                  "key": "snapshotId",
+                  "value": "<string>",
+                  "description": "An optional Snapshot id. If omitted, the network’s latest processed Snapshot is used."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"queryId\": \"<string>\",\n  \"commitId\": \"<string>\",\n  \"queryOptions\": {\n    \"offset\": \"<integer>\",\n    \"limit\": \"<integer>\",\n    \"sortBy\": {\n      \"columnName\": \"<string>\",\n      \"order\": \"<string>\"\n    },\n    \"columnFilters\": [\n      {\n        \"columnName\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"columnName\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ],\n    \"itemFormat\": \"JSON\"\n  },\n  \"parameters\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "51de71d1-90f3-4b56-9d9b-8bbc1d761a8c",
+              "name": "The response contains the query's results in the `items` property. The `totalNumItems` could be different\nthan the length of `items` if a filter is used or if the total size of the rows would exceed the maximum\npage size of 400MB.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "nqe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "networkId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "snapshotId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"queryId\": \"<string>\",\n  \"commitId\": \"<string>\",\n  \"queryOptions\": {\n    \"offset\": \"<integer>\",\n    \"limit\": \"<integer>\",\n    \"sortBy\": {\n      \"columnName\": \"<string>\",\n      \"order\": \"<string>\"\n    },\n    \"columnFilters\": [\n      {\n        \"columnName\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"columnName\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ],\n    \"itemFormat\": \"JSON\"\n  },\n  \"parameters\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"snapshotId\": \"string\",\n  \"totalNumItems\": 6266\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "68dca898-0eea-4630-83b7-e79b64b6b1bd",
+              "name": "The query did not complete successfully. For example, the query could not be parsed, the column filters\nwere invalid, or the query timed out or was cancelled during execution. The response will contain\n`completionType`, `errors`, and `snapshotId` properties that provide detailed information on the errors. See\nmodel for more information. Note that a response with a 400 code can happen for other errors, such as a lack\nof permission to execute the query, or a request that specified a Query ID for a deleted query without also\nspecifying a Commit ID. In such cases, the `completionType`, `errors`, and `snapshotId` properties will be\nomitted from the response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "nqe"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "networkId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "snapshotId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"queryId\": \"<string>\",\n  \"commitId\": \"<string>\",\n  \"queryOptions\": {\n    \"offset\": \"<integer>\",\n    \"limit\": \"<integer>\",\n    \"sortBy\": {\n      \"columnName\": \"<string>\",\n      \"order\": \"<string>\"\n    },\n    \"columnFilters\": [\n      {\n        \"columnName\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"columnName\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ],\n    \"itemFormat\": \"JSON\"\n  },\n  \"parameters\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"httpMethod\": \"HEAD\",\n  \"apiUrl\": \"string\",\n  \"message\": \"string\",\n  \"completionType\": \"TIMED_OUT\",\n  \"errors\": [\n    {\n      \"location\": {\n        \"start\": {\n          \"character\": 8929,\n          \"line\": 2974\n        },\n        \"end\": {\n          \"character\": 4952,\n          \"line\": 9306\n        }\n      },\n      \"message\": \"string\"\n    },\n    {\n      \"location\": {\n        \"start\": {\n          \"character\": 9688,\n          \"line\": 2218\n        },\n        \"end\": {\n          \"character\": 7181,\n          \"line\": 5384\n        }\n      },\n      \"message\": \"string\"\n    }\n  ],\n  \"snapshotId\": \"string\",\n  \"reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "71582079-5bd7-4045-b010-c210727d3329",
+          "name": "Compare NQE query results",
+          "request": {
+            "name": "Compare NQE query results",
+            "description": {
+              "content": "Identifies differences in the results of an NQE query for two Snapshots of a network.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "nqe-diffs",
+                ":before",
+                ":after"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "before",
+                  "description": "(Required) The ID for the Snapshot to base the diff on."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "after",
+                  "description": "(Required) The ID for the Snapshot to diff against the base Snapshot."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"queryId\": \"<string>\",\n  \"commitId\": \"<string>\",\n  \"options\": {\n    \"offset\": \"<integer>\",\n    \"limit\": \"<integer>\",\n    \"sortBy\": {\n      \"columnName\": \"<string>\",\n      \"order\": \"<string>\"\n    },\n    \"columnFilters\": [\n      {\n        \"columnName\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"columnName\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ],\n    \"itemFormat\": \"JSON\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "729908e3-bea6-4a78-9d9e-b642c773605e",
+              "name": "The response contains the query's diff results in the `rows` property.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "nqe-diffs",
+                    ":before",
+                    ":after"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "before",
+                      "description": "(Required) The ID for the Snapshot to base the diff on."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "after",
+                      "description": "(Required) The ID for the Snapshot to diff against the base Snapshot."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"queryId\": \"<string>\",\n  \"commitId\": \"<string>\",\n  \"options\": {\n    \"offset\": \"<integer>\",\n    \"limit\": \"<integer>\",\n    \"sortBy\": {\n      \"columnName\": \"<string>\",\n      \"order\": \"<string>\"\n    },\n    \"columnFilters\": [\n      {\n        \"columnName\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"columnName\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ],\n    \"itemFormat\": \"JSON\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"rows\": [\n    {\n      \"after\": {},\n      \"before\": {},\n      \"type\": \"MODIFIED\"\n    },\n    {\n      \"after\": {},\n      \"before\": {},\n      \"type\": \"DELETED\"\n    }\n  ],\n  \"totalNumRows\": 3869\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd8f07a1-f0e1-4473-9e5b-094d4f5e91e3",
+              "name": "The diff request did not complete successfully. For example, the query indicated by `queryId` could be\ninvalid, the `options` for the query were invalid, the query and/or diff timed out or was cancelled during\nexecution, or the user does not have permission to execute the query.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "nqe-diffs",
+                    ":before",
+                    ":after"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "before",
+                      "description": "(Required) The ID for the Snapshot to base the diff on."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "after",
+                      "description": "(Required) The ID for the Snapshot to diff against the base Snapshot."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"queryId\": \"<string>\",\n  \"commitId\": \"<string>\",\n  \"options\": {\n    \"offset\": \"<integer>\",\n    \"limit\": \"<integer>\",\n    \"sortBy\": {\n      \"columnName\": \"<string>\",\n      \"order\": \"<string>\"\n    },\n    \"columnFilters\": [\n      {\n        \"columnName\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"columnName\": \"<string>\",\n        \"operator\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ],\n    \"itemFormat\": \"JSON\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d7f0fcba-3abd-4ff0-8f62-4f942ba82649",
+          "name": "List all NQE queries",
+          "request": {
+            "name": "List all NQE queries",
+            "description": {},
+            "url": {
+              "path": [
+                "nqe",
+                "queries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dir",
+                  "value": "<string>",
+                  "description": "If specified, include only queries in the given directory. The directory must start and end with a forward\nslash, such as `/L3/Advanced/`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bab01011-cf1b-4bfe-bf7b-50a28a4bd25d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "nqe",
+                    "queries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dir",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"queryId\": \"string\",\n    \"repository\": \"ORG\",\n    \"path\": \"string\",\n    \"intent\": \"string\"\n  },\n  {\n    \"queryId\": \"string\",\n    \"repository\": \"ORG\",\n    \"path\": \"string\",\n    \"intent\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b8c3fbd8-29db-4b86-9150-fa18291c25fd",
+    "name": "Forward Networks: Complete Aliases NQE API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Model and verify networks\n\nContact Support:\n Email: support@forwardnetworks.com",
+      "type": "text/plain"
+    }
+  }
+}

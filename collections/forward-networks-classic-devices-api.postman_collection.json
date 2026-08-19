@@ -1,0 +1,1586 @@
+{
+  "item": [
+    {
+      "id": "98ad4064-cf22-4ccc-9412-f4aacc07b4ec",
+      "name": "Classic Devices",
+      "description": {
+        "content": "Specify the network devices to collect from and model",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "03d36bab-9929-40f6-87ec-eadd89c0eac3",
+          "name": "Get all classic devices",
+          "request": {
+            "name": "Get all classic devices",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "classic-devices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "dc311b96-a90b-488c-9c7e-9b13c969c3e8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "classic-devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "with",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "with",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"devices\": [\n    {\n      \"name\": \"string\",\n      \"host\": \"string\",\n      \"type\": \"dell_os9_switch_ssh\",\n      \"port\": 48457,\n      \"cliCredentialId\": \"string\",\n      \"cliCredential2Id\": \"string\",\n      \"cliCredential3Id\": \"string\",\n      \"httpCredentialId\": \"string\",\n      \"snmpCredentialId\": \"string\",\n      \"jumpServerId\": \"string\",\n      \"disableIpv6Collection\": true,\n      \"fullCollectionLog\": true,\n      \"paginationMode\": \"ENABLE_PAGINATION\",\n      \"terminalWidth\": 182,\n      \"largeRtt\": true,\n      \"minBytesReadPerSec\": 5898,\n      \"maxConnectionsPerMin\": 7293,\n      \"useFileTransferForLargeOutput\": false,\n      \"bmpStationHost\": \"string\",\n      \"bgpAndBmpFailureHandling\": \"ALWAYS_USE_CLI\",\n      \"collectBgpAdvertisements\": false,\n      \"bgpTableType\": \"ADJ_RIB_OUT\",\n      \"bgpPeerType\": \"IBGP\",\n      \"bgpSubnetsToCollect\": [\n        \"string\",\n        \"string\"\n      ],\n      \"prompt\": \"string\",\n      \"promptResponse\": \"string\",\n      \"collect\": true,\n      \"note\": \"string\",\n      \"enableSnmpCollection\": true,\n      \"highCpuUsage\": 0.8832991753406878,\n      \"highMemoryUsage\": 0.9953622494033856,\n      \"highInputUtilization\": 0.7803023572421532,\n      \"highOutputUtilization\": 0.8825198715846763,\n      \"mediumCpuUsage\": 0.8230952575750288,\n      \"mediumMemoryUsage\": 0.662795835099653,\n      \"mediumInputUtilization\": 0.742100286080164,\n      \"mediumOutputUtilization\": 0.5947725384776592,\n      \"cloudLocationId\": \"string\",\n      \"cloudSetupId\": \"string\",\n      \"cloudDiscoverySource\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"locationId\": \"string\",\n      \"testResult\": {\n        \"startTime\": \"string\",\n        \"endTime\": \"string\",\n        \"savedAt\": \"string\",\n        \"error\": \"AZURE_SUBSCRIPTION_NOT_FOUND\",\n        \"errorPhase\": \"AUTHENTICATION\",\n        \"discoveredType\": \"dell_os10_switch_ssh\",\n        \"discoveredCliCredentialId\": \"string\",\n        \"discoveredCliCredential2Id\": \"string\",\n        \"discoveredCliCredential3Id\": \"string\",\n        \"discoveredHttpCredentialId\": \"string\",\n        \"discoveredSnmpCredentialId\": \"string\",\n        \"hostIps\": [\n          \"string\",\n          \"string\"\n        ],\n        \"unauthorizedCommands\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"createdById\": \"string\",\n      \"createdAt\": \"string\",\n      \"createdBy\": \"string\",\n      \"updatedById\": \"string\",\n      \"updatedAt\": \"string\",\n      \"updatedBy\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"host\": \"string\",\n      \"type\": \"cisco_asa_admin_ssh\",\n      \"port\": 9077,\n      \"cliCredentialId\": \"string\",\n      \"cliCredential2Id\": \"string\",\n      \"cliCredential3Id\": \"string\",\n      \"httpCredentialId\": \"string\",\n      \"snmpCredentialId\": \"string\",\n      \"jumpServerId\": \"string\",\n      \"disableIpv6Collection\": false,\n      \"fullCollectionLog\": false,\n      \"paginationMode\": \"DISABLE_PAGINATION\",\n      \"terminalWidth\": 266,\n      \"largeRtt\": false,\n      \"minBytesReadPerSec\": 9117,\n      \"maxConnectionsPerMin\": 9283,\n      \"useFileTransferForLargeOutput\": true,\n      \"bmpStationHost\": \"string\",\n      \"bgpAndBmpFailureHandling\": \"ALWAYS_USE_BMP\",\n      \"collectBgpAdvertisements\": false,\n      \"bgpTableType\": \"BOTH\",\n      \"bgpPeerType\": \"IBGP\",\n      \"bgpSubnetsToCollect\": [\n        \"string\",\n        \"string\"\n      ],\n      \"prompt\": \"string\",\n      \"promptResponse\": \"string\",\n      \"collect\": true,\n      \"note\": \"string\",\n      \"enableSnmpCollection\": true,\n      \"highCpuUsage\": 0.8064502238037545,\n      \"highMemoryUsage\": 0.7802613268416851,\n      \"highInputUtilization\": 0.9509743361237742,\n      \"highOutputUtilization\": 0.8171048424186526,\n      \"mediumCpuUsage\": 0.9447443325216179,\n      \"mediumMemoryUsage\": 0.9257121140230835,\n      \"mediumInputUtilization\": 0.7722570438679207,\n      \"mediumOutputUtilization\": 0.5404466500378341,\n      \"cloudLocationId\": \"string\",\n      \"cloudSetupId\": \"string\",\n      \"cloudDiscoverySource\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"locationId\": \"string\",\n      \"testResult\": {\n        \"startTime\": \"string\",\n        \"endTime\": \"string\",\n        \"savedAt\": \"string\",\n        \"error\": \"DEVICE_TYPE_MISMATCH\",\n        \"errorPhase\": \"CONNECTION\",\n        \"discoveredType\": \"sonic_dell_enterprise_ssh\",\n        \"discoveredCliCredentialId\": \"string\",\n        \"discoveredCliCredential2Id\": \"string\",\n        \"discoveredCliCredential3Id\": \"string\",\n        \"discoveredHttpCredentialId\": \"string\",\n        \"discoveredSnmpCredentialId\": \"string\",\n        \"hostIps\": [\n          \"string\",\n          \"string\"\n        ],\n        \"unauthorizedCommands\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"createdById\": \"string\",\n      \"createdAt\": \"string\",\n      \"createdBy\": \"string\",\n      \"updatedById\": \"string\",\n      \"updatedAt\": \"string\",\n      \"updatedBy\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3316ff45-9d8c-4d37-b1bf-24cab4b93564",
+          "name": "Add a new classic device",
+          "request": {
+            "name": "Add a new classic device",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "classic-devices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"host\": \"<string>\",\n  \"type\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"cliCredentialId\": \"<string>\",\n  \"cliCredential2Id\": \"<string>\",\n  \"cliCredential3Id\": \"<string>\",\n  \"httpCredentialId\": \"<string>\",\n  \"snmpCredentialId\": \"<string>\",\n  \"jumpServerId\": \"<string>\",\n  \"disableIpv6Collection\": \"<boolean>\",\n  \"fullCollectionLog\": \"<boolean>\",\n  \"paginationMode\": \"<string>\",\n  \"terminalWidth\": \"<integer>\",\n  \"largeRtt\": \"<boolean>\",\n  \"minBytesReadPerSec\": \"<long>\",\n  \"maxConnectionsPerMin\": \"<integer>\",\n  \"useFileTransferForLargeOutput\": \"<boolean>\",\n  \"bmpStationHost\": \"<string>\",\n  \"bgpAndBmpFailureHandling\": \"<string>\",\n  \"collectBgpAdvertisements\": \"<boolean>\",\n  \"bgpTableType\": \"<string>\",\n  \"bgpPeerType\": \"<string>\",\n  \"bgpSubnetsToCollect\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"prompt\": \"<string>\",\n  \"promptResponse\": \"<string>\",\n  \"collect\": \"<boolean>\",\n  \"note\": \"<string>\",\n  \"enableSnmpCollection\": \"<boolean>\",\n  \"highCpuUsage\": \"<float>\",\n  \"highMemoryUsage\": \"<float>\",\n  \"highInputUtilization\": \"<float>\",\n  \"highOutputUtilization\": \"<float>\",\n  \"mediumCpuUsage\": \"<float>\",\n  \"mediumMemoryUsage\": \"<float>\",\n  \"mediumInputUtilization\": \"<float>\",\n  \"mediumOutputUtilization\": \"<float>\",\n  \"cloudLocationId\": \"<string>\",\n  \"cloudSetupId\": \"<string>\",\n  \"cloudDiscoverySource\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2d5b4711-2d6f-4dda-a913-f33a486a726d",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "classic-devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"host\": \"<string>\",\n  \"type\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"cliCredentialId\": \"<string>\",\n  \"cliCredential2Id\": \"<string>\",\n  \"cliCredential3Id\": \"<string>\",\n  \"httpCredentialId\": \"<string>\",\n  \"snmpCredentialId\": \"<string>\",\n  \"jumpServerId\": \"<string>\",\n  \"disableIpv6Collection\": \"<boolean>\",\n  \"fullCollectionLog\": \"<boolean>\",\n  \"paginationMode\": \"<string>\",\n  \"terminalWidth\": \"<integer>\",\n  \"largeRtt\": \"<boolean>\",\n  \"minBytesReadPerSec\": \"<long>\",\n  \"maxConnectionsPerMin\": \"<integer>\",\n  \"useFileTransferForLargeOutput\": \"<boolean>\",\n  \"bmpStationHost\": \"<string>\",\n  \"bgpAndBmpFailureHandling\": \"<string>\",\n  \"collectBgpAdvertisements\": \"<boolean>\",\n  \"bgpTableType\": \"<string>\",\n  \"bgpPeerType\": \"<string>\",\n  \"bgpSubnetsToCollect\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"prompt\": \"<string>\",\n  \"promptResponse\": \"<string>\",\n  \"collect\": \"<boolean>\",\n  \"note\": \"<string>\",\n  \"enableSnmpCollection\": \"<boolean>\",\n  \"highCpuUsage\": \"<float>\",\n  \"highMemoryUsage\": \"<float>\",\n  \"highInputUtilization\": \"<float>\",\n  \"highOutputUtilization\": \"<float>\",\n  \"mediumCpuUsage\": \"<float>\",\n  \"mediumMemoryUsage\": \"<float>\",\n  \"mediumInputUtilization\": \"<float>\",\n  \"mediumOutputUtilization\": \"<float>\",\n  \"cloudLocationId\": \"<string>\",\n  \"cloudSetupId\": \"<string>\",\n  \"cloudDiscoverySource\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"host\": \"string\",\n  \"type\": \"<string>\",\n  \"port\": 27034,\n  \"cliCredentialId\": \"string\",\n  \"cliCredential2Id\": \"string\",\n  \"cliCredential3Id\": \"string\",\n  \"httpCredentialId\": \"string\",\n  \"snmpCredentialId\": \"string\",\n  \"jumpServerId\": \"string\",\n  \"disableIpv6Collection\": true,\n  \"fullCollectionLog\": false,\n  \"paginationMode\": \"<string>\",\n  \"terminalWidth\": 363,\n  \"largeRtt\": false,\n  \"minBytesReadPerSec\": 1193,\n  \"maxConnectionsPerMin\": 5477,\n  \"useFileTransferForLargeOutput\": false,\n  \"bmpStationHost\": \"string\",\n  \"bgpAndBmpFailureHandling\": \"ALWAYS_USE_BMP\",\n  \"collectBgpAdvertisements\": false,\n  \"bgpTableType\": \"ADJ_RIB_IN\",\n  \"bgpPeerType\": \"IBGP\",\n  \"bgpSubnetsToCollect\": [\n    \"string\",\n    \"string\"\n  ],\n  \"prompt\": \"string\",\n  \"promptResponse\": \"string\",\n  \"collect\": true,\n  \"note\": \"string\",\n  \"enableSnmpCollection\": true,\n  \"highCpuUsage\": 0.7881991054637381,\n  \"highMemoryUsage\": 0.813554915982711,\n  \"highInputUtilization\": 0.8925842435713809,\n  \"highOutputUtilization\": 0.8210649048029617,\n  \"mediumCpuUsage\": 0.7258452140884747,\n  \"mediumMemoryUsage\": 0.8565884761288836,\n  \"mediumInputUtilization\": 0.9612867642517928,\n  \"mediumOutputUtilization\": 0.9134894800697699,\n  \"cloudLocationId\": \"string\",\n  \"cloudSetupId\": \"string\",\n  \"cloudDiscoverySource\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"locationId\": \"string\",\n  \"testResult\": {\n    \"startTime\": \"string\",\n    \"endTime\": \"string\",\n    \"savedAt\": \"string\",\n    \"error\": \"UNSUPPORTED_SSL_CONNECTION\",\n    \"errorPhase\": \"SETUP\",\n    \"discoveredType\": \"<string>\",\n    \"discoveredCliCredentialId\": \"string\",\n    \"discoveredCliCredential2Id\": \"string\",\n    \"discoveredCliCredential3Id\": \"string\",\n    \"discoveredHttpCredentialId\": \"string\",\n    \"discoveredSnmpCredentialId\": \"string\",\n    \"hostIps\": [\n      \"string\",\n      \"string\"\n    ],\n    \"unauthorizedCommands\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"createdById\": \"string\",\n  \"createdAt\": \"string\",\n  \"createdBy\": \"string\",\n  \"updatedById\": \"string\",\n  \"updatedAt\": \"string\",\n  \"updatedBy\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b83f018f-1e40-442d-871f-20a9585870af",
+          "name": "Update specific classic devices",
+          "request": {
+            "name": "Update specific classic devices",
+            "description": {
+              "content": "All JSON properties in the `update` object are optional. Include only the properties you wish\nto change.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "classic-devices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"update\": {\n    \"name\": \"<string>\",\n    \"type\": \"<string>\",\n    \"host\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"cliCredentialId\": \"<string>\",\n    \"cliCredential2Id\": \"<string>\",\n    \"cliCredential3Id\": \"<string>\",\n    \"httpCredentialId\": \"<string>\",\n    \"snmpCredentialId\": \"<string>\",\n    \"jumpServerId\": \"<string>\",\n    \"disableIpv6Collection\": \"<boolean>\",\n    \"fullCollectionLog\": \"<boolean>\",\n    \"paginationMode\": \"<string>\",\n    \"terminalWidth\": \"<integer>\",\n    \"largeRtt\": \"<boolean>\",\n    \"minBytesReadPerSec\": \"<long>\",\n    \"maxConnectionsPerMin\": \"<integer>\",\n    \"useFileTransferForLargeOutput\": \"<boolean>\",\n    \"bmpStationHost\": \"<string>\",\n    \"bgpAndBmpFailureHandling\": \"<string>\",\n    \"collectBgpAdvertisements\": \"<boolean>\",\n    \"bgpTableType\": \"<string>\",\n    \"bgpPeerType\": \"<string>\",\n    \"bgpSubnetsToCollect\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"prompt\": \"<string>\",\n    \"promptResponse\": \"<string>\",\n    \"collect\": \"<boolean>\",\n    \"note\": \"<string>\",\n    \"enableSnmpCollection\": \"<boolean>\",\n    \"highCpuUsage\": \"<float>\",\n    \"highMemoryUsage\": \"<float>\",\n    \"highInputUtilization\": \"<float>\",\n    \"highOutputUtilization\": \"<float>\",\n    \"mediumCpuUsage\": \"<float>\",\n    \"mediumMemoryUsage\": \"<float>\",\n    \"mediumInputUtilization\": \"<float>\",\n    \"mediumOutputUtilization\": \"<float>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "386e8af1-31c3-4821-9d2e-0c2469eee78b",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "classic-devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"update\": {\n    \"name\": \"<string>\",\n    \"type\": \"<string>\",\n    \"host\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"cliCredentialId\": \"<string>\",\n    \"cliCredential2Id\": \"<string>\",\n    \"cliCredential3Id\": \"<string>\",\n    \"httpCredentialId\": \"<string>\",\n    \"snmpCredentialId\": \"<string>\",\n    \"jumpServerId\": \"<string>\",\n    \"disableIpv6Collection\": \"<boolean>\",\n    \"fullCollectionLog\": \"<boolean>\",\n    \"paginationMode\": \"<string>\",\n    \"terminalWidth\": \"<integer>\",\n    \"largeRtt\": \"<boolean>\",\n    \"minBytesReadPerSec\": \"<long>\",\n    \"maxConnectionsPerMin\": \"<integer>\",\n    \"useFileTransferForLargeOutput\": \"<boolean>\",\n    \"bmpStationHost\": \"<string>\",\n    \"bgpAndBmpFailureHandling\": \"<string>\",\n    \"collectBgpAdvertisements\": \"<boolean>\",\n    \"bgpTableType\": \"<string>\",\n    \"bgpPeerType\": \"<string>\",\n    \"bgpSubnetsToCollect\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"prompt\": \"<string>\",\n    \"promptResponse\": \"<string>\",\n    \"collect\": \"<boolean>\",\n    \"note\": \"<string>\",\n    \"enableSnmpCollection\": \"<boolean>\",\n    \"highCpuUsage\": \"<float>\",\n    \"highMemoryUsage\": \"<float>\",\n    \"highInputUtilization\": \"<float>\",\n    \"highOutputUtilization\": \"<float>\",\n    \"mediumCpuUsage\": \"<float>\",\n    \"mediumMemoryUsage\": \"<float>\",\n    \"mediumInputUtilization\": \"<float>\",\n    \"mediumOutputUtilization\": \"<float>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9d8927ff-8760-4fb2-ba17-44633c02bd8e",
+          "name": "Add new classic devices",
+          "request": {
+            "name": "Add new classic devices",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "classic-devices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "addBatch"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"name\": \"<string>\",\n    \"host\": \"<string>\",\n    \"type\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"cliCredentialId\": \"<string>\",\n    \"cliCredential2Id\": \"<string>\",\n    \"cliCredential3Id\": \"<string>\",\n    \"httpCredentialId\": \"<string>\",\n    \"snmpCredentialId\": \"<string>\",\n    \"jumpServerId\": \"<string>\",\n    \"disableIpv6Collection\": \"<boolean>\",\n    \"fullCollectionLog\": \"<boolean>\",\n    \"paginationMode\": \"<string>\",\n    \"terminalWidth\": \"<integer>\",\n    \"largeRtt\": \"<boolean>\",\n    \"minBytesReadPerSec\": \"<long>\",\n    \"maxConnectionsPerMin\": \"<integer>\",\n    \"useFileTransferForLargeOutput\": \"<boolean>\",\n    \"bmpStationHost\": \"<string>\",\n    \"bgpAndBmpFailureHandling\": \"<string>\",\n    \"collectBgpAdvertisements\": \"<boolean>\",\n    \"bgpTableType\": \"<string>\",\n    \"bgpPeerType\": \"<string>\",\n    \"bgpSubnetsToCollect\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"prompt\": \"<string>\",\n    \"promptResponse\": \"<string>\",\n    \"collect\": \"<boolean>\",\n    \"note\": \"<string>\",\n    \"enableSnmpCollection\": \"<boolean>\",\n    \"highCpuUsage\": \"<float>\",\n    \"highMemoryUsage\": \"<float>\",\n    \"highInputUtilization\": \"<float>\",\n    \"highOutputUtilization\": \"<float>\",\n    \"mediumCpuUsage\": \"<float>\",\n    \"mediumMemoryUsage\": \"<float>\",\n    \"mediumInputUtilization\": \"<float>\",\n    \"mediumOutputUtilization\": \"<float>\",\n    \"cloudLocationId\": \"<string>\",\n    \"cloudSetupId\": \"<string>\",\n    \"cloudDiscoverySource\": \"<string>\"\n  },\n  {\n    \"name\": \"<string>\",\n    \"host\": \"<string>\",\n    \"type\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"cliCredentialId\": \"<string>\",\n    \"cliCredential2Id\": \"<string>\",\n    \"cliCredential3Id\": \"<string>\",\n    \"httpCredentialId\": \"<string>\",\n    \"snmpCredentialId\": \"<string>\",\n    \"jumpServerId\": \"<string>\",\n    \"disableIpv6Collection\": \"<boolean>\",\n    \"fullCollectionLog\": \"<boolean>\",\n    \"paginationMode\": \"<string>\",\n    \"terminalWidth\": \"<integer>\",\n    \"largeRtt\": \"<boolean>\",\n    \"minBytesReadPerSec\": \"<long>\",\n    \"maxConnectionsPerMin\": \"<integer>\",\n    \"useFileTransferForLargeOutput\": \"<boolean>\",\n    \"bmpStationHost\": \"<string>\",\n    \"bgpAndBmpFailureHandling\": \"<string>\",\n    \"collectBgpAdvertisements\": \"<boolean>\",\n    \"bgpTableType\": \"<string>\",\n    \"bgpPeerType\": \"<string>\",\n    \"bgpSubnetsToCollect\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"prompt\": \"<string>\",\n    \"promptResponse\": \"<string>\",\n    \"collect\": \"<boolean>\",\n    \"note\": \"<string>\",\n    \"enableSnmpCollection\": \"<boolean>\",\n    \"highCpuUsage\": \"<float>\",\n    \"highMemoryUsage\": \"<float>\",\n    \"highInputUtilization\": \"<float>\",\n    \"highOutputUtilization\": \"<float>\",\n    \"mediumCpuUsage\": \"<float>\",\n    \"mediumMemoryUsage\": \"<float>\",\n    \"mediumInputUtilization\": \"<float>\",\n    \"mediumOutputUtilization\": \"<float>\",\n    \"cloudLocationId\": \"<string>\",\n    \"cloudSetupId\": \"<string>\",\n    \"cloudDiscoverySource\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3e38b4a8-e5e2-4e12-8875-a4121765dfcc",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "classic-devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"<string>\",\n    \"host\": \"<string>\",\n    \"type\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"cliCredentialId\": \"<string>\",\n    \"cliCredential2Id\": \"<string>\",\n    \"cliCredential3Id\": \"<string>\",\n    \"httpCredentialId\": \"<string>\",\n    \"snmpCredentialId\": \"<string>\",\n    \"jumpServerId\": \"<string>\",\n    \"disableIpv6Collection\": \"<boolean>\",\n    \"fullCollectionLog\": \"<boolean>\",\n    \"paginationMode\": \"<string>\",\n    \"terminalWidth\": \"<integer>\",\n    \"largeRtt\": \"<boolean>\",\n    \"minBytesReadPerSec\": \"<long>\",\n    \"maxConnectionsPerMin\": \"<integer>\",\n    \"useFileTransferForLargeOutput\": \"<boolean>\",\n    \"bmpStationHost\": \"<string>\",\n    \"bgpAndBmpFailureHandling\": \"<string>\",\n    \"collectBgpAdvertisements\": \"<boolean>\",\n    \"bgpTableType\": \"<string>\",\n    \"bgpPeerType\": \"<string>\",\n    \"bgpSubnetsToCollect\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"prompt\": \"<string>\",\n    \"promptResponse\": \"<string>\",\n    \"collect\": \"<boolean>\",\n    \"note\": \"<string>\",\n    \"enableSnmpCollection\": \"<boolean>\",\n    \"highCpuUsage\": \"<float>\",\n    \"highMemoryUsage\": \"<float>\",\n    \"highInputUtilization\": \"<float>\",\n    \"highOutputUtilization\": \"<float>\",\n    \"mediumCpuUsage\": \"<float>\",\n    \"mediumMemoryUsage\": \"<float>\",\n    \"mediumInputUtilization\": \"<float>\",\n    \"mediumOutputUtilization\": \"<float>\",\n    \"cloudLocationId\": \"<string>\",\n    \"cloudSetupId\": \"<string>\",\n    \"cloudDiscoverySource\": \"<string>\"\n  },\n  {\n    \"name\": \"<string>\",\n    \"host\": \"<string>\",\n    \"type\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"cliCredentialId\": \"<string>\",\n    \"cliCredential2Id\": \"<string>\",\n    \"cliCredential3Id\": \"<string>\",\n    \"httpCredentialId\": \"<string>\",\n    \"snmpCredentialId\": \"<string>\",\n    \"jumpServerId\": \"<string>\",\n    \"disableIpv6Collection\": \"<boolean>\",\n    \"fullCollectionLog\": \"<boolean>\",\n    \"paginationMode\": \"<string>\",\n    \"terminalWidth\": \"<integer>\",\n    \"largeRtt\": \"<boolean>\",\n    \"minBytesReadPerSec\": \"<long>\",\n    \"maxConnectionsPerMin\": \"<integer>\",\n    \"useFileTransferForLargeOutput\": \"<boolean>\",\n    \"bmpStationHost\": \"<string>\",\n    \"bgpAndBmpFailureHandling\": \"<string>\",\n    \"collectBgpAdvertisements\": \"<boolean>\",\n    \"bgpTableType\": \"<string>\",\n    \"bgpPeerType\": \"<string>\",\n    \"bgpSubnetsToCollect\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"prompt\": \"<string>\",\n    \"promptResponse\": \"<string>\",\n    \"collect\": \"<boolean>\",\n    \"note\": \"<string>\",\n    \"enableSnmpCollection\": \"<boolean>\",\n    \"highCpuUsage\": \"<float>\",\n    \"highMemoryUsage\": \"<float>\",\n    \"highInputUtilization\": \"<float>\",\n    \"highOutputUtilization\": \"<float>\",\n    \"mediumCpuUsage\": \"<float>\",\n    \"mediumMemoryUsage\": \"<float>\",\n    \"mediumInputUtilization\": \"<float>\",\n    \"mediumOutputUtilization\": \"<float>\",\n    \"cloudLocationId\": \"<string>\",\n    \"cloudSetupId\": \"<string>\",\n    \"cloudDiscoverySource\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "07ee3feb-18d2-485d-8ebd-b835ebeba156",
+          "name": "Delete all of a network’s classic devices",
+          "request": {
+            "name": "Delete all of a network’s classic devices",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "classic-devices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "deleteAll"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2a2dd5f0-eb3e-4709-a7c4-d035737027a5",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "classic-devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "162e3d20-a830-4b53-9252-cc9fb8d60bc0",
+          "name": "Delete specific classic devices",
+          "request": {
+            "name": "Delete specific classic devices",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "classic-devices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "deleteBatch"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"names\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d643410e-23bd-43a4-b851-bb39d7fcd78c",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "classic-devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"names\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c9a7b1ac-5e7a-4fb5-940e-4825575ce817",
+          "name": "Get specific classic devices",
+          "request": {
+            "name": "Get specific classic devices",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "classic-devices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "getBatch"
+                },
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"names\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d117e87b-beca-4471-9ec4-f000da4ab98e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "classic-devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "with",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "with",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"names\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"devices\": [\n    {\n      \"name\": \"string\",\n      \"host\": \"string\",\n      \"type\": \"<string>\",\n      \"port\": 19357,\n      \"cliCredentialId\": \"string\",\n      \"cliCredential2Id\": \"string\",\n      \"cliCredential3Id\": \"string\",\n      \"httpCredentialId\": \"string\",\n      \"snmpCredentialId\": \"string\",\n      \"jumpServerId\": \"string\",\n      \"disableIpv6Collection\": true,\n      \"fullCollectionLog\": true,\n      \"paginationMode\": \"<string>\",\n      \"terminalWidth\": 312,\n      \"largeRtt\": true,\n      \"minBytesReadPerSec\": 5965,\n      \"maxConnectionsPerMin\": 4618,\n      \"useFileTransferForLargeOutput\": true,\n      \"bmpStationHost\": \"string\",\n      \"bgpAndBmpFailureHandling\": \"CONTINUE_WITHOUT_BGP_DATA\",\n      \"collectBgpAdvertisements\": false,\n      \"bgpTableType\": \"BOTH\",\n      \"bgpPeerType\": \"IBGP\",\n      \"bgpSubnetsToCollect\": [\n        \"string\",\n        \"string\"\n      ],\n      \"prompt\": \"string\",\n      \"promptResponse\": \"string\",\n      \"collect\": true,\n      \"note\": \"string\",\n      \"enableSnmpCollection\": true,\n      \"highCpuUsage\": 0.7882160854370757,\n      \"highMemoryUsage\": 0.7665125854465555,\n      \"highInputUtilization\": 0.7563701701119488,\n      \"highOutputUtilization\": 0.9868515277389154,\n      \"mediumCpuUsage\": 0.6550806839860076,\n      \"mediumMemoryUsage\": 0.7469613328908286,\n      \"mediumInputUtilization\": 0.7181193187600068,\n      \"mediumOutputUtilization\": 0.8424536044550348,\n      \"cloudLocationId\": \"string\",\n      \"cloudSetupId\": \"string\",\n      \"cloudDiscoverySource\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"locationId\": \"string\",\n      \"testResult\": {\n        \"startTime\": \"string\",\n        \"endTime\": \"string\",\n        \"savedAt\": \"string\",\n        \"error\": \"INCOMPLETE_AUTHORIZATION_CHECK\",\n        \"errorPhase\": \"QUERY\",\n        \"discoveredType\": \"<string>\",\n        \"discoveredCliCredentialId\": \"string\",\n        \"discoveredCliCredential2Id\": \"string\",\n        \"discoveredCliCredential3Id\": \"string\",\n        \"discoveredHttpCredentialId\": \"string\",\n        \"discoveredSnmpCredentialId\": \"string\",\n        \"hostIps\": [\n          \"string\",\n          \"string\"\n        ],\n        \"unauthorizedCommands\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"createdById\": \"string\",\n      \"createdAt\": \"string\",\n      \"createdBy\": \"string\",\n      \"updatedById\": \"string\",\n      \"updatedAt\": \"string\",\n      \"updatedBy\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"host\": \"string\",\n      \"type\": \"<string>\",\n      \"port\": 5031,\n      \"cliCredentialId\": \"string\",\n      \"cliCredential2Id\": \"string\",\n      \"cliCredential3Id\": \"string\",\n      \"httpCredentialId\": \"string\",\n      \"snmpCredentialId\": \"string\",\n      \"jumpServerId\": \"string\",\n      \"disableIpv6Collection\": true,\n      \"fullCollectionLog\": false,\n      \"paginationMode\": \"<string>\",\n      \"terminalWidth\": 478,\n      \"largeRtt\": false,\n      \"minBytesReadPerSec\": 3534,\n      \"maxConnectionsPerMin\": 7186,\n      \"useFileTransferForLargeOutput\": false,\n      \"bmpStationHost\": \"string\",\n      \"bgpAndBmpFailureHandling\": \"CONTINUE_WITHOUT_BGP_DATA\",\n      \"collectBgpAdvertisements\": false,\n      \"bgpTableType\": \"ADJ_RIB_IN\",\n      \"bgpPeerType\": \"BOTH\",\n      \"bgpSubnetsToCollect\": [\n        \"string\",\n        \"string\"\n      ],\n      \"prompt\": \"string\",\n      \"promptResponse\": \"string\",\n      \"collect\": false,\n      \"note\": \"string\",\n      \"enableSnmpCollection\": false,\n      \"highCpuUsage\": 0.8084520870365111,\n      \"highMemoryUsage\": 0.8749005798180327,\n      \"highInputUtilization\": 0.8039857667800834,\n      \"highOutputUtilization\": 0.8780302334020849,\n      \"mediumCpuUsage\": 0.6745399771635959,\n      \"mediumMemoryUsage\": 0.9813750490062995,\n      \"mediumInputUtilization\": 0.8566389462438552,\n      \"mediumOutputUtilization\": 0.8924502758909559,\n      \"cloudLocationId\": \"string\",\n      \"cloudSetupId\": \"string\",\n      \"cloudDiscoverySource\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"locationId\": \"string\",\n      \"testResult\": {\n        \"startTime\": \"string\",\n        \"endTime\": \"string\",\n        \"savedAt\": \"string\",\n        \"error\": \"PROXY_SERVER_CONNECTION_FAILED\",\n        \"errorPhase\": \"SETUP\",\n        \"discoveredType\": \"<string>\",\n        \"discoveredCliCredentialId\": \"string\",\n        \"discoveredCliCredential2Id\": \"string\",\n        \"discoveredCliCredential3Id\": \"string\",\n        \"discoveredHttpCredentialId\": \"string\",\n        \"discoveredSnmpCredentialId\": \"string\",\n        \"hostIps\": [\n          \"string\",\n          \"string\"\n        ],\n        \"unauthorizedCommands\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"createdById\": \"string\",\n      \"createdAt\": \"string\",\n      \"createdBy\": \"string\",\n      \"updatedById\": \"string\",\n      \"updatedAt\": \"string\",\n      \"updatedBy\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5692bb84-802f-4ce8-9570-db5778affc22",
+          "name": "Add or update classic devices",
+          "request": {
+            "name": "Add or update classic devices",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "classic-devices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "putBatch"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"name\": \"<string>\",\n    \"host\": \"<string>\",\n    \"type\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"cliCredentialId\": \"<string>\",\n    \"cliCredential2Id\": \"<string>\",\n    \"cliCredential3Id\": \"<string>\",\n    \"httpCredentialId\": \"<string>\",\n    \"snmpCredentialId\": \"<string>\",\n    \"jumpServerId\": \"<string>\",\n    \"disableIpv6Collection\": \"<boolean>\",\n    \"fullCollectionLog\": \"<boolean>\",\n    \"paginationMode\": \"<string>\",\n    \"terminalWidth\": \"<integer>\",\n    \"largeRtt\": \"<boolean>\",\n    \"minBytesReadPerSec\": \"<long>\",\n    \"maxConnectionsPerMin\": \"<integer>\",\n    \"useFileTransferForLargeOutput\": \"<boolean>\",\n    \"bmpStationHost\": \"<string>\",\n    \"bgpAndBmpFailureHandling\": \"<string>\",\n    \"collectBgpAdvertisements\": \"<boolean>\",\n    \"bgpTableType\": \"<string>\",\n    \"bgpPeerType\": \"<string>\",\n    \"bgpSubnetsToCollect\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"prompt\": \"<string>\",\n    \"promptResponse\": \"<string>\",\n    \"collect\": \"<boolean>\",\n    \"note\": \"<string>\",\n    \"enableSnmpCollection\": \"<boolean>\",\n    \"highCpuUsage\": \"<float>\",\n    \"highMemoryUsage\": \"<float>\",\n    \"highInputUtilization\": \"<float>\",\n    \"highOutputUtilization\": \"<float>\",\n    \"mediumCpuUsage\": \"<float>\",\n    \"mediumMemoryUsage\": \"<float>\",\n    \"mediumInputUtilization\": \"<float>\",\n    \"mediumOutputUtilization\": \"<float>\",\n    \"cloudLocationId\": \"<string>\",\n    \"cloudSetupId\": \"<string>\",\n    \"cloudDiscoverySource\": \"<string>\"\n  },\n  {\n    \"name\": \"<string>\",\n    \"host\": \"<string>\",\n    \"type\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"cliCredentialId\": \"<string>\",\n    \"cliCredential2Id\": \"<string>\",\n    \"cliCredential3Id\": \"<string>\",\n    \"httpCredentialId\": \"<string>\",\n    \"snmpCredentialId\": \"<string>\",\n    \"jumpServerId\": \"<string>\",\n    \"disableIpv6Collection\": \"<boolean>\",\n    \"fullCollectionLog\": \"<boolean>\",\n    \"paginationMode\": \"<string>\",\n    \"terminalWidth\": \"<integer>\",\n    \"largeRtt\": \"<boolean>\",\n    \"minBytesReadPerSec\": \"<long>\",\n    \"maxConnectionsPerMin\": \"<integer>\",\n    \"useFileTransferForLargeOutput\": \"<boolean>\",\n    \"bmpStationHost\": \"<string>\",\n    \"bgpAndBmpFailureHandling\": \"<string>\",\n    \"collectBgpAdvertisements\": \"<boolean>\",\n    \"bgpTableType\": \"<string>\",\n    \"bgpPeerType\": \"<string>\",\n    \"bgpSubnetsToCollect\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"prompt\": \"<string>\",\n    \"promptResponse\": \"<string>\",\n    \"collect\": \"<boolean>\",\n    \"note\": \"<string>\",\n    \"enableSnmpCollection\": \"<boolean>\",\n    \"highCpuUsage\": \"<float>\",\n    \"highMemoryUsage\": \"<float>\",\n    \"highInputUtilization\": \"<float>\",\n    \"highOutputUtilization\": \"<float>\",\n    \"mediumCpuUsage\": \"<float>\",\n    \"mediumMemoryUsage\": \"<float>\",\n    \"mediumInputUtilization\": \"<float>\",\n    \"mediumOutputUtilization\": \"<float>\",\n    \"cloudLocationId\": \"<string>\",\n    \"cloudSetupId\": \"<string>\",\n    \"cloudDiscoverySource\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ed56e300-4a38-42a1-b7d9-d714281dfff9",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "classic-devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"<string>\",\n    \"host\": \"<string>\",\n    \"type\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"cliCredentialId\": \"<string>\",\n    \"cliCredential2Id\": \"<string>\",\n    \"cliCredential3Id\": \"<string>\",\n    \"httpCredentialId\": \"<string>\",\n    \"snmpCredentialId\": \"<string>\",\n    \"jumpServerId\": \"<string>\",\n    \"disableIpv6Collection\": \"<boolean>\",\n    \"fullCollectionLog\": \"<boolean>\",\n    \"paginationMode\": \"<string>\",\n    \"terminalWidth\": \"<integer>\",\n    \"largeRtt\": \"<boolean>\",\n    \"minBytesReadPerSec\": \"<long>\",\n    \"maxConnectionsPerMin\": \"<integer>\",\n    \"useFileTransferForLargeOutput\": \"<boolean>\",\n    \"bmpStationHost\": \"<string>\",\n    \"bgpAndBmpFailureHandling\": \"<string>\",\n    \"collectBgpAdvertisements\": \"<boolean>\",\n    \"bgpTableType\": \"<string>\",\n    \"bgpPeerType\": \"<string>\",\n    \"bgpSubnetsToCollect\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"prompt\": \"<string>\",\n    \"promptResponse\": \"<string>\",\n    \"collect\": \"<boolean>\",\n    \"note\": \"<string>\",\n    \"enableSnmpCollection\": \"<boolean>\",\n    \"highCpuUsage\": \"<float>\",\n    \"highMemoryUsage\": \"<float>\",\n    \"highInputUtilization\": \"<float>\",\n    \"highOutputUtilization\": \"<float>\",\n    \"mediumCpuUsage\": \"<float>\",\n    \"mediumMemoryUsage\": \"<float>\",\n    \"mediumInputUtilization\": \"<float>\",\n    \"mediumOutputUtilization\": \"<float>\",\n    \"cloudLocationId\": \"<string>\",\n    \"cloudSetupId\": \"<string>\",\n    \"cloudDiscoverySource\": \"<string>\"\n  },\n  {\n    \"name\": \"<string>\",\n    \"host\": \"<string>\",\n    \"type\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"cliCredentialId\": \"<string>\",\n    \"cliCredential2Id\": \"<string>\",\n    \"cliCredential3Id\": \"<string>\",\n    \"httpCredentialId\": \"<string>\",\n    \"snmpCredentialId\": \"<string>\",\n    \"jumpServerId\": \"<string>\",\n    \"disableIpv6Collection\": \"<boolean>\",\n    \"fullCollectionLog\": \"<boolean>\",\n    \"paginationMode\": \"<string>\",\n    \"terminalWidth\": \"<integer>\",\n    \"largeRtt\": \"<boolean>\",\n    \"minBytesReadPerSec\": \"<long>\",\n    \"maxConnectionsPerMin\": \"<integer>\",\n    \"useFileTransferForLargeOutput\": \"<boolean>\",\n    \"bmpStationHost\": \"<string>\",\n    \"bgpAndBmpFailureHandling\": \"<string>\",\n    \"collectBgpAdvertisements\": \"<boolean>\",\n    \"bgpTableType\": \"<string>\",\n    \"bgpPeerType\": \"<string>\",\n    \"bgpSubnetsToCollect\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"prompt\": \"<string>\",\n    \"promptResponse\": \"<string>\",\n    \"collect\": \"<boolean>\",\n    \"note\": \"<string>\",\n    \"enableSnmpCollection\": \"<boolean>\",\n    \"highCpuUsage\": \"<float>\",\n    \"highMemoryUsage\": \"<float>\",\n    \"highInputUtilization\": \"<float>\",\n    \"highOutputUtilization\": \"<float>\",\n    \"mediumCpuUsage\": \"<float>\",\n    \"mediumMemoryUsage\": \"<float>\",\n    \"mediumInputUtilization\": \"<float>\",\n    \"mediumOutputUtilization\": \"<float>\",\n    \"cloudLocationId\": \"<string>\",\n    \"cloudSetupId\": \"<string>\",\n    \"cloudDiscoverySource\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bae098b9-1485-4792-8b6f-c6cfd2f391c8",
+          "name": "Get a classic device",
+          "request": {
+            "name": "Get a classic device",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "classic-devices",
+                ":deviceName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deviceName",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "33d8bf70-29f7-4e5a-ad12-4204b0dd0b10",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "classic-devices",
+                    ":deviceName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "with",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "with",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deviceName",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"host\": \"string\",\n  \"type\": \"<string>\",\n  \"port\": 27034,\n  \"cliCredentialId\": \"string\",\n  \"cliCredential2Id\": \"string\",\n  \"cliCredential3Id\": \"string\",\n  \"httpCredentialId\": \"string\",\n  \"snmpCredentialId\": \"string\",\n  \"jumpServerId\": \"string\",\n  \"disableIpv6Collection\": true,\n  \"fullCollectionLog\": false,\n  \"paginationMode\": \"<string>\",\n  \"terminalWidth\": 363,\n  \"largeRtt\": false,\n  \"minBytesReadPerSec\": 1193,\n  \"maxConnectionsPerMin\": 5477,\n  \"useFileTransferForLargeOutput\": false,\n  \"bmpStationHost\": \"string\",\n  \"bgpAndBmpFailureHandling\": \"ALWAYS_USE_BMP\",\n  \"collectBgpAdvertisements\": false,\n  \"bgpTableType\": \"ADJ_RIB_IN\",\n  \"bgpPeerType\": \"IBGP\",\n  \"bgpSubnetsToCollect\": [\n    \"string\",\n    \"string\"\n  ],\n  \"prompt\": \"string\",\n  \"promptResponse\": \"string\",\n  \"collect\": true,\n  \"note\": \"string\",\n  \"enableSnmpCollection\": true,\n  \"highCpuUsage\": 0.7881991054637381,\n  \"highMemoryUsage\": 0.813554915982711,\n  \"highInputUtilization\": 0.8925842435713809,\n  \"highOutputUtilization\": 0.8210649048029617,\n  \"mediumCpuUsage\": 0.7258452140884747,\n  \"mediumMemoryUsage\": 0.8565884761288836,\n  \"mediumInputUtilization\": 0.9612867642517928,\n  \"mediumOutputUtilization\": 0.9134894800697699,\n  \"cloudLocationId\": \"string\",\n  \"cloudSetupId\": \"string\",\n  \"cloudDiscoverySource\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"locationId\": \"string\",\n  \"testResult\": {\n    \"startTime\": \"string\",\n    \"endTime\": \"string\",\n    \"savedAt\": \"string\",\n    \"error\": \"UNSUPPORTED_SSL_CONNECTION\",\n    \"errorPhase\": \"SETUP\",\n    \"discoveredType\": \"<string>\",\n    \"discoveredCliCredentialId\": \"string\",\n    \"discoveredCliCredential2Id\": \"string\",\n    \"discoveredCliCredential3Id\": \"string\",\n    \"discoveredHttpCredentialId\": \"string\",\n    \"discoveredSnmpCredentialId\": \"string\",\n    \"hostIps\": [\n      \"string\",\n      \"string\"\n    ],\n    \"unauthorizedCommands\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"createdById\": \"string\",\n  \"createdAt\": \"string\",\n  \"createdBy\": \"string\",\n  \"updatedById\": \"string\",\n  \"updatedAt\": \"string\",\n  \"updatedBy\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3f83c8d-b715-42e4-bc63-0490204b313f",
+          "name": "Add or update a classic device",
+          "request": {
+            "name": "Add or update a classic device",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "classic-devices",
+                ":deviceName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deviceName",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"host\": \"<string>\",\n  \"type\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"cliCredentialId\": \"<string>\",\n  \"cliCredential2Id\": \"<string>\",\n  \"cliCredential3Id\": \"<string>\",\n  \"httpCredentialId\": \"<string>\",\n  \"snmpCredentialId\": \"<string>\",\n  \"jumpServerId\": \"<string>\",\n  \"disableIpv6Collection\": \"<boolean>\",\n  \"fullCollectionLog\": \"<boolean>\",\n  \"paginationMode\": \"<string>\",\n  \"terminalWidth\": \"<integer>\",\n  \"largeRtt\": \"<boolean>\",\n  \"minBytesReadPerSec\": \"<long>\",\n  \"maxConnectionsPerMin\": \"<integer>\",\n  \"useFileTransferForLargeOutput\": \"<boolean>\",\n  \"bmpStationHost\": \"<string>\",\n  \"bgpAndBmpFailureHandling\": \"<string>\",\n  \"collectBgpAdvertisements\": \"<boolean>\",\n  \"bgpTableType\": \"<string>\",\n  \"bgpPeerType\": \"<string>\",\n  \"bgpSubnetsToCollect\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"prompt\": \"<string>\",\n  \"promptResponse\": \"<string>\",\n  \"collect\": \"<boolean>\",\n  \"note\": \"<string>\",\n  \"enableSnmpCollection\": \"<boolean>\",\n  \"highCpuUsage\": \"<float>\",\n  \"highMemoryUsage\": \"<float>\",\n  \"highInputUtilization\": \"<float>\",\n  \"highOutputUtilization\": \"<float>\",\n  \"mediumCpuUsage\": \"<float>\",\n  \"mediumMemoryUsage\": \"<float>\",\n  \"mediumInputUtilization\": \"<float>\",\n  \"mediumOutputUtilization\": \"<float>\",\n  \"cloudLocationId\": \"<string>\",\n  \"cloudSetupId\": \"<string>\",\n  \"cloudDiscoverySource\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "231cb478-287e-4e01-a616-43132cd61657",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "classic-devices",
+                    ":deviceName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deviceName",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"host\": \"<string>\",\n  \"type\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"cliCredentialId\": \"<string>\",\n  \"cliCredential2Id\": \"<string>\",\n  \"cliCredential3Id\": \"<string>\",\n  \"httpCredentialId\": \"<string>\",\n  \"snmpCredentialId\": \"<string>\",\n  \"jumpServerId\": \"<string>\",\n  \"disableIpv6Collection\": \"<boolean>\",\n  \"fullCollectionLog\": \"<boolean>\",\n  \"paginationMode\": \"<string>\",\n  \"terminalWidth\": \"<integer>\",\n  \"largeRtt\": \"<boolean>\",\n  \"minBytesReadPerSec\": \"<long>\",\n  \"maxConnectionsPerMin\": \"<integer>\",\n  \"useFileTransferForLargeOutput\": \"<boolean>\",\n  \"bmpStationHost\": \"<string>\",\n  \"bgpAndBmpFailureHandling\": \"<string>\",\n  \"collectBgpAdvertisements\": \"<boolean>\",\n  \"bgpTableType\": \"<string>\",\n  \"bgpPeerType\": \"<string>\",\n  \"bgpSubnetsToCollect\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"prompt\": \"<string>\",\n  \"promptResponse\": \"<string>\",\n  \"collect\": \"<boolean>\",\n  \"note\": \"<string>\",\n  \"enableSnmpCollection\": \"<boolean>\",\n  \"highCpuUsage\": \"<float>\",\n  \"highMemoryUsage\": \"<float>\",\n  \"highInputUtilization\": \"<float>\",\n  \"highOutputUtilization\": \"<float>\",\n  \"mediumCpuUsage\": \"<float>\",\n  \"mediumMemoryUsage\": \"<float>\",\n  \"mediumInputUtilization\": \"<float>\",\n  \"mediumOutputUtilization\": \"<float>\",\n  \"cloudLocationId\": \"<string>\",\n  \"cloudSetupId\": \"<string>\",\n  \"cloudDiscoverySource\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"host\": \"string\",\n  \"type\": \"<string>\",\n  \"port\": 27034,\n  \"cliCredentialId\": \"string\",\n  \"cliCredential2Id\": \"string\",\n  \"cliCredential3Id\": \"string\",\n  \"httpCredentialId\": \"string\",\n  \"snmpCredentialId\": \"string\",\n  \"jumpServerId\": \"string\",\n  \"disableIpv6Collection\": true,\n  \"fullCollectionLog\": false,\n  \"paginationMode\": \"<string>\",\n  \"terminalWidth\": 363,\n  \"largeRtt\": false,\n  \"minBytesReadPerSec\": 1193,\n  \"maxConnectionsPerMin\": 5477,\n  \"useFileTransferForLargeOutput\": false,\n  \"bmpStationHost\": \"string\",\n  \"bgpAndBmpFailureHandling\": \"ALWAYS_USE_BMP\",\n  \"collectBgpAdvertisements\": false,\n  \"bgpTableType\": \"ADJ_RIB_IN\",\n  \"bgpPeerType\": \"IBGP\",\n  \"bgpSubnetsToCollect\": [\n    \"string\",\n    \"string\"\n  ],\n  \"prompt\": \"string\",\n  \"promptResponse\": \"string\",\n  \"collect\": true,\n  \"note\": \"string\",\n  \"enableSnmpCollection\": true,\n  \"highCpuUsage\": 0.7881991054637381,\n  \"highMemoryUsage\": 0.813554915982711,\n  \"highInputUtilization\": 0.8925842435713809,\n  \"highOutputUtilization\": 0.8210649048029617,\n  \"mediumCpuUsage\": 0.7258452140884747,\n  \"mediumMemoryUsage\": 0.8565884761288836,\n  \"mediumInputUtilization\": 0.9612867642517928,\n  \"mediumOutputUtilization\": 0.9134894800697699,\n  \"cloudLocationId\": \"string\",\n  \"cloudSetupId\": \"string\",\n  \"cloudDiscoverySource\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"locationId\": \"string\",\n  \"testResult\": {\n    \"startTime\": \"string\",\n    \"endTime\": \"string\",\n    \"savedAt\": \"string\",\n    \"error\": \"UNSUPPORTED_SSL_CONNECTION\",\n    \"errorPhase\": \"SETUP\",\n    \"discoveredType\": \"<string>\",\n    \"discoveredCliCredentialId\": \"string\",\n    \"discoveredCliCredential2Id\": \"string\",\n    \"discoveredCliCredential3Id\": \"string\",\n    \"discoveredHttpCredentialId\": \"string\",\n    \"discoveredSnmpCredentialId\": \"string\",\n    \"hostIps\": [\n      \"string\",\n      \"string\"\n    ],\n    \"unauthorizedCommands\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"createdById\": \"string\",\n  \"createdAt\": \"string\",\n  \"createdBy\": \"string\",\n  \"updatedById\": \"string\",\n  \"updatedAt\": \"string\",\n  \"updatedBy\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "15925d10-4d27-4681-b9f7-7bdf9b0ea952",
+          "name": "Update a classic device",
+          "request": {
+            "name": "Update a classic device",
+            "description": {
+              "content": "All JSON properties in the request body are optional. Include only the properties you wish to\nchange.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "classic-devices",
+                ":deviceName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deviceName",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"host\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"cliCredentialId\": \"<string>\",\n  \"cliCredential2Id\": \"<string>\",\n  \"cliCredential3Id\": \"<string>\",\n  \"httpCredentialId\": \"<string>\",\n  \"snmpCredentialId\": \"<string>\",\n  \"jumpServerId\": \"<string>\",\n  \"disableIpv6Collection\": \"<boolean>\",\n  \"fullCollectionLog\": \"<boolean>\",\n  \"paginationMode\": \"<string>\",\n  \"terminalWidth\": \"<integer>\",\n  \"largeRtt\": \"<boolean>\",\n  \"minBytesReadPerSec\": \"<long>\",\n  \"maxConnectionsPerMin\": \"<integer>\",\n  \"useFileTransferForLargeOutput\": \"<boolean>\",\n  \"bmpStationHost\": \"<string>\",\n  \"bgpAndBmpFailureHandling\": \"<string>\",\n  \"collectBgpAdvertisements\": \"<boolean>\",\n  \"bgpTableType\": \"<string>\",\n  \"bgpPeerType\": \"<string>\",\n  \"bgpSubnetsToCollect\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"prompt\": \"<string>\",\n  \"promptResponse\": \"<string>\",\n  \"collect\": \"<boolean>\",\n  \"note\": \"<string>\",\n  \"enableSnmpCollection\": \"<boolean>\",\n  \"highCpuUsage\": \"<float>\",\n  \"highMemoryUsage\": \"<float>\",\n  \"highInputUtilization\": \"<float>\",\n  \"highOutputUtilization\": \"<float>\",\n  \"mediumCpuUsage\": \"<float>\",\n  \"mediumMemoryUsage\": \"<float>\",\n  \"mediumInputUtilization\": \"<float>\",\n  \"mediumOutputUtilization\": \"<float>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9caae44a-50ba-4447-8daf-0768c2a5783d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "classic-devices",
+                    ":deviceName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deviceName",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"host\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"cliCredentialId\": \"<string>\",\n  \"cliCredential2Id\": \"<string>\",\n  \"cliCredential3Id\": \"<string>\",\n  \"httpCredentialId\": \"<string>\",\n  \"snmpCredentialId\": \"<string>\",\n  \"jumpServerId\": \"<string>\",\n  \"disableIpv6Collection\": \"<boolean>\",\n  \"fullCollectionLog\": \"<boolean>\",\n  \"paginationMode\": \"<string>\",\n  \"terminalWidth\": \"<integer>\",\n  \"largeRtt\": \"<boolean>\",\n  \"minBytesReadPerSec\": \"<long>\",\n  \"maxConnectionsPerMin\": \"<integer>\",\n  \"useFileTransferForLargeOutput\": \"<boolean>\",\n  \"bmpStationHost\": \"<string>\",\n  \"bgpAndBmpFailureHandling\": \"<string>\",\n  \"collectBgpAdvertisements\": \"<boolean>\",\n  \"bgpTableType\": \"<string>\",\n  \"bgpPeerType\": \"<string>\",\n  \"bgpSubnetsToCollect\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"prompt\": \"<string>\",\n  \"promptResponse\": \"<string>\",\n  \"collect\": \"<boolean>\",\n  \"note\": \"<string>\",\n  \"enableSnmpCollection\": \"<boolean>\",\n  \"highCpuUsage\": \"<float>\",\n  \"highMemoryUsage\": \"<float>\",\n  \"highInputUtilization\": \"<float>\",\n  \"highOutputUtilization\": \"<float>\",\n  \"mediumCpuUsage\": \"<float>\",\n  \"mediumMemoryUsage\": \"<float>\",\n  \"mediumInputUtilization\": \"<float>\",\n  \"mediumOutputUtilization\": \"<float>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"host\": \"string\",\n  \"type\": \"<string>\",\n  \"port\": 27034,\n  \"cliCredentialId\": \"string\",\n  \"cliCredential2Id\": \"string\",\n  \"cliCredential3Id\": \"string\",\n  \"httpCredentialId\": \"string\",\n  \"snmpCredentialId\": \"string\",\n  \"jumpServerId\": \"string\",\n  \"disableIpv6Collection\": true,\n  \"fullCollectionLog\": false,\n  \"paginationMode\": \"<string>\",\n  \"terminalWidth\": 363,\n  \"largeRtt\": false,\n  \"minBytesReadPerSec\": 1193,\n  \"maxConnectionsPerMin\": 5477,\n  \"useFileTransferForLargeOutput\": false,\n  \"bmpStationHost\": \"string\",\n  \"bgpAndBmpFailureHandling\": \"ALWAYS_USE_BMP\",\n  \"collectBgpAdvertisements\": false,\n  \"bgpTableType\": \"ADJ_RIB_IN\",\n  \"bgpPeerType\": \"IBGP\",\n  \"bgpSubnetsToCollect\": [\n    \"string\",\n    \"string\"\n  ],\n  \"prompt\": \"string\",\n  \"promptResponse\": \"string\",\n  \"collect\": true,\n  \"note\": \"string\",\n  \"enableSnmpCollection\": true,\n  \"highCpuUsage\": 0.7881991054637381,\n  \"highMemoryUsage\": 0.813554915982711,\n  \"highInputUtilization\": 0.8925842435713809,\n  \"highOutputUtilization\": 0.8210649048029617,\n  \"mediumCpuUsage\": 0.7258452140884747,\n  \"mediumMemoryUsage\": 0.8565884761288836,\n  \"mediumInputUtilization\": 0.9612867642517928,\n  \"mediumOutputUtilization\": 0.9134894800697699,\n  \"cloudLocationId\": \"string\",\n  \"cloudSetupId\": \"string\",\n  \"cloudDiscoverySource\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"locationId\": \"string\",\n  \"testResult\": {\n    \"startTime\": \"string\",\n    \"endTime\": \"string\",\n    \"savedAt\": \"string\",\n    \"error\": \"UNSUPPORTED_SSL_CONNECTION\",\n    \"errorPhase\": \"SETUP\",\n    \"discoveredType\": \"<string>\",\n    \"discoveredCliCredentialId\": \"string\",\n    \"discoveredCliCredential2Id\": \"string\",\n    \"discoveredCliCredential3Id\": \"string\",\n    \"discoveredHttpCredentialId\": \"string\",\n    \"discoveredSnmpCredentialId\": \"string\",\n    \"hostIps\": [\n      \"string\",\n      \"string\"\n    ],\n    \"unauthorizedCommands\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"createdById\": \"string\",\n  \"createdAt\": \"string\",\n  \"createdBy\": \"string\",\n  \"updatedById\": \"string\",\n  \"updatedAt\": \"string\",\n  \"updatedBy\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "66b8d8c0-5cd9-4344-8544-cd310459a571",
+          "name": "Delete a classic device",
+          "request": {
+            "name": "Delete a classic device",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "classic-devices",
+                ":deviceName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deviceName",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fce1ef5c-1b55-447d-a28b-eea5d2122d04",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "classic-devices",
+                    ":deviceName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deviceName",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c10128e7-b9bb-4f34-aef8-6baeeaa44f05",
+    "name": "Forward Networks: Complete Aliases Classic Devices API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Model and verify networks\n\nContact Support:\n Email: support@forwardnetworks.com",
+      "type": "text/plain"
+    }
+  }
+}

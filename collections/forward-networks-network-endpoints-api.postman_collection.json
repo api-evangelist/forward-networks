@@ -1,0 +1,2839 @@
+{
+  "item": [
+    {
+      "id": "e5ea42fa-c3d9-4118-a4ff-5af6eddb561b",
+      "name": "Network Endpoints",
+      "description": {
+        "content": "Configure network endpoint profiles and specify the network endpoints to collect from",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8cd30060-e5d7-4fba-959b-6c9d535411db",
+          "name": "Get all endpoint profiles",
+          "request": {
+            "name": "Get all endpoint profiles",
+            "description": {},
+            "url": {
+              "path": [
+                "endpoint-profiles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c618df80-1c3d-4651-80c5-324f9624136a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint-profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"profiles\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"detectorCommand\": \"string\",\n      \"detectorPatterns\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"detectorErrorPatterns\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"nameDetectorCommand\": \"string\",\n      \"nameDetectorPatterns\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"prompt\": \"string\",\n      \"promptResponse\": \"string\",\n      \"pagePrompt\": \"string\",\n      \"pagePromptResponse\": \"string\",\n      \"ptyType\": \"string\",\n      \"ptyColumnSize\": 3169,\n      \"clearPrompt\": \"string\",\n      \"responseTimeoutSec\": 8495,\n      \"commandSets\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"customCommands\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"createdById\": \"string\",\n      \"createdAt\": \"string\",\n      \"createdBy\": \"string\",\n      \"updatedById\": \"string\",\n      \"updatedAt\": \"string\",\n      \"updatedBy\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"detectorCommand\": \"string\",\n      \"detectorPatterns\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"detectorErrorPatterns\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"nameDetectorCommand\": \"string\",\n      \"nameDetectorPatterns\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"prompt\": \"string\",\n      \"promptResponse\": \"string\",\n      \"pagePrompt\": \"string\",\n      \"pagePromptResponse\": \"string\",\n      \"ptyType\": \"string\",\n      \"ptyColumnSize\": 5760,\n      \"clearPrompt\": \"string\",\n      \"responseTimeoutSec\": 929,\n      \"commandSets\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"customCommands\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"createdById\": \"string\",\n      \"createdAt\": \"string\",\n      \"createdBy\": \"string\",\n      \"updatedById\": \"string\",\n      \"updatedAt\": \"string\",\n      \"updatedBy\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d28cd699-c58b-4c37-afae-57214c40c814",
+          "name": "Add a CLI endpoint profile",
+          "request": {
+            "name": "Add a CLI endpoint profile",
+            "description": {},
+            "url": {
+              "path": [
+                "endpoint-profiles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "CLI"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"detectorCommand\": \"<string>\",\n  \"detectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"detectorErrorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"nameDetectorCommand\": \"<string>\",\n  \"nameDetectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"prompt\": \"<string>\",\n  \"promptResponse\": \"<string>\",\n  \"pagePrompt\": \"<string>\",\n  \"pagePromptResponse\": \"<string>\",\n  \"ptyType\": \"<string>\",\n  \"ptyColumnSize\": \"<integer>\",\n  \"clearPrompt\": \"<string>\",\n  \"responseTimeoutSec\": \"<integer>\",\n  \"commandSets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customCommands\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "76bc12c6-88c8-4092-ad50-73c355556467",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint-profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"detectorCommand\": \"<string>\",\n  \"detectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"detectorErrorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"nameDetectorCommand\": \"<string>\",\n  \"nameDetectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"prompt\": \"<string>\",\n  \"promptResponse\": \"<string>\",\n  \"pagePrompt\": \"<string>\",\n  \"pagePromptResponse\": \"<string>\",\n  \"ptyType\": \"<string>\",\n  \"ptyColumnSize\": \"<integer>\",\n  \"clearPrompt\": \"<string>\",\n  \"responseTimeoutSec\": \"<integer>\",\n  \"commandSets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customCommands\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"detectorCommand\": \"<string>\",\n  \"detectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"detectorErrorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"nameDetectorCommand\": \"<string>\",\n  \"nameDetectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"prompt\": \"<string>\",\n  \"promptResponse\": \"<string>\",\n  \"pagePrompt\": \"<string>\",\n  \"pagePromptResponse\": \"<string>\",\n  \"ptyType\": \"<string>\",\n  \"ptyColumnSize\": \"<integer>\",\n  \"clearPrompt\": \"<string>\",\n  \"responseTimeoutSec\": \"<integer>\",\n  \"commandSets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customCommands\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"createdById\": \"string\",\n  \"createdAt\": \"string\",\n  \"createdBy\": \"string\",\n  \"updatedById\": \"string\",\n  \"updatedAt\": \"string\",\n  \"updatedBy\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7f45cfcf-962f-4f6d-9b5f-1da14b246550",
+          "name": "Add an HTTP endpoint profile",
+          "request": {
+            "name": "Add an HTTP endpoint profile",
+            "description": {},
+            "url": {
+              "path": [
+                "endpoint-profiles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "HTTP"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"https\": \"<boolean>\",\n  \"authType\": \"<string>\",\n  \"endpoints\": [\n    {\n      \"name\": \"<string>\",\n      \"path\": \"<string>\",\n      \"paginationModel\": {\n        \"type\": \"<string>\",\n        \"itemsArrayField\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"parameterName\": \"<string>\",\n        \"offsetIncrementExpression\": {\n          \"operator\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"path\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"maxPages\": \"<integer>\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"path\": \"<string>\",\n      \"paginationModel\": {\n        \"type\": \"<string>\",\n        \"itemsArrayField\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"parameterName\": \"<string>\",\n        \"offsetIncrementExpression\": {\n          \"operator\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"path\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"maxPages\": \"<integer>\"\n      }\n    }\n  ],\n  \"headers\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"detectorUri\": \"<string>\",\n  \"detectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3553f437-e20e-43d0-b4d8-2efb55a8dbf1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint-profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"https\": \"<boolean>\",\n  \"authType\": \"<string>\",\n  \"endpoints\": [\n    {\n      \"name\": \"<string>\",\n      \"path\": \"<string>\",\n      \"paginationModel\": {\n        \"type\": \"<string>\",\n        \"itemsArrayField\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"parameterName\": \"<string>\",\n        \"offsetIncrementExpression\": {\n          \"operator\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"path\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"maxPages\": \"<integer>\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"path\": \"<string>\",\n      \"paginationModel\": {\n        \"type\": \"<string>\",\n        \"itemsArrayField\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"parameterName\": \"<string>\",\n        \"offsetIncrementExpression\": {\n          \"operator\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"path\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"maxPages\": \"<integer>\"\n      }\n    }\n  ],\n  \"headers\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\"\n  },\n  \"detectorUri\": \"<string>\",\n  \"detectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"detectorCommand\": \"<string>\",\n  \"detectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"detectorErrorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"nameDetectorCommand\": \"<string>\",\n  \"nameDetectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"prompt\": \"<string>\",\n  \"promptResponse\": \"<string>\",\n  \"pagePrompt\": \"<string>\",\n  \"pagePromptResponse\": \"<string>\",\n  \"ptyType\": \"<string>\",\n  \"ptyColumnSize\": \"<integer>\",\n  \"clearPrompt\": \"<string>\",\n  \"responseTimeoutSec\": \"<integer>\",\n  \"commandSets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customCommands\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"createdById\": \"string\",\n  \"createdAt\": \"string\",\n  \"createdBy\": \"string\",\n  \"updatedById\": \"string\",\n  \"updatedAt\": \"string\",\n  \"updatedBy\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d20167ed-21b2-45bb-9674-a23a65e0f9f7",
+          "name": "Add an SNMP endpoint profile",
+          "request": {
+            "name": "Add an SNMP endpoint profile",
+            "description": {},
+            "url": {
+              "path": [
+                "endpoint-profiles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "SNMP"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"detectorOid\": \"<string>\",\n  \"detectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"nameDetectorOid\": \"<string>\",\n  \"nameDetectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"responseTimeoutSec\": \"<integer>\",\n  \"oidSets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customOids\": [\n    {\n      \"name\": \"<string>\",\n      \"oid\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"oid\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "825a3f39-285f-4033-ad53-61a59563b131",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint-profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"detectorOid\": \"<string>\",\n  \"detectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"nameDetectorOid\": \"<string>\",\n  \"nameDetectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"responseTimeoutSec\": \"<integer>\",\n  \"oidSets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customOids\": [\n    {\n      \"name\": \"<string>\",\n      \"oid\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"oid\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"detectorCommand\": \"<string>\",\n  \"detectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"detectorErrorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"nameDetectorCommand\": \"<string>\",\n  \"nameDetectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"prompt\": \"<string>\",\n  \"promptResponse\": \"<string>\",\n  \"pagePrompt\": \"<string>\",\n  \"pagePromptResponse\": \"<string>\",\n  \"ptyType\": \"<string>\",\n  \"ptyColumnSize\": \"<integer>\",\n  \"clearPrompt\": \"<string>\",\n  \"responseTimeoutSec\": \"<integer>\",\n  \"commandSets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customCommands\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"createdById\": \"string\",\n  \"createdAt\": \"string\",\n  \"createdBy\": \"string\",\n  \"updatedById\": \"string\",\n  \"updatedAt\": \"string\",\n  \"updatedBy\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "539a4292-3564-4a80-8b60-3b2b6413fb47",
+          "name": "Update a CLI endpoint profile",
+          "request": {
+            "name": "Update a CLI endpoint profile",
+            "description": {},
+            "url": {
+              "path": [
+                "endpoint-profiles",
+                "CLI-{{profileId}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"detectorCommand\": \"<string>\",\n  \"detectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"detectorErrorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"nameDetectorCommand\": \"<string>\",\n  \"nameDetectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"prompt\": \"<string>\",\n  \"promptResponse\": \"<string>\",\n  \"pagePrompt\": \"<string>\",\n  \"pagePromptResponse\": \"<string>\",\n  \"ptyType\": \"<string>\",\n  \"ptyColumnSize\": \"<integer>\",\n  \"clearPrompt\": \"<string>\",\n  \"responseTimeoutSec\": \"<integer>\",\n  \"commandSets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customCommands\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3cf25453-ffdc-4dcd-8f9f-7d1140abdf6c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint-profiles",
+                    "CLI-{{profileId}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"detectorCommand\": \"<string>\",\n  \"detectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"detectorErrorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"nameDetectorCommand\": \"<string>\",\n  \"nameDetectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"prompt\": \"<string>\",\n  \"promptResponse\": \"<string>\",\n  \"pagePrompt\": \"<string>\",\n  \"pagePromptResponse\": \"<string>\",\n  \"ptyType\": \"<string>\",\n  \"ptyColumnSize\": \"<integer>\",\n  \"clearPrompt\": \"<string>\",\n  \"responseTimeoutSec\": \"<integer>\",\n  \"commandSets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customCommands\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"detectorCommand\": \"<string>\",\n  \"detectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"detectorErrorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"nameDetectorCommand\": \"<string>\",\n  \"nameDetectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"prompt\": \"<string>\",\n  \"promptResponse\": \"<string>\",\n  \"pagePrompt\": \"<string>\",\n  \"pagePromptResponse\": \"<string>\",\n  \"ptyType\": \"<string>\",\n  \"ptyColumnSize\": \"<integer>\",\n  \"clearPrompt\": \"<string>\",\n  \"responseTimeoutSec\": \"<integer>\",\n  \"commandSets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customCommands\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"createdById\": \"string\",\n  \"createdAt\": \"string\",\n  \"createdBy\": \"string\",\n  \"updatedById\": \"string\",\n  \"updatedAt\": \"string\",\n  \"updatedBy\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fc0eb04e-b244-4bb2-bac5-632a0d4b36d4",
+          "name": "Update an HTTP endpoint profile",
+          "request": {
+            "name": "Update an HTTP endpoint profile",
+            "description": {},
+            "url": {
+              "path": [
+                "endpoint-profiles",
+                "HTTP-{{profileId}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"authType\": \"<string>\",\n  \"detectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"detectorUri\": \"<string>\",\n  \"endpoints\": [\n    {\n      \"name\": \"<string>\",\n      \"path\": \"<string>\",\n      \"paginationModel\": {\n        \"type\": \"<string>\",\n        \"itemsArrayField\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"parameterName\": \"<string>\",\n        \"offsetIncrementExpression\": {\n          \"operator\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"path\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"maxPages\": \"<integer>\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"path\": \"<string>\",\n      \"paginationModel\": {\n        \"type\": \"<string>\",\n        \"itemsArrayField\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"parameterName\": \"<string>\",\n        \"offsetIncrementExpression\": {\n          \"operator\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"path\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"maxPages\": \"<integer>\"\n      }\n    }\n  ],\n  \"headers\": {\n    \"key_0\": \"<string>\"\n  },\n  \"https\": \"<boolean>\",\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8587b61f-a9ac-4278-b0af-5004c336663b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint-profiles",
+                    "HTTP-{{profileId}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"authType\": \"<string>\",\n  \"detectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"detectorUri\": \"<string>\",\n  \"endpoints\": [\n    {\n      \"name\": \"<string>\",\n      \"path\": \"<string>\",\n      \"paginationModel\": {\n        \"type\": \"<string>\",\n        \"itemsArrayField\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"parameterName\": \"<string>\",\n        \"offsetIncrementExpression\": {\n          \"operator\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"path\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"maxPages\": \"<integer>\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"path\": \"<string>\",\n      \"paginationModel\": {\n        \"type\": \"<string>\",\n        \"itemsArrayField\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"parameterName\": \"<string>\",\n        \"offsetIncrementExpression\": {\n          \"operator\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"path\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"maxPages\": \"<integer>\"\n      }\n    }\n  ],\n  \"headers\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"https\": \"<boolean>\",\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"detectorCommand\": \"<string>\",\n  \"detectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"detectorErrorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"nameDetectorCommand\": \"<string>\",\n  \"nameDetectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"prompt\": \"<string>\",\n  \"promptResponse\": \"<string>\",\n  \"pagePrompt\": \"<string>\",\n  \"pagePromptResponse\": \"<string>\",\n  \"ptyType\": \"<string>\",\n  \"ptyColumnSize\": \"<integer>\",\n  \"clearPrompt\": \"<string>\",\n  \"responseTimeoutSec\": \"<integer>\",\n  \"commandSets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customCommands\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"createdById\": \"string\",\n  \"createdAt\": \"string\",\n  \"createdBy\": \"string\",\n  \"updatedById\": \"string\",\n  \"updatedAt\": \"string\",\n  \"updatedBy\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "60216f3f-061e-4f9c-b5aa-5f9c23816571",
+          "name": "Update an SNMP endpoint profile",
+          "request": {
+            "name": "Update an SNMP endpoint profile",
+            "description": {},
+            "url": {
+              "path": [
+                "endpoint-profiles",
+                "SNMP-{{profileId}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"detectorOid\": \"<string>\",\n  \"detectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"nameDetectorOid\": \"<string>\",\n  \"nameDetectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"responseTimeoutSec\": \"<integer>\",\n  \"oidSets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customOids\": [\n    {\n      \"name\": \"<string>\",\n      \"oid\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"oid\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3f4d88e7-ea3b-4a15-8061-d050699c712e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint-profiles",
+                    "SNMP-{{profileId}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"detectorOid\": \"<string>\",\n  \"detectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"nameDetectorOid\": \"<string>\",\n  \"nameDetectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"responseTimeoutSec\": \"<integer>\",\n  \"oidSets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customOids\": [\n    {\n      \"name\": \"<string>\",\n      \"oid\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"oid\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"detectorCommand\": \"<string>\",\n  \"detectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"detectorErrorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"nameDetectorCommand\": \"<string>\",\n  \"nameDetectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"prompt\": \"<string>\",\n  \"promptResponse\": \"<string>\",\n  \"pagePrompt\": \"<string>\",\n  \"pagePromptResponse\": \"<string>\",\n  \"ptyType\": \"<string>\",\n  \"ptyColumnSize\": \"<integer>\",\n  \"clearPrompt\": \"<string>\",\n  \"responseTimeoutSec\": \"<integer>\",\n  \"commandSets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customCommands\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"createdById\": \"string\",\n  \"createdAt\": \"string\",\n  \"createdBy\": \"string\",\n  \"updatedById\": \"string\",\n  \"updatedAt\": \"string\",\n  \"updatedBy\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9e7ccef1-9bae-4cb9-9279-f902ff034ccc",
+          "name": "Get an endpoint profile",
+          "request": {
+            "name": "Get an endpoint profile",
+            "description": {},
+            "url": {
+              "path": [
+                "endpoint-profiles",
+                ":profileId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "profileId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "53475998-ad25-4766-9f90-83995e10b93f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint-profiles",
+                    ":profileId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profileId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"detectorCommand\": \"<string>\",\n  \"detectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"detectorErrorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"nameDetectorCommand\": \"<string>\",\n  \"nameDetectorPatterns\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"prompt\": \"<string>\",\n  \"promptResponse\": \"<string>\",\n  \"pagePrompt\": \"<string>\",\n  \"pagePromptResponse\": \"<string>\",\n  \"ptyType\": \"<string>\",\n  \"ptyColumnSize\": \"<integer>\",\n  \"clearPrompt\": \"<string>\",\n  \"responseTimeoutSec\": \"<integer>\",\n  \"commandSets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"customCommands\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"createdById\": \"string\",\n  \"createdAt\": \"string\",\n  \"createdBy\": \"string\",\n  \"updatedById\": \"string\",\n  \"updatedAt\": \"string\",\n  \"updatedBy\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5a895723-98bd-4c63-aac1-660766251d87",
+          "name": "Delete an endpoint profile",
+          "request": {
+            "name": "Delete an endpoint profile",
+            "description": {},
+            "url": {
+              "path": [
+                "endpoint-profiles",
+                ":profileId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "profileId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "81e84134-3eb7-44ac-8e94-a005e74dbf5b",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint-profiles",
+                    ":profileId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profileId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cab4c32b-b171-452c-bee4-02afb530698d",
+          "name": "Get a network’s endpoints",
+          "request": {
+            "name": "Get a network’s endpoints",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "endpoints"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "068008c4-42fb-4d00-9b54-6349f69382c5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "endpoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "with",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "with",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"endpoints\": [\n    {\n      \"type\": \"string\",\n      \"name\": \"string\",\n      \"host\": \"string\",\n      \"port\": 27296,\n      \"protocol\": \"TELNET\",\n      \"profileId\": \"string\",\n      \"credentialId\": \"string\",\n      \"jumpServerId\": \"string\",\n      \"fullCollectionLog\": false,\n      \"largeRtt\": true,\n      \"collect\": true,\n      \"note\": \"string\",\n      \"createdById\": \"string\",\n      \"createdAt\": \"string\",\n      \"createdBy\": \"string\",\n      \"updatedById\": \"string\",\n      \"updatedAt\": \"string\",\n      \"updatedBy\": \"string\"\n    },\n    {\n      \"type\": \"string\",\n      \"name\": \"string\",\n      \"host\": \"string\",\n      \"port\": 58002,\n      \"protocol\": \"SSH\",\n      \"profileId\": \"string\",\n      \"credentialId\": \"string\",\n      \"jumpServerId\": \"string\",\n      \"fullCollectionLog\": true,\n      \"largeRtt\": false,\n      \"collect\": false,\n      \"note\": \"string\",\n      \"createdById\": \"string\",\n      \"createdAt\": \"string\",\n      \"createdBy\": \"string\",\n      \"updatedById\": \"string\",\n      \"updatedAt\": \"string\",\n      \"updatedBy\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "37ecc79d-e323-43bd-b634-85531b00978b",
+          "name": "Update specific network endpoints",
+          "request": {
+            "name": "Update specific network endpoints",
+            "description": {
+              "content": "All JSON properties in the `update` object are optional. Include only the properties you wish\nto change.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "endpoints"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"update\": {\n    \"type\": \"<string>\",\n    \"profileId\": \"<string>\",\n    \"protocol\": \"<string>\",\n    \"credentialId\": \"<string>\",\n    \"jumpServerId\": \"<string>\",\n    \"collect\": \"<boolean>\",\n    \"note\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7c49bde2-e17f-4a28-94ee-dc0beca8a82a",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "endpoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"update\": {\n    \"type\": \"<string>\",\n    \"profileId\": \"<string>\",\n    \"protocol\": \"<string>\",\n    \"credentialId\": \"<string>\",\n    \"jumpServerId\": \"<string>\",\n    \"collect\": \"<boolean>\",\n    \"note\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f55fd9ad-6758-4f62-923a-2b34f0e112f7",
+          "name": "Add a CLI network endpoint",
+          "request": {
+            "name": "Add a CLI network endpoint",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "endpoints"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "CLI"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"host\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"protocol\": \"<string>\",\n  \"profileId\": \"<string>\",\n  \"credentialId\": \"<string>\",\n  \"jumpServerId\": \"<string>\",\n  \"fullCollectionLog\": \"<boolean>\",\n  \"largeRtt\": \"<boolean>\",\n  \"collect\": \"<boolean>\",\n  \"note\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "44eaea8b-7435-4c25-8933-d09acc546eef",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "endpoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"host\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"protocol\": \"<string>\",\n  \"profileId\": \"<string>\",\n  \"credentialId\": \"<string>\",\n  \"jumpServerId\": \"<string>\",\n  \"fullCollectionLog\": \"<boolean>\",\n  \"largeRtt\": \"<boolean>\",\n  \"collect\": \"<boolean>\",\n  \"note\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"name\": \"string\",\n  \"host\": \"string\",\n  \"port\": 53846,\n  \"protocol\": \"SSH\",\n  \"profileId\": \"string\",\n  \"credentialId\": \"string\",\n  \"jumpServerId\": \"string\",\n  \"fullCollectionLog\": true,\n  \"largeRtt\": true,\n  \"collect\": true,\n  \"note\": \"string\",\n  \"createdById\": \"string\",\n  \"createdAt\": \"string\",\n  \"createdBy\": \"string\",\n  \"updatedById\": \"string\",\n  \"updatedAt\": \"string\",\n  \"updatedBy\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "851a2402-5a40-40f6-ad65-1097c2979f9d",
+          "name": "Add an HTTP network endpoint",
+          "request": {
+            "name": "Add an HTTP network endpoint",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "endpoints"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "HTTP"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"host\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"profileId\": \"<string>\",\n  \"credentialId\": \"<string>\",\n  \"disableSslValidation\": \"<boolean>\",\n  \"collect\": \"<boolean>\",\n  \"note\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dd94218f-aa2b-4cea-98f0-3fabadc9cee9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "endpoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"host\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"profileId\": \"<string>\",\n  \"credentialId\": \"<string>\",\n  \"disableSslValidation\": \"<boolean>\",\n  \"collect\": \"<boolean>\",\n  \"note\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"name\": \"string\",\n  \"host\": \"string\",\n  \"port\": 42259,\n  \"profileId\": \"string\",\n  \"credentialId\": \"string\",\n  \"disableSslValidation\": false,\n  \"collect\": false,\n  \"note\": \"string\",\n  \"createdById\": \"string\",\n  \"createdAt\": \"string\",\n  \"createdBy\": \"string\",\n  \"updatedById\": \"string\",\n  \"updatedAt\": \"string\",\n  \"updatedBy\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7cb2d5eb-f405-4106-9b24-4e8ffedc4e43",
+          "name": "Add an SNMP network endpoint",
+          "request": {
+            "name": "Add an SNMP network endpoint",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "endpoints"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "SNMP"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"host\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"profileId\": \"<string>\",\n  \"credentialId\": \"<string>\",\n  \"fullCollectionLog\": \"<boolean>\",\n  \"collect\": \"<boolean>\",\n  \"note\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "68c5fcc5-75cd-419b-9dcd-7c15f1ced789",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "endpoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"host\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"profileId\": \"<string>\",\n  \"credentialId\": \"<string>\",\n  \"fullCollectionLog\": \"<boolean>\",\n  \"collect\": \"<boolean>\",\n  \"note\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"name\": \"string\",\n  \"host\": \"string\",\n  \"port\": 55786,\n  \"profileId\": \"string\",\n  \"credentialId\": \"string\",\n  \"fullCollectionLog\": false,\n  \"collect\": false,\n  \"note\": \"string\",\n  \"createdById\": \"string\",\n  \"createdAt\": \"string\",\n  \"createdBy\": \"string\",\n  \"updatedById\": \"string\",\n  \"updatedAt\": \"string\",\n  \"updatedBy\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d0fc0ac-cbe2-412a-91d4-0acbadfca19f",
+          "name": "Add CLI network endpoints",
+          "request": {
+            "name": "Add CLI network endpoints",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "endpoints"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "addBatch"
+                },
+                {
+                  "key": "type",
+                  "value": "CLI"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"host\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"protocol\": \"<string>\",\n    \"profileId\": \"<string>\",\n    \"credentialId\": \"<string>\",\n    \"jumpServerId\": \"<string>\",\n    \"fullCollectionLog\": \"<boolean>\",\n    \"largeRtt\": \"<boolean>\",\n    \"collect\": \"<boolean>\",\n    \"note\": \"<string>\"\n  },\n  {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"host\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"protocol\": \"<string>\",\n    \"profileId\": \"<string>\",\n    \"credentialId\": \"<string>\",\n    \"jumpServerId\": \"<string>\",\n    \"fullCollectionLog\": \"<boolean>\",\n    \"largeRtt\": \"<boolean>\",\n    \"collect\": \"<boolean>\",\n    \"note\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ebed6b2b-165d-461b-a7bf-97c8eacfc513",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "endpoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"host\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"protocol\": \"<string>\",\n    \"profileId\": \"<string>\",\n    \"credentialId\": \"<string>\",\n    \"jumpServerId\": \"<string>\",\n    \"fullCollectionLog\": \"<boolean>\",\n    \"largeRtt\": \"<boolean>\",\n    \"collect\": \"<boolean>\",\n    \"note\": \"<string>\"\n  },\n  {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"host\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"protocol\": \"<string>\",\n    \"profileId\": \"<string>\",\n    \"credentialId\": \"<string>\",\n    \"jumpServerId\": \"<string>\",\n    \"fullCollectionLog\": \"<boolean>\",\n    \"largeRtt\": \"<boolean>\",\n    \"collect\": \"<boolean>\",\n    \"note\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0d5102e8-a949-497e-9350-695f3508437f",
+          "name": "Add HTTP network endpoints",
+          "request": {
+            "name": "Add HTTP network endpoints",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "endpoints"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "addBatch"
+                },
+                {
+                  "key": "type",
+                  "value": "HTTP"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"host\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"profileId\": \"<string>\",\n    \"credentialId\": \"<string>\",\n    \"disableSslValidation\": \"<boolean>\",\n    \"collect\": \"<boolean>\",\n    \"note\": \"<string>\"\n  },\n  {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"host\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"profileId\": \"<string>\",\n    \"credentialId\": \"<string>\",\n    \"disableSslValidation\": \"<boolean>\",\n    \"collect\": \"<boolean>\",\n    \"note\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "51e94d10-e7b5-4e96-a84c-253cb474beb2",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "endpoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"host\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"profileId\": \"<string>\",\n    \"credentialId\": \"<string>\",\n    \"disableSslValidation\": \"<boolean>\",\n    \"collect\": \"<boolean>\",\n    \"note\": \"<string>\"\n  },\n  {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"host\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"profileId\": \"<string>\",\n    \"credentialId\": \"<string>\",\n    \"disableSslValidation\": \"<boolean>\",\n    \"collect\": \"<boolean>\",\n    \"note\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c8516c5e-8aec-460e-b57d-dd6fcb78303b",
+          "name": "Add SNMP network endpoints",
+          "request": {
+            "name": "Add SNMP network endpoints",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "endpoints"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "addBatch"
+                },
+                {
+                  "key": "type",
+                  "value": "SNMP"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"host\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"profileId\": \"<string>\",\n    \"credentialId\": \"<string>\",\n    \"fullCollectionLog\": \"<boolean>\",\n    \"collect\": \"<boolean>\",\n    \"note\": \"<string>\"\n  },\n  {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"host\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"profileId\": \"<string>\",\n    \"credentialId\": \"<string>\",\n    \"fullCollectionLog\": \"<boolean>\",\n    \"collect\": \"<boolean>\",\n    \"note\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "61465896-fe18-4f69-aa53-2f08de0b3c72",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "endpoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"host\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"profileId\": \"<string>\",\n    \"credentialId\": \"<string>\",\n    \"fullCollectionLog\": \"<boolean>\",\n    \"collect\": \"<boolean>\",\n    \"note\": \"<string>\"\n  },\n  {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"host\": \"<string>\",\n    \"port\": \"<integer>\",\n    \"profileId\": \"<string>\",\n    \"credentialId\": \"<string>\",\n    \"fullCollectionLog\": \"<boolean>\",\n    \"collect\": \"<boolean>\",\n    \"note\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6ccf1618-7d1d-4dc0-a114-d38f08d698d3",
+          "name": "Delete specific network endpoints",
+          "request": {
+            "name": "Delete specific network endpoints",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "endpoints"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "action",
+                  "value": "deleteBatch"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"names\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1c266529-2b84-4a79-9e59-fe85ea5242be",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "endpoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"names\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "26187266-c8af-41e4-810d-0fb6bbff75ed",
+          "name": "Get a network endpoint",
+          "request": {
+            "name": "Get a network endpoint",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "endpoints",
+                ":endpointName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "with",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "endpointName",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b67fd28d-d84a-4165-8c2d-4817751f282a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "endpoints",
+                    ":endpointName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "with",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "with",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpointName",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"name\": \"string\",\n  \"host\": \"string\",\n  \"port\": 53846,\n  \"protocol\": \"SSH\",\n  \"profileId\": \"string\",\n  \"credentialId\": \"string\",\n  \"jumpServerId\": \"string\",\n  \"fullCollectionLog\": true,\n  \"largeRtt\": true,\n  \"collect\": true,\n  \"note\": \"string\",\n  \"createdById\": \"string\",\n  \"createdAt\": \"string\",\n  \"createdBy\": \"string\",\n  \"updatedById\": \"string\",\n  \"updatedAt\": \"string\",\n  \"updatedBy\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "586c9baa-c556-4cdb-9d1c-cf472a535115",
+          "name": "Delete a network endpoint",
+          "request": {
+            "name": "Delete a network endpoint",
+            "description": {},
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "endpoints",
+                ":endpointName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "endpointName",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bccb7ce1-5cc0-4fae-a358-45e61d21864f",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "endpoints",
+                    ":endpointName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpointName",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6fd45ae2-ac3a-4f11-ba34-4247219531a4",
+          "name": "Update a CLI network endpoint",
+          "request": {
+            "name": "Update a CLI network endpoint",
+            "description": {
+              "content": "All JSON properties in the request body are optional. Include only the properties you wish to\nchange.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "endpoints",
+                "{{endpointName}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "CLI"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"host\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"profileId\": \"<string>\",\n  \"protocol\": \"<string>\",\n  \"credentialId\": \"<string>\",\n  \"jumpServerId\": \"<string>\",\n  \"fullCollectionLog\": \"<boolean>\",\n  \"largeRtt\": \"<boolean>\",\n  \"collect\": \"<boolean>\",\n  \"note\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e7b9e5bd-b36f-4e0b-bb94-fadf457c8657",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "endpoints",
+                    "{{endpointName}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"host\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"profileId\": \"<string>\",\n  \"protocol\": \"<string>\",\n  \"credentialId\": \"<string>\",\n  \"jumpServerId\": \"<string>\",\n  \"fullCollectionLog\": \"<boolean>\",\n  \"largeRtt\": \"<boolean>\",\n  \"collect\": \"<boolean>\",\n  \"note\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"name\": \"string\",\n  \"host\": \"string\",\n  \"port\": 53846,\n  \"protocol\": \"SSH\",\n  \"profileId\": \"string\",\n  \"credentialId\": \"string\",\n  \"jumpServerId\": \"string\",\n  \"fullCollectionLog\": true,\n  \"largeRtt\": true,\n  \"collect\": true,\n  \"note\": \"string\",\n  \"createdById\": \"string\",\n  \"createdAt\": \"string\",\n  \"createdBy\": \"string\",\n  \"updatedById\": \"string\",\n  \"updatedAt\": \"string\",\n  \"updatedBy\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "51a78fdd-ad60-4830-8bcd-b8bcf091eab9",
+          "name": "Update an HTTP network endpoint",
+          "request": {
+            "name": "Update an HTTP network endpoint",
+            "description": {
+              "content": "All JSON properties in the request body are optional. Include only the properties you wish to\nchange.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "endpoints",
+                "{{endpointName}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "HTTP"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"host\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"profileId\": \"<string>\",\n  \"credentialId\": \"<string>\",\n  \"disableSslValidation\": \"<boolean>\",\n  \"collect\": \"<boolean>\",\n  \"note\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5c720048-e30c-4508-9941-f82ef7f1a52c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "endpoints",
+                    "{{endpointName}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"host\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"profileId\": \"<string>\",\n  \"credentialId\": \"<string>\",\n  \"disableSslValidation\": \"<boolean>\",\n  \"collect\": \"<boolean>\",\n  \"note\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"name\": \"string\",\n  \"host\": \"string\",\n  \"port\": 42259,\n  \"profileId\": \"string\",\n  \"credentialId\": \"string\",\n  \"disableSslValidation\": false,\n  \"collect\": false,\n  \"note\": \"string\",\n  \"createdById\": \"string\",\n  \"createdAt\": \"string\",\n  \"createdBy\": \"string\",\n  \"updatedById\": \"string\",\n  \"updatedAt\": \"string\",\n  \"updatedBy\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f5123b5-811b-46d4-afc1-a804f732324a",
+          "name": "Update an SNMP network endpoint",
+          "request": {
+            "name": "Update an SNMP network endpoint",
+            "description": {
+              "content": "All JSON properties in the request body are optional. Include only the properties you wish to\nchange.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "networks",
+                ":networkId",
+                "endpoints",
+                "{{endpointName}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "SNMP"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "networkId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"host\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"profileId\": \"<string>\",\n  \"credentialId\": \"<string>\",\n  \"collect\": \"<boolean>\",\n  \"note\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a8201299-92e6-4109-a80b-4903133a4375",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "networks",
+                    ":networkId",
+                    "endpoints",
+                    "{{endpointName}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "networkId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"host\": \"<string>\",\n  \"port\": \"<integer>\",\n  \"profileId\": \"<string>\",\n  \"credentialId\": \"<string>\",\n  \"collect\": \"<boolean>\",\n  \"note\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"name\": \"string\",\n  \"host\": \"string\",\n  \"port\": 55786,\n  \"profileId\": \"string\",\n  \"credentialId\": \"string\",\n  \"fullCollectionLog\": false,\n  \"collect\": false,\n  \"note\": \"string\",\n  \"createdById\": \"string\",\n  \"createdAt\": \"string\",\n  \"createdBy\": \"string\",\n  \"updatedById\": \"string\",\n  \"updatedAt\": \"string\",\n  \"updatedBy\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) Profile ID (the numeric part)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "profileId"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) ",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "endpointName"
+    }
+  ],
+  "info": {
+    "_postman_id": "56ab97c2-dfd9-482c-bd32-3774c2464ebc",
+    "name": "Forward Networks: Complete Aliases Network Endpoints API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Model and verify networks\n\nContact Support:\n Email: support@forwardnetworks.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,281 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Forward Networks: Complete Aliases Network Snapshots API",
+    "version": "26.6"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Network Snapshots",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all Snapshots",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/snapshots",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "List only Snapshots in this state."
+              },
+              {
+                "name": "minSuccessfulDevices",
+                "value": "",
+                "type": "query",
+                "description": "List only Snapshots with at least this many successfully modeled devices."
+              },
+              {
+                "name": "minSuccessfulDevicePct",
+                "value": "",
+                "type": "query",
+                "description": "List only Snapshots with at least this percentage of devices successfully modeled."
+              },
+              {
+                "name": "maxCollectionFailureDevices",
+                "value": "",
+                "type": "query",
+                "description": "List only Snapshots with no more than this many devices from which collection has failed."
+              },
+              {
+                "name": "maxCollectionFailureDevicePct",
+                "value": "",
+                "type": "query",
+                "description": "List only Snapshots with no more than this percentage of devices from which collection has\nfailed."
+              },
+              {
+                "name": "maxParsingFailureDevices",
+                "value": "",
+                "type": "query",
+                "description": "List only Snapshots with no more than this many devices for which parsing of collected data has\nfailed."
+              },
+              {
+                "name": "maxParsingFailureDevicePct",
+                "value": "",
+                "type": "query",
+                "description": "List only Snapshots with no more than this percentage of devices for which parsing of collected data has\nfailed."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of Snapshots desired"
+              },
+              {
+                "name": "includeArchived",
+                "value": "",
+                "type": "query",
+                "description": "Also include archived snapshots. Defaults to false if not provided."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "List all Snapshots"
+        },
+        {
+          "info": {
+            "name": "Import a Snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/networks/:networkId/snapshots",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "note",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Imports a network Snapshot that was previously exported as a .zip file. If multiple Snapshot .zip files are\nuploaded in a single request, they will be merged. They must not have any devices in common."
+        },
+        {
+          "info": {
+            "name": "Get the latest processed Snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/networks/:networkId/snapshots/latestProcessed",
+            "params": [
+              {
+                "name": "networkId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns the latest processed Snapshot (the most recent one that's currently prepared for\n[path searches](https://docs.fwd.app/latest/api/path-search/) and\n[new checks](https://docs.fwd.app/latest/api/checks/)).\n\nTriggers processing of the latest Snapshot if it's not already underway and the network has no processed\nSnapshots."
+        },
+        {
+          "info": {
+            "name": "Export a Snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/snapshots/:snapshotId",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "only",
+                "value": "",
+                "type": "query",
+                "description": "Use `?only=CONFIG` to include only device configuration files."
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Exports a network Snapshot as a .zip file."
+        },
+        {
+          "info": {
+            "name": "Export a Snapshot subset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/snapshots/:snapshotId",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Exports a network Snapshot as a .zip file, optionally limiting which devices are included and optionally\n[obfuscating](https://docs.fwd.app/latest/application/settings/system/obfuscate-snapshot/) sensitive data.\n\nTo limit which devices are included, specify either `\"includeDevices\"` or `\"excludeDevices\"`. To obfuscate,\nspecify an `\"obfuscationKey\"`."
+        },
+        {
+          "info": {
+            "name": "Delete a Snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/snapshots/:snapshotId",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Delete a Snapshot"
+        },
+        {
+          "info": {
+            "name": "Trigger advanced reachability computation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/snapshots/:snapshotId?action=computeAdvancedReachability",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Requests advanced reachability computation for a Snapshot. The computation runs asynchronously; this endpoint\nreturns immediately. The Snapshot must have completed the reachability processing stage."
+        },
+        {
+          "info": {
+            "name": "Get Snapshot metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/snapshots/:snapshotId/metrics",
+            "params": [
+              {
+                "name": "snapshotId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Returns collection and processing health metrics of a Snapshot."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
