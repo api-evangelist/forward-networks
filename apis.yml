@@ -1,14 +1,13 @@
 aid: forward-networks
 name: Forward Networks
-description: >-
-  Forward Networks builds network digital-twin software (Forward Enterprise) that creates a
+description: Forward Networks builds network digital-twin software (Forward Enterprise) that creates a
   mathematically accurate, vendor-agnostic model of large hybrid and multi-cloud networks. Networking,
-  security, cloud, and compliance teams use it to verify network behavior before and after changes,
-  trace packet paths, run automated policy checks, analyze CVE/vulnerability exposure, and query the
-  network as structured data through the Network Query Engine (NQE). The Forward Enterprise Complete API
-  is an OpenAPI 3.2.0 surface of 189 operations across 108 paths — covering Networks, Snapshots, Checks,
-  Path Search, NQE, Vulnerability Analysis, and system administration — secured with HTTP Basic
-  authentication and complemented by a Go client, a Terraform provider, and an open-source MCP server.
+  security, cloud, and compliance teams use it to verify network behavior before and after changes, trace
+  packet paths, run automated policy checks, analyze CVE/vulnerability exposure, and query the network
+  as structured data through the Network Query Engine (NQE). The Forward Enterprise Complete API is an
+  OpenAPI 3.2.0 surface of 189 operations across 108 paths — covering Networks, Snapshots, Checks, Path
+  Search, NQE, Vulnerability Analysis, and system administration — secured with HTTP Basic authentication
+  and complemented by a Go client, a Terraform provider, and an open-source MCP server.
 url: https://raw.githubusercontent.com/api-evangelist/forward-networks/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -44,7 +43,7 @@ accessModel:
   method: derived
 specificationVersion: '0.23'
 created: '2026-07-17'
-modified: '2026-07-19'
+modified: '2026-09-16'
 image: https://www.forwardnetworks.com/wp-content/uploads/2026/04/header-logo.svg
 tags:
 - Company
@@ -241,7 +240,7 @@ apis:
   - type: APIReference
     url: https://docs.fwd.app/latest/api/spec/complete.json
 - aid: forward-networks:forward-networks-networks-api
-  name: Forward Networks Networks API
+  name: Forward Networks API
   description: Create, list, rename, or delete model networks
   humanURL: https://docs.fwd.app/
   baseURL: https://fwd.app/api
@@ -284,8 +283,7 @@ apis:
     url: https://docs.fwd.app/latest/api/spec/complete.json
 - aid: forward-networks:forward-networks-synthetic-devices-api
   name: Forward Networks Synthetic Devices API
-  description: >-
-    Model a network’s internet connections, intranets, L2VPNs, L3VPNs, WAN circuits, and encryptors
+  description: Model a network’s internet connections, intranets, L2VPNs, L3VPNs, WAN circuits, and encryptors
   humanURL: https://docs.fwd.app/
   baseURL: https://fwd.app/api
   tags:
