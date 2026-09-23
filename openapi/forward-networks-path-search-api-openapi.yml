@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: 'Forward Networks: Complete Aliases Path Search API'
+  title: 'Forward Networks: Complete Path Search API'
   description: Model and verify networks
   contact:
     email: support@forwardnetworks.com
@@ -382,21 +382,191 @@ paths:
       - api_token: []
 components:
   schemas:
-    UnrecognizedValues:
+    TotalHits:
       type: object
       properties:
-        appId:
+        type:
+          type: string
+          description: 'Specifies the type of total hits.
+
+            *LOWER_BOUND*: There may be additional hits that were not included in the results either because the
+
+            requested number of hits were found, or the request timed out.
+
+            *EXACT*: There are exactly this many hits.'
+          enum:
+          - LOWER_BOUND
+          - EXACT
+        value:
+          type: integer
+          format: int64
+      description: 'Number of ways in which traffic matching the search criteria is forwarded in the network. Multiple ECMP path
+
+        choices for traffic lead to separate results. In addition, depending on the scope of query terms, there
+
+        might be multiple results along a single path. For example a search without IP protocol or destination port
+
+        restrictions can result in multiple results along a single device path if there are different ACLs that
+
+        permit or deny traffic to different destination ports.'
+    Path:
+      type: object
+      properties:
+        forwardingOutcome:
+          type: string
+          description: 'Specifies the traffic forwarding outcome along a path.
+
+            *DELIVERED*: Traffic was delivered to destination IP’s discovered location(s).
+
+            *DELIVERED_TO_INCORRECT_LOCATION*: Traffic was delivered out of some edge ports. However, traffic did not
+
+            reach the expected delivery locations based on destination IP’s discovered locations. One scenario where
+
+            this occurs is when a device in the middle of the actual path from source IP to destination IP is not
+
+            configured for collection in the Forward platform. For example, suppose the actual device path is A -> B ->
+
+            C, and only devices A and C are part of the snapshot in the Forward platform. In this case, the path would
+
+            show traffic exiting device A at some edge port, but since destination IP is discovered to reside at device
+
+            C, traffic is delivered to an incorrect location.
+
+            *BLACKHOLE*: Traffic was implicitly dropped at the last hop, since the device had no matching rule. For
+
+            example, if a router does not have a default route, traffic to any IP that is not in the routing table gets
+
+            blackholed.
+
+            *DROPPED*: Traffic was explicitly dropped at the last hop, e.g. by a null route.
+
+            *INADMISSIBLE*: Traffic was not admitted into the network. The first hop interface does not accept the
+
+            traffic, e.g. incoming traffic had a vlan tag 10 while the ingress interface is an access interface that
+
+            only permits traffic with vlan tag 20.
+
+            *UNREACHABLE*: ARP/NDP resolution failed along the path resulting in traffic not getting delivered to the
+
+            intended destination.
+
+            *LOOP*: Traffic entered a forwarding loop.'
+          enum:
+          - DELIVERED
+          - DELIVERED_TO_INCORRECT_LOCATION
+          - DROPPED
+          - LOOP
+          - INADMISSIBLE
+          - BLACKHOLE
+          - UNREACHABLE
+        securityOutcome:
+          type: string
+          description: 'Specifies whether traffic is denied by ACL rules at any hop along the path.
+
+            *PERMITTED*: All ACLs along the path permitted traffic to flow through.
+
+            *DENIED*: Traffic was dropped by ACLs at some hop along the path. Note that the ACL drop may not always
+
+            occur at the last hop since search results are computed in permit all mode.'
+          enum:
+          - PERMITTED
+          - DENIED
+        hops:
           type: array
           items:
-            type: string
-        userGroupId:
+            $ref: '#/components/schemas/PathHop'
+    NetworkFunctions:
+      type: object
+      properties:
+        acl:
           type: array
           items:
-            type: string
-        userId:
-          type: array
-          items:
-            type: string
+            $ref: '#/components/schemas/AclFunction'
+        egress:
+          $ref: '#/components/schemas/InterfaceFunction'
+        ingress:
+          $ref: '#/components/schemas/InterfaceFunction'
+      description: Detailed forwarding info
+    InterfaceFunctionL2Info:
+      type: object
+      properties:
+        interfaceName:
+          type: string
+    DeviceType:
+      type: string
+      enum:
+      - UNKNOWN
+      - ROUTER
+      - SWITCH
+      - VSWITCH
+      - FIREWALL
+      - LOADBALANCER
+      - BUNDLED_ROUTER
+      - CIRCUIT
+      - L2_VPN_SERVICE
+      - MISSING_PEER
+      - MPLS_VPN_SERVICE
+      - INTERNET_SERVICE
+      - INTRANET_SERVICE
+      - SYNTHETIC_ENCRYPTOR
+      - HYPERVISOR
+      - CONTROLLER
+      - WAN_OPTIMIZER
+      - OPENFLOW_SWITCH
+      - SD_WAN
+      - RIVERBED_INTERCEPTOR
+      - WIFI_AP
+      - ENCRYPTOR
+      - DDI
+      - NIC
+      - AWS_CLOUD
+      - AWS_SUBNET
+      - AWS_RT
+      - AWS_INTERNET_GW
+      - AWS_NAT_GW
+      - AWS_VPN_GW
+      - AWS_LB
+      - AWS_GLOBAL_ACCELERATOR
+      - AWS_DIRECT_CONNECT_GW
+      - AWS_TRANSIT_GW
+      - AWS_LOCAL_GW
+      - AWS_NETWORK_FIREWALL
+      - AWS_GATEWAY_LB
+      - AWS_SERVICE_ENDPOINT
+      - EDGE_VM
+      - AZURE_CLOUD
+      - AZURE_SUBNET
+      - AZURE_VNET
+      - AZURE_VNET_GW
+      - AZURE_FIREWALL
+      - AZURE_APP_GW
+      - AZURE_FRONTDOOR
+      - AZURE_LB
+      - AZURE_VWAN_HUB
+      - AZURE_VPN_GATEWAY
+      - AZURE_P2S_VPN_GATEWAY
+      - AZURE_EXPRESS_ROUTE_GATEWAY
+      - AZURE_VIRTUAL_APPLIANCE
+      - AZURE_EXPRESS_ROUTE_CIRCUIT
+      - GCP_CLOUD
+      - GCP_RT
+      - GCP_SUBNET
+      - GCP_LB
+      - GCP_TRAFFIC_DIRECTOR
+      - GCP_VPN_GW
+      - GCP_NAT_GW
+      - GCP_SERVICE_ATTACHMENT
+      - GCP_INTERCEPT_DEPLOYMENT
+      - ALKIRA_CLOUD
+    InterfaceFunction:
+      type: object
+      properties:
+        l2:
+          $ref: '#/components/schemas/InterfaceFunctionL2Info'
+        l3:
+          $ref: '#/components/schemas/InterfaceFunctionL3Info'
+        securityZone:
+          type: string
     PathSearchResponse:
       type: object
       properties:
@@ -490,6 +660,142 @@ components:
         unrecognizedValues:
           $ref: '#/components/schemas/UnrecognizedValues'
           description: L7 values from the request that were unrecognized by the system
+    InterfaceFunctionL3Info:
+      type: object
+      properties:
+        interfaceName:
+          type: string
+        vrf:
+          type: string
+          description: Null if the interface does not belong to any VRF
+    PathSearchBulkRequest:
+      type: object
+      required:
+      - queries
+      properties:
+        queries:
+          type: array
+          items:
+            $ref: '#/components/schemas/PathSearchQuery'
+        intent:
+          $ref: '#/components/schemas/SearchIntent'
+          description: 'Specifies the intent for the search. Default PREFER_DELIVERED.
+
+            *PREFER_VIOLATIONS*: Prefer paths that result in the traffic not getting delivered, e.g. drops, blackholes,
+
+            loops. An example usage is while trying to evaluate if the specified traffic always gets delivered to the
+
+            destination along all path choices.
+
+            *PREFER_DELIVERED*: Prefer paths that result in the traffic getting delivered. An example usage is while
+
+            trying to evaluate if traffic gets delivered to the destination along any path choice.
+
+            *VIOLATIONS_ONLY*: Search for paths where traffic is not delivered to the destination.'
+          examples:
+          - PREFER_DELIVERED
+          default: PREFER_DELIVERED
+        maxCandidates:
+          type: integer
+          format: int32
+          description: 'the limit on the number of search results computed, before applying any ranking criteria. Permitted range =
+
+            1 to 10,000. Default 5,000.'
+          examples:
+          - 5000
+        maxResults:
+          type: integer
+          format: int32
+          description: 'the limit on the number of search results returned by the API. First, the platform computes up to
+
+            maxCandidates results that match the search criteria. Then they are sorted by various ranking criteria. A
+
+            key ranking factor is path length, preferring longer paths (greatest reach) in the network over shorter
+
+            ones. Finally, the API limits the number of returned search results to maxResults. Permitted range = 1 to
+
+            maxCandidates. Default 1.'
+          examples:
+          - 1
+        maxReturnPathResults:
+          type: integer
+          format: int32
+          description: 'the limit on the number of return path search results. Permitted range = 0 to 10,000. Default 0. Multicast
+
+            (*, G) and (S, G) queries will always return 0 return path results regardless of this value.'
+          examples:
+          - 0
+        maxSeconds:
+          type: integer
+          format: int32
+          description: the timeout duration per search query. Permitted range = 1 to 300. Default 30.
+          examples:
+          - 30
+        maxOverallSeconds:
+          type: integer
+          format: int32
+          description: 'the overall timeout duration. Permitted range = 1 to 7,200. Default equal to the timeout duration for a
+
+            single query.'
+          examples:
+          - 300
+        includeTags:
+          type: boolean
+          description: If true, the response will include device tags for each hop.
+          examples:
+          - false
+        includeNetworkFunctions:
+          type: boolean
+          description: 'If true, the response includes detailed forwarding info for each hop.
+
+            Note: Setting this to true increases the API response time.'
+          examples:
+          - false
+    ErrorInfo:
+      type: object
+      required:
+      - httpMethod
+      - apiUrl
+      - message
+      properties:
+        httpMethod:
+          type: string
+          examples:
+          - GET
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+        apiUrl:
+          type: string
+          examples:
+          - /api/version
+        message:
+          type: string
+          description: A description of the error
+        reason:
+          type: string
+    AclFunction:
+      type: object
+      properties:
+        name:
+          type: string
+          description: the name of the ACL that is applied to traffic
+        context:
+          type: string
+          description: the context in which the ACL function is applied
+          enum:
+          - INPUT
+          - OUTPUT
+        action:
+          type: string
+          description: the action taken by the ACL function
+          enum:
+          - PERMIT
+          - DENY
     PathSearchQuery:
       type: object
       required:
@@ -644,6 +950,32 @@ components:
           examples:
           - example.com
           - '*.subdomain.example.org'
+    SearchIntent:
+      type: string
+      enum:
+      - PREFER_VIOLATIONS
+      - PREFER_DELIVERED
+      - VIOLATIONS_ONLY
+    L7Application:
+      type: object
+      properties:
+        id:
+          type: string
+    UnrecognizedValues:
+      type: object
+      properties:
+        appId:
+          type: array
+          items:
+            type: string
+        userGroupId:
+          type: array
+          items:
+            type: string
+        userId:
+          type: array
+          items:
+            type: string
     PathInfo:
       type: object
       properties:
@@ -653,210 +985,6 @@ components:
             $ref: '#/components/schemas/Path'
         totalHits:
           $ref: '#/components/schemas/TotalHits'
-    L7Application:
-      type: object
-      properties:
-        id:
-          type: string
-    InterfaceFunctionL3Info:
-      type: object
-      properties:
-        interfaceName:
-          type: string
-        vrf:
-          type: string
-          description: Null if the interface does not belong to any VRF
-    InterfaceFunctionL2Info:
-      type: object
-      properties:
-        interfaceName:
-          type: string
-    InterfaceFunction:
-      type: object
-      properties:
-        l2:
-          $ref: '#/components/schemas/InterfaceFunctionL2Info'
-        l3:
-          $ref: '#/components/schemas/InterfaceFunctionL3Info'
-        securityZone:
-          type: string
-    TotalHits:
-      type: object
-      properties:
-        type:
-          type: string
-          description: 'Specifies the type of total hits.
-
-            *LOWER_BOUND*: There may be additional hits that were not included in the results either because the
-
-            requested number of hits were found, or the request timed out.
-
-            *EXACT*: There are exactly this many hits.'
-          enum:
-          - LOWER_BOUND
-          - EXACT
-        value:
-          type: integer
-          format: int64
-      description: 'Number of ways in which traffic matching the search criteria is forwarded in the network. Multiple ECMP path
-
-        choices for traffic lead to separate results. In addition, depending on the scope of query terms, there
-
-        might be multiple results along a single path. For example a search without IP protocol or destination port
-
-        restrictions can result in multiple results along a single device path if there are different ACLs that
-
-        permit or deny traffic to different destination ports.'
-    DeviceType:
-      type: string
-      enum:
-      - UNKNOWN
-      - ROUTER
-      - SWITCH
-      - VSWITCH
-      - FIREWALL
-      - LOADBALANCER
-      - BUNDLED_ROUTER
-      - CIRCUIT
-      - L2_VPN_SERVICE
-      - MISSING_PEER
-      - MPLS_VPN_SERVICE
-      - INTERNET_SERVICE
-      - INTRANET_SERVICE
-      - SYNTHETIC_ENCRYPTOR
-      - HYPERVISOR
-      - CONTROLLER
-      - WAN_OPTIMIZER
-      - OPENFLOW_SWITCH
-      - SD_WAN
-      - RIVERBED_INTERCEPTOR
-      - WIFI_AP
-      - ENCRYPTOR
-      - DDI
-      - NIC
-      - AWS_CLOUD
-      - AWS_SUBNET
-      - AWS_RT
-      - AWS_INTERNET_GW
-      - AWS_NAT_GW
-      - AWS_VPN_GW
-      - AWS_LB
-      - AWS_GLOBAL_ACCELERATOR
-      - AWS_DIRECT_CONNECT_GW
-      - AWS_TRANSIT_GW
-      - AWS_LOCAL_GW
-      - AWS_NETWORK_FIREWALL
-      - AWS_GATEWAY_LB
-      - AWS_SERVICE_ENDPOINT
-      - EDGE_VM
-      - AZURE_CLOUD
-      - AZURE_SUBNET
-      - AZURE_VNET
-      - AZURE_VNET_GW
-      - AZURE_FIREWALL
-      - AZURE_APP_GW
-      - AZURE_FRONTDOOR
-      - AZURE_LB
-      - AZURE_VWAN_HUB
-      - AZURE_VPN_GATEWAY
-      - AZURE_P2S_VPN_GATEWAY
-      - AZURE_EXPRESS_ROUTE_GATEWAY
-      - AZURE_VIRTUAL_APPLIANCE
-      - AZURE_EXPRESS_ROUTE_CIRCUIT
-      - GCP_CLOUD
-      - GCP_RT
-      - GCP_SUBNET
-      - GCP_LB
-      - GCP_TRAFFIC_DIRECTOR
-      - GCP_VPN_GW
-      - GCP_NAT_GW
-      - GCP_SERVICE_ATTACHMENT
-      - GCP_INTERCEPT_DEPLOYMENT
-      - ALKIRA_CLOUD
-    AclFunction:
-      type: object
-      properties:
-        name:
-          type: string
-          description: the name of the ACL that is applied to traffic
-        context:
-          type: string
-          description: the context in which the ACL function is applied
-          enum:
-          - INPUT
-          - OUTPUT
-        action:
-          type: string
-          description: the action taken by the ACL function
-          enum:
-          - PERMIT
-          - DENY
-    Path:
-      type: object
-      properties:
-        forwardingOutcome:
-          type: string
-          description: 'Specifies the traffic forwarding outcome along a path.
-
-            *DELIVERED*: Traffic was delivered to destination IP’s discovered location(s).
-
-            *DELIVERED_TO_INCORRECT_LOCATION*: Traffic was delivered out of some edge ports. However, traffic did not
-
-            reach the expected delivery locations based on destination IP’s discovered locations. One scenario where
-
-            this occurs is when a device in the middle of the actual path from source IP to destination IP is not
-
-            configured for collection in the Forward platform. For example, suppose the actual device path is A -> B ->
-
-            C, and only devices A and C are part of the snapshot in the Forward platform. In this case, the path would
-
-            show traffic exiting device A at some edge port, but since destination IP is discovered to reside at device
-
-            C, traffic is delivered to an incorrect location.
-
-            *BLACKHOLE*: Traffic was implicitly dropped at the last hop, since the device had no matching rule. For
-
-            example, if a router does not have a default route, traffic to any IP that is not in the routing table gets
-
-            blackholed.
-
-            *DROPPED*: Traffic was explicitly dropped at the last hop, e.g. by a null route.
-
-            *INADMISSIBLE*: Traffic was not admitted into the network. The first hop interface does not accept the
-
-            traffic, e.g. incoming traffic had a vlan tag 10 while the ingress interface is an access interface that
-
-            only permits traffic with vlan tag 20.
-
-            *UNREACHABLE*: ARP/NDP resolution failed along the path resulting in traffic not getting delivered to the
-
-            intended destination.
-
-            *LOOP*: Traffic entered a forwarding loop.'
-          enum:
-          - DELIVERED
-          - DELIVERED_TO_INCORRECT_LOCATION
-          - DROPPED
-          - LOOP
-          - INADMISSIBLE
-          - BLACKHOLE
-          - UNREACHABLE
-        securityOutcome:
-          type: string
-          description: 'Specifies whether traffic is denied by ACL rules at any hop along the path.
-
-            *PERMITTED*: All ACLs along the path permitted traffic to flow through.
-
-            *DENIED*: Traffic was dropped by ACLs at some hop along the path. Note that the ACL drop may not always
-
-            occur at the last hop since search results are computed in permit all mode.'
-          enum:
-          - PERMITTED
-          - DENIED
-        hops:
-          type: array
-          items:
-            $ref: '#/components/schemas/PathHop'
     PathHop:
       type: object
       properties:
@@ -914,134 +1042,6 @@ components:
         backfilledFrom:
           type: string
           description: the collection instant from which the device was backfilled
-    NetworkFunctions:
-      type: object
-      properties:
-        acl:
-          type: array
-          items:
-            $ref: '#/components/schemas/AclFunction'
-        egress:
-          $ref: '#/components/schemas/InterfaceFunction'
-        ingress:
-          $ref: '#/components/schemas/InterfaceFunction'
-      description: Detailed forwarding info
-    ErrorInfo:
-      type: object
-      required:
-      - httpMethod
-      - apiUrl
-      - message
-      properties:
-        httpMethod:
-          type: string
-          examples:
-          - GET
-          enum:
-          - GET
-          - HEAD
-          - POST
-          - PUT
-          - PATCH
-          - DELETE
-        apiUrl:
-          type: string
-          examples:
-          - /api/version
-        message:
-          type: string
-          description: A description of the error
-        reason:
-          type: string
-    PathSearchBulkRequest:
-      type: object
-      required:
-      - queries
-      properties:
-        queries:
-          type: array
-          items:
-            $ref: '#/components/schemas/PathSearchQuery'
-        intent:
-          $ref: '#/components/schemas/SearchIntent'
-          description: 'Specifies the intent for the search. Default PREFER_DELIVERED.
-
-            *PREFER_VIOLATIONS*: Prefer paths that result in the traffic not getting delivered, e.g. drops, blackholes,
-
-            loops. An example usage is while trying to evaluate if the specified traffic always gets delivered to the
-
-            destination along all path choices.
-
-            *PREFER_DELIVERED*: Prefer paths that result in the traffic getting delivered. An example usage is while
-
-            trying to evaluate if traffic gets delivered to the destination along any path choice.
-
-            *VIOLATIONS_ONLY*: Search for paths where traffic is not delivered to the destination.'
-          examples:
-          - PREFER_DELIVERED
-          default: PREFER_DELIVERED
-        maxCandidates:
-          type: integer
-          format: int32
-          description: 'the limit on the number of search results computed, before applying any ranking criteria. Permitted range =
-
-            1 to 10,000. Default 5,000.'
-          examples:
-          - 5000
-        maxResults:
-          type: integer
-          format: int32
-          description: 'the limit on the number of search results returned by the API. First, the platform computes up to
-
-            maxCandidates results that match the search criteria. Then they are sorted by various ranking criteria. A
-
-            key ranking factor is path length, preferring longer paths (greatest reach) in the network over shorter
-
-            ones. Finally, the API limits the number of returned search results to maxResults. Permitted range = 1 to
-
-            maxCandidates. Default 1.'
-          examples:
-          - 1
-        maxReturnPathResults:
-          type: integer
-          format: int32
-          description: 'the limit on the number of return path search results. Permitted range = 0 to 10,000. Default 0. Multicast
-
-            (*, G) and (S, G) queries will always return 0 return path results regardless of this value.'
-          examples:
-          - 0
-        maxSeconds:
-          type: integer
-          format: int32
-          description: the timeout duration per search query. Permitted range = 1 to 300. Default 30.
-          examples:
-          - 30
-        maxOverallSeconds:
-          type: integer
-          format: int32
-          description: 'the overall timeout duration. Permitted range = 1 to 7,200. Default equal to the timeout duration for a
-
-            single query.'
-          examples:
-          - 300
-        includeTags:
-          type: boolean
-          description: If true, the response will include device tags for each hop.
-          examples:
-          - false
-        includeNetworkFunctions:
-          type: boolean
-          description: 'If true, the response includes detailed forwarding info for each hop.
-
-            Note: Setting this to true increases the API response time.'
-          examples:
-          - false
-    SearchIntent:
-      type: string
-      enum:
-      - PREFER_VIOLATIONS
-      - PREFER_DELIVERED
-      - VIOLATIONS_ONLY
   parameters:
     SnapshotId:
       name: snapshotId

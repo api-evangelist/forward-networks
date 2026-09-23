@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: 'Forward Networks: Complete Aliases System Administration API'
+  title: 'Forward Networks: Complete System Administration API'
   description: Model and verify networks
   contact:
     email: support@forwardnetworks.com
@@ -26,7 +26,7 @@ paths:
         To download the latest one from fwd.app:
 
 
-        `curl -vu <user>:<pass> https://fwd.app/api/cve-index -o cve-index.bin.gz`
+        `curl -vu : https://fwd.app/api/cve-index -o cve-index.bin.gz`
 
 
         The response includes a `Digest` header containing the file’s SHA-256 digest.'
@@ -51,10 +51,10 @@ paths:
         To upload a CVE index gzipped binary (.bin.gz) file downloaded from fwd.app:
 
 
-        `curl -vu <user>:<pass> https://<host>/api/cve-index?sha=<digest> -T cve-index.bin.gz`
+        `curl -vu : https:///api/cve-index?sha= -T cve-index.bin.gz`
 
 
-        The `sha` parameter is optional but recommended. The `<digest>` value can be found in the `Digest` response
+        The `sha` parameter is optional but recommended. The `` value can be found in the `Digest` response
 
         header when a CVE index is downloaded from fwd.app.
 

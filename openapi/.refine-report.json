@@ -1,26 +1,7 @@
 {
   "provider": "forward-networks",
   "sources": [
-    "forward-networks-aliases-api-openapi.yml",
-    "forward-networks-checks-api-openapi.yml",
-    "forward-networks-classic-devices-api-openapi.yml",
-    "forward-networks-credentials-api-openapi.yml",
-    "forward-networks-current-version-api-openapi.yml",
-    "forward-networks-device-tags-api-openapi.yml",
-    "forward-networks-jump-servers-api-openapi.yml",
-    "forward-networks-network-collection-api-openapi.yml",
-    "forward-networks-network-devices-api-openapi.yml",
-    "forward-networks-network-endpoints-api-openapi.yml",
-    "forward-networks-network-locations-api-openapi.yml",
-    "forward-networks-network-snapshots-api-openapi.yml",
-    "forward-networks-network-topology-api-openapi.yml",
-    "forward-networks-networks-api-openapi.yml",
-    "forward-networks-nqe-api-openapi.yml",
-    "forward-networks-path-search-api-openapi.yml",
-    "forward-networks-synthetic-devices-api-openapi.yml",
-    "forward-networks-system-administration-api-openapi.yml",
-    "forward-networks-user-accounts-api-openapi.yml",
-    "forward-networks-vulnerability-analysis-api-openapi.yml"
+    "_original/forward-networks-complete-openapi-original.json"
   ],
   "outputs": [
     "forward-networks-aliases-api-openapi.yml",
@@ -30,6 +11,7 @@
     "forward-networks-current-version-api-openapi.yml",
     "forward-networks-device-tags-api-openapi.yml",
     "forward-networks-jump-servers-api-openapi.yml",
+    "forward-networks-nqe-api-openapi.yml",
     "forward-networks-network-collection-api-openapi.yml",
     "forward-networks-network-devices-api-openapi.yml",
     "forward-networks-network-endpoints-api-openapi.yml",
@@ -37,7 +19,6 @@
     "forward-networks-network-snapshots-api-openapi.yml",
     "forward-networks-network-topology-api-openapi.yml",
     "forward-networks-networks-api-openapi.yml",
-    "forward-networks-nqe-api-openapi.yml",
     "forward-networks-path-search-api-openapi.yml",
     "forward-networks-synthetic-devices-api-openapi.yml",
     "forward-networks-system-administration-api-openapi.yml",
@@ -47,6 +28,30 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "forward-networks-aliases-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "forward-networks-checks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "forward-networks-classic-devices-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "forward-networks-credentials-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "forward-networks-current-version-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "forward-networks-device-tags-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "forward-networks-jump-servers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "forward-networks-network-collection-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "forward-networks-network-devices-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "forward-networks-network-endpoints-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "forward-networks-network-locations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "forward-networks-network-snapshots-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "forward-networks-network-topology-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "forward-networks-networks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "forward-networks-nqe-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "forward-networks-path-search-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "forward-networks-synthetic-devices-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "forward-networks-system-administration-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "forward-networks-user-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "forward-networks-vulnerability-analysis-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

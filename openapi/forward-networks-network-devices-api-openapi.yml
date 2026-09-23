@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: 'Forward Networks: Complete Aliases Network Devices API'
+  title: 'Forward Networks: Complete Network Devices API'
   description: Model and verify networks
   contact:
     email: support@forwardnetworks.com
@@ -20,9 +20,9 @@ paths:
       tags:
       - Network Devices
       summary: Get all network devices
-      description: 'All glob filter parameters ignore case and support [the common glob
+      description: 'All glob filter parameters ignore case and support the common glob
 
-        wildcards](https://en.wikipedia.org/wiki/Glob_(programming)#Syntax) (`*`, `?`, `[abc]`, `[a-z]`).'
+        wildcards#Syntax) (`*`, `?`, `[abc]`, `[a-z]`).'
       operationId: getDevices
       parameters:
       - name: networkId
@@ -314,125 +314,99 @@ paths:
       - api_token: []
 components:
   schemas:
-    DeviceProcessingError:
+    ErrorInfo:
+      type: object
+      required:
+      - httpMethod
+      - apiUrl
+      - message
+      properties:
+        httpMethod:
+          type: string
+          examples:
+          - GET
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+        apiUrl:
+          type: string
+          examples:
+          - /api/version
+        message:
+          type: string
+          description: A description of the error
+        reason:
+          type: string
+    DeviceType:
       type: string
       enum:
-      - LICENSE_EXHAUSTED
-      - MISSING_SIGNATURE
-      - DUPLICATE
-      - PARSER_EXCEPTION
-      - MODELING_EXCEPTION
-      - UNSUPPORTED_VENDOR
-      - UNSUPPORTED_DEVICE_TYPE
-    DeviceFiles:
-      type: object
-      properties:
-        files:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceFile'
-    MissingDevices:
-      type: object
-      properties:
-        devices:
-          type: array
-          items:
-            $ref: '#/components/schemas/MissingDevice'
-    DeviceCollectionError:
-      type: string
-      enum:
-      - NONE
       - UNKNOWN
-      - CONNECTION_TIMEOUT
-      - PROMPT_DISCOVERY_FAILED
-      - CONNECTION_REFUSED
-      - AUTHENTICATION_FAILED
-      - KEY_EXCHANGE_FAILED
-      - AUTHORIZATION_FAILED
-      - TWO_FACTOR_AUTHENTICATION_FAILED
-      - AVI_SHELL_AUTH_FAILED
-      - AVI_CONTROLLER_WITHOUT_HEALTHY_SERVICE_ENGINES
-      - T128_CONDUCTOR_WITHOUT_HEALTHY_ROUTERS
-      - T128_CONFIG_ABSENT
-      - NETWORK_UNREACHABLE
-      - IO_ERROR
-      - AUTHENTICATION_FAILED_WITHOUT_COLLECTION_RETRY
-      - SESSION_CLOSED
-      - SESSION_LIMIT_REACHED
-      - STATE_COLLECTION_FAILED
-      - PASSWORD_EXPIRED
-      - JUMP_SERVER_CONNECTION_TIMEOUT
-      - JUMP_SERVER_PASSWORD_AUTH_FAILED
-      - JUMP_SERVER_PASSWORD_EXPIRED
-      - JUMP_SERVER_CONNECTION_FAILED
-      - JUMP_SERVER_KEY_EXCHANGE_FAILED
-      - PROXY_SERVER_PING_FAILED
-      - PROXY_SERVER_PORT_REACHABILITY_FAILED
-      - PROXY_SERVER_CONNECTION_FAILED
-      - PROXY_SERVER_AUTHENTICATION_FAILED
-      - PRIV_PASSWORD_ERROR
-      - EXPERT_PASSWORD_ERROR
-      - DUPLICATE_DEVICE
-      - UNSUPPORTED_VERSION
-      - DEVICE_TYPE_UNDETECTED
-      - UNSUPPORTED_DEVICE_TYPE
-      - BMP_CONNECTION_FAILED
-      - BMP_CONNECTION_TIMEOUT
-      - BMP_COLLECTION_FAILED
-      - BMP_COLLECTION_TIMEOUT
-      - BMP_COLLECTION_REFUSED
-      - BMP_NOT_CONFIGURED
-      - BMP_CONFIGURED_WITH_LOCAL_IP
-      - BMP_SESSION_ALREADY_ESTABLISHED
-      - WARN_TYPE_MISMATCH
-      - DEVICE_IS_CHILD_CONTEXT
-      - MANAGER_COLLECTOR_NOT_FOUND
-      - INCOMPLETE_SETUP
-      - COLLECTION_NOT_FOUND
-      - INFINITE_LOOP_IN_COMMAND_OUTPUT
-      - MISSING_FILE
-      - UNSUPPORTED_VENDOR
-      - COMMAND_DISABLED
-      - APIC_CONFIG_COLLECTION_FAILED
-      - UNEXPECTED_KEY_EXCHANGE_MESSAGE
-      - UNDISCOVERED_ACI_FABRIC
-      - SLOW_READ_RATE_DETECTED
-      - TRANSIENT_SLOW_READ_RATE_DETECTED
-      - COLLECTION_TIMED_OUT
-      - COLLECTION_CANCELED
-      - OPERATION_TIMED_OUT
-      - CERTIFICATE_CHECK_FAILED
-      - DEVICE_IN_BAD_STATE
-      - API_SERVER_FAILED_TO_RESPOND
-      - PROJECT_VIEW_PERMISSION_MISSING
-      - NO_SPACE_LEFT_ON_COLLECTOR
-      - NO_SPACE_LEFT_ON_COLLECTED_DEVICE
-      - UNSUPPORTED_SSL_CONNECTION
-      - SOME_OID_FAILED
-      - TACACS_SESSION_EXPIRED
-      - CONFIG_COLLECTION_UNAUTHORIZED
-      - UNRESOLVABLE_HOSTNAME
-      - FILE_TRANSFER_FAILED
-      - VELOS_PARTITION_WITHOUT_BLADES
-    DeviceFile:
-      type: object
-      properties:
-        name:
-          type: string
-          examples:
-          - configuration.txt
-        bytes:
-          type: integer
-          format: int64
-          examples:
-          - 1234
-        command:
-          type: string
-          description: 'The custom (user-defined) command that was executed to generate the file. Defined only for
-
-            custom_cli files.'
-          examples:
-          - net show bridge macs
+      - ROUTER
+      - SWITCH
+      - VSWITCH
+      - FIREWALL
+      - LOADBALANCER
+      - BUNDLED_ROUTER
+      - CIRCUIT
+      - L2_VPN_SERVICE
+      - MISSING_PEER
+      - MPLS_VPN_SERVICE
+      - INTERNET_SERVICE
+      - INTRANET_SERVICE
+      - SYNTHETIC_ENCRYPTOR
+      - HYPERVISOR
+      - CONTROLLER
+      - WAN_OPTIMIZER
+      - OPENFLOW_SWITCH
+      - SD_WAN
+      - RIVERBED_INTERCEPTOR
+      - WIFI_AP
+      - ENCRYPTOR
+      - DDI
+      - NIC
+      - AWS_CLOUD
+      - AWS_SUBNET
+      - AWS_RT
+      - AWS_INTERNET_GW
+      - AWS_NAT_GW
+      - AWS_VPN_GW
+      - AWS_LB
+      - AWS_GLOBAL_ACCELERATOR
+      - AWS_DIRECT_CONNECT_GW
+      - AWS_TRANSIT_GW
+      - AWS_LOCAL_GW
+      - AWS_NETWORK_FIREWALL
+      - AWS_GATEWAY_LB
+      - AWS_SERVICE_ENDPOINT
+      - EDGE_VM
+      - AZURE_CLOUD
+      - AZURE_SUBNET
+      - AZURE_VNET
+      - AZURE_VNET_GW
+      - AZURE_FIREWALL
+      - AZURE_APP_GW
+      - AZURE_FRONTDOOR
+      - AZURE_LB
+      - AZURE_VWAN_HUB
+      - AZURE_VPN_GATEWAY
+      - AZURE_P2S_VPN_GATEWAY
+      - AZURE_EXPRESS_ROUTE_GATEWAY
+      - AZURE_VIRTUAL_APPLIANCE
+      - AZURE_EXPRESS_ROUTE_CIRCUIT
+      - GCP_CLOUD
+      - GCP_RT
+      - GCP_SUBNET
+      - GCP_LB
+      - GCP_TRAFFIC_DIRECTOR
+      - GCP_VPN_GW
+      - GCP_NAT_GW
+      - GCP_SERVICE_ATTACHMENT
+      - GCP_INTERCEPT_DEPLOYMENT
+      - ALKIRA_CLOUD
     MissingDevice:
       type: object
       properties:
@@ -640,6 +614,13 @@ components:
           - LLDP_CDP
           - IBGP
           - OSPF
+    MissingDevices:
+      type: object
+      properties:
+        devices:
+          type: array
+          items:
+            $ref: '#/components/schemas/MissingDevice'
     Device:
       type: object
       properties:
@@ -727,72 +708,25 @@ components:
             Defaults to "default" (the Unassigned location).'
           examples:
           - atl
-    DeviceType:
-      type: string
-      enum:
-      - UNKNOWN
-      - ROUTER
-      - SWITCH
-      - VSWITCH
-      - FIREWALL
-      - LOADBALANCER
-      - BUNDLED_ROUTER
-      - CIRCUIT
-      - L2_VPN_SERVICE
-      - MISSING_PEER
-      - MPLS_VPN_SERVICE
-      - INTERNET_SERVICE
-      - INTRANET_SERVICE
-      - SYNTHETIC_ENCRYPTOR
-      - HYPERVISOR
-      - CONTROLLER
-      - WAN_OPTIMIZER
-      - OPENFLOW_SWITCH
-      - SD_WAN
-      - RIVERBED_INTERCEPTOR
-      - WIFI_AP
-      - ENCRYPTOR
-      - DDI
-      - NIC
-      - AWS_CLOUD
-      - AWS_SUBNET
-      - AWS_RT
-      - AWS_INTERNET_GW
-      - AWS_NAT_GW
-      - AWS_VPN_GW
-      - AWS_LB
-      - AWS_GLOBAL_ACCELERATOR
-      - AWS_DIRECT_CONNECT_GW
-      - AWS_TRANSIT_GW
-      - AWS_LOCAL_GW
-      - AWS_NETWORK_FIREWALL
-      - AWS_GATEWAY_LB
-      - AWS_SERVICE_ENDPOINT
-      - EDGE_VM
-      - AZURE_CLOUD
-      - AZURE_SUBNET
-      - AZURE_VNET
-      - AZURE_VNET_GW
-      - AZURE_FIREWALL
-      - AZURE_APP_GW
-      - AZURE_FRONTDOOR
-      - AZURE_LB
-      - AZURE_VWAN_HUB
-      - AZURE_VPN_GATEWAY
-      - AZURE_P2S_VPN_GATEWAY
-      - AZURE_EXPRESS_ROUTE_GATEWAY
-      - AZURE_VIRTUAL_APPLIANCE
-      - AZURE_EXPRESS_ROUTE_CIRCUIT
-      - GCP_CLOUD
-      - GCP_RT
-      - GCP_SUBNET
-      - GCP_LB
-      - GCP_TRAFFIC_DIRECTOR
-      - GCP_VPN_GW
-      - GCP_NAT_GW
-      - GCP_SERVICE_ATTACHMENT
-      - GCP_INTERCEPT_DEPLOYMENT
-      - ALKIRA_CLOUD
+    DeviceFile:
+      type: object
+      properties:
+        name:
+          type: string
+          examples:
+          - configuration.txt
+        bytes:
+          type: integer
+          format: int64
+          examples:
+          - 1234
+        command:
+          type: string
+          description: 'The custom (user-defined) command that was executed to generate the file. Defined only for
+
+            custom_cli files.'
+          examples:
+          - net show bridge macs
     VendorOs:
       type: string
       enum:
@@ -905,6 +839,23 @@ components:
       - edge_core_sonic
       - zscaler_zpa
       - zscaler_app_connector
+    DeviceFiles:
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceFile'
+    DeviceProcessingError:
+      type: string
+      enum:
+      - LICENSE_EXHAUSTED
+      - MISSING_SIGNATURE
+      - DUPLICATE
+      - PARSER_EXCEPTION
+      - MODELING_EXCEPTION
+      - UNSUPPORTED_VENDOR
+      - UNSUPPORTED_DEVICE_TYPE
     Vendor:
       type: string
       enum:
@@ -949,33 +900,82 @@ components:
       - EDGE_CORE
       - ZSCALER
       - FORWARD_CUSTOM
-    ErrorInfo:
-      type: object
-      required:
-      - httpMethod
-      - apiUrl
-      - message
-      properties:
-        httpMethod:
-          type: string
-          examples:
-          - GET
-          enum:
-          - GET
-          - HEAD
-          - POST
-          - PUT
-          - PATCH
-          - DELETE
-        apiUrl:
-          type: string
-          examples:
-          - /api/version
-        message:
-          type: string
-          description: A description of the error
-        reason:
-          type: string
+    DeviceCollectionError:
+      type: string
+      enum:
+      - NONE
+      - UNKNOWN
+      - CONNECTION_TIMEOUT
+      - PROMPT_DISCOVERY_FAILED
+      - CONNECTION_REFUSED
+      - AUTHENTICATION_FAILED
+      - KEY_EXCHANGE_FAILED
+      - AUTHORIZATION_FAILED
+      - TWO_FACTOR_AUTHENTICATION_FAILED
+      - AVI_SHELL_AUTH_FAILED
+      - AVI_CONTROLLER_WITHOUT_HEALTHY_SERVICE_ENGINES
+      - T128_CONDUCTOR_WITHOUT_HEALTHY_ROUTERS
+      - T128_CONFIG_ABSENT
+      - NETWORK_UNREACHABLE
+      - IO_ERROR
+      - AUTHENTICATION_FAILED_WITHOUT_COLLECTION_RETRY
+      - SESSION_CLOSED
+      - SESSION_LIMIT_REACHED
+      - STATE_COLLECTION_FAILED
+      - PASSWORD_EXPIRED
+      - JUMP_SERVER_CONNECTION_TIMEOUT
+      - JUMP_SERVER_PASSWORD_AUTH_FAILED
+      - JUMP_SERVER_PASSWORD_EXPIRED
+      - JUMP_SERVER_CONNECTION_FAILED
+      - JUMP_SERVER_KEY_EXCHANGE_FAILED
+      - PROXY_SERVER_PING_FAILED
+      - PROXY_SERVER_PORT_REACHABILITY_FAILED
+      - PROXY_SERVER_CONNECTION_FAILED
+      - PROXY_SERVER_AUTHENTICATION_FAILED
+      - PRIV_PASSWORD_ERROR
+      - EXPERT_PASSWORD_ERROR
+      - DUPLICATE_DEVICE
+      - UNSUPPORTED_VERSION
+      - DEVICE_TYPE_UNDETECTED
+      - UNSUPPORTED_DEVICE_TYPE
+      - BMP_CONNECTION_FAILED
+      - BMP_CONNECTION_TIMEOUT
+      - BMP_COLLECTION_FAILED
+      - BMP_COLLECTION_TIMEOUT
+      - BMP_COLLECTION_REFUSED
+      - BMP_NOT_CONFIGURED
+      - BMP_CONFIGURED_WITH_LOCAL_IP
+      - BMP_SESSION_ALREADY_ESTABLISHED
+      - WARN_TYPE_MISMATCH
+      - DEVICE_IS_CHILD_CONTEXT
+      - MANAGER_COLLECTOR_NOT_FOUND
+      - INCOMPLETE_SETUP
+      - COLLECTION_NOT_FOUND
+      - INFINITE_LOOP_IN_COMMAND_OUTPUT
+      - MISSING_FILE
+      - UNSUPPORTED_VENDOR
+      - COMMAND_DISABLED
+      - APIC_CONFIG_COLLECTION_FAILED
+      - UNEXPECTED_KEY_EXCHANGE_MESSAGE
+      - UNDISCOVERED_ACI_FABRIC
+      - SLOW_READ_RATE_DETECTED
+      - TRANSIENT_SLOW_READ_RATE_DETECTED
+      - COLLECTION_TIMED_OUT
+      - COLLECTION_CANCELED
+      - OPERATION_TIMED_OUT
+      - CERTIFICATE_CHECK_FAILED
+      - DEVICE_IN_BAD_STATE
+      - API_SERVER_FAILED_TO_RESPOND
+      - PROJECT_VIEW_PERMISSION_MISSING
+      - NO_SPACE_LEFT_ON_COLLECTOR
+      - NO_SPACE_LEFT_ON_COLLECTED_DEVICE
+      - UNSUPPORTED_SSL_CONNECTION
+      - SOME_OID_FAILED
+      - TACACS_SESSION_EXPIRED
+      - CONFIG_COLLECTION_UNAUTHORIZED
+      - UNRESOLVABLE_HOSTNAME
+      - FILE_TRANSFER_FAILED
+      - VELOS_PARTITION_WITHOUT_BLADES
   parameters:
     SnapshotId:
       name: snapshotId

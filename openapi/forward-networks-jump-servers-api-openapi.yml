@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: 'Forward Networks: Complete Aliases Jump Servers API'
+  title: 'Forward Networks: Complete Jump Servers API'
   description: Model and verify networks
   contact:
     email: support@forwardnetworks.com
@@ -238,17 +238,6 @@ components:
           format: int32
           examples:
           - 20
-    StoredJumpServer:
-      allOf:
-      - $ref: '#/components/schemas/JumpServer'
-      - $ref: '#/components/schemas/Attribution'
-    JumpServerCommandFormat:
-      type: string
-      enum:
-      - UNIX
-      - CISCO_IOS
-      - JUNOS
-      - PANORAMA
     Attribution:
       type: object
       properties:
@@ -290,6 +279,10 @@ components:
             been deleted.'
           examples:
           - you@example.com
+    StoredJumpServer:
+      allOf:
+      - $ref: '#/components/schemas/JumpServer'
+      - $ref: '#/components/schemas/Attribution'
     JumpServer:
       type: object
       required:
@@ -362,6 +355,13 @@ components:
           description: seconds to wait for the jump server authentication response. Defaults to 20.
           examples:
           - 20
+    JumpServerCommandFormat:
+      type: string
+      enum:
+      - UNIX
+      - CISCO_IOS
+      - JUNOS
+      - PANORAMA
   securitySchemes:
     api_token:
       type: http

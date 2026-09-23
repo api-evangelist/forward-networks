@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: 'Forward Networks: Complete Aliases User Accounts API'
+  title: 'Forward Networks: Complete User Accounts API'
   description: Model and verify networks
   contact:
     email: support@forwardnetworks.com
@@ -121,35 +121,13 @@ paths:
       - api_token: []
 components:
   schemas:
-    NewUser:
+    Users:
       type: object
-      required:
-      - email
-      - password
       properties:
-        email:
-          type: string
-          examples:
-          - me@example.com
-        username:
-          type: string
-          description: Defaults to the value of `email`
-          examples:
-          - me@example.com
-        password:
-          type: string
-          examples:
-          - zF4H+K;5]qE~%9G=nbAk
-        isSupport:
-          type: boolean
-          description: Defaults to `false`
-          examples:
-          - false
-        enabled:
-          type: boolean
-          description: Defaults to `true`
-          examples:
-          - true
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
     User:
       type: object
       required:
@@ -205,6 +183,35 @@ components:
           description: The approximate time of the most recent authenticated request from this account
           examples:
           - '2024-12-31T23:59:59.789Z'
+    NewUser:
+      type: object
+      required:
+      - email
+      - password
+      properties:
+        email:
+          type: string
+          examples:
+          - me@example.com
+        username:
+          type: string
+          description: Defaults to the value of `email`
+          examples:
+          - me@example.com
+        password:
+          type: string
+          examples:
+          - zF4H+K;5]qE~%9G=nbAk
+        isSupport:
+          type: boolean
+          description: Defaults to `false`
+          examples:
+          - false
+        enabled:
+          type: boolean
+          description: Defaults to `true`
+          examples:
+          - true
     UserPatch:
       type: object
       properties:
@@ -232,13 +239,6 @@ components:
           type: boolean
           examples:
           - true
-    Users:
-      type: object
-      properties:
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
   securitySchemes:
     api_token:
       type: http

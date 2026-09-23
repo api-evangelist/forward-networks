@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: 'Forward Networks: Complete Aliases Network Snapshots API'
+  title: 'Forward Networks: Complete Network Snapshots API'
   description: Model and verify networks
   contact:
     email: support@forwardnetworks.com
@@ -141,9 +141,9 @@ paths:
       summary: Get the latest processed Snapshot
       description: 'Returns the latest processed Snapshot (the most recent one that''s currently prepared for
 
-        [path searches](https://docs.fwd.app/latest/api/path-search/) and
+        path searches and
 
-        [new checks](https://docs.fwd.app/latest/api/checks/)).
+        new checks).
 
 
         Triggers processing of the latest Snapshot if it''s not already underway and the network has no processed
@@ -207,7 +207,7 @@ paths:
       summary: Export a Snapshot subset
       description: 'Exports a network Snapshot as a .zip file, optionally limiting which devices are included and optionally
 
-        [obfuscating](https://docs.fwd.app/latest/application/settings/system/obfuscate-snapshot/) sensitive data.
+        obfuscating sensitive data.
 
 
         To limit which devices are included, specify either `"includeDevices"` or `"excludeDevices"`. To obfuscate,
@@ -370,17 +370,53 @@ components:
           description: 'Number of seconds without use before the network expires. Present for temporary Workspace
 
             networks only.'
-    NetworkSnapshots:
-      allOf:
-      - $ref: '#/components/schemas/Network'
-      - type: object
-        required:
-        - snapshots
-        properties:
-          snapshots:
-            type: array
-            items:
-              $ref: '#/components/schemas/SnapshotInfo'
+    ErrorInfo:
+      type: object
+      required:
+      - httpMethod
+      - apiUrl
+      - message
+      properties:
+        httpMethod:
+          type: string
+          examples:
+          - GET
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+        apiUrl:
+          type: string
+          examples:
+          - /api/version
+        message:
+          type: string
+          description: A description of the error
+        reason:
+          type: string
+    SnapshotState:
+      type: string
+      enum:
+      - UNPACKING
+      - UNPROCESSED
+      - PROCESSING
+      - PROCESSED
+      - FAILED
+      - CANCELED
+      - TIMED_OUT
+      - ARCHIVED
+      - RESTORING
+      - RESTORE_FAILED
+    ComputationStatus:
+      type: string
+      enum:
+      - UNKNOWN
+      - FAILURE
+      - SUCCESS
+      - CANCELED
     SnapshotMetrics:
       type: object
       properties:
@@ -697,19 +733,6 @@ components:
           description: 'default: `false`. If specified, `"obfuscationKey"` must also be specified.'
           examples:
           - false
-    SnapshotState:
-      type: string
-      enum:
-      - UNPACKING
-      - UNPROCESSED
-      - PROCESSING
-      - PROCESSED
-      - FAILED
-      - CANCELED
-      - TIMED_OUT
-      - ARCHIVED
-      - RESTORING
-      - RESTORE_FAILED
     SnapshotInfo:
       type: object
       properties:
@@ -776,40 +799,17 @@ components:
             will never be automatically deleted, regardless of its network’s Snapshot retention policy.'
           examples:
           - '2019-09-30T19:48:59.481Z'
-    ErrorInfo:
-      type: object
-      required:
-      - httpMethod
-      - apiUrl
-      - message
-      properties:
-        httpMethod:
-          type: string
-          examples:
-          - GET
-          enum:
-          - GET
-          - HEAD
-          - POST
-          - PUT
-          - PATCH
-          - DELETE
-        apiUrl:
-          type: string
-          examples:
-          - /api/version
-        message:
-          type: string
-          description: A description of the error
-        reason:
-          type: string
-    ComputationStatus:
-      type: string
-      enum:
-      - UNKNOWN
-      - FAILURE
-      - SUCCESS
-      - CANCELED
+    NetworkSnapshots:
+      allOf:
+      - $ref: '#/components/schemas/Network'
+      - type: object
+        required:
+        - snapshots
+        properties:
+          snapshots:
+            type: array
+            items:
+              $ref: '#/components/schemas/SnapshotInfo'
   securitySchemes:
     api_token:
       type: http

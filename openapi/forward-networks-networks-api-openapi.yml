@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: 'Forward : Complete Aliases Networks API'
+  title: 'Forward : Complete Networks API'
   description: Model and verify networks
   contact:
     email: support@forwardnetworks.com
@@ -107,7 +107,7 @@ paths:
       tags:
       - Networks
       summary: Create a Workspace network
-      description: 'A [Workspace network](https://docs.fwd.app/latest/application/change-mgmt/workspace_network/) is a network that
+      description: 'A Workspace network is a network that
 
         collects from only a subset of the devices in a large “parent” network. This kind of network can be useful
 

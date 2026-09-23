@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: 'Forward Networks: Complete Aliases Current Version API'
+  title: 'Forward Networks: Complete Current Version API'
   description: Model and verify networks
   contact:
     email: support@forwardnetworks.com

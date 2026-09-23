@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: 'Forward Networks: Complete Aliases Network Topology API'
+  title: 'Forward Networks: Complete Network Topology API'
   description: Model and verify networks
   contact:
     email: support@forwardnetworks.com
@@ -159,43 +159,6 @@ paths:
       - api_token: []
 components:
   schemas:
-    LinkOverrides:
-      type: object
-      properties:
-        absent:
-          type: array
-          items:
-            $ref: '#/components/schemas/Link'
-        present:
-          type: array
-          items:
-            $ref: '#/components/schemas/Link'
-    LinkOverridesEdit:
-      type: object
-      properties:
-        absentAdditions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Link'
-        absentRemovals:
-          type: array
-          items:
-            $ref: '#/components/schemas/Link'
-        presentAdditions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Link'
-        presentRemovals:
-          type: array
-          items:
-            $ref: '#/components/schemas/Link'
-    Link:
-      type: object
-      properties:
-        port1:
-          type: string
-        port2:
-          type: string
     ErrorInfo:
       type: object
       required:
@@ -223,12 +186,49 @@ components:
           description: A description of the error
         reason:
           type: string
+    LinkOverridesEdit:
+      type: object
+      properties:
+        absentAdditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+        absentRemovals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+        presentAdditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+        presentRemovals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+    LinkOverrides:
+      type: object
+      properties:
+        absent:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+        present:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
     TopologyLink:
       type: object
       properties:
         sourcePort:
           type: string
         targetPort:
+          type: string
+    Link:
+      type: object
+      properties:
+        port1:
+          type: string
+        port2:
           type: string
   securitySchemes:
     api_token:

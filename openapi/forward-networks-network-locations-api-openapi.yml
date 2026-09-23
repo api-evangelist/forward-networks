@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: 'Forward Networks: Complete Aliases Network Locations API'
+  title: 'Forward Networks: Complete Network Locations API'
   description: Model and verify networks
   contact:
     email: support@forwardnetworks.com
@@ -448,6 +448,68 @@ paths:
       - api_token: []
 components:
   schemas:
+    DeviceCluster:
+      type: object
+      required:
+      - name
+      - devices
+      properties:
+        name:
+          type: string
+          examples:
+          - atl-edge
+        devices:
+          type: array
+          items:
+            type: string
+          examples:
+          - - atl-edge-fw01
+            - atl-edge-fw02
+            - atl-isp-edge01
+            - atl-isp-edge02
+    DeviceClusterUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          examples:
+          - atl-edge
+        devices:
+          type: array
+          items:
+            type: string
+          examples:
+          - - atl-edge-fw01
+            - atl-edge-fw02
+            - atl-isp-edge01
+            - atl-isp-edge02
+    ErrorInfo:
+      type: object
+      required:
+      - httpMethod
+      - apiUrl
+      - message
+      properties:
+        httpMethod:
+          type: string
+          examples:
+          - GET
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+        apiUrl:
+          type: string
+          examples:
+          - /api/version
+        message:
+          type: string
+          description: A description of the error
+        reason:
+          type: string
     NewLocation:
       type: object
       required:
@@ -495,104 +557,6 @@ components:
           description: 'Name of the country that `city` is located in (for display purposes only). Required if `city`
 
             is specified.'
-          examples:
-          - United States
-    LocationBulkPatch:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Identifier of the location to update. Required if `name` is absent.
-          examples:
-          - dyt-a
-        name:
-          type: string
-          description: Name of the location to update or create. Required if `id` is absent.
-          examples:
-          - Dayton DC
-        lat:
-          type: number
-          format: double
-          description: A latitude (geographic coordinate), specified as an angle from -90 to +90 degrees
-          examples:
-          - 39.8113
-        lng:
-          type: number
-          format: double
-          description: A longitude (geographic coordinate), specified as an angle from -180 to +180 degrees
-          examples:
-          - -84.2722
-        city:
-          type: string
-          description: Name of the closest city (for display purposes only)
-          examples:
-          - Dayton
-        adminDivision:
-          type: string
-          description: 'Name of the administrative division (district, province, region, state, territory, etc.) that `city` is in
-
-            (for display purposes only)'
-          examples:
-          - Ohio
-        country:
-          type: string
-          description: Name of the country that `city` is located in (for display purposes only)
-          examples:
-          - United States
-    DeviceClusterUpdate:
-      type: object
-      properties:
-        name:
-          type: string
-          examples:
-          - atl-edge
-        devices:
-          type: array
-          items:
-            type: string
-          examples:
-          - - atl-edge-fw01
-            - atl-edge-fw02
-            - atl-isp-edge01
-            - atl-isp-edge02
-    LocationPatch:
-      type: object
-      properties:
-        id:
-          type: string
-          examples:
-          - dyt-a
-        name:
-          type: string
-          examples:
-          - Dayton DC
-        lat:
-          type: number
-          format: double
-          description: A latitude (geographic coordinate), specified as an angle from -90 to +90 degrees
-          examples:
-          - 39.8113
-        lng:
-          type: number
-          format: double
-          description: A longitude (geographic coordinate), specified as an angle from -180 to +180 degrees
-          examples:
-          - -84.2722
-        city:
-          type: string
-          description: Name of the closest city (for display purposes only)
-          examples:
-          - Dayton
-        adminDivision:
-          type: string
-          description: 'Name of the administrative division (district, province, region, state, territory, etc.) that `city` is in
-
-            (for display purposes only)'
-          examples:
-          - Ohio
-        country:
-          type: string
-          description: Name of the country that `city` is located in (for display purposes only)
           examples:
           - United States
     Location:
@@ -644,52 +608,88 @@ components:
             is specified.'
           examples:
           - United States
-    DeviceCluster:
+    LocationPatch:
       type: object
-      required:
-      - name
-      - devices
       properties:
+        id:
+          type: string
+          examples:
+          - dyt-a
         name:
           type: string
           examples:
-          - atl-edge
-        devices:
-          type: array
-          items:
-            type: string
+          - Dayton DC
+        lat:
+          type: number
+          format: double
+          description: A latitude (geographic coordinate), specified as an angle from -90 to +90 degrees
           examples:
-          - - atl-edge-fw01
-            - atl-edge-fw02
-            - atl-isp-edge01
-            - atl-isp-edge02
-    ErrorInfo:
+          - 39.8113
+        lng:
+          type: number
+          format: double
+          description: A longitude (geographic coordinate), specified as an angle from -180 to +180 degrees
+          examples:
+          - -84.2722
+        city:
+          type: string
+          description: Name of the closest city (for display purposes only)
+          examples:
+          - Dayton
+        adminDivision:
+          type: string
+          description: 'Name of the administrative division (district, province, region, state, territory, etc.) that `city` is in
+
+            (for display purposes only)'
+          examples:
+          - Ohio
+        country:
+          type: string
+          description: Name of the country that `city` is located in (for display purposes only)
+          examples:
+          - United States
+    LocationBulkPatch:
       type: object
-      required:
-      - httpMethod
-      - apiUrl
-      - message
       properties:
-        httpMethod:
+        id:
           type: string
+          description: Identifier of the location to update. Required if `name` is absent.
           examples:
-          - GET
-          enum:
-          - GET
-          - HEAD
-          - POST
-          - PUT
-          - PATCH
-          - DELETE
-        apiUrl:
+          - dyt-a
+        name:
           type: string
+          description: Name of the location to update or create. Required if `id` is absent.
           examples:
-          - /api/version
-        message:
+          - Dayton DC
+        lat:
+          type: number
+          format: double
+          description: A latitude (geographic coordinate), specified as an angle from -90 to +90 degrees
+          examples:
+          - 39.8113
+        lng:
+          type: number
+          format: double
+          description: A longitude (geographic coordinate), specified as an angle from -180 to +180 degrees
+          examples:
+          - -84.2722
+        city:
           type: string
-          description: A description of the error
-        reason:
+          description: Name of the closest city (for display purposes only)
+          examples:
+          - Dayton
+        adminDivision:
           type: string
+          description: 'Name of the administrative division (district, province, region, state, territory, etc.) that `city` is in
+
+            (for display purposes only)'
+          examples:
+          - Ohio
+        country:
+          type: string
+          description: Name of the country that `city` is located in (for display purposes only)
+          examples:
+          - United States
   securitySchemes:
     api_token:
       type: http

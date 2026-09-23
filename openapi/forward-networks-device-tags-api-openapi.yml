@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: 'Forward Networks: Complete Aliases Device Tags API'
+  title: 'Forward Networks: Complete Device Tags API'
   description: Model and verify networks
   contact:
     email: support@forwardnetworks.com
@@ -126,7 +126,7 @@ paths:
 
         and `devices` in the request body must be the names of devices and/or endpoints in the Snapshot. Otherwise,
 
-        `devices` must be the names of devices and/or endpoints configured as _collection sources_, and the change
+        `devices` must be the names of devices and/or endpoints configured as _collection sources_, and the change
 
         will take effect in the network’s next Snapshot.
 
@@ -168,7 +168,7 @@ paths:
 
         and `devices` in the request body must be the names of devices and/or endpoints in the Snapshot. Otherwise,
 
-        `devices` must be the names of devices and/or endpoints configured as _collection sources_, and the change
+        `devices` must be the names of devices and/or endpoints configured as _collection sources_, and the change
 
         will take effect in the network’s next Snapshot.
 
@@ -210,7 +210,7 @@ paths:
 
         and `devices` in the request body must be the names of devices and/or endpoints in the Snapshot. Otherwise,
 
-        `devices` must be the names of devices and/or endpoints configured as _collection sources_, and the change
+        `devices` must be the names of devices and/or endpoints configured as _collection sources_, and the change
 
         will take effect in the network’s next Snapshot.
 
@@ -252,7 +252,7 @@ paths:
 
         and `devices` in the request body must be the names of devices and/or endpoints in the Snapshot. Otherwise,
 
-        `devices` must be the names of devices and/or endpoints configured as _collection sources_, and the change
+        `devices` must be the names of devices and/or endpoints configured as _collection sources_, and the change
 
         will take effect in the network’s next Snapshot.
 
@@ -412,7 +412,7 @@ paths:
 
         and `devices` in the request body must be the names of devices and/or endpoints in the Snapshot. Otherwise,
 
-        `devices` must be the names of devices and/or endpoints configured as _collection sources_, and the change
+        `devices` must be the names of devices and/or endpoints configured as _collection sources_, and the change
 
         will take effect in the network’s next Snapshot.
 
@@ -459,7 +459,7 @@ paths:
 
         and `devices` in the request body must be the names of devices and/or endpoints in the Snapshot. Otherwise,
 
-        `devices` must be the names of devices and/or endpoints configured as _collection sources_, and the change
+        `devices` must be the names of devices and/or endpoints configured as _collection sources_, and the change
 
         will take effect in the network’s next Snapshot.
 
@@ -499,31 +499,6 @@ paths:
       - api_token: []
 components:
   schemas:
-    DeviceSet:
-      type: object
-      properties:
-        devices:
-          type: array
-          items:
-            type: string
-          examples:
-          - - atl-edge-fw01
-            - ny-edge-fw2
-    DeviceTag:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: The device tag’s name. Case-insensitive. May include spaces.
-          examples:
-          - SEC
-        color:
-          type: string
-          description: The device tag’s color in RGB hex format. Used in network topology diagrams if specified.
-          examples:
-          - '#0064a0'
     DeviceTagPatch:
       type: object
       properties:
@@ -537,6 +512,16 @@ components:
           description: The device tag’s color in RGB hex format. Used in network topology diagrams if specified.
           examples:
           - '#0064a0'
+    DeviceSet:
+      type: object
+      properties:
+        devices:
+          type: array
+          items:
+            type: string
+          examples:
+          - - atl-edge-fw01
+            - ny-edge-fw2
     DevicesAndTags:
       type: object
       properties:
@@ -553,6 +538,35 @@ components:
             type: string
           examples:
           - - SEC
+    DeviceTagsWithDevices:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceTagWithDevices'
+    DeviceTag:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: The device tag’s name. Case-insensitive. May include spaces.
+          examples:
+          - SEC
+        color:
+          type: string
+          description: The device tag’s color in RGB hex format. Used in network topology diagrams if specified.
+          examples:
+          - '#0064a0'
+    DeviceTags:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceTag'
     DeviceTagWithDevices:
       allOf:
       - $ref: '#/components/schemas/DeviceTag'
@@ -566,20 +580,6 @@ components:
             examples:
             - - atl-edge-fw01
               - ny-edge-fw2
-    DeviceTags:
-      type: object
-      properties:
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceTag'
-    DeviceTagsWithDevices:
-      type: object
-      properties:
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceTagWithDevices'
   securitySchemes:
     api_token:
       type: http
