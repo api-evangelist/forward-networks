@@ -138,72 +138,6 @@ paths:
       - api_token: []
 components:
   schemas:
-    Network:
-      type: object
-      required:
-      - id
-      - name
-      - orgId
-      properties:
-        id:
-          type: string
-        parentId:
-          type: string
-          description: 'The network from which this Workspace network was created. Absent if this network is not a
-
-            Workspace.'
-        name:
-          type: string
-          examples:
-          - My Network
-        orgId:
-          type: string
-        creator:
-          type: string
-          description: The username of the user who created the network, or null if the account was deleted
-          examples:
-          - mary
-        creatorId:
-          type: string
-          description: The id of the user who created the network, or null if the account was deleted
-          examples:
-          - '123'
-        createdAt:
-          type: string
-          examples:
-          - '2022-04-06T20:34:45.118Z'
-        created:
-          type: string
-          description: Deprecated for removal in release 26.7. Use `createdAt` instead.
-          examples:
-          - '2022-04-06T20:34:45.118Z'
-        note:
-          type: string
-          description: An optional network description.
-        retentionDays:
-          type: integer
-          format: int32
-          minimum: 1
-          maximum: 365
-          description: 'The number of days without any use of this network after which it will be automatically deleted. Absent for
-
-            parent networks and permanent Workspace networks.'
-        secondsToExpiry:
-          type: integer
-          format: int64
-          description: 'Number of seconds without use before the network expires. Present for temporary Workspace
-
-            networks only.'
-    NetworkUpdate:
-      type: object
-      properties:
-        name:
-          type: string
-        note:
-          type: string
-        retentionDays:
-          type: integer
-          format: int32
     CreateWorkspaceNetworkRequest:
       type: object
       required:
@@ -276,6 +210,72 @@ components:
           description: 'Number of days of inactivity after which the Workspace network will be deleted. If omitted, the value
 
             defaults to 7. If specified as null, this network will be considered permanent.'
+    Network:
+      type: object
+      required:
+      - id
+      - name
+      - orgId
+      properties:
+        id:
+          type: string
+        parentId:
+          type: string
+          description: 'The network from which this Workspace network was created. Absent if this network is not a
+
+            Workspace.'
+        name:
+          type: string
+          examples:
+          - My Network
+        orgId:
+          type: string
+        creator:
+          type: string
+          description: The username of the user who created the network, or null if the account was deleted
+          examples:
+          - mary
+        creatorId:
+          type: string
+          description: The id of the user who created the network, or null if the account was deleted
+          examples:
+          - '123'
+        createdAt:
+          type: string
+          examples:
+          - '2022-04-06T20:34:45.118Z'
+        created:
+          type: string
+          description: Deprecated for removal in release 26.7. Use `createdAt` instead.
+          examples:
+          - '2022-04-06T20:34:45.118Z'
+        note:
+          type: string
+          description: An optional network description.
+        retentionDays:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 365
+          description: 'The number of days without any use of this network after which it will be automatically deleted. Absent for
+
+            parent networks and permanent Workspace networks.'
+        secondsToExpiry:
+          type: integer
+          format: int64
+          description: 'Number of seconds without use before the network expires. Present for temporary Workspace
+
+            networks only.'
+    NetworkUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        note:
+          type: string
+        retentionDays:
+          type: integer
+          format: int32
   securitySchemes:
     api_token:
       type: http

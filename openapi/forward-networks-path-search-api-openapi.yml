@@ -409,155 +409,63 @@ components:
         restrictions can result in multiple results along a single device path if there are different ACLs that
 
         permit or deny traffic to different destination ports.'
-    Path:
+    PathHop:
       type: object
       properties:
-        forwardingOutcome:
+        deviceName:
           type: string
-          description: 'Specifies the traffic forwarding outcome along a path.
-
-            *DELIVERED*: Traffic was delivered to destination IP’s discovered location(s).
-
-            *DELIVERED_TO_INCORRECT_LOCATION*: Traffic was delivered out of some edge ports. However, traffic did not
-
-            reach the expected delivery locations based on destination IP’s discovered locations. One scenario where
-
-            this occurs is when a device in the middle of the actual path from source IP to destination IP is not
-
-            configured for collection in the Forward platform. For example, suppose the actual device path is A -> B ->
-
-            C, and only devices A and C are part of the snapshot in the Forward platform. In this case, the path would
-
-            show traffic exiting device A at some edge port, but since destination IP is discovered to reside at device
-
-            C, traffic is delivered to an incorrect location.
-
-            *BLACKHOLE*: Traffic was implicitly dropped at the last hop, since the device had no matching rule. For
-
-            example, if a router does not have a default route, traffic to any IP that is not in the routing table gets
-
-            blackholed.
-
-            *DROPPED*: Traffic was explicitly dropped at the last hop, e.g. by a null route.
-
-            *INADMISSIBLE*: Traffic was not admitted into the network. The first hop interface does not accept the
-
-            traffic, e.g. incoming traffic had a vlan tag 10 while the ingress interface is an access interface that
-
-            only permits traffic with vlan tag 20.
-
-            *UNREACHABLE*: ARP/NDP resolution failed along the path resulting in traffic not getting delivered to the
-
-            intended destination.
-
-            *LOOP*: Traffic entered a forwarding loop.'
-          enum:
-          - DELIVERED
-          - DELIVERED_TO_INCORRECT_LOCATION
-          - DROPPED
-          - LOOP
-          - INADMISSIBLE
-          - BLACKHOLE
-          - UNREACHABLE
-        securityOutcome:
+        displayName:
           type: string
-          description: 'Specifies whether traffic is denied by ACL rules at any hop along the path.
+          description: 'Alternate device name that might be more recognizable but isn’t necessarily unique in the network. For cloud
 
-            *PERMITTED*: All ACLs along the path permitted traffic to flow through.
-
-            *DENIED*: Traffic was dropped by ACLs at some hop along the path. Note that the ACL drop may not always
-
-            occur at the last hop since search results are computed in permit all mode.'
-          enum:
-          - PERMITTED
-          - DENIED
-        hops:
+            devices, this is the name configured in the cloud provider’s console.'
+        deviceType:
+          $ref: '#/components/schemas/DeviceType'
+        tags:
           type: array
           items:
-            $ref: '#/components/schemas/PathHop'
-    NetworkFunctions:
-      type: object
-      properties:
-        acl:
+            type: string
+          description: present only if device tags are specifically requested
+        parseError:
+          type: boolean
+          description: '`true` indicates that this device’s behavior model might not be reliable'
+        ingressInterface:
+          type: string
+          description: the physical interface name, where traffic entered the device
+        egressInterface:
+          type: string
+          description: 'the physical interface name, where traffic exited the device.
+
+            Absent if this is the last hop and traffic did not exit the device.'
+        behaviors:
           type: array
           items:
-            $ref: '#/components/schemas/AclFunction'
-        egress:
-          $ref: '#/components/schemas/InterfaceFunction'
-        ingress:
-          $ref: '#/components/schemas/InterfaceFunction'
-      description: Detailed forwarding info
-    InterfaceFunctionL2Info:
-      type: object
-      properties:
-        interfaceName:
+            type: string
+            enum:
+            - L2
+            - L3
+            - NAT
+            - PBR
+            - ACL_PERMIT
+            - ACL_DENY
+          description: 'Specifies the forwarding behaviors experienced by traffic at the device.
+
+            *L2*: Forwarded at layer 2.
+
+            *L3*: Routed at layer 3.
+
+            *NAT*: NAT transformations applied.
+
+            *PBR*: Forwarded using Policy-Based Routing.
+
+            *ACL_PERMIT*: ACLs were applied to traffic at the device and the traffic was permitted.
+
+            *ACL_DENY*: ACLs were applied to traffic at the device and the traffic was dropped.'
+        networkFunctions:
+          $ref: '#/components/schemas/NetworkFunctions'
+        backfilledFrom:
           type: string
-    DeviceType:
-      type: string
-      enum:
-      - UNKNOWN
-      - ROUTER
-      - SWITCH
-      - VSWITCH
-      - FIREWALL
-      - LOADBALANCER
-      - BUNDLED_ROUTER
-      - CIRCUIT
-      - L2_VPN_SERVICE
-      - MISSING_PEER
-      - MPLS_VPN_SERVICE
-      - INTERNET_SERVICE
-      - INTRANET_SERVICE
-      - SYNTHETIC_ENCRYPTOR
-      - HYPERVISOR
-      - CONTROLLER
-      - WAN_OPTIMIZER
-      - OPENFLOW_SWITCH
-      - SD_WAN
-      - RIVERBED_INTERCEPTOR
-      - WIFI_AP
-      - ENCRYPTOR
-      - DDI
-      - NIC
-      - AWS_CLOUD
-      - AWS_SUBNET
-      - AWS_RT
-      - AWS_INTERNET_GW
-      - AWS_NAT_GW
-      - AWS_VPN_GW
-      - AWS_LB
-      - AWS_GLOBAL_ACCELERATOR
-      - AWS_DIRECT_CONNECT_GW
-      - AWS_TRANSIT_GW
-      - AWS_LOCAL_GW
-      - AWS_NETWORK_FIREWALL
-      - AWS_GATEWAY_LB
-      - AWS_SERVICE_ENDPOINT
-      - EDGE_VM
-      - AZURE_CLOUD
-      - AZURE_SUBNET
-      - AZURE_VNET
-      - AZURE_VNET_GW
-      - AZURE_FIREWALL
-      - AZURE_APP_GW
-      - AZURE_FRONTDOOR
-      - AZURE_LB
-      - AZURE_VWAN_HUB
-      - AZURE_VPN_GATEWAY
-      - AZURE_P2S_VPN_GATEWAY
-      - AZURE_EXPRESS_ROUTE_GATEWAY
-      - AZURE_VIRTUAL_APPLIANCE
-      - AZURE_EXPRESS_ROUTE_CIRCUIT
-      - GCP_CLOUD
-      - GCP_RT
-      - GCP_SUBNET
-      - GCP_LB
-      - GCP_TRAFFIC_DIRECTOR
-      - GCP_VPN_GW
-      - GCP_NAT_GW
-      - GCP_SERVICE_ATTACHMENT
-      - GCP_INTERCEPT_DEPLOYMENT
-      - ALKIRA_CLOUD
+          description: the collection instant from which the device was backfilled
     InterfaceFunction:
       type: object
       properties:
@@ -567,235 +475,6 @@ components:
           $ref: '#/components/schemas/InterfaceFunctionL3Info'
         securityZone:
           type: string
-    PathSearchResponse:
-      type: object
-      properties:
-        srcIpLocationType:
-          type: string
-          description: 'Specifies the location discovery method for source IP.
-
-            The enum values are ordered from most precise to least precise discovery method.
-
-            *INTERFACE*: The IP is a configured IP address of one or more device interfaces.
-
-            *HOST*: The IP corresponds to discovered host(s).
-
-            *SNAT* : The IP is used as the post-translated IP of a Source NAT function in the network and is assumed to
-
-            be located on the gateway device(s) performing this translation.
-
-            *CO_LOCATED*: The IP is configured on a gateway device as a /32 or /128 route whose next hop is a known
-
-            host.
-
-            *INTERFACE_ATTACHED_SUBNET*: The IP falls within the attached subnet of L3 interface(s).
-
-            *INTERNET*: The IP is in the public internet and was located at the network''s Internet Node. This discovery
-
-            method is only applicable when an Internet Node is configured in the network.
-
-            *ROUTE*: The IP was located based on injected routes in the network.
-
-            *MULTICAST*: The IP is a multicast group address. This discovery method is used to locate the rendezvous
-
-            points of the multicast group and use their IP addresses as IP source.'
-          enum:
-          - INTERFACE
-          - HOST
-          - SNAT
-          - CO_LOCATED
-          - INTERFACE_ATTACHED_SUBNET
-          - INTERNET
-          - ROUTE
-          - MULTICAST
-        dstIpLocationType:
-          type: string
-          description: 'Specifies the location discovery method for destination IP.
-
-            The enum values are ordered from most precise to least precise discovery method.
-
-            *INTERFACE*: The IP is a configured IP address of one or more device interfaces.
-
-            *HOST*: The IP corresponds to discovered host(s).
-
-            *DNAT*: The IP gets DNAT''d in the network. The IP may either correspond directly to a VIP on a load balancer
-
-            or a DNAT''d IP on other devices such as routers. This discovery method is only used to locate destination IP
-
-            addresses. DNAT’d IP addresses are recursively resolved to determine where traffic to a given destination IP
-
-            must be delivered in the network.
-
-            *CO_LOCATED*: The IP is configured on a gateway device as a /32 or /128 route whose next hop is a known
-
-            host.
-
-            *INTERFACE_ATTACHED_SUBNET*: The IP falls within the attached subnet of L3 interface(s).
-
-            *INTERNET*: The IP is in the public internet and was located at the network''s Internet Node. This discovery
-
-            method is only applicable when an Internet Node is configured in the network.
-
-            *ROUTE*: The IP was located based on injected routes in the network.
-
-            *MULTICAST*: The IP is a multicast group address.'
-          enum:
-          - INTERFACE
-          - HOST
-          - DNAT
-          - CO_LOCATED
-          - INTERFACE_ATTACHED_SUBNET
-          - INTERNET
-          - ROUTE
-          - MULTICAST
-        info:
-          $ref: '#/components/schemas/PathInfo'
-        returnPathInfo:
-          $ref: '#/components/schemas/PathInfo'
-        timedOut:
-          type: boolean
-        queryUrl:
-          type: string
-          description: A Forward application URL at which this path search can be explored or refined interactively
-        unrecognizedValues:
-          $ref: '#/components/schemas/UnrecognizedValues'
-          description: L7 values from the request that were unrecognized by the system
-    InterfaceFunctionL3Info:
-      type: object
-      properties:
-        interfaceName:
-          type: string
-        vrf:
-          type: string
-          description: Null if the interface does not belong to any VRF
-    PathSearchBulkRequest:
-      type: object
-      required:
-      - queries
-      properties:
-        queries:
-          type: array
-          items:
-            $ref: '#/components/schemas/PathSearchQuery'
-        intent:
-          $ref: '#/components/schemas/SearchIntent'
-          description: 'Specifies the intent for the search. Default PREFER_DELIVERED.
-
-            *PREFER_VIOLATIONS*: Prefer paths that result in the traffic not getting delivered, e.g. drops, blackholes,
-
-            loops. An example usage is while trying to evaluate if the specified traffic always gets delivered to the
-
-            destination along all path choices.
-
-            *PREFER_DELIVERED*: Prefer paths that result in the traffic getting delivered. An example usage is while
-
-            trying to evaluate if traffic gets delivered to the destination along any path choice.
-
-            *VIOLATIONS_ONLY*: Search for paths where traffic is not delivered to the destination.'
-          examples:
-          - PREFER_DELIVERED
-          default: PREFER_DELIVERED
-        maxCandidates:
-          type: integer
-          format: int32
-          description: 'the limit on the number of search results computed, before applying any ranking criteria. Permitted range =
-
-            1 to 10,000. Default 5,000.'
-          examples:
-          - 5000
-        maxResults:
-          type: integer
-          format: int32
-          description: 'the limit on the number of search results returned by the API. First, the platform computes up to
-
-            maxCandidates results that match the search criteria. Then they are sorted by various ranking criteria. A
-
-            key ranking factor is path length, preferring longer paths (greatest reach) in the network over shorter
-
-            ones. Finally, the API limits the number of returned search results to maxResults. Permitted range = 1 to
-
-            maxCandidates. Default 1.'
-          examples:
-          - 1
-        maxReturnPathResults:
-          type: integer
-          format: int32
-          description: 'the limit on the number of return path search results. Permitted range = 0 to 10,000. Default 0. Multicast
-
-            (*, G) and (S, G) queries will always return 0 return path results regardless of this value.'
-          examples:
-          - 0
-        maxSeconds:
-          type: integer
-          format: int32
-          description: the timeout duration per search query. Permitted range = 1 to 300. Default 30.
-          examples:
-          - 30
-        maxOverallSeconds:
-          type: integer
-          format: int32
-          description: 'the overall timeout duration. Permitted range = 1 to 7,200. Default equal to the timeout duration for a
-
-            single query.'
-          examples:
-          - 300
-        includeTags:
-          type: boolean
-          description: If true, the response will include device tags for each hop.
-          examples:
-          - false
-        includeNetworkFunctions:
-          type: boolean
-          description: 'If true, the response includes detailed forwarding info for each hop.
-
-            Note: Setting this to true increases the API response time.'
-          examples:
-          - false
-    ErrorInfo:
-      type: object
-      required:
-      - httpMethod
-      - apiUrl
-      - message
-      properties:
-        httpMethod:
-          type: string
-          examples:
-          - GET
-          enum:
-          - GET
-          - HEAD
-          - POST
-          - PUT
-          - PATCH
-          - DELETE
-        apiUrl:
-          type: string
-          examples:
-          - /api/version
-        message:
-          type: string
-          description: A description of the error
-        reason:
-          type: string
-    AclFunction:
-      type: object
-      properties:
-        name:
-          type: string
-          description: the name of the ACL that is applied to traffic
-        context:
-          type: string
-          description: the context in which the ACL function is applied
-          enum:
-          - INPUT
-          - OUTPUT
-        action:
-          type: string
-          description: the action taken by the ACL function
-          enum:
-          - PERMIT
-          - DENY
     PathSearchQuery:
       type: object
       required:
@@ -950,17 +629,294 @@ components:
           examples:
           - example.com
           - '*.subdomain.example.org'
+    DeviceType:
+      type: string
+      enum:
+      - UNKNOWN
+      - ROUTER
+      - SWITCH
+      - VSWITCH
+      - FIREWALL
+      - LOADBALANCER
+      - BUNDLED_ROUTER
+      - CIRCUIT
+      - L2_VPN_SERVICE
+      - MISSING_PEER
+      - MPLS_VPN_SERVICE
+      - INTERNET_SERVICE
+      - INTRANET_SERVICE
+      - SYNTHETIC_ENCRYPTOR
+      - HYPERVISOR
+      - CONTROLLER
+      - WAN_OPTIMIZER
+      - OPENFLOW_SWITCH
+      - SD_WAN
+      - RIVERBED_INTERCEPTOR
+      - WIFI_AP
+      - ENCRYPTOR
+      - DDI
+      - NIC
+      - AWS_CLOUD
+      - AWS_SUBNET
+      - AWS_RT
+      - AWS_INTERNET_GW
+      - AWS_NAT_GW
+      - AWS_VPN_GW
+      - AWS_LB
+      - AWS_GLOBAL_ACCELERATOR
+      - AWS_DIRECT_CONNECT_GW
+      - AWS_TRANSIT_GW
+      - AWS_LOCAL_GW
+      - AWS_NETWORK_FIREWALL
+      - AWS_GATEWAY_LB
+      - AWS_SERVICE_ENDPOINT
+      - EDGE_VM
+      - AZURE_CLOUD
+      - AZURE_SUBNET
+      - AZURE_VNET
+      - AZURE_VNET_GW
+      - AZURE_FIREWALL
+      - AZURE_APP_GW
+      - AZURE_FRONTDOOR
+      - AZURE_LB
+      - AZURE_VWAN_HUB
+      - AZURE_VPN_GATEWAY
+      - AZURE_P2S_VPN_GATEWAY
+      - AZURE_EXPRESS_ROUTE_GATEWAY
+      - AZURE_VIRTUAL_APPLIANCE
+      - AZURE_EXPRESS_ROUTE_CIRCUIT
+      - GCP_CLOUD
+      - GCP_RT
+      - GCP_SUBNET
+      - GCP_LB
+      - GCP_TRAFFIC_DIRECTOR
+      - GCP_VPN_GW
+      - GCP_NAT_GW
+      - GCP_SERVICE_ATTACHMENT
+      - GCP_INTERCEPT_DEPLOYMENT
+      - ALKIRA_CLOUD
+    L7Application:
+      type: object
+      properties:
+        id:
+          type: string
+    NetworkFunctions:
+      type: object
+      properties:
+        acl:
+          type: array
+          items:
+            $ref: '#/components/schemas/AclFunction'
+        egress:
+          $ref: '#/components/schemas/InterfaceFunction'
+        ingress:
+          $ref: '#/components/schemas/InterfaceFunction'
+      description: Detailed forwarding info
+    InterfaceFunctionL2Info:
+      type: object
+      properties:
+        interfaceName:
+          type: string
     SearchIntent:
       type: string
       enum:
       - PREFER_VIOLATIONS
       - PREFER_DELIVERED
       - VIOLATIONS_ONLY
-    L7Application:
+    PathSearchBulkRequest:
+      type: object
+      required:
+      - queries
+      properties:
+        queries:
+          type: array
+          items:
+            $ref: '#/components/schemas/PathSearchQuery'
+        intent:
+          $ref: '#/components/schemas/SearchIntent'
+          description: 'Specifies the intent for the search. Default PREFER_DELIVERED.
+
+            *PREFER_VIOLATIONS*: Prefer paths that result in the traffic not getting delivered, e.g. drops, blackholes,
+
+            loops. An example usage is while trying to evaluate if the specified traffic always gets delivered to the
+
+            destination along all path choices.
+
+            *PREFER_DELIVERED*: Prefer paths that result in the traffic getting delivered. An example usage is while
+
+            trying to evaluate if traffic gets delivered to the destination along any path choice.
+
+            *VIOLATIONS_ONLY*: Search for paths where traffic is not delivered to the destination.'
+          examples:
+          - PREFER_DELIVERED
+          default: PREFER_DELIVERED
+        maxCandidates:
+          type: integer
+          format: int32
+          description: 'the limit on the number of search results computed, before applying any ranking criteria. Permitted range =
+
+            1 to 10,000. Default 5,000.'
+          examples:
+          - 5000
+        maxResults:
+          type: integer
+          format: int32
+          description: 'the limit on the number of search results returned by the API. First, the platform computes up to
+
+            maxCandidates results that match the search criteria. Then they are sorted by various ranking criteria. A
+
+            key ranking factor is path length, preferring longer paths (greatest reach) in the network over shorter
+
+            ones. Finally, the API limits the number of returned search results to maxResults. Permitted range = 1 to
+
+            maxCandidates. Default 1.'
+          examples:
+          - 1
+        maxReturnPathResults:
+          type: integer
+          format: int32
+          description: 'the limit on the number of return path search results. Permitted range = 0 to 10,000. Default 0. Multicast
+
+            (*, G) and (S, G) queries will always return 0 return path results regardless of this value.'
+          examples:
+          - 0
+        maxSeconds:
+          type: integer
+          format: int32
+          description: the timeout duration per search query. Permitted range = 1 to 300. Default 30.
+          examples:
+          - 30
+        maxOverallSeconds:
+          type: integer
+          format: int32
+          description: 'the overall timeout duration. Permitted range = 1 to 7,200. Default equal to the timeout duration for a
+
+            single query.'
+          examples:
+          - 300
+        includeTags:
+          type: boolean
+          description: If true, the response will include device tags for each hop.
+          examples:
+          - false
+        includeNetworkFunctions:
+          type: boolean
+          description: 'If true, the response includes detailed forwarding info for each hop.
+
+            Note: Setting this to true increases the API response time.'
+          examples:
+          - false
+    PathSearchResponse:
       type: object
       properties:
-        id:
+        srcIpLocationType:
           type: string
+          description: 'Specifies the location discovery method for source IP.
+
+            The enum values are ordered from most precise to least precise discovery method.
+
+            *INTERFACE*: The IP is a configured IP address of one or more device interfaces.
+
+            *HOST*: The IP corresponds to discovered host(s).
+
+            *SNAT* : The IP is used as the post-translated IP of a Source NAT function in the network and is assumed to
+
+            be located on the gateway device(s) performing this translation.
+
+            *CO_LOCATED*: The IP is configured on a gateway device as a /32 or /128 route whose next hop is a known
+
+            host.
+
+            *INTERFACE_ATTACHED_SUBNET*: The IP falls within the attached subnet of L3 interface(s).
+
+            *INTERNET*: The IP is in the public internet and was located at the network''s Internet Node. This discovery
+
+            method is only applicable when an Internet Node is configured in the network.
+
+            *ROUTE*: The IP was located based on injected routes in the network.
+
+            *MULTICAST*: The IP is a multicast group address. This discovery method is used to locate the rendezvous
+
+            points of the multicast group and use their IP addresses as IP source.'
+          enum:
+          - INTERFACE
+          - HOST
+          - SNAT
+          - CO_LOCATED
+          - INTERFACE_ATTACHED_SUBNET
+          - INTERNET
+          - ROUTE
+          - MULTICAST
+        dstIpLocationType:
+          type: string
+          description: 'Specifies the location discovery method for destination IP.
+
+            The enum values are ordered from most precise to least precise discovery method.
+
+            *INTERFACE*: The IP is a configured IP address of one or more device interfaces.
+
+            *HOST*: The IP corresponds to discovered host(s).
+
+            *DNAT*: The IP gets DNAT''d in the network. The IP may either correspond directly to a VIP on a load balancer
+
+            or a DNAT''d IP on other devices such as routers. This discovery method is only used to locate destination IP
+
+            addresses. DNAT’d IP addresses are recursively resolved to determine where traffic to a given destination IP
+
+            must be delivered in the network.
+
+            *CO_LOCATED*: The IP is configured on a gateway device as a /32 or /128 route whose next hop is a known
+
+            host.
+
+            *INTERFACE_ATTACHED_SUBNET*: The IP falls within the attached subnet of L3 interface(s).
+
+            *INTERNET*: The IP is in the public internet and was located at the network''s Internet Node. This discovery
+
+            method is only applicable when an Internet Node is configured in the network.
+
+            *ROUTE*: The IP was located based on injected routes in the network.
+
+            *MULTICAST*: The IP is a multicast group address.'
+          enum:
+          - INTERFACE
+          - HOST
+          - DNAT
+          - CO_LOCATED
+          - INTERFACE_ATTACHED_SUBNET
+          - INTERNET
+          - ROUTE
+          - MULTICAST
+        info:
+          $ref: '#/components/schemas/PathInfo'
+        returnPathInfo:
+          $ref: '#/components/schemas/PathInfo'
+        timedOut:
+          type: boolean
+        queryUrl:
+          type: string
+          description: A Forward application URL at which this path search can be explored or refined interactively
+        unrecognizedValues:
+          $ref: '#/components/schemas/UnrecognizedValues'
+          description: L7 values from the request that were unrecognized by the system
+    AclFunction:
+      type: object
+      properties:
+        name:
+          type: string
+          description: the name of the ACL that is applied to traffic
+        context:
+          type: string
+          description: the context in which the ACL function is applied
+          enum:
+          - INPUT
+          - OUTPUT
+        action:
+          type: string
+          description: the action taken by the ACL function
+          enum:
+          - PERMIT
+          - DENY
     UnrecognizedValues:
       type: object
       properties:
@@ -976,6 +932,72 @@ components:
           type: array
           items:
             type: string
+    Path:
+      type: object
+      properties:
+        forwardingOutcome:
+          type: string
+          description: 'Specifies the traffic forwarding outcome along a path.
+
+            *DELIVERED*: Traffic was delivered to destination IP’s discovered location(s).
+
+            *DELIVERED_TO_INCORRECT_LOCATION*: Traffic was delivered out of some edge ports. However, traffic did not
+
+            reach the expected delivery locations based on destination IP’s discovered locations. One scenario where
+
+            this occurs is when a device in the middle of the actual path from source IP to destination IP is not
+
+            configured for collection in the Forward platform. For example, suppose the actual device path is A -> B ->
+
+            C, and only devices A and C are part of the snapshot in the Forward platform. In this case, the path would
+
+            show traffic exiting device A at some edge port, but since destination IP is discovered to reside at device
+
+            C, traffic is delivered to an incorrect location.
+
+            *BLACKHOLE*: Traffic was implicitly dropped at the last hop, since the device had no matching rule. For
+
+            example, if a router does not have a default route, traffic to any IP that is not in the routing table gets
+
+            blackholed.
+
+            *DROPPED*: Traffic was explicitly dropped at the last hop, e.g. by a null route.
+
+            *INADMISSIBLE*: Traffic was not admitted into the network. The first hop interface does not accept the
+
+            traffic, e.g. incoming traffic had a vlan tag 10 while the ingress interface is an access interface that
+
+            only permits traffic with vlan tag 20.
+
+            *UNREACHABLE*: ARP/NDP resolution failed along the path resulting in traffic not getting delivered to the
+
+            intended destination.
+
+            *LOOP*: Traffic entered a forwarding loop.'
+          enum:
+          - DELIVERED
+          - DELIVERED_TO_INCORRECT_LOCATION
+          - DROPPED
+          - LOOP
+          - INADMISSIBLE
+          - BLACKHOLE
+          - UNREACHABLE
+        securityOutcome:
+          type: string
+          description: 'Specifies whether traffic is denied by ACL rules at any hop along the path.
+
+            *PERMITTED*: All ACLs along the path permitted traffic to flow through.
+
+            *DENIED*: Traffic was dropped by ACLs at some hop along the path. Note that the ACL drop may not always
+
+            occur at the last hop since search results are computed in permit all mode.'
+          enum:
+          - PERMITTED
+          - DENIED
+        hops:
+          type: array
+          items:
+            $ref: '#/components/schemas/PathHop'
     PathInfo:
       type: object
       properties:
@@ -985,63 +1007,41 @@ components:
             $ref: '#/components/schemas/Path'
         totalHits:
           $ref: '#/components/schemas/TotalHits'
-    PathHop:
+    ErrorInfo:
+      type: object
+      required:
+      - httpMethod
+      - apiUrl
+      - message
+      properties:
+        httpMethod:
+          type: string
+          examples:
+          - GET
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+        apiUrl:
+          type: string
+          examples:
+          - /api/version
+        message:
+          type: string
+          description: A description of the error
+        reason:
+          type: string
+    InterfaceFunctionL3Info:
       type: object
       properties:
-        deviceName:
+        interfaceName:
           type: string
-        displayName:
+        vrf:
           type: string
-          description: 'Alternate device name that might be more recognizable but isn’t necessarily unique in the network. For cloud
-
-            devices, this is the name configured in the cloud provider’s console.'
-        deviceType:
-          $ref: '#/components/schemas/DeviceType'
-        tags:
-          type: array
-          items:
-            type: string
-          description: present only if device tags are specifically requested
-        parseError:
-          type: boolean
-          description: '`true` indicates that this device’s behavior model might not be reliable'
-        ingressInterface:
-          type: string
-          description: the physical interface name, where traffic entered the device
-        egressInterface:
-          type: string
-          description: 'the physical interface name, where traffic exited the device.
-
-            Absent if this is the last hop and traffic did not exit the device.'
-        behaviors:
-          type: array
-          items:
-            type: string
-            enum:
-            - L2
-            - L3
-            - NAT
-            - PBR
-            - ACL_PERMIT
-            - ACL_DENY
-          description: 'Specifies the forwarding behaviors experienced by traffic at the device.
-
-            *L2*: Forwarded at layer 2.
-
-            *L3*: Routed at layer 3.
-
-            *NAT*: NAT transformations applied.
-
-            *PBR*: Forwarded using Policy-Based Routing.
-
-            *ACL_PERMIT*: ACLs were applied to traffic at the device and the traffic was permitted.
-
-            *ACL_DENY*: ACLs were applied to traffic at the device and the traffic was dropped.'
-        networkFunctions:
-          $ref: '#/components/schemas/NetworkFunctions'
-        backfilledFrom:
-          type: string
-          description: the collection instant from which the device was backfilled
+          description: Null if the interface does not belong to any VRF
   parameters:
     SnapshotId:
       name: snapshotId

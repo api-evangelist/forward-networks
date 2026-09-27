@@ -335,24 +335,6 @@ components:
       - Europe/Moscow
       - Europe/Paris
       - Europe/Rome
-    CollectorStatus:
-      type: string
-      enum:
-      - OFFLINE
-      - IDLE
-      - TESTING
-      - COLLECTING
-      - COLLECTION_QUEUED
-      - DISCOVERING
-      - UPDATING
-    StartCollectionResponse:
-      type: object
-      properties:
-        taskId:
-          type: string
-          description: The system-assigned identifier of the new network collection task.
-          examples:
-          - P1234
     CollectionSchedule:
       allOf:
       - type: object
@@ -365,6 +347,14 @@ components:
             examples:
             - '1'
       - $ref: '#/components/schemas/CollectionScheduleDefinition'
+    StartCollectionResponse:
+      type: object
+      properties:
+        taskId:
+          type: string
+          description: The system-assigned identifier of the new network collection task.
+          examples:
+          - P1234
     CollectionScheduleDefinition:
       type: object
       required:
@@ -447,13 +437,16 @@ components:
         busyStatus:
           $ref: '#/components/schemas/CollectorStatus'
           description: Absent if the network has no Collector assigned
-    CollectionSchedules:
-      type: object
-      properties:
-        schedules:
-          type: array
-          items:
-            $ref: '#/components/schemas/CollectionSchedule'
+    CollectorStatus:
+      type: string
+      enum:
+      - OFFLINE
+      - IDLE
+      - TESTING
+      - COLLECTING
+      - COLLECTION_QUEUED
+      - DISCOVERING
+      - UPDATING
     CollectorTask:
       type: object
       properties:
@@ -533,6 +526,13 @@ components:
             been deleted.'
           examples:
           - me@example.com
+    CollectionSchedules:
+      type: object
+      properties:
+        schedules:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionSchedule'
   securitySchemes:
     api_token:
       type: http

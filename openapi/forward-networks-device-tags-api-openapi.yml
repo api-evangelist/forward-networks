@@ -512,16 +512,28 @@ components:
           description: The device tag’s color in RGB hex format. Used in network topology diagrams if specified.
           examples:
           - '#0064a0'
-    DeviceSet:
+    DeviceTag:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: The device tag’s name. Case-insensitive. May include spaces.
+          examples:
+          - SEC
+        color:
+          type: string
+          description: The device tag’s color in RGB hex format. Used in network topology diagrams if specified.
+          examples:
+          - '#0064a0'
+    DeviceTagsWithDevices:
       type: object
       properties:
-        devices:
+        tags:
           type: array
           items:
-            type: string
-          examples:
-          - - atl-edge-fw01
-            - ny-edge-fw2
+            $ref: '#/components/schemas/DeviceTagWithDevices'
     DevicesAndTags:
       type: object
       properties:
@@ -538,28 +550,16 @@ components:
             type: string
           examples:
           - - SEC
-    DeviceTagsWithDevices:
+    DeviceSet:
       type: object
       properties:
-        tags:
+        devices:
           type: array
           items:
-            $ref: '#/components/schemas/DeviceTagWithDevices'
-    DeviceTag:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: The device tag’s name. Case-insensitive. May include spaces.
+            type: string
           examples:
-          - SEC
-        color:
-          type: string
-          description: The device tag’s color in RGB hex format. Used in network topology diagrams if specified.
-          examples:
-          - '#0064a0'
+          - - atl-edge-fw01
+            - ny-edge-fw2
     DeviceTags:
       type: object
       properties:

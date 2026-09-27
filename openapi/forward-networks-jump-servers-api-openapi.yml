@@ -127,12 +127,23 @@ paths:
       - api_token: []
 components:
   schemas:
-    NewJumpServer:
+    JumpServerCommandFormat:
+      type: string
+      enum:
+      - UNIX
+      - CISCO_IOS
+      - JUNOS
+      - PANORAMA
+    JumpServer:
       type: object
       required:
       - host
       - username
       properties:
+        id:
+          type: string
+          examples:
+          - 8c4a168e-c6ca-4978-bcc9-c0ec7f64a164
         host:
           type: string
           examples:
@@ -149,25 +160,29 @@ components:
           - admin
         password:
           type: string
-          description: Either this or `sshKey` is required
+          description: 'Either this or `sshKey` must be provided in requests. A system-generated identifier is substituted for the
+
+            actual password in responses.'
           examples:
           - my-s3cr3t-p4s$w0rd
         sshKey:
           type: string
-          description: 'SSH private key for authentication. Either this or `password` is required. Requires `supportsPortForwarding`
+          description: 'SSH private key for authentication. Either this or `password` must be provided in requests. Requires
 
-            to be true.'
+            `supportsPortForwarding` to be true. A system-generated identifier is substituted for the actual key in
+
+            responses.'
           examples:
           - '-----BEGIN RSA PRIVATE KEY-----
 
-            MIIPIQIBAzCCDtoGCSqGSIb3DQEHAa…'
+            MIIPIQIBAzCCDtoGCSqGSIb3DQEHAa...'
         sshCert:
           type: string
           description: 'SSH user certificate for authentication. Applicable only for certificate based authentication and requires
 
             `sshKey` to be provided.'
           examples:
-          - ssh-rsa-cert-v01@openssh.com AAAAHHNzaC1yc2EtY2VydC12MDFAb3BlbnNzaC5jb20AAA…
+          - ssh-rsa-cert-v01@openssh.com AAAAHHNzaC1yc2EtY2VydC12MDFAb3BlbnNzaC5jb20AAA...
         supportsPortForwarding:
           type: boolean
           description: defaults to true
@@ -279,20 +294,12 @@ components:
             been deleted.'
           examples:
           - you@example.com
-    StoredJumpServer:
-      allOf:
-      - $ref: '#/components/schemas/JumpServer'
-      - $ref: '#/components/schemas/Attribution'
-    JumpServer:
+    NewJumpServer:
       type: object
       required:
       - host
       - username
       properties:
-        id:
-          type: string
-          examples:
-          - 8c4a168e-c6ca-4978-bcc9-c0ec7f64a164
         host:
           type: string
           examples:
@@ -309,29 +316,25 @@ components:
           - admin
         password:
           type: string
-          description: 'Either this or `sshKey` must be provided in requests. A system-generated identifier is substituted for the
-
-            actual password in responses.'
+          description: Either this or `sshKey` is required
           examples:
           - my-s3cr3t-p4s$w0rd
         sshKey:
           type: string
-          description: 'SSH private key for authentication. Either this or `password` must be provided in requests. Requires
+          description: 'SSH private key for authentication. Either this or `password` is required. Requires `supportsPortForwarding`
 
-            `supportsPortForwarding` to be true. A system-generated identifier is substituted for the actual key in
-
-            responses.'
+            to be true.'
           examples:
           - '-----BEGIN RSA PRIVATE KEY-----
 
-            MIIPIQIBAzCCDtoGCSqGSIb3DQEHAa...'
+            MIIPIQIBAzCCDtoGCSqGSIb3DQEHAa…'
         sshCert:
           type: string
           description: 'SSH user certificate for authentication. Applicable only for certificate based authentication and requires
 
             `sshKey` to be provided.'
           examples:
-          - ssh-rsa-cert-v01@openssh.com AAAAHHNzaC1yc2EtY2VydC12MDFAb3BlbnNzaC5jb20AAA...
+          - ssh-rsa-cert-v01@openssh.com AAAAHHNzaC1yc2EtY2VydC12MDFAb3BlbnNzaC5jb20AAA…
         supportsPortForwarding:
           type: boolean
           description: defaults to true
@@ -355,13 +358,10 @@ components:
           description: seconds to wait for the jump server authentication response. Defaults to 20.
           examples:
           - 20
-    JumpServerCommandFormat:
-      type: string
-      enum:
-      - UNIX
-      - CISCO_IOS
-      - JUNOS
-      - PANORAMA
+    StoredJumpServer:
+      allOf:
+      - $ref: '#/components/schemas/JumpServer'
+      - $ref: '#/components/schemas/Attribution'
   securitySchemes:
     api_token:
       type: http
