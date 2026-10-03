@@ -159,6 +159,33 @@ paths:
       - api_token: []
 components:
   schemas:
+    ErrorInfo:
+      type: object
+      required:
+      - httpMethod
+      - apiUrl
+      - message
+      properties:
+        httpMethod:
+          type: string
+          examples:
+          - GET
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+        apiUrl:
+          type: string
+          examples:
+          - /api/version
+        message:
+          type: string
+          description: A description of the error
+        reason:
+          type: string
     TopologyLink:
       type: object
       properties:
@@ -203,33 +230,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Link'
-    ErrorInfo:
-      type: object
-      required:
-      - httpMethod
-      - apiUrl
-      - message
-      properties:
-        httpMethod:
-          type: string
-          examples:
-          - GET
-          enum:
-          - GET
-          - HEAD
-          - POST
-          - PUT
-          - PATCH
-          - DELETE
-        apiUrl:
-          type: string
-          examples:
-          - /api/version
-        message:
-          type: string
-          description: A description of the error
-        reason:
-          type: string
   securitySchemes:
     api_token:
       type: http

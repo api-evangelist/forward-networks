@@ -121,40 +121,6 @@ paths:
       - api_token: []
 components:
   schemas:
-    UserPatch:
-      type: object
-      properties:
-        email:
-          type: string
-          examples:
-          - me@example.com
-        username:
-          type: string
-          description: Changes the username of a user whose `authSource` is "LOCAL"
-          examples:
-          - me@example.com
-        password:
-          type: string
-          description: 'Assigns a new temporary password to a user whose `authSource` is "LOCAL". The user will be prompted to
-
-            choose a new password when they log in with this password.'
-          examples:
-          - zF4H+K;5]qE~%9G=nbAk
-        isSupport:
-          type: boolean
-          examples:
-          - false
-        enabled:
-          type: boolean
-          examples:
-          - true
-    Users:
-      type: object
-      properties:
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
     NewUser:
       type: object
       required:
@@ -182,6 +148,33 @@ components:
         enabled:
           type: boolean
           description: Defaults to `true`
+          examples:
+          - true
+    UserPatch:
+      type: object
+      properties:
+        email:
+          type: string
+          examples:
+          - me@example.com
+        username:
+          type: string
+          description: Changes the username of a user whose `authSource` is "LOCAL"
+          examples:
+          - me@example.com
+        password:
+          type: string
+          description: 'Assigns a new temporary password to a user whose `authSource` is "LOCAL". The user will be prompted to
+
+            choose a new password when they log in with this password.'
+          examples:
+          - zF4H+K;5]qE~%9G=nbAk
+        isSupport:
+          type: boolean
+          examples:
+          - false
+        enabled:
+          type: boolean
           examples:
           - true
     User:
@@ -239,6 +232,13 @@ components:
           description: The approximate time of the most recent authenticated request from this account
           examples:
           - '2024-12-31T23:59:59.789Z'
+    Users:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
   securitySchemes:
     api_token:
       type: http

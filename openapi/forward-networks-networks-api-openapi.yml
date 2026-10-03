@@ -138,6 +138,16 @@ paths:
       - api_token: []
 components:
   schemas:
+    NetworkUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        note:
+          type: string
+        retentionDays:
+          type: integer
+          format: int32
     CreateWorkspaceNetworkRequest:
       type: object
       required:
@@ -266,16 +276,6 @@ components:
           description: 'Number of seconds without use before the network expires. Present for temporary Workspace
 
             networks only.'
-    NetworkUpdate:
-      type: object
-      properties:
-        name:
-          type: string
-        note:
-          type: string
-        retentionDays:
-          type: integer
-          format: int32
   securitySchemes:
     api_token:
       type: http

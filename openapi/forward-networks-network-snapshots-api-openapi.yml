@@ -314,6 +314,33 @@ paths:
       - api_token: []
 components:
   schemas:
+    ErrorInfo:
+      type: object
+      required:
+      - httpMethod
+      - apiUrl
+      - message
+      properties:
+        httpMethod:
+          type: string
+          examples:
+          - GET
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+        apiUrl:
+          type: string
+          examples:
+          - /api/version
+        message:
+          type: string
+          description: A description of the error
+        reason:
+          type: string
     SnapshotInfo:
       type: object
       properties:
@@ -436,6 +463,26 @@ components:
           description: 'Number of seconds without use before the network expires. Present for temporary Workspace
 
             networks only.'
+    ComputationStatus:
+      type: string
+      enum:
+      - UNKNOWN
+      - FAILURE
+      - SUCCESS
+      - CANCELED
+    SnapshotState:
+      type: string
+      enum:
+      - UNPACKING
+      - UNPROCESSED
+      - PROCESSING
+      - PROCESSED
+      - FAILED
+      - CANCELED
+      - TIMED_OUT
+      - ARCHIVED
+      - RESTORING
+      - RESTORE_FAILED
     NetworkSnapshots:
       allOf:
       - $ref: '#/components/schemas/Network'
@@ -447,39 +494,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/SnapshotInfo'
-    SnapshotExportParams:
-      type: object
-      properties:
-        includeDevices:
-          type: array
-          items:
-            type: string
-          description: Must be absent if `"excludeDevices"` is specified.
-          examples:
-          - - device-1
-            - device-2
-            - pa*
-        excludeDevices:
-          type: array
-          items:
-            type: string
-          description: Must be absent if `"includeDevices"` is specified.
-          examples:
-          - - device-6
-            - device-7
-            - pa*
-        obfuscationKey:
-          type: string
-          description: 'If specified, sensitive data will be
-
-            [obfuscated](https://docs.fwd.app/latest/application/settings/system/obfuscate-snapshot/).'
-          examples:
-          - a-sEcr3t-kEy-th4t-i$-h4rd-to-guE$$
-        obfuscateNames:
-          type: boolean
-          description: 'default: `false`. If specified, `"obfuscationKey"` must also be specified.'
-          examples:
-          - false
     SnapshotMetrics:
       type: object
       properties:
@@ -763,53 +777,39 @@ components:
           description: Current state of the Snapshot
           examples:
           - PROCESSING
-    SnapshotState:
-      type: string
-      enum:
-      - UNPACKING
-      - UNPROCESSED
-      - PROCESSING
-      - PROCESSED
-      - FAILED
-      - CANCELED
-      - TIMED_OUT
-      - ARCHIVED
-      - RESTORING
-      - RESTORE_FAILED
-    ComputationStatus:
-      type: string
-      enum:
-      - UNKNOWN
-      - FAILURE
-      - SUCCESS
-      - CANCELED
-    ErrorInfo:
+    SnapshotExportParams:
       type: object
-      required:
-      - httpMethod
-      - apiUrl
-      - message
       properties:
-        httpMethod:
-          type: string
+        includeDevices:
+          type: array
+          items:
+            type: string
+          description: Must be absent if `"excludeDevices"` is specified.
           examples:
-          - GET
-          enum:
-          - GET
-          - HEAD
-          - POST
-          - PUT
-          - PATCH
-          - DELETE
-        apiUrl:
-          type: string
+          - - device-1
+            - device-2
+            - pa*
+        excludeDevices:
+          type: array
+          items:
+            type: string
+          description: Must be absent if `"includeDevices"` is specified.
           examples:
-          - /api/version
-        message:
+          - - device-6
+            - device-7
+            - pa*
+        obfuscationKey:
           type: string
-          description: A description of the error
-        reason:
-          type: string
+          description: 'If specified, sensitive data will be
+
+            [obfuscated](https://docs.fwd.app/latest/application/settings/system/obfuscate-snapshot/).'
+          examples:
+          - a-sEcr3t-kEy-th4t-i$-h4rd-to-guE$$
+        obfuscateNames:
+          type: boolean
+          description: 'default: `false`. If specified, `"obfuscationKey"` must also be specified.'
+          examples:
+          - false
   securitySchemes:
     api_token:
       type: http

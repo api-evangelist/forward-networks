@@ -448,35 +448,43 @@ paths:
       - api_token: []
 components:
   schemas:
-    DeviceCluster:
+    ErrorInfo:
       type: object
       required:
-      - name
-      - devices
+      - httpMethod
+      - apiUrl
+      - message
       properties:
-        name:
+        httpMethod:
           type: string
           examples:
-          - atl-edge
-        devices:
-          type: array
-          items:
-            type: string
+          - GET
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+        apiUrl:
+          type: string
           examples:
-          - - atl-edge-fw01
-            - atl-edge-fw02
-            - atl-isp-edge01
-            - atl-isp-edge02
-    NewLocation:
+          - /api/version
+        message:
+          type: string
+          description: A description of the error
+        reason:
+          type: string
+    Location:
       type: object
       required:
+      - id
       - name
       - lat
       - lng
       properties:
         id:
           type: string
-          description: If absent or null, a numeric identifier will be assigned
           examples:
           - dyt-a
         name:
@@ -572,16 +580,16 @@ components:
             - atl-edge-fw02
             - atl-isp-edge01
             - atl-isp-edge02
-    Location:
+    NewLocation:
       type: object
       required:
-      - id
       - name
       - lat
       - lng
       properties:
         id:
           type: string
+          description: If absent or null, a numeric identifier will be assigned
           examples:
           - dyt-a
         name:
@@ -621,6 +629,25 @@ components:
             is specified.'
           examples:
           - United States
+    DeviceCluster:
+      type: object
+      required:
+      - name
+      - devices
+      properties:
+        name:
+          type: string
+          examples:
+          - atl-edge
+        devices:
+          type: array
+          items:
+            type: string
+          examples:
+          - - atl-edge-fw01
+            - atl-edge-fw02
+            - atl-isp-edge01
+            - atl-isp-edge02
     LocationBulkPatch:
       type: object
       properties:
@@ -663,33 +690,6 @@ components:
           description: Name of the country that `city` is located in (for display purposes only)
           examples:
           - United States
-    ErrorInfo:
-      type: object
-      required:
-      - httpMethod
-      - apiUrl
-      - message
-      properties:
-        httpMethod:
-          type: string
-          examples:
-          - GET
-          enum:
-          - GET
-          - HEAD
-          - POST
-          - PUT
-          - PATCH
-          - DELETE
-        apiUrl:
-          type: string
-          examples:
-          - /api/version
-        message:
-          type: string
-          description: A description of the error
-        reason:
-          type: string
   securitySchemes:
     api_token:
       type: http

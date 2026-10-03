@@ -1305,197 +1305,25 @@ paths:
       - api_token: []
 components:
   schemas:
-    EncryptorConnection:
+    EncryptorPatch:
       type: object
-      required:
-      - uplinkPort
-      properties:
-        uplinkPort:
-          $ref: '#/components/schemas/DevicePort'
-          description: The physical uplink port on the edge device.
-          examples:
-          - device: nyc-rtr-01
-            port: eth1/1
-        gatewayPort:
-          $ref: '#/components/schemas/DevicePort'
-          description: The virtual gateway port, if different than `uplinkPort`.
-          examples:
-          - device: nyc-rtr-01
-            port: vlan100
-        vlan:
-          type: integer
-          format: int32
-          description: The VLAN of traffic from `uplinkPort`, if tagged.
-          examples:
-          - 100
-        name:
-          type: string
-          description: 'An optional name for this connection, which will be used as the interface name created on the synthetic
-
-            device that links to the physical edge port.'
-    L2Vpn:
-      type: object
-      required:
-      - name
-      - connections
       properties:
         name:
           type: string
-          examples:
-          - l2vpn
-        connections:
-          type: array
-          items:
-            $ref: '#/components/schemas/L2VpnConnection'
-    L3Vpn:
-      type: object
-      required:
-      - name
-      - connections
-      properties:
-        name:
-          type: string
-          examples:
-          - l3vpn
-        connections:
-          type: array
-          items:
-            $ref: '#/components/schemas/L3SyntheticWanConnection'
-    IntranetNodeList:
-      type: object
-      required:
-      - intranetNodes
-      properties:
-        intranetNodes:
-          type: array
-          items:
-            $ref: '#/components/schemas/IntranetNode'
-    EncryptorList:
-      type: object
-      required:
-      - encryptors
-      properties:
-        encryptors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Encryptor'
-    WanCircuitList:
-      type: object
-      properties:
-        wanCircuits:
-          type: array
-          items:
-            $ref: '#/components/schemas/WanCircuit'
-    Encryptor:
-      type: object
-      required:
-      - name
-      - siteConnection
-      - tunnels
-      properties:
-        name:
-          type: string
-          examples:
-          - encryptor
         siteConnection:
           $ref: '#/components/schemas/EncryptorConnection'
-          description: A connection to a high site
         underlayConnection:
           $ref: '#/components/schemas/EncryptorConnection'
-          description: A connection to the underlay network (a low site)
         tunnels:
           type: array
           items:
             $ref: '#/components/schemas/EncryptorTunnel'
-          description: 'Tunnels to other encryptor devices. A tunnel source address is modeled as residing on this device and the
-
-            destination addresses on another encryptor device. A source address may be reused on an encryptor. Each
-
-            destination address must match the source address of the tunnel on another encryptor, and vice-versa'
+          description: If specified, this list will **replace** all existing tunnels on the encryptor.
         subnets:
           type: array
           items:
             type: string
-          description: 'Subnets to route to the high site, in addition to the source addresses of tunnels on the `siteConnection`
-
-            gateway device'
-    SyntheticConnection:
-      type: object
-      properties:
-        name:
-          type: string
-    L2VpnList:
-      type: object
-      required:
-      - l2Vpns
-      properties:
-        l2Vpns:
-          type: array
-          items:
-            $ref: '#/components/schemas/L2Vpn'
-    EncryptorTunnel:
-      type: object
-      required:
-      - source
-      - destination
-      properties:
-        source:
-          type: string
-          description: Source IP address of an encryptor tunnel
-          examples:
-          - 1.1.1.1
-        destination:
-          type: string
-          description: Destination IP address of an encryptor tunnel
-          examples:
-          - 2.2.2.2
-    L3VpnList:
-      type: object
-      required:
-      - l3Vpns
-      properties:
-        l3Vpns:
-          type: array
-          items:
-            $ref: '#/components/schemas/L3Vpn'
-    IntranetNode:
-      type: object
-      required:
-      - name
-      - connections
-      properties:
-        name:
-          type: string
-          examples:
-          - inet
-        connections:
-          type: array
-          items:
-            $ref: '#/components/schemas/L3SyntheticWanConnection'
-    L2VpnConnection:
-      type: object
-      required:
-      - device
-      - port
-      properties:
-        device:
-          type: string
-          description: The customer edge device.
-        port:
-          type: string
-          description: The physical edge port on the customer edge device.
-          examples:
-          - eth1/1
-        vlan:
-          type: integer
-          format: int32
-          examples:
-          - 100
-        name:
-          type: string
-          description: 'An optional name for this connection, which will be used as the interface name created on the synthetic
-
-            device that links to the customer edge device.'
+          description: If specified, this set will **replace** all existing subnets on the encryptor.
     IntranetNodePatch:
       type: object
       properties:
@@ -1506,17 +1334,6 @@ components:
           description: If specified, this list will **replace** all existing connections on the intranet node.
         name:
           type: string
-    WanCircuitPatch:
-      type: object
-      properties:
-        name:
-          type: string
-          examples:
-          - wan-circuit-01
-        connection1:
-          $ref: '#/components/schemas/WanCircuitConnection'
-        connection2:
-          $ref: '#/components/schemas/WanCircuitConnection'
     WanCircuitConnection:
       type: object
       required:
@@ -1540,35 +1357,96 @@ components:
           description: 'An optional name for this connection, which will be used as the interface name created on the synthetic
 
             device that links to the edge device.'
-    EncryptorPatch:
+    WanCircuit:
       type: object
+      required:
+      - name
+      - connection1
+      - connection2
       properties:
         name:
           type: string
-        siteConnection:
-          $ref: '#/components/schemas/EncryptorConnection'
-        underlayConnection:
-          $ref: '#/components/schemas/EncryptorConnection'
-        tunnels:
+          examples:
+          - wan-circuit-01
+        connection1:
+          $ref: '#/components/schemas/WanCircuitConnection'
+        connection2:
+          $ref: '#/components/schemas/WanCircuitConnection'
+    EncryptorTunnel:
+      type: object
+      required:
+      - source
+      - destination
+      properties:
+        source:
+          type: string
+          description: Source IP address of an encryptor tunnel
+          examples:
+          - 1.1.1.1
+        destination:
+          type: string
+          description: Destination IP address of an encryptor tunnel
+          examples:
+          - 2.2.2.2
+    WanCircuitList:
+      type: object
+      properties:
+        wanCircuits:
           type: array
           items:
-            $ref: '#/components/schemas/EncryptorTunnel'
-          description: If specified, this list will **replace** all existing tunnels on the encryptor.
-        subnets:
-          type: array
-          items:
-            type: string
-          description: If specified, this set will **replace** all existing subnets on the encryptor.
-    L2VpnPatch:
+            $ref: '#/components/schemas/WanCircuit'
+    SyntheticNatEntry:
+      type: object
+      required:
+      - insideAddress
+      - outsideAddress
+      properties:
+        insideAddress:
+          type: string
+          examples:
+          - 10.0.0.1
+        outsideAddress:
+          type: string
+          description: A public (non-RFC1918) address
+          examples:
+          - 1.1.1.1
+    DevicePort:
+      type: object
+      properties:
+        device:
+          type: string
+        port:
+          type: string
+    SyntheticConnections:
       type: object
       properties:
         connections:
           type: array
           items:
-            $ref: '#/components/schemas/L2VpnConnection'
-          description: If specified, this list will **replace** all existing connections on the L2 VPN node.
+            $ref: '#/components/schemas/SyntheticConnection'
+    L2Vpn:
+      type: object
+      required:
+      - name
+      - connections
+      properties:
         name:
           type: string
+          examples:
+          - l2vpn
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/L2VpnConnection'
+    IntranetNodeList:
+      type: object
+      required:
+      - intranetNodes
+      properties:
+        intranetNodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/IntranetNode'
     InternetNodePatch:
       type: object
       properties:
@@ -1589,16 +1467,30 @@ components:
           items:
             type: string
           description: If specified, this list will **replace** all existing excluded subnets on the internet node.
-    L3VpnPatch:
+    L3Vpn:
       type: object
+      required:
+      - name
+      - connections
       properties:
         name:
           type: string
+          examples:
+          - l3vpn
         connections:
           type: array
           items:
             $ref: '#/components/schemas/L3SyntheticWanConnection'
-          description: If specified, this list will **replace** all existing connections on the L3 VPN node.
+    L2VpnPatch:
+      type: object
+      properties:
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/L2VpnConnection'
+          description: If specified, this list will **replace** all existing connections on the L2 VPN node.
+        name:
+          type: string
     L3SyntheticWanConnection:
       type: object
       required:
@@ -1696,6 +1588,73 @@ components:
             collection is not enabled on the CE. If the Adj-RIB-Out is not collected, the RIB is examined and a default
 
             route forwarded out `gatewayPort` is skipped if this property is false.'
+    WanCircuitPatch:
+      type: object
+      properties:
+        name:
+          type: string
+          examples:
+          - wan-circuit-01
+        connection1:
+          $ref: '#/components/schemas/WanCircuitConnection'
+        connection2:
+          $ref: '#/components/schemas/WanCircuitConnection'
+    L3VpnList:
+      type: object
+      required:
+      - l3Vpns
+      properties:
+        l3Vpns:
+          type: array
+          items:
+            $ref: '#/components/schemas/L3Vpn'
+    L2VpnList:
+      type: object
+      required:
+      - l2Vpns
+      properties:
+        l2Vpns:
+          type: array
+          items:
+            $ref: '#/components/schemas/L2Vpn'
+    SyntheticConnection:
+      type: object
+      properties:
+        name:
+          type: string
+    Encryptor:
+      type: object
+      required:
+      - name
+      - siteConnection
+      - tunnels
+      properties:
+        name:
+          type: string
+          examples:
+          - encryptor
+        siteConnection:
+          $ref: '#/components/schemas/EncryptorConnection'
+          description: A connection to a high site
+        underlayConnection:
+          $ref: '#/components/schemas/EncryptorConnection'
+          description: A connection to the underlay network (a low site)
+        tunnels:
+          type: array
+          items:
+            $ref: '#/components/schemas/EncryptorTunnel'
+          description: 'Tunnels to other encryptor devices. A tunnel source address is modeled as residing on this device and the
+
+            destination addresses on another encryptor device. A source address may be reused on an encryptor. Each
+
+            destination address must match the source address of the tunnel on another encryptor, and vice-versa'
+        subnets:
+          type: array
+          items:
+            type: string
+          description: 'Subnets to route to the high site, in addition to the source addresses of tunnels on the `siteConnection`
+
+            gateway device'
     InternetNode:
       type: object
       required:
@@ -1719,6 +1678,25 @@ components:
           items:
             type: string
           description: Public subnets that should not be located at this device.
+    L3VpnPatch:
+      type: object
+      properties:
+        name:
+          type: string
+        connections:
+          type: array
+          items:
+            $ref: '#/components/schemas/L3SyntheticWanConnection'
+          description: If specified, this list will **replace** all existing connections on the L3 VPN node.
+    EncryptorList:
+      type: object
+      required:
+      - encryptors
+      properties:
+        encryptors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Encryptor'
     AutoDiscoverySource:
       type: string
       enum:
@@ -1726,50 +1704,72 @@ components:
       - IP_ROUTES
       - BGP_ROUTES
       - INTERFACE_ADDRESSES
-    WanCircuit:
+    L2VpnConnection:
+      type: object
+      required:
+      - device
+      - port
+      properties:
+        device:
+          type: string
+          description: The customer edge device.
+        port:
+          type: string
+          description: The physical edge port on the customer edge device.
+          examples:
+          - eth1/1
+        vlan:
+          type: integer
+          format: int32
+          examples:
+          - 100
+        name:
+          type: string
+          description: 'An optional name for this connection, which will be used as the interface name created on the synthetic
+
+            device that links to the customer edge device.'
+    IntranetNode:
       type: object
       required:
       - name
-      - connection1
-      - connection2
+      - connections
       properties:
         name:
           type: string
           examples:
-          - wan-circuit-01
-        connection1:
-          $ref: '#/components/schemas/WanCircuitConnection'
-        connection2:
-          $ref: '#/components/schemas/WanCircuitConnection'
-    DevicePort:
-      type: object
-      properties:
-        device:
-          type: string
-        port:
-          type: string
-    SyntheticConnections:
-      type: object
-      properties:
+          - inet
         connections:
           type: array
           items:
-            $ref: '#/components/schemas/SyntheticConnection'
-    SyntheticNatEntry:
+            $ref: '#/components/schemas/L3SyntheticWanConnection'
+    EncryptorConnection:
       type: object
       required:
-      - insideAddress
-      - outsideAddress
+      - uplinkPort
       properties:
-        insideAddress:
-          type: string
+        uplinkPort:
+          $ref: '#/components/schemas/DevicePort'
+          description: The physical uplink port on the edge device.
           examples:
-          - 10.0.0.1
-        outsideAddress:
-          type: string
-          description: A public (non-RFC1918) address
+          - device: nyc-rtr-01
+            port: eth1/1
+        gatewayPort:
+          $ref: '#/components/schemas/DevicePort'
+          description: The virtual gateway port, if different than `uplinkPort`.
           examples:
-          - 1.1.1.1
+          - device: nyc-rtr-01
+            port: vlan100
+        vlan:
+          type: integer
+          format: int32
+          description: The VLAN of traffic from `uplinkPort`, if tagged.
+          examples:
+          - 100
+        name:
+          type: string
+          description: 'An optional name for this connection, which will be used as the interface name created on the synthetic
+
+            device that links to the physical edge port.'
   securitySchemes:
     api_token:
       type: http

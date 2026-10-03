@@ -643,6 +643,371 @@ paths:
       - api_token: []
 components:
   schemas:
+    CliEndpointProfileDef:
+      type: object
+      required:
+      - type
+      - name
+      properties:
+        type:
+          type: string
+          const: CLI
+        name:
+          type: string
+          description: Name of this profile ("HpPrinter", "SamsungTV", etc.).
+          examples:
+          - sentry_pdu_ssh
+        detectorCommand:
+          type: string
+          description: 'CLI command to run to detect a network endpoint of this type. If absent, the profile can be manually
+
+            assigned to a network endpoint, but not auto-detected.'
+          examples:
+          - version
+        detectorPatterns:
+          type: array
+          items:
+            type: string
+          description: 'Patterns matching on output of `detectorCommand` to determine whether the device is of this type. Absent if
+
+            `detectorCommand` is absent. Never empty.'
+          examples:
+          - - Sentry Switched PDU
+        detectorErrorPatterns:
+          type: array
+          items:
+            type: string
+          description: Patterns matching an error message if a device doesn’t recognize `detectorCommand`.
+          examples:
+          - - Invalid command
+            - 'Switched PDU commands:'
+        nameDetectorCommand:
+          type: string
+          description: 'Command to use to detect the name of a network endpoint of this type. If absent, the name cannot be
+
+            detected.'
+          examples:
+          - show network
+        nameDetectorPatterns:
+          type: array
+          items:
+            type: string
+          description: 'Glob patterns used to extract the device name from the output of `nameDetectorCommand`. The word immediately
+
+            after a matched glob pattern is the desired name. If no glob patterns are specified, the first word/token in
+
+            the `nameDetectorCommand` output will be used.'
+          examples:
+          - - FQDN:*enabled
+        prompt:
+          type: string
+          description: 'A case-insensitive glob pattern used to identify an interactive console menu prompt. When this pattern
+
+            matches the end of the prompt, ignoring any trailing whitespace, the Collector will enter the configured
+
+            `promptResponse`.'
+          examples:
+          - y/n
+        promptResponse:
+          type: string
+          description: 'What the Collector should enter in response to an interactive console menu prompt matching `prompt` in order
+
+            to proceed. Required if `prompt` is set.'
+          examples:
+          - y
+        pagePrompt:
+          type: string
+          description: 'Case-insensitive glob pattern used to identify a new page banner. Works like `prompt`. If the device doesn’t
+
+            generate paginated command output or if paging is like the “more” command, omit this property.'
+          examples:
+          - continue\?
+        pagePromptResponse:
+          type: string
+          description: 'What the Collector should enter in response to an interactive pagination prompt detected via `pagePrompt` in
+
+            order to proceed. Required if `pagePrompt` is set.'
+          examples:
+          - c
+        ptyType:
+          type: string
+          description: Device’s terminal type ("xterm-256color", "vt100", etc.).
+          examples:
+          - vt100
+        ptyColumnSize:
+          type: integer
+          format: int32
+          description: Column size of the output. Defaults to 500.
+          examples:
+          - 240
+        clearPrompt:
+          type: string
+          description: 'Command to clear the prompt. Can be specified like "ctrl-[a-z]" or "ctrl+[a-z]". Defaults to
+
+            "ctrl+c".'
+          examples:
+          - ctrl+z
+        responseTimeoutSec:
+          type: integer
+          format: int32
+          description: Timeout in seconds applied to this profile’s CLI commands run during discovery and collection.
+          examples:
+          - 15
+        commandSets:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommandSet'
+          description: 'Predefined command sets to run on network endpoints with this profile. The "UNIX" set includes the commands
+
+            "ifconfig", "netstat -ln", "hostname", and "uname -a".'
+          examples:
+          - - UNIX
+        customCommands:
+          type: array
+          items:
+            type: string
+          description: 'Additional commands to run on network endpoints with this profile. Commands should be
+
+            read-only.'
+          examples:
+          - - uptime
+            - iptables -L
+    HttpNetworkEndpointPatch:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 'A name that’s unique (ignoring case) among all of the network’s collection source names. May consist of
+
+            letters, digits, dots, hyphens, and underscores. Omit to leave this property alone.'
+          examples:
+          - my-endpoint
+        host:
+          type: string
+          description: IP address or hostname used to connect to the device. Omit to leave this property alone.
+          examples:
+          - 10.121.7.13
+        port:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 65535
+          description: 'Port used to connect to the device. The default value depends on the collection protocol: 22 for SSH, 443
+
+            for HTTPS, etc. Use `null` to clear. Omit to leave this property alone.'
+          examples:
+          - 22
+        profileId:
+          type: string
+          description: 'ID of the endpoint profile to use. Auto-detected during connectivity testing if unspecified. Use `null` to
+
+            clear. Omit to leave this property alone.'
+          examples:
+          - HTTP-4
+        credentialId:
+          type: string
+          description: 'The `id` of an HttpCredential. The type of the credential must match the HttpAuthStrategy of the endpoint’s
+
+            assigned or discovered profile (see `authType` in HttpEndpointProfileDef). Credential auto-association will
+
+            be attempted using credentials configured to allow it if this property is unspecified and collecting from
+
+            this endpoint requires this kind of credential. Use `null` to clear. Omit to leave this property alone.'
+          examples:
+          - H-5
+        disableSslValidation:
+          type: boolean
+          description: 'Whether to skip TLS validation. Can be useful for an endpoint whose certificate isn’t trusted. Not
+
+            recommended. Defaults to false. Use `null` to clear. Omit to leave this property alone.'
+          examples:
+          - false
+        collect:
+          type: boolean
+          description: 'Whether to collect from this network endpoint. Defaults to true. Use `null` to clear. Omit to leave this
+
+            property alone.'
+          examples:
+          - true
+        note:
+          type: string
+          description: 'An optional description or note about this network endpoint. Use `null` to clear. Omit to leave this
+
+            property alone.'
+          examples:
+          - Yada yada yada
+    NewCliNetworkEndpoint:
+      type: object
+      required:
+      - type
+      - name
+      - host
+      properties:
+        type:
+          type: string
+          const: CLI
+        name:
+          type: string
+          description: 'A name that’s unique (ignoring case) among all of the network’s collection source names. May consist of
+
+            letters, digits, dots, hyphens, and underscores.'
+          examples:
+          - my-endpoint
+        host:
+          type: string
+          description: IP address or hostname used to connect to the device.
+          examples:
+          - 10.121.7.13
+        port:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 65535
+          description: 'Port used to connect to the device. The default value depends on the collection protocol: 22 for SSH, 443
+
+            for HTTPS, etc.'
+          examples:
+          - 22
+        protocol:
+          type: string
+          description: The collection protocol to use. Defaults to SSH.
+          examples:
+          - SSH
+          enum:
+          - SSH
+          - TELNET
+        profileId:
+          type: string
+          description: ID of the endpoint profile to use. Auto-detected during connectivity testing if unspecified.
+          examples:
+          - CLI-7
+        credentialId:
+          type: string
+          description: 'The `id` of a CliCredential of type `LOGIN`. Credential auto-association will be attempted using credentials
+
+            configured to allow it if this property is unspecified and collecting from this endpoint requires this kind
+
+            of credential.'
+          examples:
+          - L-3
+        jumpServerId:
+          type: string
+          description: The `id` of the JumpServer that should be used to collect from this device.
+          examples:
+          - J-0
+        fullCollectionLog:
+          type: boolean
+          description: Enables more detailed logging during collection. Defaults to false.
+          examples:
+          - false
+        largeRtt:
+          type: boolean
+          description: Whether the device has a large round-trip time (requires a longer response timeout).
+          examples:
+          - false
+        collect:
+          type: boolean
+          description: Whether to collect from this network endpoint. Defaults to true.
+          examples:
+          - true
+        note:
+          type: string
+          description: An optional description or note about this network endpoint.
+          examples:
+          - Yada yada yada
+    HttpEndpointProfile:
+      allOf:
+      - type: object
+        required:
+        - id
+        properties:
+          id:
+            type: string
+            description: System-assigned identifier of this endpoint profile. Always begins with "HTTP-".
+            examples:
+            - HTTP-4
+      - $ref: '#/components/schemas/HttpEndpointProfileDef'
+    CliNetworkEndpoint:
+      allOf:
+      - type: object
+        required:
+        - type
+        - name
+        - host
+        properties:
+          type:
+            type: string
+            const: CLI
+          name:
+            type: string
+            description: 'A name that’s unique (ignoring case) among all of the network’s collection source names. May consist of
+
+              letters, digits, dots, hyphens, and underscores.'
+            examples:
+            - my-endpoint
+          host:
+            type: string
+            description: IP address or hostname used to connect to the device.
+            examples:
+            - 10.121.7.13
+          port:
+            type: integer
+            format: int32
+            minimum: 1
+            maximum: 65535
+            description: 'Port used to connect to the device. The default value depends on the collection protocol: 22 for SSH, 443
+
+              for HTTPS, etc.'
+            examples:
+            - 22
+          protocol:
+            type: string
+            description: The collection protocol to use. Defaults to SSH.
+            examples:
+            - SSH
+            enum:
+            - SSH
+            - TELNET
+          profileId:
+            type: string
+            description: ID of the endpoint profile to use. Auto-detected during connectivity testing if unspecified.
+            examples:
+            - CLI-7
+          credentialId:
+            type: string
+            description: 'The `id` of a CliCredential of type `LOGIN`. Credential auto-association will be attempted using credentials
+
+              configured to allow it if this property is unspecified and collecting from this endpoint requires this kind
+
+              of credential.'
+            examples:
+            - L-3
+          jumpServerId:
+            type: string
+            description: The `id` of the JumpServer that should be used to collect from this device.
+            examples:
+            - J-0
+          fullCollectionLog:
+            type: boolean
+            description: Enables more detailed logging during collection. Defaults to false.
+            examples:
+            - false
+          largeRtt:
+            type: boolean
+            description: Whether the device has a large round-trip time (requires a longer response timeout).
+            examples:
+            - false
+          collect:
+            type: boolean
+            description: Whether to collect from this network endpoint. Defaults to true.
+            examples:
+            - true
+          note:
+            type: string
+            description: An optional description or note about this network endpoint.
+            examples:
+            - Yada yada yada
+      - $ref: '#/components/schemas/Attribution'
     SnmpEndpointProfilePatch:
       type: object
       properties:
@@ -718,6 +1083,104 @@ components:
               oid: 1.3.6.1.2.1.1.1
             - name: hostname
               oid: 1.3.6.1.2.1.1.5
+    CliEndpointProfile:
+      allOf:
+      - type: object
+        required:
+        - id
+        properties:
+          id:
+            type: string
+            description: System-assigned identifier of this endpoint profile. Always begins with "CLI-".
+            examples:
+            - CLI-7
+      - $ref: '#/components/schemas/CliEndpointProfileDef'
+    CliNetworkEndpointPatch:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 'A name that’s unique (ignoring case) among all of the network’s collection source names. May consist of
+
+            letters, digits, dots, hyphens, and underscores. Omit to leave this property alone.'
+          examples:
+          - my-endpoint
+        host:
+          type: string
+          description: IP address or hostname used to connect to the device. Omit to leave this property alone.
+          examples:
+          - 10.121.7.13
+        port:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 65535
+          description: 'Port used to connect to the device. The default value depends on the collection protocol: 22 for SSH, 443
+
+            for HTTPS, etc. Use `null` to clear. Omit to leave this property alone.'
+          examples:
+          - 22
+        profileId:
+          type: string
+          description: 'ID of the endpoint profile to use. Auto-detected during connectivity testing if unspecified. Use `null` to
+
+            clear. Omit to leave this property alone.'
+          examples:
+          - CLI-7
+        protocol:
+          type: string
+          description: 'The collection protocol to use. Defaults to SSH. Use `null` to clear. Omit to leave this
+
+            property alone.'
+          examples:
+          - SSH
+          enum:
+          - SSH
+          - TELNET
+        credentialId:
+          type: string
+          description: 'The `id` of a CliCredential of type `LOGIN`. Credential auto-association will be attempted using credentials
+
+            configured to allow it if this property is unspecified and collecting from this endpoint requires this kind
+
+            of credential. Use `null` to clear. Omit to leave this property alone.'
+          examples:
+          - L-3
+        jumpServerId:
+          type: string
+          description: 'The `id` of the JumpServer that should be used to collect from this device. Use `null` to clear. Omit to
+
+            leave this property alone.'
+          examples:
+          - J-0
+        fullCollectionLog:
+          type: boolean
+          description: 'Enables more detailed logging during collection. Defaults to false. Use `null` to clear. Omit to leave this
+
+            property alone.'
+          examples:
+          - true
+        largeRtt:
+          type: boolean
+          description: 'Whether the device has a large round-trip time (requires a longer response timeout). Use `null` to clear.
+
+            Omit to leave this property alone.'
+          examples:
+          - false
+        collect:
+          type: boolean
+          description: 'Whether to collect from this network endpoint. Defaults to true. Use `null` to clear. Omit to leave this
+
+            property alone.'
+          examples:
+          - true
+        note:
+          type: string
+          description: 'An optional description or note about this network endpoint. Use `null` to clear. Omit to leave this
+
+            property alone.'
+          examples:
+          - Yada yada yada
     UrlCursorBasedPagination:
       type: object
       required:
@@ -753,206 +1216,6 @@ components:
           description: Maximum number of pages to collect. Defaults to 1000.
           examples:
           - 100
-    NetworkEndpoint:
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          enum:
-          - CLI
-          - SNMP
-          - HTTP
-        tags:
-          type: array
-          items:
-            type: string
-          description: Tags assigned to the endpoint. Present only if specifically requested.
-        locationId:
-          type: string
-          description: 'The `id` of the endpoint’s assigned Location (see
-
-            [Network Locations](https://docs.fwd.app/latest/api/network-locations/)). Present only if specifically requested.
-
-            Defaults to "default" (the Unassigned location).'
-          examples:
-          - atl
-        testResult:
-          $ref: '#/components/schemas/SourceConnectivityResult'
-          description: 'The endpoint’s most recent connectivity test result. Present only if specifically requested. Absent if the
-
-            endpoint’s connectivity hasn’t been tested since the last substantial edit to the endpoint.'
-      oneOf:
-      - $ref: '#/components/schemas/CliNetworkEndpoint'
-      - $ref: '#/components/schemas/SnmpNetworkEndpoint'
-      - $ref: '#/components/schemas/HttpNetworkEndpoint'
-      discriminator:
-        propertyName: type
-        mapping:
-          CLI: '#/components/schemas/CliNetworkEndpoint'
-          SNMP: '#/components/schemas/SnmpNetworkEndpoint'
-          HTTP: '#/components/schemas/HttpNetworkEndpoint'
-    EndpointProfiles:
-      type: object
-      required:
-      - profiles
-      properties:
-        profiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/EndpointProfile'
-    OffsetIncrementExpression:
-      type: object
-      required:
-      - operator
-      properties:
-        operator:
-          type: string
-          description: '"IDENTITY" means to add the number at `path` in the previous request’s response to the previous request’s
-
-            offset value. "LENGTH" means to add the length of the array at `path` in the previous request’s response to
-
-            the previous request’s offset value. "PLUS_ONE" means to simply add one to the previous request’s offset
-
-            value.'
-          examples:
-          - LENGTH
-          enum:
-          - IDENTITY
-          - LENGTH
-          - PLUS_ONE
-        path:
-          type: array
-          items:
-            type: string
-          description: 'JSON property name(s) that must be accessed, starting from the top level of the HTTP response, to reach the
-
-            value or array needed to calculate the next offset value. Required if `operator` is "IDENTITY" or "LENGTH";
-
-            absent otherwise.'
-          examples:
-          - - items
-    ConnectivityTestError:
-      type: string
-      enum:
-      - PING_FAILED
-      - PORT_REACHABILITY_FAILED
-      - UNSUPPORTED_SSH_PROTOCOL
-      - CONNECTION_FAILED
-      - PROMPT_DISCOVERY_FAILED
-      - AUTHENTICATION_FAILED
-      - TWO_FACTOR_AUTHENTICATION_FAILED
-      - KEY_EXCHANGE_FAILED
-      - UNEXPECTED_KEY_EXCHANGE_MESSAGE
-      - CERTIFICATE_CHECK_FAILED
-      - PASSWORD_EXPIRED
-      - JUMP_SERVER_PING_FAILED
-      - JUMP_SERVER_PORT_REACHABILITY_FAILED
-      - JUMP_SERVER_CONNECTION_FAILED
-      - JUMP_SERVER_AUTHENTICATION_FAILED
-      - JUMP_SERVER_KEY_EXCHANGE_FAILED
-      - JUMP_SERVER_PASSWORD_EXPIRED
-      - PROXY_SERVER_PING_FAILED
-      - PROXY_SERVER_PORT_REACHABILITY_FAILED
-      - PROXY_SERVER_CONNECTION_FAILED
-      - PROXY_SERVER_AUTHENTICATION_FAILED
-      - SERVER_FINGERPRINT_CHECK_FAILED
-      - SESSION_LIMIT_REACHED
-      - DEVICE_TYPE_MISMATCH
-      - DEVICE_TYPE_UNDETECTED
-      - SESSION_CLOSED
-      - PRIV_PASSWORD_ERROR
-      - EXPERT_PASSWORD_ERROR
-      - DEVICE_IS_CHILD_CONTEXT
-      - GUEST_MISSING_HOST_RESULTS
-      - HOST_MISSING_GUEST_RESULTS
-      - HOST_NOT_REPORTING_ANY_GUEST
-      - GUEST_NOT_REPORTING_ANY_NAME
-      - UNSUPPORTED_VERSION
-      - AVI_SHELL_AUTH_FAILED
-      - KEY_BASED_ACCESS_TO_AVI_CONTAINER_FAILED
-      - AVI_SERVICE_ENGINE_DISCOVERED
-      - AVI_VIA_LINUX_OVER_JUMP_SERVER_UNSUPPORTED
-      - AVI_CONTROLLER_WITHOUT_HEALTHY_SERVICE_ENGINES
-      - T128_CONDUCTOR_WITHOUT_HEALTHY_ROUTERS
-      - API_CALL_FAILED
-      - CHECKPOINT_MANAGER_FOUND
-      - AUTHORIZATION_FAILED
-      - INCOMPLETE_AUTHORIZATION_CHECK
-      - CUSTOM_COMMAND_AUTHORIZATION_FAILED
-      - TACACS_SESSION_EXPIRED
-      - AZURE_SUBSCRIPTION_NOT_FOUND
-      - TIMED_OUT
-      - DEVICE_IN_BAD_STATE
-      - PROJECT_VIEW_PERMISSION_MISSING
-      - UNSUPPORTED_DEVICE_TYPE
-      - LIMITED_DEVICE_SUPPORT
-      - SLOW_READ_RATE
-      - TRANSIENT_SLOW_READ_RATE_DETECTED
-      - NO_SPACE_LEFT_ON_COLLECTOR
-      - NO_SPACE_LEFT_ON_COLLECTED_DEVICE
-      - VERSA_DIRECTOR_DISCOVERED
-      - DEVICE_PROTOCOL_MISMATCH
-      - API_SERVER_FAILED_TO_RESPOND
-      - UNRESOLVABLE_HOSTNAME
-      - UNSUPPORTED_SSL_CONNECTION
-      - PASSWD_DISCOVERY_ON_INSECURE_PROTOCOL
-      - INCOMPLETE_SETUP
-      - CONFIG_COLLECTION_UNAUTHORIZED
-      - FILE_TRANSFER_FAILED
-      - VELOS_CONTROLLER_DISCOVERED
-      - CANCELED
-      - OTHER
-    Attribution:
-      type: object
-      properties:
-        createdById:
-          type: string
-          description: 'The ID of the user who created this entity, if known. *Note*: The referenced user account might no longer
-
-            exist since an administrator can delete accounts.'
-          examples:
-          - '456'
-        createdAt:
-          type: string
-          description: When this entity was created, if known.
-          examples:
-          - '2021-12-29T16:30:45.111Z'
-        createdBy:
-          type: string
-          description: 'The username of the user who created this entity, if known. Absent if the user account has been
-
-            deleted.'
-          examples:
-          - me@example.com
-        updatedById:
-          type: string
-          description: 'The ID of the user who most recently updated this entity, if known. *Note*: The referenced user account
-
-            might no longer exist since an administrator can delete accounts.'
-          examples:
-          - '789'
-        updatedAt:
-          type: string
-          description: When this entity was most recently updated, if known.
-          examples:
-          - '2024-10-27T21:44:51.345Z'
-        updatedBy:
-          type: string
-          description: 'The username of the user who most recently updated this entity, if known. Absent if the user account has
-
-            been deleted.'
-          examples:
-          - you@example.com
-    Protocol:
-      type: string
-      enum:
-      - HTTP
-      - HTTPS
-      - SSH
-      - TELNET
-      - SNMP
     SourceConnectivityResult:
       type: object
       required:
@@ -1051,6 +1314,264 @@ components:
           examples:
           - - show config
             - show interfaces status
+    DeviceNames:
+      type: object
+      properties:
+        names:
+          type: array
+          items:
+            type: string
+    NetworkEndpointsPatchRequest:
+      type: object
+      required:
+      - names
+      - update
+      properties:
+        names:
+          type: array
+          items:
+            type: string
+          description: The names of the endpoints to update
+          examples:
+          - - my-endpoint-01
+            - my-endpoint-02
+        update:
+          $ref: '#/components/schemas/NetworkEndpointsPatch'
+          description: The property updates to apply to the specified endpoints
+          examples:
+          - collect: true
+            note: null
+    ConnectivityTestError:
+      type: string
+      enum:
+      - PING_FAILED
+      - PORT_REACHABILITY_FAILED
+      - UNSUPPORTED_SSH_PROTOCOL
+      - CONNECTION_FAILED
+      - PROMPT_DISCOVERY_FAILED
+      - AUTHENTICATION_FAILED
+      - TWO_FACTOR_AUTHENTICATION_FAILED
+      - KEY_EXCHANGE_FAILED
+      - UNEXPECTED_KEY_EXCHANGE_MESSAGE
+      - CERTIFICATE_CHECK_FAILED
+      - PASSWORD_EXPIRED
+      - JUMP_SERVER_PING_FAILED
+      - JUMP_SERVER_PORT_REACHABILITY_FAILED
+      - JUMP_SERVER_CONNECTION_FAILED
+      - JUMP_SERVER_AUTHENTICATION_FAILED
+      - JUMP_SERVER_KEY_EXCHANGE_FAILED
+      - JUMP_SERVER_PASSWORD_EXPIRED
+      - PROXY_SERVER_PING_FAILED
+      - PROXY_SERVER_PORT_REACHABILITY_FAILED
+      - PROXY_SERVER_CONNECTION_FAILED
+      - PROXY_SERVER_AUTHENTICATION_FAILED
+      - SERVER_FINGERPRINT_CHECK_FAILED
+      - SESSION_LIMIT_REACHED
+      - DEVICE_TYPE_MISMATCH
+      - DEVICE_TYPE_UNDETECTED
+      - SESSION_CLOSED
+      - PRIV_PASSWORD_ERROR
+      - EXPERT_PASSWORD_ERROR
+      - DEVICE_IS_CHILD_CONTEXT
+      - GUEST_MISSING_HOST_RESULTS
+      - HOST_MISSING_GUEST_RESULTS
+      - HOST_NOT_REPORTING_ANY_GUEST
+      - GUEST_NOT_REPORTING_ANY_NAME
+      - UNSUPPORTED_VERSION
+      - AVI_SHELL_AUTH_FAILED
+      - KEY_BASED_ACCESS_TO_AVI_CONTAINER_FAILED
+      - AVI_SERVICE_ENGINE_DISCOVERED
+      - AVI_VIA_LINUX_OVER_JUMP_SERVER_UNSUPPORTED
+      - AVI_CONTROLLER_WITHOUT_HEALTHY_SERVICE_ENGINES
+      - T128_CONDUCTOR_WITHOUT_HEALTHY_ROUTERS
+      - API_CALL_FAILED
+      - CHECKPOINT_MANAGER_FOUND
+      - AUTHORIZATION_FAILED
+      - INCOMPLETE_AUTHORIZATION_CHECK
+      - CUSTOM_COMMAND_AUTHORIZATION_FAILED
+      - TACACS_SESSION_EXPIRED
+      - AZURE_SUBSCRIPTION_NOT_FOUND
+      - TIMED_OUT
+      - DEVICE_IN_BAD_STATE
+      - PROJECT_VIEW_PERMISSION_MISSING
+      - UNSUPPORTED_DEVICE_TYPE
+      - LIMITED_DEVICE_SUPPORT
+      - SLOW_READ_RATE
+      - TRANSIENT_SLOW_READ_RATE_DETECTED
+      - NO_SPACE_LEFT_ON_COLLECTOR
+      - NO_SPACE_LEFT_ON_COLLECTED_DEVICE
+      - VERSA_DIRECTOR_DISCOVERED
+      - DEVICE_PROTOCOL_MISMATCH
+      - API_SERVER_FAILED_TO_RESPOND
+      - UNRESOLVABLE_HOSTNAME
+      - UNSUPPORTED_SSL_CONNECTION
+      - PASSWD_DISCOVERY_ON_INSECURE_PROTOCOL
+      - INCOMPLETE_SETUP
+      - CONFIG_COLLECTION_UNAUTHORIZED
+      - FILE_TRANSFER_FAILED
+      - VELOS_CONTROLLER_DISCOVERED
+      - CANCELED
+      - OTHER
+    ParameterCursorBasedPagination:
+      type: object
+      required:
+      - type
+      - itemsArrayField
+      - parameterName
+      - parameterField
+      properties:
+        type:
+          type: string
+          const: PARAMETER_CURSOR
+        itemsArrayField:
+          type: array
+          items:
+            type: string
+          description: 'JSON property name(s) that must be accessed, starting from the top level of the HTTP response, to reach the
+
+            paginated data array.'
+          examples:
+          - - items
+        parameterName:
+          type: string
+          description: 'The name of the URL query parameter to populate with the cursor value from the previous
+
+            response.'
+          examples:
+          - pagingCursor
+        parameterField:
+          type: array
+          items:
+            type: string
+          description: 'JSON property name(s) that must be accessed, starting from the top level of the HTTP response, to reach the
+
+            next page’s cursor value.'
+          examples:
+          - - pagingInfo
+            - nextPageCursor
+        maxPages:
+          type: integer
+          format: int32
+          description: Maximum number of pages to collect. Defaults to 1000.
+          examples:
+          - 100
+    EndpointProfiles:
+      type: object
+      required:
+      - profiles
+      properties:
+        profiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/EndpointProfile'
+    NewSnmpNetworkEndpoint:
+      type: object
+      required:
+      - type
+      - name
+      - host
+      properties:
+        type:
+          type: string
+          const: SNMP
+        name:
+          type: string
+          description: 'A name that’s unique (ignoring case) among all of the network’s collection source names. May consist of
+
+            letters, digits, dots, hyphens, and underscores.'
+          examples:
+          - my-endpoint
+        host:
+          type: string
+          description: IP address or hostname used to connect to the device.
+          examples:
+          - 10.121.7.13
+        port:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 65535
+          description: 'Port used to connect to the device. The default value depends on the collection protocol: 22 for SSH, 443
+
+            for HTTPS, etc.'
+          examples:
+          - 22
+        profileId:
+          type: string
+          description: ID of the endpoint profile to use. Auto-detected during connectivity testing if unspecified.
+          examples:
+          - SNMP-5
+        credentialId:
+          type: string
+          description: 'The `id` of an SnmpCredential. Credential auto-association will be attempted using credentials configured to
+
+            allow it if this property is unspecified and collecting from this endpoint requires this kind of credential.'
+          examples:
+          - S-1
+        fullCollectionLog:
+          type: boolean
+          description: Enables more detailed logging during collection. Defaults to false.
+          examples:
+          - false
+        collect:
+          type: boolean
+          description: Whether to collect from this network endpoint. Defaults to true.
+          examples:
+          - true
+        note:
+          type: string
+          description: An optional description or note about this network endpoint.
+          examples:
+          - Yada yada yada
+    Attribution:
+      type: object
+      properties:
+        createdById:
+          type: string
+          description: 'The ID of the user who created this entity, if known. *Note*: The referenced user account might no longer
+
+            exist since an administrator can delete accounts.'
+          examples:
+          - '456'
+        createdAt:
+          type: string
+          description: When this entity was created, if known.
+          examples:
+          - '2021-12-29T16:30:45.111Z'
+        createdBy:
+          type: string
+          description: 'The username of the user who created this entity, if known. Absent if the user account has been
+
+            deleted.'
+          examples:
+          - me@example.com
+        updatedById:
+          type: string
+          description: 'The ID of the user who most recently updated this entity, if known. *Note*: The referenced user account
+
+            might no longer exist since an administrator can delete accounts.'
+          examples:
+          - '789'
+        updatedAt:
+          type: string
+          description: When this entity was most recently updated, if known.
+          examples:
+          - '2024-10-27T21:44:51.345Z'
+        updatedBy:
+          type: string
+          description: 'The username of the user who most recently updated this entity, if known. Absent if the user account has
+
+            been deleted.'
+          examples:
+          - you@example.com
+    Protocol:
+      type: string
+      enum:
+      - HTTP
+      - HTTPS
+      - SSH
+      - TELNET
+      - SNMP
     HttpNetworkEndpoint:
       allOf:
       - type: object
@@ -1118,26 +1639,497 @@ components:
             examples:
             - Yada yada yada
       - $ref: '#/components/schemas/Attribution'
-    NetworkEndpointsPatchRequest:
+    SnmpNetworkEndpoint:
+      allOf:
+      - type: object
+        required:
+        - type
+        - name
+        - host
+        properties:
+          type:
+            type: string
+            const: SNMP
+          name:
+            type: string
+            description: 'A name that’s unique (ignoring case) among all of the network’s collection source names. May consist of
+
+              letters, digits, dots, hyphens, and underscores.'
+            examples:
+            - my-endpoint
+          host:
+            type: string
+            description: IP address or hostname used to connect to the device.
+            examples:
+            - 10.121.7.13
+          port:
+            type: integer
+            format: int32
+            minimum: 1
+            maximum: 65535
+            description: 'Port used to connect to the device. The default value depends on the collection protocol: 22 for SSH, 443
+
+              for HTTPS, etc.'
+            examples:
+            - 22
+          profileId:
+            type: string
+            description: ID of the endpoint profile to use. Auto-detected during connectivity testing if unspecified.
+            examples:
+            - SNMP-5
+          credentialId:
+            type: string
+            description: 'The `id` of an SnmpCredential. Credential auto-association will be attempted using credentials configured to
+
+              allow it if this property is unspecified and collecting from this endpoint requires this kind of credential.'
+            examples:
+            - S-1
+          fullCollectionLog:
+            type: boolean
+            description: Enables more detailed logging during collection. Defaults to false.
+            examples:
+            - false
+          collect:
+            type: boolean
+            description: Whether to collect from this network endpoint. Defaults to true.
+            examples:
+            - true
+          note:
+            type: string
+            description: An optional description or note about this network endpoint.
+            examples:
+            - Yada yada yada
+      - $ref: '#/components/schemas/Attribution'
+    ConnectionType:
+      type: string
+      enum:
+      - CLI
+      - SNMP
+      - HTTP
+    NetworkEndpoints:
       type: object
       required:
-      - names
-      - update
+      - endpoints
       properties:
-        names:
+        endpoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/NetworkEndpoint'
+    HttpAuthStrategy:
+      type: string
+      enum:
+      - NONE
+      - BASIC_AUTH
+    NewHttpNetworkEndpoint:
+      type: object
+      required:
+      - type
+      - name
+      - host
+      properties:
+        type:
+          type: string
+          const: HTTP
+        name:
+          type: string
+          description: 'A name that’s unique (ignoring case) among all of the network’s collection source names. May consist of
+
+            letters, digits, dots, hyphens, and underscores.'
+          examples:
+          - my-endpoint
+        host:
+          type: string
+          description: IP address or hostname used to connect to the device.
+          examples:
+          - 10.121.7.13
+        port:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 65535
+          description: 'Port used to connect to the device. The default value depends on the collection protocol: 22 for SSH, 443
+
+            for HTTPS, etc.'
+          examples:
+          - 22
+        profileId:
+          type: string
+          description: ID of the endpoint profile to use. Auto-detected during connectivity testing if unspecified.
+          examples:
+          - HTTP-4
+        credentialId:
+          type: string
+          description: 'The `id` of an HttpCredential. The type of the credential must match the HttpAuthStrategy of the endpoint’s
+
+            assigned or discovered profile (see `authType` in HttpEndpointProfileDef). Credential auto-association will
+
+            be attempted using credentials configured to allow it if this property is unspecified and collecting from
+
+            this endpoint requires this kind of credential.'
+          examples:
+          - H-5
+        disableSslValidation:
+          type: boolean
+          description: 'Whether to skip TLS validation. Can be useful for an endpoint whose certificate isn’t trusted. Not
+
+            recommended. Defaults to false.'
+          examples:
+          - false
+        collect:
+          type: boolean
+          description: Whether to collect from this network endpoint. Defaults to true.
+          examples:
+          - true
+        note:
+          type: string
+          description: An optional description or note about this network endpoint.
+          examples:
+          - Yada yada yada
+    SnmpNetworkEndpointPatch:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 'A name that’s unique (ignoring case) among all of the network’s collection source names. May consist of
+
+            letters, digits, dots, hyphens, and underscores. Omit to leave this property alone.'
+          examples:
+          - my-endpoint
+        host:
+          type: string
+          description: IP address or hostname used to connect to the device. Omit to leave this property alone.
+          examples:
+          - 10.121.7.13
+        port:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 65535
+          description: 'Port used to connect to the device. The default value depends on the collection protocol: 22 for SSH, 443
+
+            for HTTPS, etc. Use `null` to clear. Omit to leave this property alone.'
+          examples:
+          - 22
+        profileId:
+          type: string
+          description: 'ID of the endpoint profile to use. Auto-detected during connectivity testing if unspecified. Use `null` to
+
+            clear. Omit to leave this property alone.'
+          examples:
+          - SNMP-5
+        credentialId:
+          type: string
+          description: 'The `id` of an SnmpCredential. Credential auto-association will be attempted using credentials configured to
+
+            allow it if this property is unspecified and collecting from this endpoint requires this kind of credential.
+
+            Use `null` to clear. Omit to leave this property alone.'
+          examples:
+          - S-1
+        collect:
+          type: boolean
+          description: 'Whether to collect from this network endpoint. Defaults to true. Use `null` to clear. Omit to leave this
+
+            property alone.'
+          examples:
+          - true
+        note:
+          type: string
+          description: 'An optional description or note about this network endpoint. Use `null` to clear. Omit to leave this
+
+            property alone.'
+          examples:
+          - Yada yada yada
+    CustomOid:
+      type: object
+      required:
+      - name
+      - oid
+      properties:
+        name:
+          type: string
+          description: 'A concise name for the OID’s value. Used in the name of the file the Collector creates when it retrieves the
+
+            OID’s value from a device. Can contain only letters, digits, underscores, and hyphens.'
+          examples:
+          - system_desc
+        oid:
+          type: string
+          description: 'A numeric object identifier (OID) from the Management Information Base (MIB) for the Simple Network
+
+            Management Protocol (SNMP).'
+          examples:
+          - 1.3.6.1.2.1.1.1
+    OffsetBasedPagination:
+      type: object
+      required:
+      - type
+      - itemsArrayField
+      - parameterName
+      - offsetIncrementExpression
+      properties:
+        type:
+          type: string
+          const: OFFSET
+        itemsArrayField:
           type: array
           items:
             type: string
-          description: The names of the endpoints to update
+          description: 'JSON property name(s) that must be accessed, starting from the top level of the HTTP response, to reach the
+
+            paginated data array.'
           examples:
-          - - my-endpoint-01
-            - my-endpoint-02
-        update:
-          $ref: '#/components/schemas/NetworkEndpointsPatch'
-          description: The property updates to apply to the specified endpoints
+          - - items
+        parameterName:
+          type: string
+          description: 'The name of the URL query parameter to populate with the offset value that increases with each
+
+            request.'
           examples:
-          - collect: true
-            note: null
+          - skip
+        offsetIncrementExpression:
+          $ref: '#/components/schemas/OffsetIncrementExpression'
+          description: 'What to add to the previous request’s offset value to get the next request’s offset value. The first
+
+            request’s offset value is always zero.'
+          examples:
+          - operator: LENGTH
+            path:
+            - items
+        maxPages:
+          type: integer
+          format: int32
+          description: Maximum number of pages to collect. Defaults to 1000.
+          examples:
+          - 100
+    OffsetIncrementExpression:
+      type: object
+      required:
+      - operator
+      properties:
+        operator:
+          type: string
+          description: '"IDENTITY" means to add the number at `path` in the previous request’s response to the previous request’s
+
+            offset value. "LENGTH" means to add the length of the array at `path` in the previous request’s response to
+
+            the previous request’s offset value. "PLUS_ONE" means to simply add one to the previous request’s offset
+
+            value.'
+          examples:
+          - LENGTH
+          enum:
+          - IDENTITY
+          - LENGTH
+          - PLUS_ONE
+        path:
+          type: array
+          items:
+            type: string
+          description: 'JSON property name(s) that must be accessed, starting from the top level of the HTTP response, to reach the
+
+            value or array needed to calculate the next offset value. Required if `operator` is "IDENTITY" or "LENGTH";
+
+            absent otherwise.'
+          examples:
+          - - items
+    HttpEndpointProfileDef:
+      type: object
+      required:
+      - type
+      - name
+      - https
+      - authType
+      - endpoints
+      properties:
+        type:
+          type: string
+          const: HTTP
+        name:
+          type: string
+          description: Name of this profile ("HpPrinter", "SamsungTV", etc.)
+          examples:
+          - nsxt_https
+        https:
+          type: boolean
+          description: Whether to use HTTPS to connect rather than HTTP.
+          examples:
+          - true
+        authType:
+          $ref: '#/components/schemas/HttpAuthStrategy'
+          description: The type of HTTP authentication that devices of this type require for API requests.
+          examples:
+          - BASIC_AUTH
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: 'HTTP headers to send in API requests to devices of this type. These headers should not contain sensitive
+
+            data. Authentication should be handled separately if required using credentials assigned or discovered on a
+
+            per-device basis. Use `authType` to specify what type of HTTP authentication this device type requires.'
+          examples:
+          - accept: application/json
+        detectorUri:
+          type: string
+          description: 'HTTP GET URI (path and optional query string) used to detect whether a device of unknown type is this kind
+
+            of network endpoint. If absent, the profile can be manually assigned to a network endpoint, but not
+
+            auto-detected.'
+          examples:
+          - /login.jsp
+        detectorPatterns:
+          type: array
+          items:
+            type: string
+          description: 'Case-insensitive glob patterns used on the response of a request to `detectorUri` to determine whether a
+
+            device of unknown type is of this type. Absent if `detectorUri` is absent. Never empty.'
+          examples:
+          - - VMware NSX
+        endpoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/HttpEndpoint'
+          description: HTTP GET endpoints to collect from network endpoints with this profile. Never empty.
+          examples:
+          - - name: compute_managers
+              path: /api/v1/fabric/compute-managers
+            - name: logical_router_ports
+              path: /api/v1/logical-router-ports
+              paginationModel:
+                type: OFFSET
+                itemsArrayField: ports
+                parameterName: page
+                offsetIncrementExpression:
+                  operator: PLUS_ONE
+    NetworkEndpoint:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - CLI
+          - SNMP
+          - HTTP
+        tags:
+          type: array
+          items:
+            type: string
+          description: Tags assigned to the endpoint. Present only if specifically requested.
+        locationId:
+          type: string
+          description: 'The `id` of the endpoint’s assigned Location (see
+
+            [Network Locations](https://docs.fwd.app/latest/api/network-locations/)). Present only if specifically requested.
+
+            Defaults to "default" (the Unassigned location).'
+          examples:
+          - atl
+        testResult:
+          $ref: '#/components/schemas/SourceConnectivityResult'
+          description: 'The endpoint’s most recent connectivity test result. Present only if specifically requested. Absent if the
+
+            endpoint’s connectivity hasn’t been tested since the last substantial edit to the endpoint.'
+      oneOf:
+      - $ref: '#/components/schemas/CliNetworkEndpoint'
+      - $ref: '#/components/schemas/SnmpNetworkEndpoint'
+      - $ref: '#/components/schemas/HttpNetworkEndpoint'
+      discriminator:
+        propertyName: type
+        mapping:
+          CLI: '#/components/schemas/CliNetworkEndpoint'
+          SNMP: '#/components/schemas/SnmpNetworkEndpoint'
+          HTTP: '#/components/schemas/HttpNetworkEndpoint'
+    HttpEndpointProfilePatch:
+      type: object
+      properties:
+        authType:
+          $ref: '#/components/schemas/HttpAuthStrategy'
+          description: 'The type of HTTP authentication that devices of this type require for API requests. Omit to leave this
+
+            property alone.'
+          examples:
+          - BASIC_AUTH
+        detectorPatterns:
+          type: array
+          items:
+            type: string
+          description: 'Case-insensitive glob patterns used on the response of a request to `detectorUri` to determine whether a
+
+            device of unknown type is of this type. Absent if `detectorUri` is absent. Never empty. Use `null` to clear.
+
+            Omit to leave this property alone.'
+          examples:
+          - - VMware NSX
+        detectorUri:
+          type: string
+          description: 'HTTP GET URI (path and optional query string) used to detect whether a device of unknown type is this kind
+
+            of network endpoint. If absent, the profile can be manually assigned to a network endpoint, but not
+
+            auto-detected. Use `null` to clear. Omit to leave this property alone.'
+          examples:
+          - /login.jsp
+        endpoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/HttpEndpoint'
+          description: 'HTTP GET endpoints to collect from network endpoints with this profile. Never empty. Omit to leave this
+
+            property alone.'
+          examples:
+          - - name: compute_managers
+              path: /api/v1/fabric/compute-managers
+            - name: logical_router_ports
+              path: /api/v1/logical-router-ports
+              paginationModel:
+                type: OFFSET
+                itemsArrayField: ports
+                parameterName: page
+                offsetIncrementExpression:
+                  operator: PLUS_ONE
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: 'HTTP headers to send in API requests to devices of this type. These headers should not contain sensitive
+
+            data. Authentication should be handled separately if required using credentials assigned or discovered on a
+
+            per-device basis. Use `authType` to specify what type of HTTP authentication this device type requires. Use
+
+            `null` to clear. Omit to leave this property alone.'
+          examples:
+          - accept: application/json
+        https:
+          type: boolean
+          description: Whether to use HTTPS to connect rather than HTTP. Omit to leave this property alone.
+          examples:
+          - true
+        name:
+          type: string
+          description: Name of this profile ("HpPrinter", "SamsungTV", etc.) Omit to leave this property alone.
+          examples:
+          - nsxt_https
+    EndpointProfile:
+      allOf:
+      - type: object
+        oneOf:
+        - $ref: '#/components/schemas/CliEndpointProfile'
+        - $ref: '#/components/schemas/SnmpEndpointProfile'
+        - $ref: '#/components/schemas/HttpEndpointProfile'
+        discriminator:
+          propertyName: type
+          mapping:
+            CLI: '#/components/schemas/CliEndpointProfile'
+            SNMP: '#/components/schemas/SnmpEndpointProfile'
+            HTTP: '#/components/schemas/HttpEndpointProfile'
+      - $ref: '#/components/schemas/Attribution'
     CliEndpointProfilePatch:
       type: object
       properties:
@@ -1275,271 +2267,6 @@ components:
           examples:
           - - uptime
             - iptables -L
-    ParameterCursorBasedPagination:
-      type: object
-      required:
-      - type
-      - itemsArrayField
-      - parameterName
-      - parameterField
-      properties:
-        type:
-          type: string
-          const: PARAMETER_CURSOR
-        itemsArrayField:
-          type: array
-          items:
-            type: string
-          description: 'JSON property name(s) that must be accessed, starting from the top level of the HTTP response, to reach the
-
-            paginated data array.'
-          examples:
-          - - items
-        parameterName:
-          type: string
-          description: 'The name of the URL query parameter to populate with the cursor value from the previous
-
-            response.'
-          examples:
-          - pagingCursor
-        parameterField:
-          type: array
-          items:
-            type: string
-          description: 'JSON property name(s) that must be accessed, starting from the top level of the HTTP response, to reach the
-
-            next page’s cursor value.'
-          examples:
-          - - pagingInfo
-            - nextPageCursor
-        maxPages:
-          type: integer
-          format: int32
-          description: Maximum number of pages to collect. Defaults to 1000.
-          examples:
-          - 100
-    HttpEndpointProfileDef:
-      type: object
-      required:
-      - type
-      - name
-      - https
-      - authType
-      - endpoints
-      properties:
-        type:
-          type: string
-          const: HTTP
-        name:
-          type: string
-          description: Name of this profile ("HpPrinter", "SamsungTV", etc.)
-          examples:
-          - nsxt_https
-        https:
-          type: boolean
-          description: Whether to use HTTPS to connect rather than HTTP.
-          examples:
-          - true
-        authType:
-          $ref: '#/components/schemas/HttpAuthStrategy'
-          description: The type of HTTP authentication that devices of this type require for API requests.
-          examples:
-          - BASIC_AUTH
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-          description: 'HTTP headers to send in API requests to devices of this type. These headers should not contain sensitive
-
-            data. Authentication should be handled separately if required using credentials assigned or discovered on a
-
-            per-device basis. Use `authType` to specify what type of HTTP authentication this device type requires.'
-          examples:
-          - accept: application/json
-        detectorUri:
-          type: string
-          description: 'HTTP GET URI (path and optional query string) used to detect whether a device of unknown type is this kind
-
-            of network endpoint. If absent, the profile can be manually assigned to a network endpoint, but not
-
-            auto-detected.'
-          examples:
-          - /login.jsp
-        detectorPatterns:
-          type: array
-          items:
-            type: string
-          description: 'Case-insensitive glob patterns used on the response of a request to `detectorUri` to determine whether a
-
-            device of unknown type is of this type. Absent if `detectorUri` is absent. Never empty.'
-          examples:
-          - - VMware NSX
-        endpoints:
-          type: array
-          items:
-            $ref: '#/components/schemas/HttpEndpoint'
-          description: HTTP GET endpoints to collect from network endpoints with this profile. Never empty.
-          examples:
-          - - name: compute_managers
-              path: /api/v1/fabric/compute-managers
-            - name: logical_router_ports
-              path: /api/v1/logical-router-ports
-              paginationModel:
-                type: OFFSET
-                itemsArrayField: ports
-                parameterName: page
-                offsetIncrementExpression:
-                  operator: PLUS_ONE
-    CliNetworkEndpointPatch:
-      type: object
-      properties:
-        name:
-          type: string
-          description: 'A name that’s unique (ignoring case) among all of the network’s collection source names. May consist of
-
-            letters, digits, dots, hyphens, and underscores. Omit to leave this property alone.'
-          examples:
-          - my-endpoint
-        host:
-          type: string
-          description: IP address or hostname used to connect to the device. Omit to leave this property alone.
-          examples:
-          - 10.121.7.13
-        port:
-          type: integer
-          format: int32
-          minimum: 1
-          maximum: 65535
-          description: 'Port used to connect to the device. The default value depends on the collection protocol: 22 for SSH, 443
-
-            for HTTPS, etc. Use `null` to clear. Omit to leave this property alone.'
-          examples:
-          - 22
-        profileId:
-          type: string
-          description: 'ID of the endpoint profile to use. Auto-detected during connectivity testing if unspecified. Use `null` to
-
-            clear. Omit to leave this property alone.'
-          examples:
-          - CLI-7
-        protocol:
-          type: string
-          description: 'The collection protocol to use. Defaults to SSH. Use `null` to clear. Omit to leave this
-
-            property alone.'
-          examples:
-          - SSH
-          enum:
-          - SSH
-          - TELNET
-        credentialId:
-          type: string
-          description: 'The `id` of a CliCredential of type `LOGIN`. Credential auto-association will be attempted using credentials
-
-            configured to allow it if this property is unspecified and collecting from this endpoint requires this kind
-
-            of credential. Use `null` to clear. Omit to leave this property alone.'
-          examples:
-          - L-3
-        jumpServerId:
-          type: string
-          description: 'The `id` of the JumpServer that should be used to collect from this device. Use `null` to clear. Omit to
-
-            leave this property alone.'
-          examples:
-          - J-0
-        fullCollectionLog:
-          type: boolean
-          description: 'Enables more detailed logging during collection. Defaults to false. Use `null` to clear. Omit to leave this
-
-            property alone.'
-          examples:
-          - true
-        largeRtt:
-          type: boolean
-          description: 'Whether the device has a large round-trip time (requires a longer response timeout). Use `null` to clear.
-
-            Omit to leave this property alone.'
-          examples:
-          - false
-        collect:
-          type: boolean
-          description: 'Whether to collect from this network endpoint. Defaults to true. Use `null` to clear. Omit to leave this
-
-            property alone.'
-          examples:
-          - true
-        note:
-          type: string
-          description: 'An optional description or note about this network endpoint. Use `null` to clear. Omit to leave this
-
-            property alone.'
-          examples:
-          - Yada yada yada
-    SnmpNetworkEndpointPatch:
-      type: object
-      properties:
-        name:
-          type: string
-          description: 'A name that’s unique (ignoring case) among all of the network’s collection source names. May consist of
-
-            letters, digits, dots, hyphens, and underscores. Omit to leave this property alone.'
-          examples:
-          - my-endpoint
-        host:
-          type: string
-          description: IP address or hostname used to connect to the device. Omit to leave this property alone.
-          examples:
-          - 10.121.7.13
-        port:
-          type: integer
-          format: int32
-          minimum: 1
-          maximum: 65535
-          description: 'Port used to connect to the device. The default value depends on the collection protocol: 22 for SSH, 443
-
-            for HTTPS, etc. Use `null` to clear. Omit to leave this property alone.'
-          examples:
-          - 22
-        profileId:
-          type: string
-          description: 'ID of the endpoint profile to use. Auto-detected during connectivity testing if unspecified. Use `null` to
-
-            clear. Omit to leave this property alone.'
-          examples:
-          - SNMP-5
-        credentialId:
-          type: string
-          description: 'The `id` of an SnmpCredential. Credential auto-association will be attempted using credentials configured to
-
-            allow it if this property is unspecified and collecting from this endpoint requires this kind of credential.
-
-            Use `null` to clear. Omit to leave this property alone.'
-          examples:
-          - S-1
-        collect:
-          type: boolean
-          description: 'Whether to collect from this network endpoint. Defaults to true. Use `null` to clear. Omit to leave this
-
-            property alone.'
-          examples:
-          - true
-        note:
-          type: string
-          description: 'An optional description or note about this network endpoint. Use `null` to clear. Omit to leave this
-
-            property alone.'
-          examples:
-          - Yada yada yada
-    NetworkEndpoints:
-      type: object
-      required:
-      - endpoints
-      properties:
-        endpoints:
-          type: array
-          items:
-            $ref: '#/components/schemas/NetworkEndpoint'
     HttpEndpoint:
       type: object
       required:
@@ -1570,185 +2297,6 @@ components:
             parameterName: page
             offsetIncrementExpression:
               operator: PLUS_ONE
-    HttpEndpointProfile:
-      allOf:
-      - type: object
-        required:
-        - id
-        properties:
-          id:
-            type: string
-            description: System-assigned identifier of this endpoint profile. Always begins with "HTTP-".
-            examples:
-            - HTTP-4
-      - $ref: '#/components/schemas/HttpEndpointProfileDef'
-    HttpEndpointProfilePatch:
-      type: object
-      properties:
-        authType:
-          $ref: '#/components/schemas/HttpAuthStrategy'
-          description: 'The type of HTTP authentication that devices of this type require for API requests. Omit to leave this
-
-            property alone.'
-          examples:
-          - BASIC_AUTH
-        detectorPatterns:
-          type: array
-          items:
-            type: string
-          description: 'Case-insensitive glob patterns used on the response of a request to `detectorUri` to determine whether a
-
-            device of unknown type is of this type. Absent if `detectorUri` is absent. Never empty. Use `null` to clear.
-
-            Omit to leave this property alone.'
-          examples:
-          - - VMware NSX
-        detectorUri:
-          type: string
-          description: 'HTTP GET URI (path and optional query string) used to detect whether a device of unknown type is this kind
-
-            of network endpoint. If absent, the profile can be manually assigned to a network endpoint, but not
-
-            auto-detected. Use `null` to clear. Omit to leave this property alone.'
-          examples:
-          - /login.jsp
-        endpoints:
-          type: array
-          items:
-            $ref: '#/components/schemas/HttpEndpoint'
-          description: 'HTTP GET endpoints to collect from network endpoints with this profile. Never empty. Omit to leave this
-
-            property alone.'
-          examples:
-          - - name: compute_managers
-              path: /api/v1/fabric/compute-managers
-            - name: logical_router_ports
-              path: /api/v1/logical-router-ports
-              paginationModel:
-                type: OFFSET
-                itemsArrayField: ports
-                parameterName: page
-                offsetIncrementExpression:
-                  operator: PLUS_ONE
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-          description: 'HTTP headers to send in API requests to devices of this type. These headers should not contain sensitive
-
-            data. Authentication should be handled separately if required using credentials assigned or discovered on a
-
-            per-device basis. Use `authType` to specify what type of HTTP authentication this device type requires. Use
-
-            `null` to clear. Omit to leave this property alone.'
-          examples:
-          - accept: application/json
-        https:
-          type: boolean
-          description: Whether to use HTTPS to connect rather than HTTP. Omit to leave this property alone.
-          examples:
-          - true
-        name:
-          type: string
-          description: Name of this profile ("HpPrinter", "SamsungTV", etc.) Omit to leave this property alone.
-          examples:
-          - nsxt_https
-    NetworkEndpointsPatch:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/ConnectionType'
-          description: 'The desired connection type for the specified network endpoints. Omit to leave this property
-
-            alone.'
-          examples:
-          - CLI
-        profileId:
-          type: string
-          description: 'ID of the endpoint profile to use. Auto-detected during connectivity testing if unspecified. Use `null` to
-
-            clear. Omit to leave this property alone.'
-          examples:
-          - CLI-7
-        protocol:
-          $ref: '#/components/schemas/Protocol'
-          description: 'The collection protocol to use. Defaults to SSH. Use `null` to clear. Omit to leave this
-
-            property alone.'
-          examples:
-          - SSH
-        credentialId:
-          type: string
-          description: 'The `id` of a CliCredential of type `LOGIN`. Credential auto-association will be attempted using credentials
-
-            configured to allow it if this property is unspecified and collecting from this endpoint requires this kind
-
-            of credential. Use `null` to clear. Omit to leave this property alone.'
-          examples:
-          - L-3
-        jumpServerId:
-          type: string
-          description: 'The `id` of the JumpServer that should be used to collect from this device. Use `null` to clear. Omit to
-
-            leave this property alone.'
-          examples:
-          - J-0
-        collect:
-          type: boolean
-          description: 'Whether to collect from this network endpoint. Defaults to true. Use `null` to clear. Omit to leave this
-
-            property alone.'
-          examples:
-          - true
-        note:
-          type: string
-          description: 'An optional description or note about this network endpoint. Use `null` to clear. Omit to leave this
-
-            property alone.'
-          examples:
-          - Yada yada yada
-    OffsetBasedPagination:
-      type: object
-      required:
-      - type
-      - itemsArrayField
-      - parameterName
-      - offsetIncrementExpression
-      properties:
-        type:
-          type: string
-          const: OFFSET
-        itemsArrayField:
-          type: array
-          items:
-            type: string
-          description: 'JSON property name(s) that must be accessed, starting from the top level of the HTTP response, to reach the
-
-            paginated data array.'
-          examples:
-          - - items
-        parameterName:
-          type: string
-          description: 'The name of the URL query parameter to populate with the offset value that increases with each
-
-            request.'
-          examples:
-          - skip
-        offsetIncrementExpression:
-          $ref: '#/components/schemas/OffsetIncrementExpression'
-          description: 'What to add to the previous request’s offset value to get the next request’s offset value. The first
-
-            request’s offset value is always zero.'
-          examples:
-          - operator: LENGTH
-            path:
-            - items
-        maxPages:
-          type: integer
-          format: int32
-          description: Maximum number of pages to collect. Defaults to 1000.
-          examples:
-          - 100
     PaginationModel:
       type: object
       required:
@@ -1789,485 +2337,6 @@ components:
     OidSet:
       type: string
       const: STANDARD
-    EndpointProfile:
-      allOf:
-      - type: object
-        oneOf:
-        - $ref: '#/components/schemas/CliEndpointProfile'
-        - $ref: '#/components/schemas/SnmpEndpointProfile'
-        - $ref: '#/components/schemas/HttpEndpointProfile'
-        discriminator:
-          propertyName: type
-          mapping:
-            CLI: '#/components/schemas/CliEndpointProfile'
-            SNMP: '#/components/schemas/SnmpEndpointProfile'
-            HTTP: '#/components/schemas/HttpEndpointProfile'
-      - $ref: '#/components/schemas/Attribution'
-    SnmpEndpointProfileDef:
-      type: object
-      required:
-      - type
-      - name
-      properties:
-        type:
-          type: string
-          const: SNMP
-        name:
-          type: string
-          description: Name of this profile ("HpPrinter", "SamsungTV", etc.).
-          examples:
-          - esxi_snmp
-        detectorOid:
-          type: string
-          description: 'OID to collect to detect a network endpoint of this type. If absent, the profile can be manually assigned to
-
-            a network endpoint, but not auto-detected.'
-          examples:
-          - 1.3.6.1.2.1.1.1.0
-        detectorPatterns:
-          type: array
-          items:
-            type: string
-          description: 'Patterns matching on output of `detectorOid` to determine whether the device is of this type. Absent if
-
-            `detectorOid` is absent. Never empty.'
-          examples:
-          - - ESXi
-        nameDetectorOid:
-          type: string
-          description: 'OID to collect to detect the name of a network endpoint of this type. If absent, the name cannot be
-
-            detected.'
-          examples:
-          - 1.3.6.1.2.1.1.5
-        nameDetectorPatterns:
-          type: array
-          items:
-            type: string
-          description: 'Glob patterns used to extract the device name from the collected value for `nameDetectorOid`. The word
-
-            immediately after a matched glob pattern is the desired name. If no glob patterns are specified, the first
-
-            word/token in the `nameDetectorOid` value will be used.'
-          examples:
-          - - FQDN:*enabled
-        responseTimeoutSec:
-          type: integer
-          format: int32
-          description: 'Timeout in seconds for retrieving the value of one of this profile’s OIDs during discovery or collection.
-
-            Defaults to 5.'
-          examples:
-          - 10
-        oidSets:
-          type: array
-          items:
-            $ref: '#/components/schemas/OidSet'
-          description: 'Predefined OID sets to collect from network endpoints with this profile. The "STANDARD" set includes OIDs
-
-            for system name, system description, TCP info, UDP info, host address, and interface info.'
-          examples:
-          - - STANDARD
-        customOids:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomOid'
-          description: 'Additional OIDs to collect from network endpoints with this profile. The output of each OID is saved to a
-
-            file with the associated name.'
-          examples:
-          - - name: system_desc
-              oid: 1.3.6.1.2.1.1.1
-            - name: hostname
-              oid: 1.3.6.1.2.1.1.5
-    CommandSet:
-      type: string
-      const: UNIX
-    CustomOid:
-      type: object
-      required:
-      - name
-      - oid
-      properties:
-        name:
-          type: string
-          description: 'A concise name for the OID’s value. Used in the name of the file the Collector creates when it retrieves the
-
-            OID’s value from a device. Can contain only letters, digits, underscores, and hyphens.'
-          examples:
-          - system_desc
-        oid:
-          type: string
-          description: 'A numeric object identifier (OID) from the Management Information Base (MIB) for the Simple Network
-
-            Management Protocol (SNMP).'
-          examples:
-          - 1.3.6.1.2.1.1.1
-    ConnectionType:
-      type: string
-      enum:
-      - CLI
-      - SNMP
-      - HTTP
-    HttpNetworkEndpointPatch:
-      type: object
-      properties:
-        name:
-          type: string
-          description: 'A name that’s unique (ignoring case) among all of the network’s collection source names. May consist of
-
-            letters, digits, dots, hyphens, and underscores. Omit to leave this property alone.'
-          examples:
-          - my-endpoint
-        host:
-          type: string
-          description: IP address or hostname used to connect to the device. Omit to leave this property alone.
-          examples:
-          - 10.121.7.13
-        port:
-          type: integer
-          format: int32
-          minimum: 1
-          maximum: 65535
-          description: 'Port used to connect to the device. The default value depends on the collection protocol: 22 for SSH, 443
-
-            for HTTPS, etc. Use `null` to clear. Omit to leave this property alone.'
-          examples:
-          - 22
-        profileId:
-          type: string
-          description: 'ID of the endpoint profile to use. Auto-detected during connectivity testing if unspecified. Use `null` to
-
-            clear. Omit to leave this property alone.'
-          examples:
-          - HTTP-4
-        credentialId:
-          type: string
-          description: 'The `id` of an HttpCredential. The type of the credential must match the HttpAuthStrategy of the endpoint’s
-
-            assigned or discovered profile (see `authType` in HttpEndpointProfileDef). Credential auto-association will
-
-            be attempted using credentials configured to allow it if this property is unspecified and collecting from
-
-            this endpoint requires this kind of credential. Use `null` to clear. Omit to leave this property alone.'
-          examples:
-          - H-5
-        disableSslValidation:
-          type: boolean
-          description: 'Whether to skip TLS validation. Can be useful for an endpoint whose certificate isn’t trusted. Not
-
-            recommended. Defaults to false. Use `null` to clear. Omit to leave this property alone.'
-          examples:
-          - false
-        collect:
-          type: boolean
-          description: 'Whether to collect from this network endpoint. Defaults to true. Use `null` to clear. Omit to leave this
-
-            property alone.'
-          examples:
-          - true
-        note:
-          type: string
-          description: 'An optional description or note about this network endpoint. Use `null` to clear. Omit to leave this
-
-            property alone.'
-          examples:
-          - Yada yada yada
-    NewHttpNetworkEndpoint:
-      type: object
-      required:
-      - type
-      - name
-      - host
-      properties:
-        type:
-          type: string
-          const: HTTP
-        name:
-          type: string
-          description: 'A name that’s unique (ignoring case) among all of the network’s collection source names. May consist of
-
-            letters, digits, dots, hyphens, and underscores.'
-          examples:
-          - my-endpoint
-        host:
-          type: string
-          description: IP address or hostname used to connect to the device.
-          examples:
-          - 10.121.7.13
-        port:
-          type: integer
-          format: int32
-          minimum: 1
-          maximum: 65535
-          description: 'Port used to connect to the device. The default value depends on the collection protocol: 22 for SSH, 443
-
-            for HTTPS, etc.'
-          examples:
-          - 22
-        profileId:
-          type: string
-          description: ID of the endpoint profile to use. Auto-detected during connectivity testing if unspecified.
-          examples:
-          - HTTP-4
-        credentialId:
-          type: string
-          description: 'The `id` of an HttpCredential. The type of the credential must match the HttpAuthStrategy of the endpoint’s
-
-            assigned or discovered profile (see `authType` in HttpEndpointProfileDef). Credential auto-association will
-
-            be attempted using credentials configured to allow it if this property is unspecified and collecting from
-
-            this endpoint requires this kind of credential.'
-          examples:
-          - H-5
-        disableSslValidation:
-          type: boolean
-          description: 'Whether to skip TLS validation. Can be useful for an endpoint whose certificate isn’t trusted. Not
-
-            recommended. Defaults to false.'
-          examples:
-          - false
-        collect:
-          type: boolean
-          description: Whether to collect from this network endpoint. Defaults to true.
-          examples:
-          - true
-        note:
-          type: string
-          description: An optional description or note about this network endpoint.
-          examples:
-          - Yada yada yada
-    NewSnmpNetworkEndpoint:
-      type: object
-      required:
-      - type
-      - name
-      - host
-      properties:
-        type:
-          type: string
-          const: SNMP
-        name:
-          type: string
-          description: 'A name that’s unique (ignoring case) among all of the network’s collection source names. May consist of
-
-            letters, digits, dots, hyphens, and underscores.'
-          examples:
-          - my-endpoint
-        host:
-          type: string
-          description: IP address or hostname used to connect to the device.
-          examples:
-          - 10.121.7.13
-        port:
-          type: integer
-          format: int32
-          minimum: 1
-          maximum: 65535
-          description: 'Port used to connect to the device. The default value depends on the collection protocol: 22 for SSH, 443
-
-            for HTTPS, etc.'
-          examples:
-          - 22
-        profileId:
-          type: string
-          description: ID of the endpoint profile to use. Auto-detected during connectivity testing if unspecified.
-          examples:
-          - SNMP-5
-        credentialId:
-          type: string
-          description: 'The `id` of an SnmpCredential. Credential auto-association will be attempted using credentials configured to
-
-            allow it if this property is unspecified and collecting from this endpoint requires this kind of credential.'
-          examples:
-          - S-1
-        fullCollectionLog:
-          type: boolean
-          description: Enables more detailed logging during collection. Defaults to false.
-          examples:
-          - false
-        collect:
-          type: boolean
-          description: Whether to collect from this network endpoint. Defaults to true.
-          examples:
-          - true
-        note:
-          type: string
-          description: An optional description or note about this network endpoint.
-          examples:
-          - Yada yada yada
-    CliNetworkEndpoint:
-      allOf:
-      - type: object
-        required:
-        - type
-        - name
-        - host
-        properties:
-          type:
-            type: string
-            const: CLI
-          name:
-            type: string
-            description: 'A name that’s unique (ignoring case) among all of the network’s collection source names. May consist of
-
-              letters, digits, dots, hyphens, and underscores.'
-            examples:
-            - my-endpoint
-          host:
-            type: string
-            description: IP address or hostname used to connect to the device.
-            examples:
-            - 10.121.7.13
-          port:
-            type: integer
-            format: int32
-            minimum: 1
-            maximum: 65535
-            description: 'Port used to connect to the device. The default value depends on the collection protocol: 22 for SSH, 443
-
-              for HTTPS, etc.'
-            examples:
-            - 22
-          protocol:
-            type: string
-            description: The collection protocol to use. Defaults to SSH.
-            examples:
-            - SSH
-            enum:
-            - SSH
-            - TELNET
-          profileId:
-            type: string
-            description: ID of the endpoint profile to use. Auto-detected during connectivity testing if unspecified.
-            examples:
-            - CLI-7
-          credentialId:
-            type: string
-            description: 'The `id` of a CliCredential of type `LOGIN`. Credential auto-association will be attempted using credentials
-
-              configured to allow it if this property is unspecified and collecting from this endpoint requires this kind
-
-              of credential.'
-            examples:
-            - L-3
-          jumpServerId:
-            type: string
-            description: The `id` of the JumpServer that should be used to collect from this device.
-            examples:
-            - J-0
-          fullCollectionLog:
-            type: boolean
-            description: Enables more detailed logging during collection. Defaults to false.
-            examples:
-            - false
-          largeRtt:
-            type: boolean
-            description: Whether the device has a large round-trip time (requires a longer response timeout).
-            examples:
-            - false
-          collect:
-            type: boolean
-            description: Whether to collect from this network endpoint. Defaults to true.
-            examples:
-            - true
-          note:
-            type: string
-            description: An optional description or note about this network endpoint.
-            examples:
-            - Yada yada yada
-      - $ref: '#/components/schemas/Attribution'
-    CliEndpointProfile:
-      allOf:
-      - type: object
-        required:
-        - id
-        properties:
-          id:
-            type: string
-            description: System-assigned identifier of this endpoint profile. Always begins with "CLI-".
-            examples:
-            - CLI-7
-      - $ref: '#/components/schemas/CliEndpointProfileDef'
-    SnmpEndpointProfile:
-      allOf:
-      - type: object
-        required:
-        - id
-        properties:
-          id:
-            type: string
-            description: System-assigned identifier of this endpoint profile. Always begins with "SNMP-".
-            examples:
-            - SNMP-5
-      - $ref: '#/components/schemas/SnmpEndpointProfileDef'
-    HttpAuthStrategy:
-      type: string
-      enum:
-      - NONE
-      - BASIC_AUTH
-    SnmpNetworkEndpoint:
-      allOf:
-      - type: object
-        required:
-        - type
-        - name
-        - host
-        properties:
-          type:
-            type: string
-            const: SNMP
-          name:
-            type: string
-            description: 'A name that’s unique (ignoring case) among all of the network’s collection source names. May consist of
-
-              letters, digits, dots, hyphens, and underscores.'
-            examples:
-            - my-endpoint
-          host:
-            type: string
-            description: IP address or hostname used to connect to the device.
-            examples:
-            - 10.121.7.13
-          port:
-            type: integer
-            format: int32
-            minimum: 1
-            maximum: 65535
-            description: 'Port used to connect to the device. The default value depends on the collection protocol: 22 for SSH, 443
-
-              for HTTPS, etc.'
-            examples:
-            - 22
-          profileId:
-            type: string
-            description: ID of the endpoint profile to use. Auto-detected during connectivity testing if unspecified.
-            examples:
-            - SNMP-5
-          credentialId:
-            type: string
-            description: 'The `id` of an SnmpCredential. Credential auto-association will be attempted using credentials configured to
-
-              allow it if this property is unspecified and collecting from this endpoint requires this kind of credential.'
-            examples:
-            - S-1
-          fullCollectionLog:
-            type: boolean
-            description: Enables more detailed logging during collection. Defaults to false.
-            examples:
-            - false
-          collect:
-            type: boolean
-            description: Whether to collect from this network endpoint. Defaults to true.
-            examples:
-            - true
-          note:
-            type: string
-            description: An optional description or note about this network endpoint.
-            examples:
-            - Yada yada yada
-      - $ref: '#/components/schemas/Attribution'
     ClassicDeviceType:
       type: string
       enum:
@@ -2365,93 +2434,76 @@ components:
       - gem1_api
       - taclane_encryptor_snmp
       - sonic_edge_core_ssh
-    DeviceNames:
-      type: object
-      properties:
-        names:
-          type: array
-          items:
+    SnmpEndpointProfile:
+      allOf:
+      - type: object
+        required:
+        - id
+        properties:
+          id:
             type: string
-    NewCliNetworkEndpoint:
+            description: System-assigned identifier of this endpoint profile. Always begins with "SNMP-".
+            examples:
+            - SNMP-5
+      - $ref: '#/components/schemas/SnmpEndpointProfileDef'
+    NetworkEndpointsPatch:
       type: object
-      required:
-      - type
-      - name
-      - host
       properties:
         type:
-          type: string
-          const: CLI
-        name:
-          type: string
-          description: 'A name that’s unique (ignoring case) among all of the network’s collection source names. May consist of
+          $ref: '#/components/schemas/ConnectionType'
+          description: 'The desired connection type for the specified network endpoints. Omit to leave this property
 
-            letters, digits, dots, hyphens, and underscores.'
+            alone.'
           examples:
-          - my-endpoint
-        host:
-          type: string
-          description: IP address or hostname used to connect to the device.
-          examples:
-          - 10.121.7.13
-        port:
-          type: integer
-          format: int32
-          minimum: 1
-          maximum: 65535
-          description: 'Port used to connect to the device. The default value depends on the collection protocol: 22 for SSH, 443
-
-            for HTTPS, etc.'
-          examples:
-          - 22
-        protocol:
-          type: string
-          description: The collection protocol to use. Defaults to SSH.
-          examples:
-          - SSH
-          enum:
-          - SSH
-          - TELNET
+          - CLI
         profileId:
           type: string
-          description: ID of the endpoint profile to use. Auto-detected during connectivity testing if unspecified.
+          description: 'ID of the endpoint profile to use. Auto-detected during connectivity testing if unspecified. Use `null` to
+
+            clear. Omit to leave this property alone.'
           examples:
           - CLI-7
+        protocol:
+          $ref: '#/components/schemas/Protocol'
+          description: 'The collection protocol to use. Defaults to SSH. Use `null` to clear. Omit to leave this
+
+            property alone.'
+          examples:
+          - SSH
         credentialId:
           type: string
           description: 'The `id` of a CliCredential of type `LOGIN`. Credential auto-association will be attempted using credentials
 
             configured to allow it if this property is unspecified and collecting from this endpoint requires this kind
 
-            of credential.'
+            of credential. Use `null` to clear. Omit to leave this property alone.'
           examples:
           - L-3
         jumpServerId:
           type: string
-          description: The `id` of the JumpServer that should be used to collect from this device.
+          description: 'The `id` of the JumpServer that should be used to collect from this device. Use `null` to clear. Omit to
+
+            leave this property alone.'
           examples:
           - J-0
-        fullCollectionLog:
-          type: boolean
-          description: Enables more detailed logging during collection. Defaults to false.
-          examples:
-          - false
-        largeRtt:
-          type: boolean
-          description: Whether the device has a large round-trip time (requires a longer response timeout).
-          examples:
-          - false
         collect:
           type: boolean
-          description: Whether to collect from this network endpoint. Defaults to true.
+          description: 'Whether to collect from this network endpoint. Defaults to true. Use `null` to clear. Omit to leave this
+
+            property alone.'
           examples:
           - true
         note:
           type: string
-          description: An optional description or note about this network endpoint.
+          description: 'An optional description or note about this network endpoint. Use `null` to clear. Omit to leave this
+
+            property alone.'
           examples:
           - Yada yada yada
-    CliEndpointProfileDef:
+    CommandSet:
+      type: string
+      const: UNIX
+    SnmpEndpointProfileDef:
       type: object
       required:
       - type
@@ -2459,127 +2511,75 @@ components:
       properties:
         type:
           type: string
-          const: CLI
+          const: SNMP
         name:
           type: string
           description: Name of this profile ("HpPrinter", "SamsungTV", etc.).
           examples:
-          - sentry_pdu_ssh
-        detectorCommand:
+          - esxi_snmp
+        detectorOid:
           type: string
-          description: 'CLI command to run to detect a network endpoint of this type. If absent, the profile can be manually
+          description: 'OID to collect to detect a network endpoint of this type. If absent, the profile can be manually assigned to
 
-            assigned to a network endpoint, but not auto-detected.'
+            a network endpoint, but not auto-detected.'
           examples:
-          - version
+          - 1.3.6.1.2.1.1.1.0
         detectorPatterns:
           type: array
           items:
             type: string
-          description: 'Patterns matching on output of `detectorCommand` to determine whether the device is of this type. Absent if
+          description: 'Patterns matching on output of `detectorOid` to determine whether the device is of this type. Absent if
 
-            `detectorCommand` is absent. Never empty.'
+            `detectorOid` is absent. Never empty.'
           examples:
-          - - Sentry Switched PDU
-        detectorErrorPatterns:
-          type: array
-          items:
-            type: string
-          description: Patterns matching an error message if a device doesn’t recognize `detectorCommand`.
-          examples:
-          - - Invalid command
-            - 'Switched PDU commands:'
-        nameDetectorCommand:
+          - - ESXi
+        nameDetectorOid:
           type: string
-          description: 'Command to use to detect the name of a network endpoint of this type. If absent, the name cannot be
+          description: 'OID to collect to detect the name of a network endpoint of this type. If absent, the name cannot be
 
             detected.'
           examples:
-          - show network
+          - 1.3.6.1.2.1.1.5
         nameDetectorPatterns:
           type: array
           items:
             type: string
-          description: 'Glob patterns used to extract the device name from the output of `nameDetectorCommand`. The word immediately
+          description: 'Glob patterns used to extract the device name from the collected value for `nameDetectorOid`. The word
 
-            after a matched glob pattern is the desired name. If no glob patterns are specified, the first word/token in
+            immediately after a matched glob pattern is the desired name. If no glob patterns are specified, the first
 
-            the `nameDetectorCommand` output will be used.'
+            word/token in the `nameDetectorOid` value will be used.'
           examples:
           - - FQDN:*enabled
-        prompt:
-          type: string
-          description: 'A case-insensitive glob pattern used to identify an interactive console menu prompt. When this pattern
-
-            matches the end of the prompt, ignoring any trailing whitespace, the Collector will enter the configured
-
-            `promptResponse`.'
-          examples:
-          - y/n
-        promptResponse:
-          type: string
-          description: 'What the Collector should enter in response to an interactive console menu prompt matching `prompt` in order
-
-            to proceed. Required if `prompt` is set.'
-          examples:
-          - y
-        pagePrompt:
-          type: string
-          description: 'Case-insensitive glob pattern used to identify a new page banner. Works like `prompt`. If the device doesn’t
-
-            generate paginated command output or if paging is like the “more” command, omit this property.'
-          examples:
-          - continue\?
-        pagePromptResponse:
-          type: string
-          description: 'What the Collector should enter in response to an interactive pagination prompt detected via `pagePrompt` in
-
-            order to proceed. Required if `pagePrompt` is set.'
-          examples:
-          - c
-        ptyType:
-          type: string
-          description: Device’s terminal type ("xterm-256color", "vt100", etc.).
-          examples:
-          - vt100
-        ptyColumnSize:
-          type: integer
-          format: int32
-          description: Column size of the output. Defaults to 500.
-          examples:
-          - 240
-        clearPrompt:
-          type: string
-          description: 'Command to clear the prompt. Can be specified like "ctrl-[a-z]" or "ctrl+[a-z]". Defaults to
-
-            "ctrl+c".'
-          examples:
-          - ctrl+z
         responseTimeoutSec:
           type: integer
           format: int32
-          description: Timeout in seconds applied to this profile’s CLI commands run during discovery and collection.
+          description: 'Timeout in seconds for retrieving the value of one of this profile’s OIDs during discovery or collection.
+
+            Defaults to 5.'
           examples:
-          - 15
-        commandSets:
+          - 10
+        oidSets:
           type: array
           items:
-            $ref: '#/components/schemas/CommandSet'
-          description: 'Predefined command sets to run on network endpoints with this profile. The "UNIX" set includes the commands
+            $ref: '#/components/schemas/OidSet'
+          description: 'Predefined OID sets to collect from network endpoints with this profile. The "STANDARD" set includes OIDs
 
-            "ifconfig", "netstat -ln", "hostname", and "uname -a".'
+            for system name, system description, TCP info, UDP info, host address, and interface info.'
           examples:
-          - - UNIX
-        customCommands:
+          - - STANDARD
+        customOids:
           type: array
           items:
-            type: string
-          description: 'Additional commands to run on network endpoints with this profile. Commands should be
+            $ref: '#/components/schemas/CustomOid'
+          description: 'Additional OIDs to collect from network endpoints with this profile. The output of each OID is saved to a
 
-            read-only.'
+            file with the associated name.'
           examples:
-          - - uptime
-            - iptables -L
+          - - name: system_desc
+              oid: 1.3.6.1.2.1.1.1
+            - name: hostname
+              oid: 1.3.6.1.2.1.1.5
   securitySchemes:
     api_token:
       type: http

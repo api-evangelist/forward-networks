@@ -499,6 +499,59 @@ paths:
       - api_token: []
 components:
   schemas:
+    DeviceTagWithDevices:
+      allOf:
+      - $ref: '#/components/schemas/DeviceTag'
+      - type: object
+        properties:
+          devices:
+            type: array
+            items:
+              type: string
+            description: The names of network devices and/or endpoints associated with this tag.
+            examples:
+            - - atl-edge-fw01
+              - ny-edge-fw2
+    DevicesAndTags:
+      type: object
+      properties:
+        devices:
+          type: array
+          items:
+            type: string
+          examples:
+          - - atl-edge-fw01
+            - ny-edge-fw2
+        tags:
+          type: array
+          items:
+            type: string
+          examples:
+          - - SEC
+    DeviceTags:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceTag'
+    DeviceTagsWithDevices:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceTagWithDevices'
+    DeviceSet:
+      type: object
+      properties:
+        devices:
+          type: array
+          items:
+            type: string
+          examples:
+          - - atl-edge-fw01
+            - ny-edge-fw2
     DeviceTagPatch:
       type: object
       properties:
@@ -527,59 +580,6 @@ components:
           description: The device tag’s color in RGB hex format. Used in network topology diagrams if specified.
           examples:
           - '#0064a0'
-    DeviceTagsWithDevices:
-      type: object
-      properties:
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceTagWithDevices'
-    DevicesAndTags:
-      type: object
-      properties:
-        devices:
-          type: array
-          items:
-            type: string
-          examples:
-          - - atl-edge-fw01
-            - ny-edge-fw2
-        tags:
-          type: array
-          items:
-            type: string
-          examples:
-          - - SEC
-    DeviceSet:
-      type: object
-      properties:
-        devices:
-          type: array
-          items:
-            type: string
-          examples:
-          - - atl-edge-fw01
-            - ny-edge-fw2
-    DeviceTags:
-      type: object
-      properties:
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceTag'
-    DeviceTagWithDevices:
-      allOf:
-      - $ref: '#/components/schemas/DeviceTag'
-      - type: object
-        properties:
-          devices:
-            type: array
-            items:
-              type: string
-            description: The names of network devices and/or endpoints associated with this tag.
-            examples:
-            - - atl-edge-fw01
-              - ny-edge-fw2
   securitySchemes:
     api_token:
       type: http

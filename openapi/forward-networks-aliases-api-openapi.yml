@@ -193,6 +193,49 @@ paths:
       - api_token: []
 components:
   schemas:
+    ErrorInfo:
+      type: object
+      required:
+      - httpMethod
+      - apiUrl
+      - message
+      properties:
+        httpMethod:
+          type: string
+          examples:
+          - GET
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+        apiUrl:
+          type: string
+          examples:
+          - /api/version
+        message:
+          type: string
+          description: A description of the error
+        reason:
+          type: string
+    TrafficAliasBuilder:
+      type: object
+      required:
+      - name
+      - type
+      properties:
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/AliasType'
+        values:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
     HostsAliasBuilder:
       type: object
       required:
@@ -211,67 +254,9 @@ components:
           type: array
           items:
             type: string
-    TrafficAliasBuilder:
-      type: object
-      required:
-      - name
-      - type
-      properties:
-        name:
-          type: string
-        type:
-          $ref: '#/components/schemas/AliasType'
-        values:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-    InterfacesAliasBuilder:
-      type: object
-      required:
-      - name
-      - type
-      properties:
-        isExposurePoint:
-          type: boolean
-        name:
-          type: string
-        type:
-          $ref: '#/components/schemas/AliasType'
-        values:
-          type: array
-          items:
-            type: string
-        vlanIds:
-          type: array
-          items:
-            type: string
-        vlanIntfTypes:
-          type: array
-          items:
-            type: string
-            enum:
-            - ACCESS
-            - TRUNK
-    LogicalNetworkAliasBuilder:
-      type: object
-      required:
-      - name
-      - type
-      properties:
-        devices:
-          type: array
-          items:
-            type: string
-        edgeNodes:
-          type: array
-          items:
-            type: string
-        name:
-          type: string
-        type:
-          $ref: '#/components/schemas/AliasType'
+    AliasAndValue:
+      allOf:
+      - $ref: '#/components/schemas/Alias'
     AliasBuilder:
       type: object
       required:
@@ -312,6 +297,24 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Alias'
+    LogicalNetworkAliasBuilder:
+      type: object
+      required:
+      - name
+      - type
+      properties:
+        devices:
+          type: array
+          items:
+            type: string
+        edgeNodes:
+          type: array
+          items:
+            type: string
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/AliasType'
     AliasType:
       type: string
       enum:
@@ -320,50 +323,6 @@ components:
       - INTERFACES
       - HEADERS
       - LOGICAL_NETWORK
-    AliasAndValue:
-      allOf:
-      - $ref: '#/components/schemas/Alias'
-    DevicesAliasBuilder:
-      type: object
-      required:
-      - name
-      - type
-      properties:
-        name:
-          type: string
-        type:
-          $ref: '#/components/schemas/AliasType'
-        values:
-          type: array
-          items:
-            type: string
-    ErrorInfo:
-      type: object
-      required:
-      - httpMethod
-      - apiUrl
-      - message
-      properties:
-        httpMethod:
-          type: string
-          examples:
-          - GET
-          enum:
-          - GET
-          - HEAD
-          - POST
-          - PUT
-          - PATCH
-          - DELETE
-        apiUrl:
-          type: string
-          examples:
-          - /api/version
-        message:
-          type: string
-          description: A description of the error
-        reason:
-          type: string
     Alias:
       type: object
       required:
@@ -382,6 +341,47 @@ components:
           type: string
         type:
           $ref: '#/components/schemas/AliasType'
+    DevicesAliasBuilder:
+      type: object
+      required:
+      - name
+      - type
+      properties:
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/AliasType'
+        values:
+          type: array
+          items:
+            type: string
+    InterfacesAliasBuilder:
+      type: object
+      required:
+      - name
+      - type
+      properties:
+        isExposurePoint:
+          type: boolean
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/AliasType'
+        values:
+          type: array
+          items:
+            type: string
+        vlanIds:
+          type: array
+          items:
+            type: string
+        vlanIntfTypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - ACCESS
+            - TRUNK
   securitySchemes:
     api_token:
       type: http
