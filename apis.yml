@@ -343,6 +343,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/forward-networks-capability-edges.yml
+  name: Forward Networks Business Capability Map
 - type: DeveloperPortal
   url: https://docs.fwd.app/
 - type: Documentation

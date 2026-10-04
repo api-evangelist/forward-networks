@@ -1,0 +1,57 @@
+slug: forward-networks
+provider: Forward Networks
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 4
+edges:
+- tag: Vulnerability Analysis
+  spec_file: forward-networks-vulnerability-analysis-api-openapi.yml
+  capability_id: BC-620.40
+  capability_id_l1: BC-620
+  capability_name: Vulnerability Management
+  confidence: 0.92
+  evidence: GET /networks/{networkId}/vulnerabilities  getOsVulnerabilities  Get full vulnerability analysis;
+    schemas CveInfo, VulnerabilityDetectionResult
+  reason: Operations return CVE-based vulnerability exposure per device/OS across the network — unambiguously
+    Vulnerability Management.
+- tag: Classic Devices
+  spec_file: forward-networks-classic-devices-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: GET /networks/{networkId}/classic-devices getClassicDevices Get all classic devices; schemas
+    NewClassicDevice, ClassicDeviceType, ConnectivityTestError
+  reason: CRUD over the inventory of network devices registered in a network, including device type and
+    connectivity results. This is management of network infrastructure elements, mapping to IT Infrastructure
+    Management (compute, storage, network).
+- tag: Network Devices
+  spec_file: forward-networks-network-devices-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: GET /networks/{networkId}/devices getDevices Get all network devices; GET /networks/{networkId}/missing-devices
+    getMissingDevices; schemas Device, Vendor, VendorOs
+  reason: Read access to the collected inventory of network devices, their vendor/OS and collected data
+    files, plus devices missing from collection. This is network infrastructure inventory visibility under
+    IT Infrastructure Management.
+- tag: Synthetic Devices
+  spec_file: forward-networks-synthetic-devices-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.7
+  evidence: GET /networks/{networkId}/encryptors  Get a network's encryptors; GET /networks/{networkId}/internet-node  Get
+    the network’s internet node; schemas WanCircuit, L3Vpn, L2Vpn
+  reason: Defines synthetic network elements — encryptors, internet nodes, WAN circuits, VPNs — to complete
+    the infrastructure model; network infrastructure modelling/management.
