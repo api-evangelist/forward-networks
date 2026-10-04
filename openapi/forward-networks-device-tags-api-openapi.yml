@@ -512,6 +512,20 @@ components:
             examples:
             - - atl-edge-fw01
               - ny-edge-fw2
+    DeviceTagsWithDevices:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceTagWithDevices'
+    DeviceTags:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceTag'
     DevicesAndTags:
       type: object
       properties:
@@ -528,20 +542,6 @@ components:
             type: string
           examples:
           - - SEC
-    DeviceTags:
-      type: object
-      properties:
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceTag'
-    DeviceTagsWithDevices:
-      type: object
-      properties:
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceTagWithDevices'
     DeviceSet:
       type: object
       properties:
@@ -552,8 +552,10 @@ components:
           examples:
           - - atl-edge-fw01
             - ny-edge-fw2
-    DeviceTagPatch:
+    DeviceTag:
       type: object
+      required:
+      - name
       properties:
         name:
           type: string
@@ -565,10 +567,8 @@ components:
           description: The device tag’s color in RGB hex format. Used in network topology diagrams if specified.
           examples:
           - '#0064a0'
-    DeviceTag:
+    DeviceTagPatch:
       type: object
-      required:
-      - name
       properties:
         name:
           type: string

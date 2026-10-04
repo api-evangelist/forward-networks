@@ -199,13 +199,94 @@ components:
           description: seconds to wait for the jump server authentication response. Defaults to 20.
           examples:
           - 20
-    JumpServerCommandFormat:
-      type: string
-      enum:
-      - UNIX
-      - CISCO_IOS
-      - JUNOS
-      - PANORAMA
+    JumpServerUpdate:
+      type: object
+      properties:
+        host:
+          type: string
+          examples:
+          - 10.121.7.14
+        port:
+          type: integer
+          format: int32
+          examples:
+          - 23
+        username:
+          type: string
+          examples:
+          - admin
+        password:
+          type: string
+          examples:
+          - my-s3cr3t-p4s$w0rd
+        sshKey:
+          type: string
+          examples:
+          - '-----BEGIN RSA PRIVATE KEY-----
+
+            MIIPIQIBAzCCDtoGCSqGSIb3DQEHAa...'
+        sshCert:
+          type: string
+          examples:
+          - ssh-rsa-cert-v01@openssh.com AAAAHHNzaC1yc2EtY2VydC12MDFAb3BlbnNzaC5jb20AAA...
+        supportsPortForwarding:
+          type: boolean
+          examples:
+          - false
+        commandFormat:
+          $ref: '#/components/schemas/JumpServerCommandFormat'
+          examples:
+          - CISCO_IOS
+        vrf:
+          type: string
+          examples:
+          - Management-vrf
+        authenticationTimeoutSeconds:
+          type: integer
+          format: int32
+          examples:
+          - 20
+    Attribution:
+      type: object
+      properties:
+        createdById:
+          type: string
+          description: 'The ID of the user who created this entity, if known. *Note*: The referenced user account might no longer
+
+            exist since an administrator can delete accounts.'
+          examples:
+          - '456'
+        createdAt:
+          type: string
+          description: When this entity was created, if known.
+          examples:
+          - '2021-12-29T16:30:45.111Z'
+        createdBy:
+          type: string
+          description: 'The username of the user who created this entity, if known. Absent if the user account has been
+
+            deleted.'
+          examples:
+          - me@example.com
+        updatedById:
+          type: string
+          description: 'The ID of the user who most recently updated this entity, if known. *Note*: The referenced user account
+
+            might no longer exist since an administrator can delete accounts.'
+          examples:
+          - '789'
+        updatedAt:
+          type: string
+          description: When this entity was most recently updated, if known.
+          examples:
+          - '2024-10-27T21:44:51.345Z'
+        updatedBy:
+          type: string
+          description: 'The username of the user who most recently updated this entity, if known. Absent if the user account has
+
+            been deleted.'
+          examples:
+          - you@example.com
     NewJumpServer:
       type: object
       required:
@@ -270,98 +351,17 @@ components:
           description: seconds to wait for the jump server authentication response. Defaults to 20.
           examples:
           - 20
-    JumpServerUpdate:
-      type: object
-      properties:
-        host:
-          type: string
-          examples:
-          - 10.121.7.14
-        port:
-          type: integer
-          format: int32
-          examples:
-          - 23
-        username:
-          type: string
-          examples:
-          - admin
-        password:
-          type: string
-          examples:
-          - my-s3cr3t-p4s$w0rd
-        sshKey:
-          type: string
-          examples:
-          - '-----BEGIN RSA PRIVATE KEY-----
-
-            MIIPIQIBAzCCDtoGCSqGSIb3DQEHAa...'
-        sshCert:
-          type: string
-          examples:
-          - ssh-rsa-cert-v01@openssh.com AAAAHHNzaC1yc2EtY2VydC12MDFAb3BlbnNzaC5jb20AAA...
-        supportsPortForwarding:
-          type: boolean
-          examples:
-          - false
-        commandFormat:
-          $ref: '#/components/schemas/JumpServerCommandFormat'
-          examples:
-          - CISCO_IOS
-        vrf:
-          type: string
-          examples:
-          - Management-vrf
-        authenticationTimeoutSeconds:
-          type: integer
-          format: int32
-          examples:
-          - 20
+    JumpServerCommandFormat:
+      type: string
+      enum:
+      - UNIX
+      - CISCO_IOS
+      - JUNOS
+      - PANORAMA
     StoredJumpServer:
       allOf:
       - $ref: '#/components/schemas/JumpServer'
       - $ref: '#/components/schemas/Attribution'
-    Attribution:
-      type: object
-      properties:
-        createdById:
-          type: string
-          description: 'The ID of the user who created this entity, if known. *Note*: The referenced user account might no longer
-
-            exist since an administrator can delete accounts.'
-          examples:
-          - '456'
-        createdAt:
-          type: string
-          description: When this entity was created, if known.
-          examples:
-          - '2021-12-29T16:30:45.111Z'
-        createdBy:
-          type: string
-          description: 'The username of the user who created this entity, if known. Absent if the user account has been
-
-            deleted.'
-          examples:
-          - me@example.com
-        updatedById:
-          type: string
-          description: 'The ID of the user who most recently updated this entity, if known. *Note*: The referenced user account
-
-            might no longer exist since an administrator can delete accounts.'
-          examples:
-          - '789'
-        updatedAt:
-          type: string
-          description: When this entity was most recently updated, if known.
-          examples:
-          - '2024-10-27T21:44:51.345Z'
-        updatedBy:
-          type: string
-          description: 'The username of the user who most recently updated this entity, if known. Absent if the user account has
-
-            been deleted.'
-          examples:
-          - you@example.com
   securitySchemes:
     api_token:
       type: http

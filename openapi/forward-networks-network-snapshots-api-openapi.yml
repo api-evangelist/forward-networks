@@ -314,33 +314,6 @@ paths:
       - api_token: []
 components:
   schemas:
-    ErrorInfo:
-      type: object
-      required:
-      - httpMethod
-      - apiUrl
-      - message
-      properties:
-        httpMethod:
-          type: string
-          examples:
-          - GET
-          enum:
-          - GET
-          - HEAD
-          - POST
-          - PUT
-          - PATCH
-          - DELETE
-        apiUrl:
-          type: string
-          examples:
-          - /api/version
-        message:
-          type: string
-          description: A description of the error
-        reason:
-          type: string
     SnapshotInfo:
       type: object
       properties:
@@ -407,69 +380,44 @@ components:
             will never be automatically deleted, regardless of its network’s Snapshot retention policy.'
           examples:
           - '2019-09-30T19:48:59.481Z'
-    Network:
+    ErrorInfo:
       type: object
       required:
-      - id
-      - name
-      - orgId
+      - httpMethod
+      - apiUrl
+      - message
       properties:
-        id:
-          type: string
-        parentId:
-          type: string
-          description: 'The network from which this Workspace network was created. Absent if this network is not a
-
-            Workspace.'
-        name:
+        httpMethod:
           type: string
           examples:
-          - My Network
-        orgId:
-          type: string
-        creator:
-          type: string
-          description: The username of the user who created the network, or null if the account was deleted
-          examples:
-          - mary
-        creatorId:
-          type: string
-          description: The id of the user who created the network, or null if the account was deleted
-          examples:
-          - '123'
-        createdAt:
+          - GET
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+        apiUrl:
           type: string
           examples:
-          - '2022-04-06T20:34:45.118Z'
-        created:
+          - /api/version
+        message:
           type: string
-          description: Deprecated for removal in release 26.7. Use `createdAt` instead.
-          examples:
-          - '2022-04-06T20:34:45.118Z'
-        note:
+          description: A description of the error
+        reason:
           type: string
-          description: An optional network description.
-        retentionDays:
-          type: integer
-          format: int32
-          minimum: 1
-          maximum: 365
-          description: 'The number of days without any use of this network after which it will be automatically deleted. Absent for
-
-            parent networks and permanent Workspace networks.'
-        secondsToExpiry:
-          type: integer
-          format: int64
-          description: 'Number of seconds without use before the network expires. Present for temporary Workspace
-
-            networks only.'
-    ComputationStatus:
-      type: string
-      enum:
-      - UNKNOWN
-      - FAILURE
-      - SUCCESS
-      - CANCELED
+    NetworkSnapshots:
+      allOf:
+      - $ref: '#/components/schemas/Network'
+      - type: object
+        required:
+        - snapshots
+        properties:
+          snapshots:
+            type: array
+            items:
+              $ref: '#/components/schemas/SnapshotInfo'
     SnapshotState:
       type: string
       enum:
@@ -483,17 +431,39 @@ components:
       - ARCHIVED
       - RESTORING
       - RESTORE_FAILED
-    NetworkSnapshots:
-      allOf:
-      - $ref: '#/components/schemas/Network'
-      - type: object
-        required:
-        - snapshots
-        properties:
-          snapshots:
-            type: array
-            items:
-              $ref: '#/components/schemas/SnapshotInfo'
+    SnapshotExportParams:
+      type: object
+      properties:
+        includeDevices:
+          type: array
+          items:
+            type: string
+          description: Must be absent if `"excludeDevices"` is specified.
+          examples:
+          - - device-1
+            - device-2
+            - pa*
+        excludeDevices:
+          type: array
+          items:
+            type: string
+          description: Must be absent if `"includeDevices"` is specified.
+          examples:
+          - - device-6
+            - device-7
+            - pa*
+        obfuscationKey:
+          type: string
+          description: 'If specified, sensitive data will be
+
+            [obfuscated](https://docs.fwd.app/latest/application/settings/system/obfuscate-snapshot/).'
+          examples:
+          - a-sEcr3t-kEy-th4t-i$-h4rd-to-guE$$
+        obfuscateNames:
+          type: boolean
+          description: 'default: `false`. If specified, `"obfuscationKey"` must also be specified.'
+          examples:
+          - false
     SnapshotMetrics:
       type: object
       properties:
@@ -777,39 +747,69 @@ components:
           description: Current state of the Snapshot
           examples:
           - PROCESSING
-    SnapshotExportParams:
+    Network:
       type: object
+      required:
+      - id
+      - name
+      - orgId
       properties:
-        includeDevices:
-          type: array
-          items:
-            type: string
-          description: Must be absent if `"excludeDevices"` is specified.
-          examples:
-          - - device-1
-            - device-2
-            - pa*
-        excludeDevices:
-          type: array
-          items:
-            type: string
-          description: Must be absent if `"includeDevices"` is specified.
-          examples:
-          - - device-6
-            - device-7
-            - pa*
-        obfuscationKey:
+        id:
           type: string
-          description: 'If specified, sensitive data will be
+        parentId:
+          type: string
+          description: 'The network from which this Workspace network was created. Absent if this network is not a
 
-            [obfuscated](https://docs.fwd.app/latest/application/settings/system/obfuscate-snapshot/).'
+            Workspace.'
+        name:
+          type: string
           examples:
-          - a-sEcr3t-kEy-th4t-i$-h4rd-to-guE$$
-        obfuscateNames:
-          type: boolean
-          description: 'default: `false`. If specified, `"obfuscationKey"` must also be specified.'
+          - My Network
+        orgId:
+          type: string
+        creator:
+          type: string
+          description: The username of the user who created the network, or null if the account was deleted
           examples:
-          - false
+          - mary
+        creatorId:
+          type: string
+          description: The id of the user who created the network, or null if the account was deleted
+          examples:
+          - '123'
+        createdAt:
+          type: string
+          examples:
+          - '2022-04-06T20:34:45.118Z'
+        created:
+          type: string
+          description: Deprecated for removal in release 26.7. Use `createdAt` instead.
+          examples:
+          - '2022-04-06T20:34:45.118Z'
+        note:
+          type: string
+          description: An optional network description.
+        retentionDays:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 365
+          description: 'The number of days without any use of this network after which it will be automatically deleted. Absent for
+
+            parent networks and permanent Workspace networks.'
+        secondsToExpiry:
+          type: integer
+          format: int64
+          description: 'Number of seconds without use before the network expires. Present for temporary Workspace
+
+            networks only.'
+    ComputationStatus:
+      type: string
+      enum:
+      - UNKNOWN
+      - FAILURE
+      - SUCCESS
+      - CANCELED
   securitySchemes:
     api_token:
       type: http

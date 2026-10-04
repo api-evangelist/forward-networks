@@ -193,49 +193,54 @@ paths:
       - api_token: []
 components:
   schemas:
-    ErrorInfo:
+    AliasAndValue:
+      allOf:
+      - $ref: '#/components/schemas/Alias'
+    Aliases:
       type: object
       required:
-      - httpMethod
-      - apiUrl
-      - message
+      - aliases
       properties:
-        httpMethod:
+        aliases:
+          type: array
+          items:
+            $ref: '#/components/schemas/Alias'
+    Alias:
+      type: object
+      required:
+      - createdAt
+      - creatorId
+      - name
+      - type
+      properties:
+        createdAt:
           type: string
           examples:
-          - GET
-          enum:
-          - GET
-          - HEAD
-          - POST
-          - PUT
-          - PATCH
-          - DELETE
-        apiUrl:
+          - '2022-04-06T20:34:45.118Z'
+        creatorId:
           type: string
-          examples:
-          - /api/version
-        message:
+        name:
           type: string
-          description: A description of the error
-        reason:
-          type: string
-    TrafficAliasBuilder:
+        type:
+          $ref: '#/components/schemas/AliasType'
+    LogicalNetworkAliasBuilder:
       type: object
       required:
       - name
       - type
       properties:
+        devices:
+          type: array
+          items:
+            type: string
+        edgeNodes:
+          type: array
+          items:
+            type: string
         name:
           type: string
         type:
           $ref: '#/components/schemas/AliasType'
-        values:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
     HostsAliasBuilder:
       type: object
       required:
@@ -254,9 +259,6 @@ components:
           type: array
           items:
             type: string
-    AliasAndValue:
-      allOf:
-      - $ref: '#/components/schemas/Alias'
     AliasBuilder:
       type: object
       required:
@@ -288,73 +290,6 @@ components:
           HEADERS: '#/components/schemas/TrafficAliasBuilder'
           PacketFilter: '#/components/schemas/TrafficAliasBuilder'
           LOGICAL_NETWORK: '#/components/schemas/LogicalNetworkAliasBuilder'
-    Aliases:
-      type: object
-      required:
-      - aliases
-      properties:
-        aliases:
-          type: array
-          items:
-            $ref: '#/components/schemas/Alias'
-    LogicalNetworkAliasBuilder:
-      type: object
-      required:
-      - name
-      - type
-      properties:
-        devices:
-          type: array
-          items:
-            type: string
-        edgeNodes:
-          type: array
-          items:
-            type: string
-        name:
-          type: string
-        type:
-          $ref: '#/components/schemas/AliasType'
-    AliasType:
-      type: string
-      enum:
-      - HOSTS
-      - DEVICES
-      - INTERFACES
-      - HEADERS
-      - LOGICAL_NETWORK
-    Alias:
-      type: object
-      required:
-      - createdAt
-      - creatorId
-      - name
-      - type
-      properties:
-        createdAt:
-          type: string
-          examples:
-          - '2022-04-06T20:34:45.118Z'
-        creatorId:
-          type: string
-        name:
-          type: string
-        type:
-          $ref: '#/components/schemas/AliasType'
-    DevicesAliasBuilder:
-      type: object
-      required:
-      - name
-      - type
-      properties:
-        name:
-          type: string
-        type:
-          $ref: '#/components/schemas/AliasType'
-        values:
-          type: array
-          items:
-            type: string
     InterfacesAliasBuilder:
       type: object
       required:
@@ -382,6 +317,71 @@ components:
             enum:
             - ACCESS
             - TRUNK
+    AliasType:
+      type: string
+      enum:
+      - HOSTS
+      - DEVICES
+      - INTERFACES
+      - HEADERS
+      - LOGICAL_NETWORK
+    DevicesAliasBuilder:
+      type: object
+      required:
+      - name
+      - type
+      properties:
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/AliasType'
+        values:
+          type: array
+          items:
+            type: string
+    TrafficAliasBuilder:
+      type: object
+      required:
+      - name
+      - type
+      properties:
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/AliasType'
+        values:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    ErrorInfo:
+      type: object
+      required:
+      - httpMethod
+      - apiUrl
+      - message
+      properties:
+        httpMethod:
+          type: string
+          examples:
+          - GET
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+        apiUrl:
+          type: string
+          examples:
+          - /api/version
+        message:
+          type: string
+          description: A description of the error
+        reason:
+          type: string
   securitySchemes:
     api_token:
       type: http

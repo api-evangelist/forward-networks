@@ -276,6 +276,91 @@ paths:
       - api_token: []
 components:
   schemas:
+    StartCollectionResponse:
+      type: object
+      properties:
+        taskId:
+          type: string
+          description: The system-assigned identifier of the new network collection task.
+          examples:
+          - P1234
+    CollectionSchedules:
+      type: object
+      properties:
+        schedules:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionSchedule'
+    CollectorState:
+      type: object
+      required:
+      - isSet
+      properties:
+        isSet:
+          type: boolean
+          description: Whether the network has a Collector assigned
+        busyStatus:
+          $ref: '#/components/schemas/CollectorStatus'
+          description: Absent if the network has no Collector assigned
+    TimeZone:
+      type: string
+      enum:
+      - UTC
+      - Africa/Accra
+      - Africa/Addis_Ababa
+      - Africa/Algiers
+      - Africa/Cairo
+      - Africa/Dar_es_Salaam
+      - Africa/Johannesburg
+      - Africa/Khartoum
+      - Africa/Kinshasa
+      - Africa/Lagos
+      - Africa/Luanda
+      - Africa/Maputo
+      - America/Argentina/Buenos_Aires
+      - America/Bogota
+      - America/Chicago
+      - America/Denver
+      - America/Lima
+      - America/Los_Angeles
+      - America/Mexico_City
+      - America/New_York
+      - America/Phoenix
+      - America/Santiago
+      - America/Sao_Paulo
+      - America/Toronto
+      - Asia/Amman
+      - Asia/Baghdad
+      - Asia/Bangkok
+      - Asia/Beirut
+      - Asia/Dhaka
+      - Asia/Ho_Chi_Minh
+      - Asia/Hong_Kong
+      - Asia/Jakarta
+      - Asia/Jerusalem
+      - Asia/Karachi
+      - Asia/Kolkata
+      - Asia/Kuala_Lumpur
+      - Asia/Manila
+      - Asia/Riyadh
+      - Asia/Seoul
+      - Asia/Shanghai
+      - Asia/Singapore
+      - Asia/Tehran
+      - Asia/Tokyo
+      - Asia/Yangon
+      - Australia/Adelaide
+      - Australia/Eucla
+      - Australia/Perth
+      - Australia/Sydney
+      - Europe/Belgrade
+      - Europe/Berlin
+      - Europe/Istanbul
+      - Europe/London
+      - Europe/Madrid
+      - Europe/Moscow
+      - Europe/Paris
+      - Europe/Rome
     CollectionScheduleDefinition:
       type: object
       required:
@@ -448,91 +533,6 @@ components:
             been deleted.'
           examples:
           - me@example.com
-    StartCollectionResponse:
-      type: object
-      properties:
-        taskId:
-          type: string
-          description: The system-assigned identifier of the new network collection task.
-          examples:
-          - P1234
-    CollectionSchedules:
-      type: object
-      properties:
-        schedules:
-          type: array
-          items:
-            $ref: '#/components/schemas/CollectionSchedule'
-    TimeZone:
-      type: string
-      enum:
-      - UTC
-      - Africa/Accra
-      - Africa/Addis_Ababa
-      - Africa/Algiers
-      - Africa/Cairo
-      - Africa/Dar_es_Salaam
-      - Africa/Johannesburg
-      - Africa/Khartoum
-      - Africa/Kinshasa
-      - Africa/Lagos
-      - Africa/Luanda
-      - Africa/Maputo
-      - America/Argentina/Buenos_Aires
-      - America/Bogota
-      - America/Chicago
-      - America/Denver
-      - America/Lima
-      - America/Los_Angeles
-      - America/Mexico_City
-      - America/New_York
-      - America/Phoenix
-      - America/Santiago
-      - America/Sao_Paulo
-      - America/Toronto
-      - Asia/Amman
-      - Asia/Baghdad
-      - Asia/Bangkok
-      - Asia/Beirut
-      - Asia/Dhaka
-      - Asia/Ho_Chi_Minh
-      - Asia/Hong_Kong
-      - Asia/Jakarta
-      - Asia/Jerusalem
-      - Asia/Karachi
-      - Asia/Kolkata
-      - Asia/Kuala_Lumpur
-      - Asia/Manila
-      - Asia/Riyadh
-      - Asia/Seoul
-      - Asia/Shanghai
-      - Asia/Singapore
-      - Asia/Tehran
-      - Asia/Tokyo
-      - Asia/Yangon
-      - Australia/Adelaide
-      - Australia/Eucla
-      - Australia/Perth
-      - Australia/Sydney
-      - Europe/Belgrade
-      - Europe/Berlin
-      - Europe/Istanbul
-      - Europe/London
-      - Europe/Madrid
-      - Europe/Moscow
-      - Europe/Paris
-      - Europe/Rome
-    CollectorState:
-      type: object
-      required:
-      - isSet
-      properties:
-        isSet:
-          type: boolean
-          description: Whether the network has a Collector assigned
-        busyStatus:
-          $ref: '#/components/schemas/CollectorStatus'
-          description: Absent if the network has no Collector assigned
   securitySchemes:
     api_token:
       type: http
