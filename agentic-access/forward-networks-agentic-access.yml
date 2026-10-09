@@ -1,17 +1,26 @@
-generated: '2026-07-19'
+generated: '2026-09-23'
 method: generated
-source: openapi/forward-networks-complete-openapi-original.json
+source: openapi/forward-networks-aliases-api-openapi.yml, openapi/forward-networks-checks-api-openapi.yml,
+  openapi/forward-networks-classic-devices-api-openapi.yml, openapi/forward-networks-credentials-api-openapi.yml,
+  openapi/forward-networks-current-version-api-openapi.yml, openapi/forward-networks-device-tags-api-openapi.yml,
+  openapi/forward-networks-jump-servers-api-openapi.yml, openapi/forward-networks-network-collection-api-openapi.yml,
+  openapi/forward-networks-network-devices-api-openapi.yml, openapi/forward-networks-network-endpoints-api-openapi.yml,
+  openapi/forward-networks-network-locations-api-openapi.yml, openapi/forward-networks-network-snapshots-api-openapi.yml,
+  openapi/forward-networks-network-topology-api-openapi.yml, openapi/forward-networks-networks-api-openapi.yml,
+  openapi/forward-networks-nqe-api-openapi.yml, openapi/forward-networks-path-search-api-openapi.yml,
+  openapi/forward-networks-synthetic-devices-api-openapi.yml, openapi/forward-networks-system-administration-api-openapi.yml,
+  openapi/forward-networks-user-accounts-api-openapi.yml, openapi/forward-networks-vulnerability-analysis-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
   operations: 189
   by_action_class:
-    connected: 68
-    acting: 121
+    connected: 72
+    acting: 117
   by_consequence:
-    read: 68
-    write: 119
+    read: 72
+    write: 115
     safety-critical: 2
   human_in_the_loop_required: 2
 operations:
@@ -255,18 +264,12 @@ operations:
   method: post
   operationId: getSpecificClassicDevices
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /networks/{networkId}/classic-devices?action=putBatch
   method: post
   operationId: putClassicDevices
@@ -1803,18 +1806,12 @@ operations:
   method: post
   operationId: getNqeQueryDiff
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /nqe/queries
   method: get
   operationId: getNqeQueries
@@ -1849,34 +1846,22 @@ operations:
   method: post
   operationId: getPathsBulk
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /networks/{networkId}/paths-bulk-seq
   method: post
   operationId: getPathsBulkSeq
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /networks/{networkId}/encryptors
   method: get
   operationId: getEncryptors
