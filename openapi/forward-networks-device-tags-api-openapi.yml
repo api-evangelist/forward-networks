@@ -499,26 +499,6 @@ paths:
       - api_token: []
 components:
   schemas:
-    DeviceTagWithDevices:
-      allOf:
-      - $ref: '#/components/schemas/DeviceTag'
-      - type: object
-        properties:
-          devices:
-            type: array
-            items:
-              type: string
-            description: The names of network devices and/or endpoints associated with this tag.
-            examples:
-            - - atl-edge-fw01
-              - ny-edge-fw2
-    DeviceTagsWithDevices:
-      type: object
-      properties:
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeviceTagWithDevices'
     DeviceTags:
       type: object
       properties:
@@ -526,22 +506,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DeviceTag'
-    DevicesAndTags:
+    DeviceTagsWithDevices:
       type: object
       properties:
-        devices:
-          type: array
-          items:
-            type: string
-          examples:
-          - - atl-edge-fw01
-            - ny-edge-fw2
         tags:
           type: array
           items:
-            type: string
-          examples:
-          - - SEC
+            $ref: '#/components/schemas/DeviceTagWithDevices'
     DeviceSet:
       type: object
       properties:
@@ -567,6 +538,22 @@ components:
           description: The device tag’s color in RGB hex format. Used in network topology diagrams if specified.
           examples:
           - '#0064a0'
+    DevicesAndTags:
+      type: object
+      properties:
+        devices:
+          type: array
+          items:
+            type: string
+          examples:
+          - - atl-edge-fw01
+            - ny-edge-fw2
+        tags:
+          type: array
+          items:
+            type: string
+          examples:
+          - - SEC
     DeviceTagPatch:
       type: object
       properties:
@@ -580,6 +567,19 @@ components:
           description: The device tag’s color in RGB hex format. Used in network topology diagrams if specified.
           examples:
           - '#0064a0'
+    DeviceTagWithDevices:
+      allOf:
+      - $ref: '#/components/schemas/DeviceTag'
+      - type: object
+        properties:
+          devices:
+            type: array
+            items:
+              type: string
+            description: The names of network devices and/or endpoints associated with this tag.
+            examples:
+            - - atl-edge-fw01
+              - ny-edge-fw2
   securitySchemes:
     api_token:
       type: http

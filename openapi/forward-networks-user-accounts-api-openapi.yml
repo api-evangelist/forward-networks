@@ -121,11 +121,8 @@ paths:
       - api_token: []
 components:
   schemas:
-    NewUser:
+    UserPatch:
       type: object
-      required:
-      - email
-      - password
       properties:
         email:
           type: string
@@ -133,21 +130,22 @@ components:
           - me@example.com
         username:
           type: string
-          description: Defaults to the value of `email`
+          description: Changes the username of a user whose `authSource` is "LOCAL"
           examples:
           - me@example.com
         password:
           type: string
+          description: 'Assigns a new temporary password to a user whose `authSource` is "LOCAL". The user will be prompted to
+
+            choose a new password when they log in with this password.'
           examples:
           - zF4H+K;5]qE~%9G=nbAk
         isSupport:
           type: boolean
-          description: Defaults to `false`
           examples:
           - false
         enabled:
           type: boolean
-          description: Defaults to `true`
           examples:
           - true
     User:
@@ -205,8 +203,11 @@ components:
           description: The approximate time of the most recent authenticated request from this account
           examples:
           - '2024-12-31T23:59:59.789Z'
-    UserPatch:
+    NewUser:
       type: object
+      required:
+      - email
+      - password
       properties:
         email:
           type: string
@@ -214,22 +215,21 @@ components:
           - me@example.com
         username:
           type: string
-          description: Changes the username of a user whose `authSource` is "LOCAL"
+          description: Defaults to the value of `email`
           examples:
           - me@example.com
         password:
           type: string
-          description: 'Assigns a new temporary password to a user whose `authSource` is "LOCAL". The user will be prompted to
-
-            choose a new password when they log in with this password.'
           examples:
           - zF4H+K;5]qE~%9G=nbAk
         isSupport:
           type: boolean
+          description: Defaults to `false`
           examples:
           - false
         enabled:
           type: boolean
+          description: Defaults to `true`
           examples:
           - true
     Users:

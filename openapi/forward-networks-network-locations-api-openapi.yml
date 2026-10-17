@@ -467,6 +467,33 @@ components:
             - atl-edge-fw02
             - atl-isp-edge01
             - atl-isp-edge02
+    ErrorInfo:
+      type: object
+      required:
+      - httpMethod
+      - apiUrl
+      - message
+      properties:
+        httpMethod:
+          type: string
+          examples:
+          - GET
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+        apiUrl:
+          type: string
+          examples:
+          - /api/version
+        message:
+          type: string
+          description: A description of the error
+        reason:
+          type: string
     Location:
       type: object
       required:
@@ -516,22 +543,6 @@ components:
             is specified.'
           examples:
           - United States
-    DeviceClusterUpdate:
-      type: object
-      properties:
-        name:
-          type: string
-          examples:
-          - atl-edge
-        devices:
-          type: array
-          items:
-            type: string
-          examples:
-          - - atl-edge-fw01
-            - atl-edge-fw02
-            - atl-isp-edge01
-            - atl-isp-edge02
     LocationBulkPatch:
       type: object
       properties:
@@ -614,6 +625,22 @@ components:
           description: Name of the country that `city` is located in (for display purposes only)
           examples:
           - United States
+    DeviceClusterUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          examples:
+          - atl-edge
+        devices:
+          type: array
+          items:
+            type: string
+          examples:
+          - - atl-edge-fw01
+            - atl-edge-fw02
+            - atl-isp-edge01
+            - atl-isp-edge02
     NewLocation:
       type: object
       required:
@@ -663,33 +690,6 @@ components:
             is specified.'
           examples:
           - United States
-    ErrorInfo:
-      type: object
-      required:
-      - httpMethod
-      - apiUrl
-      - message
-      properties:
-        httpMethod:
-          type: string
-          examples:
-          - GET
-          enum:
-          - GET
-          - HEAD
-          - POST
-          - PUT
-          - PATCH
-          - DELETE
-        apiUrl:
-          type: string
-          examples:
-          - /api/version
-        message:
-          type: string
-          description: A description of the error
-        reason:
-          type: string
   securitySchemes:
     api_token:
       type: http

@@ -199,53 +199,6 @@ components:
           description: seconds to wait for the jump server authentication response. Defaults to 20.
           examples:
           - 20
-    JumpServerUpdate:
-      type: object
-      properties:
-        host:
-          type: string
-          examples:
-          - 10.121.7.14
-        port:
-          type: integer
-          format: int32
-          examples:
-          - 23
-        username:
-          type: string
-          examples:
-          - admin
-        password:
-          type: string
-          examples:
-          - my-s3cr3t-p4s$w0rd
-        sshKey:
-          type: string
-          examples:
-          - '-----BEGIN RSA PRIVATE KEY-----
-
-            MIIPIQIBAzCCDtoGCSqGSIb3DQEHAa...'
-        sshCert:
-          type: string
-          examples:
-          - ssh-rsa-cert-v01@openssh.com AAAAHHNzaC1yc2EtY2VydC12MDFAb3BlbnNzaC5jb20AAA...
-        supportsPortForwarding:
-          type: boolean
-          examples:
-          - false
-        commandFormat:
-          $ref: '#/components/schemas/JumpServerCommandFormat'
-          examples:
-          - CISCO_IOS
-        vrf:
-          type: string
-          examples:
-          - Management-vrf
-        authenticationTimeoutSeconds:
-          type: integer
-          format: int32
-          examples:
-          - 20
     Attribution:
       type: object
       properties:
@@ -362,6 +315,53 @@ components:
       allOf:
       - $ref: '#/components/schemas/JumpServer'
       - $ref: '#/components/schemas/Attribution'
+    JumpServerUpdate:
+      type: object
+      properties:
+        host:
+          type: string
+          examples:
+          - 10.121.7.14
+        port:
+          type: integer
+          format: int32
+          examples:
+          - 23
+        username:
+          type: string
+          examples:
+          - admin
+        password:
+          type: string
+          examples:
+          - my-s3cr3t-p4s$w0rd
+        sshKey:
+          type: string
+          examples:
+          - '-----BEGIN RSA PRIVATE KEY-----
+
+            MIIPIQIBAzCCDtoGCSqGSIb3DQEHAa...'
+        sshCert:
+          type: string
+          examples:
+          - ssh-rsa-cert-v01@openssh.com AAAAHHNzaC1yc2EtY2VydC12MDFAb3BlbnNzaC5jb20AAA...
+        supportsPortForwarding:
+          type: boolean
+          examples:
+          - false
+        commandFormat:
+          $ref: '#/components/schemas/JumpServerCommandFormat'
+          examples:
+          - CISCO_IOS
+        vrf:
+          type: string
+          examples:
+          - Management-vrf
+        authenticationTimeoutSeconds:
+          type: integer
+          format: int32
+          examples:
+          - 20
   securitySchemes:
     api_token:
       type: http

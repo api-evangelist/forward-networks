@@ -314,72 +314,6 @@ paths:
       - api_token: []
 components:
   schemas:
-    SnapshotInfo:
-      type: object
-      properties:
-        createdAt:
-          type: string
-          examples:
-          - '2019-09-20T17:40:34.567Z'
-        id:
-          type: string
-        isDraft:
-          type: boolean
-          examples:
-          - false
-        note:
-          type: string
-        parentSnapshotId:
-          type: string
-        processedAt:
-          type: string
-          examples:
-          - '2019-09-20T18:17:36.789Z'
-        processingTrigger:
-          type: string
-          enum:
-          - UNKNOWN
-          - COLLECTION
-          - IMPORT
-          - REPROCESS
-          - FORK
-        restoredAt:
-          type: string
-          examples:
-          - '2019-09-20T17:40:34.567Z'
-        state:
-          $ref: '#/components/schemas/SnapshotState'
-        advancedReachabilityState:
-          type: string
-          description: State of advanced reachability computation for this Snapshot.
-          enum:
-          - UNPROCESSED
-          - PROCESSING
-          - PROCESSED
-          - FAILED
-          - CANCELED
-          - TIMED_OUT
-        favoritedBy:
-          type: string
-          description: 'The username of the user who most recently marked this Snapshot as a favorite if it''s currently a favorite
-
-            and the user account hasn’t been deleted.'
-          examples:
-          - mary
-        favoritedByUserId:
-          type: string
-          description: 'The id of the user who most recently marked this Snapshot as a favorite if it’s currently a
-
-            favorite.'
-          examples:
-          - '1234'
-        favoritedAt:
-          type: string
-          description: 'When this Snapshot was most recently marked as a favorite if it’s currently a favorite. A favorite Snapshot
-
-            will never be automatically deleted, regardless of its network’s Snapshot retention policy.'
-          examples:
-          - '2019-09-30T19:48:59.481Z'
     ErrorInfo:
       type: object
       required:
@@ -418,52 +352,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/SnapshotInfo'
-    SnapshotState:
-      type: string
-      enum:
-      - UNPACKING
-      - UNPROCESSED
-      - PROCESSING
-      - PROCESSED
-      - FAILED
-      - CANCELED
-      - TIMED_OUT
-      - ARCHIVED
-      - RESTORING
-      - RESTORE_FAILED
-    SnapshotExportParams:
-      type: object
-      properties:
-        includeDevices:
-          type: array
-          items:
-            type: string
-          description: Must be absent if `"excludeDevices"` is specified.
-          examples:
-          - - device-1
-            - device-2
-            - pa*
-        excludeDevices:
-          type: array
-          items:
-            type: string
-          description: Must be absent if `"includeDevices"` is specified.
-          examples:
-          - - device-6
-            - device-7
-            - pa*
-        obfuscationKey:
-          type: string
-          description: 'If specified, sensitive data will be
-
-            [obfuscated](https://docs.fwd.app/latest/application/settings/system/obfuscate-snapshot/).'
-          examples:
-          - a-sEcr3t-kEy-th4t-i$-h4rd-to-guE$$
-        obfuscateNames:
-          type: boolean
-          description: 'default: `false`. If specified, `"obfuscationKey"` must also be specified.'
-          examples:
-          - false
     SnapshotMetrics:
       type: object
       properties:
@@ -803,6 +691,118 @@ components:
           description: 'Number of seconds without use before the network expires. Present for temporary Workspace
 
             networks only.'
+    SnapshotState:
+      type: string
+      enum:
+      - UNPACKING
+      - UNPROCESSED
+      - PROCESSING
+      - PROCESSED
+      - FAILED
+      - CANCELED
+      - TIMED_OUT
+      - ARCHIVED
+      - RESTORING
+      - RESTORE_FAILED
+    SnapshotExportParams:
+      type: object
+      properties:
+        includeDevices:
+          type: array
+          items:
+            type: string
+          description: Must be absent if `"excludeDevices"` is specified.
+          examples:
+          - - device-1
+            - device-2
+            - pa*
+        excludeDevices:
+          type: array
+          items:
+            type: string
+          description: Must be absent if `"includeDevices"` is specified.
+          examples:
+          - - device-6
+            - device-7
+            - pa*
+        obfuscationKey:
+          type: string
+          description: 'If specified, sensitive data will be
+
+            [obfuscated](https://docs.fwd.app/latest/application/settings/system/obfuscate-snapshot/).'
+          examples:
+          - a-sEcr3t-kEy-th4t-i$-h4rd-to-guE$$
+        obfuscateNames:
+          type: boolean
+          description: 'default: `false`. If specified, `"obfuscationKey"` must also be specified.'
+          examples:
+          - false
+    SnapshotInfo:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          examples:
+          - '2019-09-20T17:40:34.567Z'
+        id:
+          type: string
+        isDraft:
+          type: boolean
+          examples:
+          - false
+        note:
+          type: string
+        parentSnapshotId:
+          type: string
+        processedAt:
+          type: string
+          examples:
+          - '2019-09-20T18:17:36.789Z'
+        processingTrigger:
+          type: string
+          enum:
+          - UNKNOWN
+          - COLLECTION
+          - IMPORT
+          - REPROCESS
+          - FORK
+        restoredAt:
+          type: string
+          examples:
+          - '2019-09-20T17:40:34.567Z'
+        state:
+          $ref: '#/components/schemas/SnapshotState'
+        advancedReachabilityState:
+          type: string
+          description: State of advanced reachability computation for this Snapshot.
+          enum:
+          - UNPROCESSED
+          - PROCESSING
+          - PROCESSED
+          - FAILED
+          - CANCELED
+          - TIMED_OUT
+        favoritedBy:
+          type: string
+          description: 'The username of the user who most recently marked this Snapshot as a favorite if it''s currently a favorite
+
+            and the user account hasn’t been deleted.'
+          examples:
+          - mary
+        favoritedByUserId:
+          type: string
+          description: 'The id of the user who most recently marked this Snapshot as a favorite if it’s currently a
+
+            favorite.'
+          examples:
+          - '1234'
+        favoritedAt:
+          type: string
+          description: 'When this Snapshot was most recently marked as a favorite if it’s currently a favorite. A favorite Snapshot
+
+            will never be automatically deleted, regardless of its network’s Snapshot retention policy.'
+          examples:
+          - '2019-09-30T19:48:59.481Z'
     ComputationStatus:
       type: string
       enum:
